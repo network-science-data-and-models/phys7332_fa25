@@ -99,48 +99,62 @@ Students should leave this class with an ever-growing codebase of resources for 
 | Mon, Sep 1,  25  | **Labor Day**                                             |
 | Wed, Sep 3,  25  | **Class 0:** Introduction to the Course, GitHub, Computing Setup |
 | Fri, Sep 5,  25  | **Class 1:** Python Refresher (Data Structures, NumPy)    |
-| Mon, Sep 8,  25  |                                                           |
+|  |  |
+| Mon, Sep 8,  25  | --- |
 | Wed, Sep 10, 25  | **Class 2:** Introduction to NetworkX 1 — Loading Data, Basic Statistics |
 | Fri, Sep 12, 25  | **Class 3:** Introduction to NetworkX 2 — Graph Algorithms |
+|  |  |
 | Mon, Sep 15, 25  | *Announce Assignment 1*                                   |
 | Wed, Sep 17, 25  | **Class 4:**                                             |
 | Fri, Sep 19, 25  | **Class 5:**                                             |
-| Mon, Sep 22, 25  |                                                           |
+|  |  |
+| Mon, Sep 22, 25  | --- |
 | Wed, Sep 24, 25  | **Class 6:**                                             |
 | Fri, Sep 26, 25  | **Class 7:**                                             |
+|  |  |
 | Mon, Sep 29, 25  | *Assignment 1 due September 29*                           |
 | Wed, Oct 1,  25  | **Class 8:**                                             |
 | Fri, Oct 3,  25  | **Class 9:**                                             |
+|  |  |
 | Mon, Oct 6,  25  | *Announce Assignment 2*                                   |
 | Wed, Oct 8,  25  | **Class 10:** Project Update Presentations                |
 | Fri, Oct 10, 25  | **Class 11:**                                            |
+|  |  |
 | Mon, Oct 13, 25  | **Indigenous Peoples' Day**                               |
 | Wed, Oct 15, 25  | **Class 12:**                                            |
 | Fri, Oct 17, 25  | **Class 13:**                                            |
+|  |  |
 | Mon, Oct 20, 25  | *Assignment 2 due October 20*                             |
 | Wed, Oct 22, 25  | **Class 14:**                                            |
 | Fri, Oct 24, 25  | **Class 15:**                                            |
+|  |  |
 | Mon, Oct 27, 25  | *Announce Assignment 3*                                   |
 | Wed, Oct 29, 25  | **Class 16:**                                            |
 | Fri, Oct 31, 25  | **Class 17:**                                            |
-| Mon, Nov 3,  25  |                                                           |
+|  |  |
+| Mon, Nov 3,  25  | --- |
 | Wed, Nov 5,  25  | **Class 18:**                                            |
 | Fri, Nov 7,  25  | **Class 19:**                                            |
+|  |  |
 | Mon, Nov 10, 25  | *Assignment 3 due November 10*                            |
 | Wed, Nov 12, 25  | **Class 20:**                                            |
 | Fri, Nov 14, 25  | **Class 21:**                                            |
-| Mon, Nov 17, 25  |                                                           |
+|  |  |
+| Mon, Nov 17, 25  | --- |
 | Wed, Nov 19, 25  | **Class 22:**                                            |
 | Fri, Nov 21, 25  | **Class 23:**                                            |
+|  |  |
 | Mon, Nov 24, 25  | **Thanksgiving Break (No Class)**                        |
-| Wed, Nov 26, 25  |                                                           |
-| Fri, Nov 28, 25  |                                                           |
-| Mon, Dec 1,  25  |                                                           |
+| Wed, Nov 26, 25  | --- |
+| Fri, Nov 28, 25  | --- |
+|  |  |
+| Mon, Dec 1,  25  | --- |
 | Wed, Dec 3,  25  | **Class 24:**                                            |
 | Fri, Dec 5,  25  | **Class 25:**                                            |
-| Mon, Dec 8,  25  |                                                           |
+|  |  |
+| Mon, Dec 8,  25  | --- |
 | Thu, Dec 11, 25  | **Class 26:** Final Presentations                         |
-| Fri, Dec 12, 25  |                                                           |
+| Fri, Dec 12, 25  | --- |
 
 
 ```{tableofcontents}
