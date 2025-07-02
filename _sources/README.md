@@ -100,67 +100,69 @@ The final project for this course is a chance for students to synthesize their k
 
 ### Schedule
 
-| DATE             | CLASS                                                     |
-|------------------|-----------------------------------------------------------|
-| Mon, Sep 1,  25  | **Labor Day**                                             |
-| Wed, Sep 3,  25  | **Class 0:** Introduction to the Course, GitHub, Computing Setup |
-| Fri, Sep 5,  25  | **Class 1:** Python Refresher (Data Structures, NumPy)    |
-|  |  |
-| Mon, Sep 8,  25  | --- |
-| Wed, Sep 10, 25  | **Class 2:** Introduction to NetworkX 1 — Loading Data, Basic Statistics |
-| Fri, Sep 12, 25  | **Class 3:** Introduction to NetworkX 2 — Graph Algorithms |
-|  |  |
-| Mon, Sep 15, 25  | *Announce Assignment 1*                                   |
-| Wed, Sep 17, 25  | **Class 4:**                                             |
-| Fri, Sep 19, 25  | **Class 5:**                                             |
-|  |  |
-| Mon, Sep 22, 25  | --- |
-| Wed, Sep 24, 25  | **Class 6:**                                             |
-| Fri, Sep 26, 25  | **Class 7:**                                             |
-|  |  |
-| Mon, Sep 29, 25  | *Assignment 1 due September 29*                           |
-| Wed, Oct 1,  25  | **Class 8:**                                             |
-| Fri, Oct 3,  25  | **Class 9:**                                             |
-|  |  |
-| Mon, Oct 6,  25  | *Announce Assignment 2*                                   |
-| Wed, Oct 8,  25  | **Class 10:** Project Update Presentations                |
-| Fri, Oct 10, 25  | **Class 11:**                                            |
-|  |  |
-| Mon, Oct 13, 25  | **Indigenous Peoples' Day**                               |
-| Wed, Oct 15, 25  | **Class 12:**                                            |
-| Fri, Oct 17, 25  | **Class 13:**                                            |
-|  |  |
-| Mon, Oct 20, 25  | *Assignment 2 due October 20*                             |
-| Wed, Oct 22, 25  | **Class 14:**                                            |
-| Fri, Oct 24, 25  | **Class 15:**                                            |
-|  |  |
-| Mon, Oct 27, 25  | *Announce Assignment 3*                                   |
-| Wed, Oct 29, 25  | **Class 16:**                                            |
-| Fri, Oct 31, 25  | **Class 17:**                                            |
-|  |  |
-| Mon, Nov 3,  25  | --- |
-| Wed, Nov 5,  25  | **Class 18:**                                            |
-| Fri, Nov 7,  25  | **Class 19:**                                            |
-|  |  |
-| Mon, Nov 10, 25  | *Assignment 3 due November 10*                            |
-| Wed, Nov 12, 25  | **Class 20:**                                            |
-| Fri, Nov 14, 25  | **Class 21:**                                            |
-|  |  |
-| Mon, Nov 17, 25  | --- |
-| Wed, Nov 19, 25  | **Class 22:**                                            |
-| Fri, Nov 21, 25  | **Class 23:**                                            |
-|  |  |
-| Mon, Nov 24, 25  | **Thanksgiving Break (No Class)**                        |
-| Wed, Nov 26, 25  | --- |
-| Fri, Nov 28, 25  | --- |
-|  |  |
-| Mon, Dec 1,  25  | --- |
-| Wed, Dec 3,  25  | **Class 24:**                                            |
-| Fri, Dec 5,  25  | **Class 25:**                                            |
-|  |  |
-| Mon, Dec 8,  25  | --- |
-| Thu, Dec 11, 25  | **Class 26:** Final Presentations                         |
-| Fri, Dec 12, 25  | --- |
+### Schedule
+
+| DATE            | CLASS                                                                      |
+| --------------- | -------------------------------------------------------------------------- |
+| Mon, Sep 1, 25  | **Labor Day**                                                              |
+| Wed, Sep 3, 25  | **Class 0:** Introduction to the Course, GitHub, Computing Setup           |
+| Fri, Sep 5, 25  | **Class 1:** Python Refresher (Data Structures, NumPy)                     |
+|                 |                                                                            |
+| Mon, Sep 8, 25  | ---                                                                        |
+| Wed, Sep 10, 25 | **Class 2:** Introduction to NetworkX 1 — Loading Data, Basic Statistics   |
+| Fri, Sep 12, 25 | **Class 3:** Introduction to NetworkX 2 — Graph Algorithms                 |
+|                 |                                                                            |
+| Mon, Sep 15, 25 | *Announce Assignment 1*                                                    |
+| Wed, Sep 17, 25 | **Class 4:** Distributions of Network Properties & Centralities            |
+| Fri, Sep 19, 25 | **Class 5:** Scraping Web Data 1 — BeautifulSoup, HTML, Pandas             |
+|                 |                                                                            |
+| Mon, Sep 22, 25 | ---                                                                        |
+| Wed, Sep 24, 25 | **Class 6:** Data Science & SQL                                            |
+| Fri, Sep 26, 25 | **Class 7:** Scraping Web Data 2 — Creating a Network from SQL Data        |
+|                 |                                                                            |
+| Mon, Sep 29, 25 | *Assignment 1 due September 29*                                            |
+| Wed, Oct 1, 25  | **Class 8:** Clustering & Community Detection 1 — Traditional              |
+| Fri, Oct 3, 25  | **Class 9:** Clustering & Community Detection 2 — Contemporary             |
+|                 |                                                                            |
+| Mon, Oct 6, 25  | *Announce Assignment 2*                                                    |
+| Wed, Oct 8, 25  | **Class 10:** Clustering & Community Detection 3 — Advanced                |
+| Fri, Oct 10, 25 | **Class 11:** Project Update Presentations                                 |
+|                 |                                                                            |
+| Mon, Oct 13, 25 | **Indigenous Peoples’ Day**                                                |
+| Wed, Oct 15, 25 | **Class 12:** Visualization 1 — Python                                     |
+| Fri, Oct 17, 25 | **Class 13:** Visualization 2 — Guest Lecture (*Pedro Cruz, Northeastern*) |
+|                 |                                                                            |
+| Mon, Oct 20, 25 | *Assignment 2 due October 20*                                              |
+| Wed, Oct 22, 25 | **Class 14:** Introduction to Machine Learning 1 — General                 |
+| Fri, Oct 24, 25 | **Class 15:** Introduction to Machine Learning 2 — Networks                |
+|                 |                                                                            |
+| Mon, Oct 27, 25 | *Announce Assignment 3*                                                    |
+| Wed, Oct 29, 25 | **Class 16:** Dynamics on Networks 1 — Diffusion and Random Walks          |
+| Fri, Oct 31, 25 | **Class 17:** Dynamics on Networks 2 — Compartmental Models                |
+|                 |                                                                            |
+| Mon, Nov 3, 25  | ---                                                                        |
+| Wed, Nov 5, 25  | **Class 18:** Dynamics on Networks 3 — Agent‑Based Models                  |
+| Fri, Nov 7, 25  | **Class 19:** Network Sampling                                             |
+|                 |                                                                            |
+| Mon, Nov 10, 25 | *Assignment 3 due November 10*                                             |
+| Wed, Nov 12, 25 | **Class 20:** Network Filtering / Thresholding                             |
+| Fri, Nov 14, 25 | **Class 21:** Dynamics of Networks — Temporal Networks                     |
+|                 |                                                                            |
+| Mon, Nov 17, 25 | ---                                                                        |
+| Wed, Nov 19, 25 | **Class 22:** Network Comparison & Graph Distances                         |
+| Fri, Nov 21, 25 | **Class 23:** Network Reconstruction from Dynamics                         |
+|                 |                                                                            |
+| Mon, Nov 24, 25 | **Thanksgiving Break (No Class)**                                          |
+| Wed, Nov 26, 25 | ---                                                                        |
+| Fri, Nov 28, 25 | ---                                                                        |
+|                 |                                                                            |
+| Mon, Dec 1, 25  | ---                                                                        |
+| Wed, Dec 3, 25  | **Class 24:** Big Data — Scalability & Cluster Computing                   |
+| Fri, Dec 5, 25  | **Class 25:** Spatial Data, OSMnx, GeoPandas                               |
+|                 |                                                                            |
+| Mon, Dec 8, 25  | ---                                                                        |
+| Thu, Dec 11, 25 | **Class 26:** Final Presentations                                          |
+| Fri, Dec 12, 25 | ---                                                                        |
 
 
 ```{tableofcontents}
