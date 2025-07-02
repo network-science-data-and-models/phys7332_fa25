@@ -1,5 +1,4 @@
-# PHYS 7332: Network Science Data & Models
-## (Fall 2025)
+# PHYS 7332: Network Science Data & Models -- Fall 2025
 
 Welcome to PHYS 7332! This repository hosts each week's Jupyter notebooks and supporting materials.
 
