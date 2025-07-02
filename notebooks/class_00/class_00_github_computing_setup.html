@@ -1,0 +1,1080 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Class 0: Introduction to the Course, Github, Computing Setup &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_00/class_00_github_computing_setup';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Class 1: Python Refresher, Data Structures, Numpy" href="../class_01/class_01_python_refresher.html" />
+    <link rel="prev" title="PHYS 7332: Network Science Data &amp; Models (Fall 2025)" href="../../README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PHYS 7332: Network Science Data & Models (Fall 2025)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    PHYS 7332: Network Science Data & Models (Fall 2025)
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Class 00: Introduction and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_01/class_01_python_refresher.html">Class 01: Python Refresher</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_00/class_00_github_computing_setup.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/class_00/class_00_github_computing_setup.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Class 0: Introduction to the Course, Github, Computing Setup</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-course-works">How The Course Works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#course-learning-outcomes">Course Learning Outcomes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#course-materials">Course Materials</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-expectations">Class Expectations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classroom-interactions">Classroom Interactions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coursework-class-structure-grading">Coursework, Class Structure, Grading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-project">Final Project</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ideas-for-final-project-chapters-non-exhaustive">Ideas for Final Project Chapters (non-exhaustive):</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-ll-learn">What You’ll Learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schedule">Schedule</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discovery-cluster">Discovery Cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainings">Trainings:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-ondemand-ood">Open OnDemand (OOD)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-with-ood">Interacting with OOD</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#our-very-own-partition">Our Very Own Partition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-server">Jupyter Notebook Server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-environment">Virtual Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-conda-and-why-do-we-use-it">What is <code class="docutils literal notranslate"><span class="pre">conda</span></code> and why do we use it?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#class-virtual-environment">Class Virtual Environment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-github">What is GitHub?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#forking-and-maintaining-the-class-repository">Forking and Maintaining The Class Repository</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-step-start-a-jupyter-lab-instance">Final step: Start a Jupyter Lab instance!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixing-github-problems-creating-a-one-stop-shop-for-git-updates">Fixing Github Problems &amp; Creating a One-Stop Shop For Git Updates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-ssh-keys-with-github">Setting up SSH Keys with GitHub</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#syncing-the-fork">Syncing the Fork</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-to-discovery-and-trying-this-weird-script">Going to Discovery and Trying This Weird Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-forward">Going Forward</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="class-0-introduction-to-the-course-github-computing-setup">
+<h1>Class 0: Introduction to the Course, Github, Computing Setup<a class="headerlink" href="#class-0-introduction-to-the-course-github-computing-setup" title="Link to this heading">#</a></h1>
+<p>Goal of today’s class:</p>
+<ol class="arabic simple">
+<li><p>Introduce the syllabus</p></li>
+<li><p>Ensure we’re all on the Discovery Cluster</p></li>
+<li><p>Set up classroom virtual environment</p></li>
+</ol>
+<p><strong>Welcome to PHYS 7332 - Network Science Data II</strong></p>
+<hr class="docutils" />
+<section id="how-the-course-works">
+<h2>How The Course Works<a class="headerlink" href="#how-the-course-works" title="Link to this heading">#</a></h2>
+<p>This course offers an introduction to network analysis and is designed to provide students with an overview of the core data scientific skills required to analyze complex networks. Through hands-on lectures, labs, and projects, students will learn actionable skills about network analysis techniques using Python (in particular, the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library). The course network data collection, data input/output, network statistics, dynamics, and visualization. Students also learn about random graph models and algorithms for computing network properties like path lengths, clustering, degree distributions, and community structure. In addition, students will develop web scraping skills and will be introduced to the vast landscape of software tools for analyzing complex networks. The course ends with a large-scale final project that demonstrates the proficiency of the students in network analysis.</p>
+<p>This syllabus may be updated and can be found here: <a class="reference external" href="https://brennanklein.com/phys7332-fall24">https://brennanklein.com/phys7332-fall24</a>.</p>
+<p><em><strong>This course has been built from the foundation of the years of work/development by Matteo Chinazzi and Qian Zhang, for earlier iterations of Network Science Data.</strong></em></p>
+<section id="course-learning-outcomes">
+<h3>Course Learning Outcomes<a class="headerlink" href="#course-learning-outcomes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Proficiency in Python and <code class="docutils literal notranslate"><span class="pre">networkx</span></code> for network analysis.</p></li>
+<li><p>Strong foundation of complex network algorithms and their applications.</p></li>
+<li><p>Skills in statistical description of networks.</p></li>
+<li><p>Experience in collecting and analyzing online data.</p></li>
+<li><p>Broad knowledge of various network libraries and tools.</p></li>
+</ul>
+</section>
+<section id="course-materials">
+<h3>Course Materials<a class="headerlink" href="#course-materials" title="Link to this heading">#</a></h3>
+<p>There are no required materials for this course, but we will periodically draw from:</p>
+<ul class="simple">
+<li><p>Bagrow &amp; Ahn (2024). <em><strong>Working with Network Data: A Data Science Perspective</strong></em>. Cambridge University Press; 1st Edition; 978-1009212595. <a class="reference external" href="https://www.cambridge.org/network-data">https://www.cambridge.org/network-data</a>.</p></li>
+</ul>
+<p>Additionally, we recommend engagement with other useful network science and/or Python materials:</p>
+<ul class="simple">
+<li><p>Barabási (2016). <em><strong>Network Science</strong></em>. Cambridge University Press; 1st Edition; 978-1107076266. <a class="reference external" href="http://networksciencebook.com/">http://networksciencebook.com/</a>.</p></li>
+<li><p>Newman (2018). <em><strong>Networks: An Introduction</strong></em>. Oxford University Press; 2nd Edition; 978-0198805090. <a class="reference external" href="https://global.oup.com/academic/product/networks-9780198805090">https://global.oup.com/academic/product/networks-9780198805090</a>.</p></li>
+<li><p>Barrat, Barthelemy &amp; Vespignani (2008). <em><strong>Dynamical Processes on Complex Networks</strong></em>. Cambridge University Press; 1st Edition; 978-0511791383. <a class="reference external" href="https://doi.org/10.1017/CBO9780511791383">https://doi.org/10.1017/CBO9780511791383</a>.</p></li>
+<li><p>VanderPlas (2019). <em><strong>Python Data Science Handbook</strong></em>. O’Reilly Media, Inc; 978-1491912058. <a class="github reference external" href="https://github.com/jakevdp/PythonDataScienceHandbook">jakevdp/PythonDataScienceHandbook</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="class-expectations">
+<h2>Class Expectations<a class="headerlink" href="#class-expectations" title="Link to this heading">#</a></h2>
+<p>This is a “new” class (it had previously been taught as a part of the Network Science PhD program at Northeastern, but for the past 5+ years we’ve not taught it). We’ve brought it back after years of realizing that it contains valuable skills for students studying network science, and we’re hoping to gain important insights around what skills are essential to teach, what can be assumed prior knowledge, and what is too challenging for students. As such, we’ll be asking for frequent feedback on the assignments, classes, etc.</p>
+<section id="classroom-interactions">
+<h3>Classroom Interactions<a class="headerlink" href="#classroom-interactions" title="Link to this heading">#</a></h3>
+<p>This is largely a “coding” course. That means we’ll all have our computers out and follow along the same notebook as the instructor is teaching. There will be frequent “your turn” sections of the code, where we’ll expect you to break off into solo / small teams to solve an in-class challenge. When the class comes back together, we’ll ask for volunteers to share screen and show off what they’ve done.</p>
+</section>
+</section>
+<section id="coursework-class-structure-grading">
+<h2>Coursework, Class Structure, Grading<a class="headerlink" href="#coursework-class-structure-grading" title="Link to this heading">#</a></h2>
+<p>This is a twice-weekly hands-on class that emphasizes building experience with coding. This does not necessarily mean every second of every class will be live-coding, but it will inevitably come up in how the class is taught. We are often on the lookout for improving the pedagogical approach to this material, and we would welcome feedback on class structure. The course will be co-taught, featuring lectures from the core instructors as well as outside experts. Grading in this course will be as follows:</p>
+<ul class="simple">
+<li><p>Class Attendance &amp; Participation: 10%</p></li>
+<li><p>Problem Sets: 45%</p></li>
+<li><p>Mid-Semester Project Presentation: 15%</p></li>
+<li><p>Final Project — Presentation &amp; Report: 30%</p></li>
+</ul>
+<section id="final-project">
+<h3>Final Project<a class="headerlink" href="#final-project" title="Link to this heading">#</a></h3>
+<p>The final project for this course is a chance for students to synthesize their knowledge of network analysis into pedagogical materials around a topic of their choosing. Modeled after chapters in the Jupyter book for this course, students will be required to make a new “chapter” for our class’s textbook; this requires creating a thoroughly documented, informative Python notebook that explains an <em>advanced</em> topic that was not deeply explored in the course. For these projects, students are required to conduct their own research into the background of the technique, the original paper(s) introducing the topic, and how/if it is currently used in today’s network analysis literature. Students will demonstrate that they have mastered this technique by using informative data for illustrating the usefulness of the topic they’ve chosen. Every chapter should contain informative data visualizations that build on one another, section-by-section. The purpose of this assignment is to demonstrate the coding skills gained in this course, doing so by learning a new network analysis technique and sharing it with members of the class. Over time, these lessons may find their way into the curriculum for future iterations of this class. Halfway through the semester, there will be project update presentations where students receive class and instructor feedback on their project topics. Throughout, we will be available to brainstorm students’ ideas for project topics.</p>
+<section id="ideas-for-final-project-chapters-non-exhaustive">
+<h4>Ideas for Final Project Chapters (non-exhaustive):<a class="headerlink" href="#ideas-for-final-project-chapters-non-exhaustive" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Graph Embedding (or other ML technique)</p></li>
+<li><p>Network Reconstruction from Dynamics</p></li>
+<li><p>Link Prediction</p></li>
+<li><p>Graph Distances and Network Comparison</p></li>
+<li><p>Motifs in Networks</p></li>
+<li><p>Network Sparsification</p></li>
+<li><p>Spectral Properties of Networks</p></li>
+<li><p>Mechanistic vs Statistical Network Models</p></li>
+<li><p>Robustness / Resilience of Network Structure</p></li>
+<li><p>Network Game Theory (Prisoner’s Dilemma, Schelling Model, etc.)</p></li>
+<li><p>Homophily in Networks</p></li>
+<li><p>Network Geometry and Random Hyperbolic Graphs</p></li>
+<li><p>Information Theory in/of Complex Networks</p></li>
+<li><p>Discrete Models of Network Dynamics (Voter model, Ising model, SIS, etc.)</p></li>
+<li><p>Continuous Models of Network Dynamics (Kuramoto model, Lotka-Volterra model, etc.)</p></li>
+<li><p>Percolation in Networks</p></li>
+<li><p>Signed Networks</p></li>
+<li><p>Coarse Graining Networks</p></li>
+<li><p>Mesoscale Structure in Networks (e.g. core-periphery)</p></li>
+<li><p>Graph Isomorphism and Approximate Isomorphism</p></li>
+<li><p>Inference in Networks: Beyond Community Detection</p></li>
+<li><p>Activity-Driven Network Models</p></li>
+<li><p>Forecasting with Networks</p></li>
+<li><p>Higher-Order Networks</p></li>
+<li><p>Introduction to Graph Neural Networks</p></li>
+<li><p>Hopfield Networks and Boltzmann Machines</p></li>
+<li><p>Graph Curvature or Topology</p></li>
+<li><p>Reservoir Computing</p></li>
+<li><p>Adaptive Networks</p></li>
+<li><p>Multiplex/Multilayer Networks</p></li>
+<li><p>Simple vs. Complex Contagion</p></li>
+<li><p>Graph Summarization Techniques</p></li>
+<li><p>Network Anomalies</p></li>
+<li><p>Modeling Cascading Failures</p></li>
+<li><p>Topological Data Analysis in Networks</p></li>
+<li><p>Self-organized Criticality in Networks</p></li>
+<li><p>Network Rewiring Dynamics</p></li>
+<li><p>Fitting Distributions to Network Data</p></li>
+<li><p>Hierarchical Networks</p></li>
+<li><p>Ranking in Networks</p></li>
+<li><p>Deeper Dive: Random Walks on Networks</p></li>
+<li><p>Deeper Dive: Directed Networks</p></li>
+<li><p>Deeper Dive: Network Communities</p></li>
+<li><p>Deeper Dive: Network Null Models</p></li>
+<li><p>Deeper Dive: Network Paths and their Statistics</p></li>
+<li><p>Deeper Dive: Network Growth Models</p></li>
+<li><p>Deeper Dive: Network Sampling</p></li>
+<li><p>Deeper Dive: Spatially-Embedded and Urban Networks</p></li>
+<li><p>Deeper Dive: Hypothesis Testing in Social Networks</p></li>
+<li><p>Deeper Dive: Working with Massive Data</p></li>
+<li><p>Deeper Dive: Bipartite Networks</p></li>
+<li><p>Many more possible ideas! Send us whatever you come up with</p></li>
+</ol>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="what-you-ll-learn">
+<h2>What You’ll Learn<a class="headerlink" href="#what-you-ll-learn" title="Link to this heading">#</a></h2>
+<p>Students should leave this class with an ever-growing codebase of resources for analyzing and deriving insights from complex networks, using Python. These skills range from being able to (from scratch) code algorithms on graphs, including path length calculations, network sampling, dynamical processes, and network null models; as well as interfacing with standard data science questions around storing, querying, and analyzing large complex datasets.</p>
+<section id="schedule">
+<h3>Schedule<a class="headerlink" href="#schedule" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>DATE</p></th>
+<th class="head"><p>CLASS</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Wed, Sep 4, 24</p></td>
+<td><p><strong>Class 0:</strong> Introduction to the Course, Github, Computing Setup</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Sep 5, 24</p></td>
+<td><p><strong>Class 1:</strong> Python Refresher (Data Structures, Numpy)</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Sep 6, 24</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Sep 11, 24</p></td>
+<td><p><strong>Class 2:</strong> Introduction to Networkx 1 — Loading Data, Basic Statistics</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Sep 12, 24</p></td>
+<td><p><strong>Class 3:</strong> Introduction to Networkx 2 — Graph Algorithms</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Sep 13, 24</p></td>
+<td><p><em>Announce Assignment 1</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Sep 18, 24</p></td>
+<td><p><strong>Class 4:</strong> Distributions of Network Properties &amp; Centralities</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Sep 19, 24</p></td>
+<td><p><strong>Class 5:</strong> Scraping Web Data 1 — BeautifulSoup, HTML, Pandas</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Sep 20, 24</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Sep 25, 24</p></td>
+<td><p><strong>Class 6:</strong> Scraping Web Data 2 — Creating a Network from Scraped Data</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Sep 26, 24</p></td>
+<td><p><strong>Class 7:</strong> Big Data 1 — Algorithmic Complexity &amp; Computing Paths</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Sep 27, 24</p></td>
+<td><p><strong>Assignment 1 due September 27</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Oct 2, 24</p></td>
+<td><p><strong>Class 8:</strong> Data Science 1 — Pandas, SQL, Regressions</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Oct 3, 24</p></td>
+<td><p><strong>Class 9:</strong> Data Science 2 — Querying SQL Tables for Network Construction</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Oct 4, 24</p></td>
+<td><p><em>Announce Assignment 2</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Oct 9, 24</p></td>
+<td><p><strong>Class 10:</strong> Clustering &amp; Community Detection 1 — Traditional</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Oct 10, 24</p></td>
+<td><p><strong>Class 11:</strong> Clustering &amp; Community Detection 2 — Contemporary</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Oct 11, 24</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Oct 16, 24</p></td>
+<td><p><strong>Class 12:</strong> Visualization 1 — Python + Gephi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Oct 17, 24</p></td>
+<td><p><strong>Class 13:</strong> Project Update Presentations</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Oct 18, 24</p></td>
+<td><p><strong>Assignment 2 due October 18</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Oct 23, 24</p></td>
+<td><p><strong>Class 14:</strong> Introduction to Machine Learning 1 — General</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Oct 24, 24</p></td>
+<td><p><strong>Class 15:</strong> Introduction to Machine Learning 2 — Networks</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Oct 25, 24</p></td>
+<td><p><em>Announce Assignment 3</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Oct 30, 24</p></td>
+<td><p><strong>Class 16:</strong> Visualization 2 — Guest Lecture (Pedro Cruz, Northeastern)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Oct 31, 24</p></td>
+<td><p><strong>Class 17:</strong> Dynamics on Networks 1 — Diffusion and Random Walks</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Nov 1, 24</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Nov 6, 24</p></td>
+<td><p><strong>Class 18:</strong> Dynamics on Networks 2 — Compartmental Models</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Nov 7, 24</p></td>
+<td><p><strong>Class 19:</strong> Dynamics on Networks 3 — Agent-Based Models</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Nov 8, 24</p></td>
+<td><p><strong>Assignment 3 due November 8</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Nov 13, 24</p></td>
+<td><p><strong>Class 20:</strong> Big Data 2 — Scalability</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Nov 14, 24</p></td>
+<td><p><strong>Class 21:</strong> Network Sampling</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Nov 15, 24</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Nov 20, 24</p></td>
+<td><p><strong>Class 22:</strong> Network Filtering/Thresholding</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Nov 21, 24</p></td>
+<td><p><strong>Class 23:</strong> Dynamic of Networks: Temporal Networks</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Nov 22, 24</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Nov 27, 24</p></td>
+<td><p>Thanksgiving Break (No Class)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Nov 28, 24</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Nov 29, 24</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Dec 4, 24</p></td>
+<td><p><strong>Class 24:</strong> Instructor’s Choice: Spatial Data, OSMNX, GeoPandas</p></td>
+</tr>
+<tr class="row-odd"><td><p>Thu, Dec 5, 24</p></td>
+<td><p><strong>Class 25:</strong> Wiggle Room Class / Office Hours</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Dec 6, 24</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Wed, Dec 11, 24</p></td>
+<td><p><strong>Class 26: Final Presentations</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="discovery-cluster">
+<h2>Discovery Cluster<a class="headerlink" href="#discovery-cluster" title="Link to this heading">#</a></h2>
+<p>From Research Computing at Northeastern: “The Northeastern University HPC Cluster is a high-powered, multi-node, parallel computing system designed to meet the computational and data-intensive needs of various academic and industry-oriented research projects. The cluster incorporates cutting-edge computing technologies and robust storage solutions, providing an efficient and scalable environment for large-scale simulations, complex calculations, artificial intelligence, machine learning, big data analytics, bioinformatics, and more.</p>
+<p>Whether you are a seasoned user or just beginning your journey into high-performance computing, our portal offers comprehensive resources, including in-depth guides, tutorials, best practices, and troubleshooting tips. Furthermore, the platform provides a streamlined interface to monitor, submit, and manage your computational jobs on the HPC cluster.</p>
+<p>We invite you to explore the resources, tools, and services available through the portal. Join us as we endeavor to harness the power of high-performance computing, enabling breakthroughs in research and fostering innovation at Northeastern University.” (<a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/index.html">https://rc-docs.northeastern.edu/en/latest/index.html</a>)</p>
+<section id="documentation">
+<h3>Documentation:<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Getting started: <a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/gettingstarted/index.html">https://rc-docs.northeastern.edu/en/latest/gettingstarted/index.html</a></p></li>
+</ul>
+</section>
+<section id="trainings">
+<h3>Trainings:<a class="headerlink" href="#trainings" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Video and tutorial files for getting started on the Discovery cluster: <a class="reference external" href="https://rc.northeastern.edu/support/training/">https://rc.northeastern.edu/support/training/</a></p></li>
+</ul>
+</section>
+<section id="open-ondemand-ood">
+<h3>Open OnDemand (OOD)<a class="headerlink" href="#open-ondemand-ood" title="Link to this heading">#</a></h3>
+<p>“Open OnDemand empowers students, researchers, and industry professionals with remote web access to supercomputers.” (<a class="reference external" href="https://openondemand.org/">https://openondemand.org/</a>)</p>
+<p>Open OnDemand is a software platform that provides an easy-to-use web interface for accessing and managing high-performance computing (HPC) resources. It simplifies the process of submitting jobs, managing files, and running interactive applications on HPC systems without the need for complex command-line interactions. For the class this fall, we’ll be using Open OnDemand to give students hands-on experience with HPC resources, letting us run simulations, analyze large datasets, and explore computational tools in a user-friendly environment. This is designed to let students focus on learning and applying computational techniques without getting bogged down by technical complexities.</p>
+<p><img alt="" src="notebooks/class_00/images/ood_home_screen.png" /></p>
+<hr class="docutils" />
+<section id="interacting-with-ood">
+<h4>Interacting with OOD<a class="headerlink" href="#interacting-with-ood" title="Link to this heading">#</a></h4>
+<p>Open OnDemand Documentation: <a class="reference external" href="https://osc.github.io/ood-documentation/latest/">https://osc.github.io/ood-documentation/latest/</a></p>
+<p><strong>Interactive Apps:</strong>
+<img alt="" src="notebooks/class_00/images/ood_home_interactiveapps_tab.png" /></p>
+<hr class="docutils" />
+<p><strong>Courses:</strong>
+<img alt="" src="notebooks/class_00/images/ood_home_courses_tab.png" /></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="our-very-own-partition">
+<h3>Our Very Own Partition<a class="headerlink" href="#our-very-own-partition" title="Link to this heading">#</a></h3>
+<p><img alt="" src="notebooks/class_00/images/discovery_classroom_integration.png" /></p>
+</section>
+<hr class="docutils" />
+<section id="jupyter-notebook-server">
+<h3>Jupyter Notebook Server<a class="headerlink" href="#jupyter-notebook-server" title="Link to this heading">#</a></h3>
+<p>This app will launch JupyterLab Notebook on a node on the courses partition, with requested CPUs, GPUs and memory for up to 24 hours. A custom conda environment is optional.</p>
+</section>
+<section id="virtual-environment">
+<h3>Virtual Environment<a class="headerlink" href="#virtual-environment" title="Link to this heading">#</a></h3>
+<section id="what-is-conda-and-why-do-we-use-it">
+<h4>What is <code class="docutils literal notranslate"><span class="pre">conda</span></code> and why do we use it?<a class="headerlink" href="#what-is-conda-and-why-do-we-use-it" title="Link to this heading">#</a></h4>
+<p>Python has the ability to do a lot of things on its own, but sometimes we need to install <em>packages</em> that extend Python’s functionality. For example, <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> has a lot of machine learning algorithms, and <code class="docutils literal notranslate"><span class="pre">geopy</span></code> does handy geographic math (like calculating geodesic distances). Managing the dependencies these packages have on other packages is really annoying and really easy to mess up (<a class="reference external" href="https://stackoverflow.com/questions/28099683/algorithm-for-dependency-resolution">in fact, it is NP-complete,</a>, which means it’s a very hard type of computational problem), so we use tools called <em>package managers</em>. <code class="docutils literal notranslate"><span class="pre">pip</span></code> is one package manager, and <code class="docutils literal notranslate"><span class="pre">conda</span></code> is a fancier one. <code class="docutils literal notranslate"><span class="pre">conda</span></code>, short for <code class="docutils literal notranslate"><span class="pre">anaconda</span></code>, can handle packages that are outside the Python ecosystem, like C compilers, whereas <code class="docutils literal notranslate"><span class="pre">pip</span></code> cannot.</p>
+</section>
+<section id="class-virtual-environment">
+<h4>Class Virtual Environment<a class="headerlink" href="#class-virtual-environment" title="Link to this heading">#</a></h4>
+<p>Our class has a shared virtual environment that you can access once you use <code class="docutils literal notranslate"><span class="pre">module</span></code> to load <code class="docutils literal notranslate"><span class="pre">conda</span></code>. <code class="docutils literal notranslate"><span class="pre">module</span></code> is a tool that’s frequently used on computing clusters to load software packages on demand. <a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/software/packagemanagers/conda.html">Here’s</a> some information on loading <code class="docutils literal notranslate"><span class="pre">conda</span></code> on Discovery, and <a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/software/systemwide/modules.html">here’s</a> some information on <code class="docutils literal notranslate"><span class="pre">module</span></code>. First, you need to request a compute node on Discovery. We’ll go to Open On Demand (<a class="reference external" href="https://ood.discovery.neu.edu">https://ood.discovery.neu.edu</a>) and open up an interactive shell:
+<img alt="opening an interactive shell" src="notebooks/class_00/images/ood_terminal_screenshot.png" /></p>
+<p>Once you’re in the interactive shell, request a compute node:</p>
+<p><code class="docutils literal notranslate"><span class="pre">srun</span> <span class="pre">--partition=short</span> <span class="pre">--nodes=1</span> <span class="pre">--cpus-per-task=1</span> <span class="pre">--pty</span> <span class="pre">/bin/bash</span></code></p>
+<p>And then you’ll load <code class="docutils literal notranslate"><span class="pre">conda</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">anaconda3/2022.05</span></code></p>
+<p>From here, we can load the class virtual environment:</p>
+<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">activate</span> <span class="pre">/courses/PHYS7332.202510/shared/phys7332-env</span></code></p>
+<p>You should see <code class="docutils literal notranslate"><span class="pre">(/courses/PHYS7332.202510/shared/phys7332-env)</span></code> in front of your command prompt in the Discovery terminal.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="github">
+<h2>GitHub<a class="headerlink" href="#github" title="Link to this heading">#</a></h2>
+<section id="what-is-github">
+<h3>What is GitHub?<a class="headerlink" href="#what-is-github" title="Link to this heading">#</a></h3>
+<p>GitHub is a website that implements <code class="docutils literal notranslate"><span class="pre">git</span></code>. <code class="docutils literal notranslate"><span class="pre">git</span></code> is a piece of open-source software that does distributed version control. This is really important for big teams making changes simultaneously to a large codebase. Git lets people document and track their code, and its various versions, so they can collaborate more efficiently.</p>
+<p>On Github, you’ll keep your code in what’s called a <em>repository</em>. That’s a chunk of code that all works together. You can download a repository to your own computer, make changes to it, and <em>push</em> them to the repository on GitHub. Then your changes will be reflected in the version of the repository that’s on GitHub, and anyone can download the version with your changes in it.</p>
+<p>Our class has a repository that’s available <a class="reference external" href="https://github.com/asmithh/student-network-science-data-book">here</a>. You will download a <em>fork</em> of the repository to make your very own. Occasionally we’ll update the repository and you’ll need to incorporate the updates; we’ll explain how to do that in a second.</p>
+<section id="forking-and-maintaining-the-class-repository">
+<h4>Forking and Maintaining The Class Repository<a class="headerlink" href="#forking-and-maintaining-the-class-repository" title="Link to this heading">#</a></h4>
+<p>First, let’s fork the repository. Go to the repository GitHub link. You’ll see a little icon on the top left that says “Fork”. Click on it:
+<img alt="a screenshot of the github repo with fork command" src="notebooks/class_00/images/github_create_fork_screen.png" /></p>
+<p>Once you’ve clicked the fork button, you’ll get this screen:</p>
+<p><img alt="a screenshot of fork creation" src="notebooks/class_00/images/github_fork_screenshot.png" />
+Make sure you’re listed as the owner and create the fork.
+Then you’ll clone your fork in the Discovery terminal using the URL obtained via the green <code class="docutils literal notranslate"><span class="pre">Code</span></code> buttion:
+<img alt="a screenshot of the clone button" src="notebooks/class_00/images/github_clone_repo.png" /></p>
+<p>We’re going to first navigate to your folder in our course partition:</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/courses/PHYS7332.202510/students/USERNAME</span></code> where <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code> is your Northeastern username. Then we’ll clone the repo:</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">[URL</span> <span class="pre">YOU</span> <span class="pre">COPIED]</span></code></p>
+<p>Now let’s set up a way to get updates from the original repo. Let’s <code class="docutils literal notranslate"><span class="pre">cd</span></code> into the repo:
+<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">REPO_FILEPATH</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span> <span class="pre">upstream</span> <span class="pre">https://github.com/asmithh/student-network-science-data-book.git</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">upstream</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">main</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">upstream/main</span></code></p>
+<p>This sets up the original version of the GitHub repo as an upstream source. Now we can, at any point, fetch the upstream source and merge it into our main branch, which is the main branch of your forked repository. You’ll be working in this forked repository in your <code class="docutils literal notranslate"><span class="pre">/courses/PHYS7332.202510/students/USERNAME</span></code> directory throughout the course. If you want to sync your forked version with the original version (as we will be adding new notebooks over the course of the class), you can run the following commands:</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">upstream</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">main</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">upstream/main</span></code></p>
+<p>(Here’s a <a class="reference internal" href="#(https://stackoverflow.com/questions/7244321/how-do-i-update-or-sync-a-forked-repository-on-github)"><span class="xref myst">StackOverflow thread</span></a> explaining this in more detail.)</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="final-step-start-a-jupyter-lab-instance">
+<h3>Final step: Start a Jupyter Lab instance!<a class="headerlink" href="#final-step-start-a-jupyter-lab-instance" title="Link to this heading">#</a></h3>
+<p>Recall from earlier, the “Courses” tab:
+<img alt="" src="notebooks/class_00/images/ood_home_courses_tab.png" /></p>
+<p>Click on that, then fill in the following information (after you do this once, it’ll auto-populate for future classes):</p>
+<p><img alt="" src="notebooks/class_00/images/ood_launch_jupyter.png" /></p>
+<hr class="docutils" />
+<p><em>We’re in!</em>
+<img alt="" src="notebooks/class_00/images/ood_jupyter.png" /></p>
+<p>Now, navigate to this jupyter notebook, and get a feel for the notebooks, the folders, the files, etc. that you see.</p>
+</section>
+</section>
+<section id="fixing-github-problems-creating-a-one-stop-shop-for-git-updates">
+<h2>Fixing Github Problems &amp; Creating a One-Stop Shop For Git Updates<a class="headerlink" href="#fixing-github-problems-creating-a-one-stop-shop-for-git-updates" title="Link to this heading">#</a></h2>
+<p>We’re going to go through a series of steps to hopefully make updating the Github repo less of a pain in the butt in the long run!</p>
+<section id="setting-up-ssh-keys-with-github">
+<h3>Setting up SSH Keys with GitHub<a class="headerlink" href="#setting-up-ssh-keys-with-github" title="Link to this heading">#</a></h3>
+<p>First we’re going to set up SSH keys on Discovery and put them on GitHub. This lets us authenticate our identity to GitHub and makes it possible for us to push our changed code to our forked repository. Neat! First, let’s follow the tutorial <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">here</a> to create SSH keys, because they explain it way better than I can.
+Then you’ll add your <strong>public SSH key</strong> (the file that ends in <code class="docutils literal notranslate"><span class="pre">.pub</span></code>) to GitHub using <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">these instructions</a>. Label them something memorable, like <code class="docutils literal notranslate"><span class="pre">discovery</span> <span class="pre">key</span></code>, so you’ll know which machine(s) it’s attached to.</p>
+</section>
+<section id="syncing-the-fork">
+<h3>Syncing the Fork<a class="headerlink" href="#syncing-the-fork" title="Link to this heading">#</a></h3>
+<p>Now we’re going to sync our forked repository with the main student repository that I own. We can do this on GitHub, which is neat! This will incorporate all the fancy changes I made (okay, it’s basically one script) and let us test out the git update script. Go to your forked repository on GitHub; you’ll see a button that says <code class="docutils literal notranslate"><span class="pre">Sync</span> <span class="pre">fork</span></code>. Click on that; your screen should look something like this.</p>
+<p><img alt="" src="notebooks/class_00/images/sync_fork.png" /></p>
+<p>Click the green button (<code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">branch</span></code>) to sync your fork with the main repository. Don’t discard any commits you may have made.</p>
+</section>
+<section id="going-to-discovery-and-trying-this-weird-script">
+<h3>Going to Discovery and Trying This Weird Script<a class="headerlink" href="#going-to-discovery-and-trying-this-weird-script" title="Link to this heading">#</a></h3>
+<p>Next we’ll go to Discovery and pull our new changes using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">main</span></code>. You should see a new file come up that is labeled <code class="docutils literal notranslate"><span class="pre">git_fixer.py</span></code>. That is going to (hopefully) be our new best friend for the near future.</p>
+<p>Now, make some modifications to <code class="docutils literal notranslate"><span class="pre">class_00_github_computing_setup.ipynb</span></code>. You can just add comments at the end or get fancier; do what your heart desires.</p>
+<p>Next, we’ll run <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">git_fixer.py</span></code>. If this script works well enough, it should create a version of any files that you’ve modified from the original that have <code class="docutils literal notranslate"><span class="pre">MODIFIED_{a</span> <span class="pre">bunch</span> <span class="pre">of</span> <span class="pre">numbers}.ipynb</span></code> at the end of the filename. It will also update any files that have been modified on my end and add any new files that I’ve created in my repository.</p>
+<p>Finally, run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>. You may need to add and commit the changes to <strong>your fork</strong> so you have your modified notebooks (ideally with your notes and added code) on GitHub in your forked repository. Then push them (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">main</span></code>) so they’re reflected in your forked repository.</p>
+</section>
+<section id="going-forward">
+<h3>Going Forward<a class="headerlink" href="#going-forward" title="Link to this heading">#</a></h3>
+<p>At the beginning of each class, run <code class="docutils literal notranslate"><span class="pre">git_fixer.py</span></code> to make sure you have all the new code for the upcoming classes. Then you will run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> and add/commit/push any changes you wish to see reflected in your forked repository.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="next-time">
+<h2>Next time…<a class="headerlink" href="#next-time" title="Link to this heading">#</a></h2>
+<p>Python refresher! <code class="docutils literal notranslate"><span class="pre">class_01_python_refresher.ipynb</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="references-and-further-resources">
+<h2>References and further resources:<a class="headerlink" href="#references-and-further-resources" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Class Webpages</p>
+<ul class="simple">
+<li><p>Jupyter Book: <a class="reference external" href="https://asmithh.github.io/network-science-data-book/intro.html">https://asmithh.github.io/network-science-data-book/intro.html</a></p></li>
+<li><p>Github: <a class="github reference external" href="https://github.com/asmithh/network-science-data-book">asmithh/network-science-data-book</a></p></li>
+<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall24">https://brennanklein.com/phys7332-fall24</a></p></li>
+</ul>
+</li>
+<li><p>Discovery Cluster “OOD”: <a class="reference external" href="https://ood.discovery.neu.edu/">https://ood.discovery.neu.edu/</a></p>
+<ul class="simple">
+<li><p>Open OnDemand Documentation: <a class="reference external" href="https://osc.github.io/ood-documentation/latest/">https://osc.github.io/ood-documentation/latest/</a></p></li>
+</ul>
+</li>
+<li><p><strong>Python for R users:</strong> <a class="reference external" href="https://rebeccabarter.com/blog/2023-09-11-from_r_to_python">https://rebeccabarter.com/blog/2023-09-11-from_r_to_python</a></p></li>
+</ol>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_00"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PHYS 7332: Network Science Data &amp; Models (Fall 2025)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../class_01/class_01_python_refresher.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Class 1: Python Refresher, Data Structures, Numpy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-course-works">How The Course Works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#course-learning-outcomes">Course Learning Outcomes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#course-materials">Course Materials</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-expectations">Class Expectations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classroom-interactions">Classroom Interactions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coursework-class-structure-grading">Coursework, Class Structure, Grading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-project">Final Project</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ideas-for-final-project-chapters-non-exhaustive">Ideas for Final Project Chapters (non-exhaustive):</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-ll-learn">What You’ll Learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schedule">Schedule</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discovery-cluster">Discovery Cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainings">Trainings:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-ondemand-ood">Open OnDemand (OOD)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-with-ood">Interacting with OOD</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#our-very-own-partition">Our Very Own Partition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-server">Jupyter Notebook Server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-environment">Virtual Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-conda-and-why-do-we-use-it">What is <code class="docutils literal notranslate"><span class="pre">conda</span></code> and why do we use it?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#class-virtual-environment">Class Virtual Environment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-github">What is GitHub?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#forking-and-maintaining-the-class-repository">Forking and Maintaining The Class Repository</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-step-start-a-jupyter-lab-instance">Final step: Start a Jupyter Lab instance!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixing-github-problems-creating-a-one-stop-shop-for-git-updates">Fixing Github Problems &amp; Creating a One-Stop Shop For Git Updates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-ssh-keys-with-github">Setting up SSH Keys with GitHub</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#syncing-the-fork">Syncing the Fork</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-to-discovery-and-trying-this-weird-script">Going to Discovery and Trying This Weird Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-forward">Going Forward</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brennan Klein
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
