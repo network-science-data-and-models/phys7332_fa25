@@ -3,7 +3,12 @@
 Welcome to PHYS 7332! This repository hosts each week's Jupyter notebooks and supporting materials.
 
 ## Course Overview
-This course offers an introduction to network analysis and is designed to provide students with an overview of the core data scientific skills required to analyze complex networks. Through hands-on lectures, labs, and projects, students will learn actionable skills about network analysis techniques using Python (in particular, the `networkx` library). The course network data collection, data input/output, network statistics, dynamics, and visualization. Students also learn about random graph models and algorithms for computing network properties like path lengths, clustering, degree distributions, and community structure. In addition, students will develop web scraping skills and will be introduced to the vast landscape of software tools for analyzing complex networks. The course ends with a large-scale final project that demonstrates the proficiency of the students in network analysis. This course has been built from the foundation of the years of work/development by Matteo Chinazzi and Qian Zhang, for earlier iterations of Network Science Data. This syllabus may be updated and can be found here: https://network-science-data-and-models.github.io/phys7332_fa25/.
+This course offers an introduction to network analysis and is designed to provide students with an overview of the core data scientific skills required to analyze complex networks. Through hands-on lectures, labs, and projects, students will learn actionable skills about network analysis techniques using Python (in particular, the `networkx` library). The course network data collection, data input/output, network statistics, dynamics, and visualization. Students also learn about random graph models and algorithms for computing network properties like path lengths, clustering, degree distributions, and community structure. In addition, students will develop web scraping skills and will be introduced to the vast landscape of software tools for analyzing complex networks. The course ends with a large-scale final project that demonstrates the proficiency of the students in network analysis. This course has been built from the foundation of the years of work/development by Matteo Chinazzi and Qian Zhang, for earlier iterations of Network Science Data.
+
+**Course Website**: https://network-science-data-and-models.github.io/phys7332_fa25/
+
+**Github Repository**: https://github.com/network-science-data-and-models/phys7332_fa25/
+
 
 
 ## Instructors
