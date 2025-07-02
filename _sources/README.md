@@ -17,7 +17,7 @@ This course offers an introduction to network analysis and is designed to provid
 <!-- **Alyssa Smith** is a fourth-year PhD student in Network Science at Northeastern University. Her current work focuses on the ways that structure and agency interact in social networks to encourage mobilization. She is interested in making big data and computational tools usable by academics without specialized technical training. She use mixed methods, ranging from terabyte-scale datasets to autoethnography, to make sense of the world. Her dissertation work revolves around __structure__  -- the place one occupies in a social network -- and __agency__ -- an individual’s characteristics and proclivities -- which are thought to be the two main driving forces behind engagement in social movements. We can think of structure and agency as two separate, competing factors, or we can think of them as a duality: in much the same way that light is both a particle and a wave, the interplay of structure and agency is what governs mobilization. Before joining the Network Science Institute, Alyssa received a BS in Humanities and Engineering with Comparative Media Studies and Computer Science from MIT in 2017; after that, she worked in tech for 4 years. Website: [https://asmithh.github.io/](https://asmithh.github.io/). -->
 
 
-## Course Learning Outcomes:
+## Course Learning Outcomes
 Students should leave this class with an ever-growing codebase of resources for analyzing and deriving insights from complex networks, using Python. These skills range from being able to (from scratch) code algorithms on graphs, including path length calculations, network sampling, dynamical processes, and network null models; as well as interfacing with standard data science questions around storing, querying, and analyzing large complex datasets.
 
 - Proficiency in Python and `networkx` for network analysis.
@@ -26,7 +26,7 @@ Students should leave this class with an ever-growing codebase of resources for 
 - Experience in collecting and analyzing online data.
 - Broad knowledge of various network libraries and tools.
 
-## Materials:
+## Materials
 There are no required materials for this course, but we will periodically draw from:
 - Bagrow & Ahn (2024). __**Working with Network Data: A Data Science Perspective**__. Cambridge University Press; 1st Edition; 978-1009212595. [https://www.cambridge.org/network-data](https://www.cambridge.org/network-data)
 
@@ -47,7 +47,7 @@ This is a twice-weekly hands-on class that emphasizes building experience with c
 ### Final Project
 The final project for this course is a chance for students to synthesize their knowledge of network analysis into pedagogical materials around a topic of their choosing. Modeled after chapters in the Jupyter book for this course, students will be required to make a new "chapter" for our class's textbook; this requires creating a thoroughly documented, informative Python notebook that explains an *advanced* topic that was not deeply explored in the course. For these projects, students are required to conduct their own research into the background of the technique, the original paper(s) introducing the topic, and how/if it is currently used in today's network analysis literature. Students will demonstrate that they have mastered this technique by using informative data for illustrating the usefulness of the topic they've chosen. Every chapter should contain informative data visualizations that build on one another, section-by-section. The purpose of this assignment is to demonstrate the coding skills gained in this course, doing so by learning a new network analysis technique and sharing it with members of the class. Over time, these lessons may find their way into the curriculum for future iterations of this class. Halfway through the semester, there will be project update presentations where students receive class and instructor feedback on their project topics. Throughout, we will be available to brainstorm students' ideas for project topics.
 
-#### Ideas for Final Project Chapters (non-exhaustive):
+#### Ideas for Final Project Chapters (non-exhaustive)
 1. Motifs in Networks
 2. Mechanistic vs Statistical Network Models
 3. Robustness / Resilience of Network Structure
