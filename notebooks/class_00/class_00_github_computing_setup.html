@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -371,6 +371,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#welcome-to-phys-7332-network-science-data-ii">Welcome to PHYS 7332 - Network Science Data II</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-course-works">How The Course Works</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#course-learning-outcomes">Course Learning Outcomes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#course-materials">Course Materials</a></li>
@@ -391,7 +392,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schedule">Schedule</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discovery-cluster">Discovery Cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explorer-cluster">Explorer Cluster</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainings">Trainings:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-ondemand-ood">Open OnDemand (OOD)</a><ul class="nav section-nav flex-column">
@@ -408,17 +409,15 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-github">What is GitHub?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#forking-and-maintaining-the-class-repository">Forking and Maintaining The Class Repository</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-github">What is GitHub?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forking-and-maintaining-the-class-repository">Forking and Maintaining The Class Repository</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-step-start-a-jupyter-lab-instance">Final step: Start a Jupyter Lab instance!</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixing-github-problems-creating-a-one-stop-shop-for-git-updates">Fixing Github Problems &amp; Creating a One-Stop Shop For Git Updates</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-ssh-keys-with-github">Setting up SSH Keys with GitHub</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#syncing-the-fork">Syncing the Fork</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-to-discovery-and-trying-this-weird-script">Going to Discovery and Trying This Weird Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-to-explorer-and-trying-this-weird-script">Going to Explorer and Trying This Weird Script</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-forward">Going Forward</a></li>
 </ul>
 </li>
@@ -440,16 +439,18 @@ document.write(`
 <p>Goal of today’s class:</p>
 <ol class="arabic simple">
 <li><p>Introduce the syllabus</p></li>
-<li><p>Ensure we’re all on the Discovery Cluster</p></li>
+<li><p>Ensure we’re all on the Explorer Cluster</p></li>
 <li><p>Set up classroom virtual environment</p></li>
 </ol>
-<p><strong>Welcome to PHYS 7332 - Network Science Data II</strong></p>
+<section id="welcome-to-phys-7332-network-science-data-ii">
+<h2>Welcome to PHYS 7332 - Network Science Data II<a class="headerlink" href="#welcome-to-phys-7332-network-science-data-ii" title="Link to this heading">#</a></h2>
+</section>
 <hr class="docutils" />
 <section id="how-the-course-works">
 <h2>How The Course Works<a class="headerlink" href="#how-the-course-works" title="Link to this heading">#</a></h2>
 <p>This course offers an introduction to network analysis and is designed to provide students with an overview of the core data scientific skills required to analyze complex networks. Through hands-on lectures, labs, and projects, students will learn actionable skills about network analysis techniques using Python (in particular, the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library). The course network data collection, data input/output, network statistics, dynamics, and visualization. Students also learn about random graph models and algorithms for computing network properties like path lengths, clustering, degree distributions, and community structure. In addition, students will develop web scraping skills and will be introduced to the vast landscape of software tools for analyzing complex networks. The course ends with a large-scale final project that demonstrates the proficiency of the students in network analysis.</p>
-<p>This syllabus may be updated and can be found here: <a class="reference external" href="https://brennanklein.com/phys7332-fall24">https://brennanklein.com/phys7332-fall24</a>.</p>
-<p><em><strong>This course has been built from the foundation of the years of work/development by Matteo Chinazzi and Qian Zhang, for earlier iterations of Network Science Data.</strong></em></p>
+<p>This syllabus may be updated and can be found here: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a>.</p>
+<p>This course has been built from the foundation of the years of work/development by Matteo Chinazzi and Qian Zhang, for earlier iterations of Network Science Data.</p>
 <section id="course-learning-outcomes">
 <h3>Course Learning Outcomes<a class="headerlink" href="#course-learning-outcomes" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -567,176 +568,182 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Wed, Sep 4, 24</p></td>
-<td><p><strong>Class 0:</strong> Introduction to the Course, Github, Computing Setup</p></td>
+<tr class="row-even"><td><p>Mon, Sep 1, 25</p></td>
+<td><p><strong>Labor Day</strong></p></td>
 </tr>
-<tr class="row-odd"><td><p>Thu, Sep 5, 24</p></td>
-<td><p><strong>Class 1:</strong> Python Refresher (Data Structures, Numpy)</p></td>
+<tr class="row-odd"><td><p>Wed, Sep 3, 25</p></td>
+<td><p><strong>Class 0:</strong> Introduction to the Course, GitHub, Computing Setup</p></td>
 </tr>
-<tr class="row-even"><td><p>Fri, Sep 6, 24</p></td>
+<tr class="row-even"><td><p>Fri, Sep 5, 25</p></td>
+<td><p><strong>Class 1:</strong> Python Refresher (Data Structures, NumPy)</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Sep 8, 25</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Sep 10, 25</p></td>
+<td><p><strong>Class 2:</strong> Introduction to NetworkX 1 — Loading Data, Basic Statistics</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Sep 12, 25</p></td>
+<td><p><strong>Class 3:</strong> Introduction to NetworkX 2 — Graph Algorithms</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Sep 15, 25</p></td>
+<td><p><em>Announce Assignment 1</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Sep 17, 25</p></td>
+<td><p><strong>Class 4:</strong> Distributions of Network Properties &amp; Centralities</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Sep 19, 25</p></td>
+<td><p><strong>Class 5:</strong> Scraping Web Data 1 — BeautifulSoup, HTML, Pandas</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Sep 22, 25</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Sep 24, 25</p></td>
+<td><p><strong>Class 6:</strong> Data Science &amp; SQL</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Sep 26, 25</p></td>
+<td><p><strong>Class 7:</strong> Scraping Web Data 2 — Creating a Network from SQL Data</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Sep 29, 25</p></td>
+<td><p><em>Assignment 1 due September 29</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Oct 1, 25</p></td>
+<td><p><strong>Class 8:</strong> Clustering &amp; Community Detection 1 — Traditional</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Oct 3, 25</p></td>
+<td><p><strong>Class 9:</strong> Clustering &amp; Community Detection 2 — Contemporary</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Oct 6, 25</p></td>
+<td><p><em>Announce Assignment 2</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Oct 8, 25</p></td>
+<td><p><strong>Class 10:</strong> Clustering &amp; Community Detection 3 — Advanced</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Oct 10, 25</p></td>
+<td><p><strong>Class 11:</strong> Project Update Presentations</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Oct 13, 25</p></td>
+<td><p><strong>Indigenous Peoples’ Day</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Oct 15, 25</p></td>
+<td><p><strong>Class 12:</strong> Visualization 1 — Python</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Oct 17, 25</p></td>
+<td><p><strong>Class 13:</strong> Visualization 2 — Guest Lecture (<em>Pedro Cruz, Northeastern</em>)</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Oct 20, 25</p></td>
+<td><p><em>Assignment 2 due October 20</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Oct 22, 25</p></td>
+<td><p><strong>Class 14:</strong> Introduction to Machine Learning 1 — General</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Oct 24, 25</p></td>
+<td><p><strong>Class 15:</strong> Introduction to Machine Learning 2 — Networks</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Oct 27, 25</p></td>
+<td><p><em>Announce Assignment 3</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Oct 29, 25</p></td>
+<td><p><strong>Class 16:</strong> Dynamics on Networks 1 — Diffusion and Random Walks</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Oct 31, 25</p></td>
+<td><p><strong>Class 17:</strong> Dynamics on Networks 2 — Compartmental Models</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Nov 3, 25</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Nov 5, 25</p></td>
+<td><p><strong>Class 18:</strong> Dynamics on Networks 3 — Agent‑Based Models</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Nov 7, 25</p></td>
+<td><p><strong>Class 19:</strong> Network Sampling</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Nov 10, 25</p></td>
+<td><p><em>Assignment 3 due November 10</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Nov 12, 25</p></td>
+<td><p><strong>Class 20:</strong> Network Filtering / Thresholding</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Nov 14, 25</p></td>
+<td><p><strong>Class 21:</strong> Dynamics of Networks — Temporal Networks</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Nov 17, 25</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Nov 19, 25</p></td>
+<td><p><strong>Class 22:</strong> Network Comparison &amp; Graph Distances</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Nov 21, 25</p></td>
+<td><p><strong>Class 23:</strong> Network Reconstruction from Dynamics</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Mon, Nov 24, 25</p></td>
+<td><p><strong>Thanksgiving Break (No Class)</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wed, Nov 26, 25</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>Fri, Nov 28, 25</p></td>
 <td><p>—</p></td>
 </tr>
 <tr class="row-odd"><td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p>Wed, Sep 11, 24</p></td>
-<td><p><strong>Class 2:</strong> Introduction to Networkx 1 — Loading Data, Basic Statistics</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Sep 12, 24</p></td>
-<td><p><strong>Class 3:</strong> Introduction to Networkx 2 — Graph Algorithms</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Sep 13, 24</p></td>
-<td><p><em>Announce Assignment 1</em></p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Sep 18, 24</p></td>
-<td><p><strong>Class 4:</strong> Distributions of Network Properties &amp; Centralities</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Sep 19, 24</p></td>
-<td><p><strong>Class 5:</strong> Scraping Web Data 1 — BeautifulSoup, HTML, Pandas</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Sep 20, 24</p></td>
+<tr class="row-even"><td><p>Mon, Dec 1, 25</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p>Wed, Dec 3, 25</p></td>
+<td><p><strong>Class 24:</strong> Big Data — Scalability &amp; Cluster Computing</p></td>
 </tr>
-<tr class="row-even"><td><p>Wed, Sep 25, 24</p></td>
-<td><p><strong>Class 6:</strong> Scraping Web Data 2 — Creating a Network from Scraped Data</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Sep 26, 24</p></td>
-<td><p><strong>Class 7:</strong> Big Data 1 — Algorithmic Complexity &amp; Computing Paths</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Sep 27, 24</p></td>
-<td><p><strong>Assignment 1 due September 27</strong></p></td>
+<tr class="row-even"><td><p>Fri, Dec 5, 25</p></td>
+<td><p><strong>Class 25:</strong> Spatial Data, OSMnx, GeoPandas</p></td>
 </tr>
 <tr class="row-odd"><td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p>Wed, Oct 2, 24</p></td>
-<td><p><strong>Class 8:</strong> Data Science 1 — Pandas, SQL, Regressions</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Oct 3, 24</p></td>
-<td><p><strong>Class 9:</strong> Data Science 2 — Querying SQL Tables for Network Construction</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Oct 4, 24</p></td>
-<td><p><em>Announce Assignment 2</em></p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Oct 9, 24</p></td>
-<td><p><strong>Class 10:</strong> Clustering &amp; Community Detection 1 — Traditional</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Oct 10, 24</p></td>
-<td><p><strong>Class 11:</strong> Clustering &amp; Community Detection 2 — Contemporary</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Oct 11, 24</p></td>
+<tr class="row-even"><td><p>Mon, Dec 8, 25</p></td>
 <td><p>—</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p>Thu, Dec 11, 25</p></td>
+<td><p><strong>Class 26:</strong> Final Presentations</p></td>
 </tr>
-<tr class="row-even"><td><p>Wed, Oct 16, 24</p></td>
-<td><p><strong>Class 12:</strong> Visualization 1 — Python + Gephi</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Oct 17, 24</p></td>
-<td><p><strong>Class 13:</strong> Project Update Presentations</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Oct 18, 24</p></td>
-<td><p><strong>Assignment 2 due October 18</strong></p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Oct 23, 24</p></td>
-<td><p><strong>Class 14:</strong> Introduction to Machine Learning 1 — General</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Oct 24, 24</p></td>
-<td><p><strong>Class 15:</strong> Introduction to Machine Learning 2 — Networks</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Oct 25, 24</p></td>
-<td><p><em>Announce Assignment 3</em></p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Oct 30, 24</p></td>
-<td><p><strong>Class 16:</strong> Visualization 2 — Guest Lecture (Pedro Cruz, Northeastern)</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Oct 31, 24</p></td>
-<td><p><strong>Class 17:</strong> Dynamics on Networks 1 — Diffusion and Random Walks</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Nov 1, 24</p></td>
+<tr class="row-even"><td><p>Fri, Dec 12, 25</p></td>
 <td><p>—</p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Nov 6, 24</p></td>
-<td><p><strong>Class 18:</strong> Dynamics on Networks 2 — Compartmental Models</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Nov 7, 24</p></td>
-<td><p><strong>Class 19:</strong> Dynamics on Networks 3 — Agent-Based Models</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Nov 8, 24</p></td>
-<td><p><strong>Assignment 3 due November 8</strong></p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Nov 13, 24</p></td>
-<td><p><strong>Class 20:</strong> Big Data 2 — Scalability</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Nov 14, 24</p></td>
-<td><p><strong>Class 21:</strong> Network Sampling</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Nov 15, 24</p></td>
-<td><p>—</p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Nov 20, 24</p></td>
-<td><p><strong>Class 22:</strong> Network Filtering/Thresholding</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Nov 21, 24</p></td>
-<td><p><strong>Class 23:</strong> Dynamic of Networks: Temporal Networks</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Nov 22, 24</p></td>
-<td><p>—</p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Nov 27, 24</p></td>
-<td><p>Thanksgiving Break (No Class)</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Nov 28, 24</p></td>
-<td><p>—</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Nov 29, 24</p></td>
-<td><p>—</p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Dec 4, 24</p></td>
-<td><p><strong>Class 24:</strong> Instructor’s Choice: Spatial Data, OSMNX, GeoPandas</p></td>
-</tr>
-<tr class="row-odd"><td><p>Thu, Dec 5, 24</p></td>
-<td><p><strong>Class 25:</strong> Wiggle Room Class / Office Hours</p></td>
-</tr>
-<tr class="row-even"><td><p>Fri, Dec 6, 24</p></td>
-<td><p>—</p></td>
-</tr>
-<tr class="row-odd"><td><p></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p>Wed, Dec 11, 24</p></td>
-<td><p><strong>Class 26: Final Presentations</strong></p></td>
 </tr>
 </tbody>
 </table>
@@ -744,43 +751,46 @@ document.write(`
 </section>
 </section>
 <hr class="docutils" />
-<section id="discovery-cluster">
-<h2>Discovery Cluster<a class="headerlink" href="#discovery-cluster" title="Link to this heading">#</a></h2>
+<section id="explorer-cluster">
+<h2>Explorer Cluster<a class="headerlink" href="#explorer-cluster" title="Link to this heading">#</a></h2>
 <p>From Research Computing at Northeastern: “The Northeastern University HPC Cluster is a high-powered, multi-node, parallel computing system designed to meet the computational and data-intensive needs of various academic and industry-oriented research projects. The cluster incorporates cutting-edge computing technologies and robust storage solutions, providing an efficient and scalable environment for large-scale simulations, complex calculations, artificial intelligence, machine learning, big data analytics, bioinformatics, and more.</p>
 <p>Whether you are a seasoned user or just beginning your journey into high-performance computing, our portal offers comprehensive resources, including in-depth guides, tutorials, best practices, and troubleshooting tips. Furthermore, the platform provides a streamlined interface to monitor, submit, and manage your computational jobs on the HPC cluster.</p>
 <p>We invite you to explore the resources, tools, and services available through the portal. Join us as we endeavor to harness the power of high-performance computing, enabling breakthroughs in research and fostering innovation at Northeastern University.” (<a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/index.html">https://rc-docs.northeastern.edu/en/latest/index.html</a>)</p>
 <section id="documentation">
 <h3>Documentation:<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Getting started: <a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/gettingstarted/index.html">https://rc-docs.northeastern.edu/en/latest/gettingstarted/index.html</a></p></li>
+<li><p>Getting started: <a class="reference external" href="https://rc-docs.northeastern.edu/en/explorer-main/">https://rc-docs.northeastern.edu/en/explorer-main/</a></p></li>
 </ul>
 </section>
 <section id="trainings">
 <h3>Trainings:<a class="headerlink" href="#trainings" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Video and tutorial files for getting started on the Discovery cluster: <a class="reference external" href="https://rc.northeastern.edu/support/training/">https://rc.northeastern.edu/support/training/</a></p></li>
+<li><p>Video and tutorial files for getting started on the Explorer cluster: <a class="reference external" href="https://rc.northeastern.edu/support/training/">https://rc.northeastern.edu/support/training/</a></p></li>
 </ul>
 </section>
 <section id="open-ondemand-ood">
 <h3>Open OnDemand (OOD)<a class="headerlink" href="#open-ondemand-ood" title="Link to this heading">#</a></h3>
 <p>“Open OnDemand empowers students, researchers, and industry professionals with remote web access to supercomputers.” (<a class="reference external" href="https://openondemand.org/">https://openondemand.org/</a>)</p>
 <p>Open OnDemand is a software platform that provides an easy-to-use web interface for accessing and managing high-performance computing (HPC) resources. It simplifies the process of submitting jobs, managing files, and running interactive applications on HPC systems without the need for complex command-line interactions. For the class this fall, we’ll be using Open OnDemand to give students hands-on experience with HPC resources, letting us run simulations, analyze large datasets, and explore computational tools in a user-friendly environment. This is designed to let students focus on learning and applying computational techniques without getting bogged down by technical complexities.</p>
-<p><img alt="" src="notebooks/class_00/images/ood_home_screen.png" /></p>
+<p><img alt="" src="../../_images/ood_home_screen.png" /></p>
 <hr class="docutils" />
 <section id="interacting-with-ood">
 <h4>Interacting with OOD<a class="headerlink" href="#interacting-with-ood" title="Link to this heading">#</a></h4>
 <p>Open OnDemand Documentation: <a class="reference external" href="https://osc.github.io/ood-documentation/latest/">https://osc.github.io/ood-documentation/latest/</a></p>
-<p><strong>Interactive Apps:</strong>
-<img alt="" src="notebooks/class_00/images/ood_home_interactiveapps_tab.png" /></p>
+<hr class="docutils" />
+<p><strong>Standard Apps:</strong>
+<img alt="" src="../../_images/ood_home_standardapps_tab.png" /></p>
+<p><strong>Specialized Apps:</strong>
+<img alt="" src="../../_images/ood_home_specializedapps_tab.png" /></p>
 <hr class="docutils" />
 <p><strong>Courses:</strong>
-<img alt="" src="notebooks/class_00/images/ood_home_courses_tab.png" /></p>
+<img alt="" src="../../_images/ood_home_courses_tab.png" /></p>
 </section>
 </section>
 <hr class="docutils" />
 <section id="our-very-own-partition">
 <h3>Our Very Own Partition<a class="headerlink" href="#our-very-own-partition" title="Link to this heading">#</a></h3>
-<p><img alt="" src="notebooks/class_00/images/discovery_classroom_integration.png" /></p>
+<p><img alt="" src="../../_images/explorer_classroom_integration.png" /></p>
 </section>
 <hr class="docutils" />
 <section id="jupyter-notebook-server">
@@ -795,15 +805,15 @@ document.write(`
 </section>
 <section id="class-virtual-environment">
 <h4>Class Virtual Environment<a class="headerlink" href="#class-virtual-environment" title="Link to this heading">#</a></h4>
-<p>Our class has a shared virtual environment that you can access once you use <code class="docutils literal notranslate"><span class="pre">module</span></code> to load <code class="docutils literal notranslate"><span class="pre">conda</span></code>. <code class="docutils literal notranslate"><span class="pre">module</span></code> is a tool that’s frequently used on computing clusters to load software packages on demand. <a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/software/packagemanagers/conda.html">Here’s</a> some information on loading <code class="docutils literal notranslate"><span class="pre">conda</span></code> on Discovery, and <a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/software/systemwide/modules.html">here’s</a> some information on <code class="docutils literal notranslate"><span class="pre">module</span></code>. First, you need to request a compute node on Discovery. We’ll go to Open On Demand (<a class="reference external" href="https://ood.discovery.neu.edu">https://ood.discovery.neu.edu</a>) and open up an interactive shell:
-<img alt="opening an interactive shell" src="notebooks/class_00/images/ood_terminal_screenshot.png" /></p>
+<p>Our class has a shared virtual environment that you can access once you use <code class="docutils literal notranslate"><span class="pre">module</span></code> to load <code class="docutils literal notranslate"><span class="pre">conda</span></code>. <code class="docutils literal notranslate"><span class="pre">module</span></code> is a tool that’s frequently used on computing clusters to load software packages on demand. <a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/software/packagemanagers/conda.html">Here’s</a> some information on loading <code class="docutils literal notranslate"><span class="pre">conda</span></code> on Explorer, and <a class="reference external" href="https://rc-docs.northeastern.edu/en/latest/software/systemwide/modules.html">here’s</a> some information on <code class="docutils literal notranslate"><span class="pre">module</span></code>. First, you need to request a compute node on Explorer. We’ll go to Open On Demand (<a class="reference external" href="https://ood.explorer.northeastern.edu/">https://ood.explorer.northeastern.edu/</a>) and open up an interactive shell:
+<img alt="opening an interactive shell" src="../../_images/ood_terminal_screenshot.png" /></p>
 <p>Once you’re in the interactive shell, request a compute node:</p>
 <p><code class="docutils literal notranslate"><span class="pre">srun</span> <span class="pre">--partition=short</span> <span class="pre">--nodes=1</span> <span class="pre">--cpus-per-task=1</span> <span class="pre">--pty</span> <span class="pre">/bin/bash</span></code></p>
 <p>And then you’ll load <code class="docutils literal notranslate"><span class="pre">conda</span></code>:</p>
-<p><code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">anaconda3/2022.05</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">anaconda3/2024.06</span></code></p>
 <p>From here, we can load the class virtual environment:</p>
-<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">activate</span> <span class="pre">/courses/PHYS7332.202510/shared/phys7332-env</span></code></p>
-<p>You should see <code class="docutils literal notranslate"><span class="pre">(/courses/PHYS7332.202510/shared/phys7332-env)</span></code> in front of your command prompt in the Discovery terminal.</p>
+<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">activate</span> <span class="pre">/courses/PHYS7332.202610/shared/phys7332-env</span></code></p>
+<p>You should see <code class="docutils literal notranslate"><span class="pre">(/courses/PHYS7332.202610/shared/phys7332-env)</span></code> in front of your command prompt in the Explorer terminal.</p>
 </section>
 </section>
 </section>
@@ -812,64 +822,67 @@ document.write(`
 <h2>GitHub<a class="headerlink" href="#github" title="Link to this heading">#</a></h2>
 <section id="what-is-github">
 <h3>What is GitHub?<a class="headerlink" href="#what-is-github" title="Link to this heading">#</a></h3>
-<p>GitHub is a website that implements <code class="docutils literal notranslate"><span class="pre">git</span></code>. <code class="docutils literal notranslate"><span class="pre">git</span></code> is a piece of open-source software that does distributed version control. This is really important for big teams making changes simultaneously to a large codebase. Git lets people document and track their code, and its various versions, so they can collaborate more efficiently.</p>
+<p>GitHub is a website that implements <code class="docutils literal notranslate"><span class="pre">git</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span></code> is a piece of open-source software that does distributed version control. This is really important for big teams making changes simultaneously to a large codebase. Git lets people document and track their code, and its various versions, so they can collaborate more efficiently.</p>
 <p>On Github, you’ll keep your code in what’s called a <em>repository</em>. That’s a chunk of code that all works together. You can download a repository to your own computer, make changes to it, and <em>push</em> them to the repository on GitHub. Then your changes will be reflected in the version of the repository that’s on GitHub, and anyone can download the version with your changes in it.</p>
-<p>Our class has a repository that’s available <a class="reference external" href="https://github.com/asmithh/student-network-science-data-book">here</a>. You will download a <em>fork</em> of the repository to make your very own. Occasionally we’ll update the repository and you’ll need to incorporate the updates; we’ll explain how to do that in a second.</p>
+<p>Our class has a repository that’s available at <a class="reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/"><strong>https://github.com/network-science-data-and-models/phys7332_fa25/</strong></a>. You will download a <em>fork</em> of the repository to make your very own. Occasionally we’ll update the repository and you’ll need to incorporate the updates; we’ll explain how to do that in a second.</p>
+<p><img alt="a screenshot of the github repo with fork command" src="../../_images/github_class_screen.png" /></p>
+</section>
 <section id="forking-and-maintaining-the-class-repository">
-<h4>Forking and Maintaining The Class Repository<a class="headerlink" href="#forking-and-maintaining-the-class-repository" title="Link to this heading">#</a></h4>
+<h3>Forking and Maintaining The Class Repository<a class="headerlink" href="#forking-and-maintaining-the-class-repository" title="Link to this heading">#</a></h3>
 <p>First, let’s fork the repository. Go to the repository GitHub link. You’ll see a little icon on the top left that says “Fork”. Click on it:
-<img alt="a screenshot of the github repo with fork command" src="notebooks/class_00/images/github_create_fork_screen.png" /></p>
+<img alt="a screenshot of the github repo with fork command" src="../../_images/github_create_fork_screen.png" /></p>
 <p>Once you’ve clicked the fork button, you’ll get this screen:</p>
-<p><img alt="a screenshot of fork creation" src="notebooks/class_00/images/github_fork_screenshot.png" />
+<p><img alt="a screenshot of fork creation" src="../../_images/github_fork_screenshot.png" />
 Make sure you’re listed as the owner and create the fork.
-Then you’ll clone your fork in the Discovery terminal using the URL obtained via the green <code class="docutils literal notranslate"><span class="pre">Code</span></code> buttion:
-<img alt="a screenshot of the clone button" src="notebooks/class_00/images/github_clone_repo.png" /></p>
+Then you’ll clone your fork in the Explorer terminal using the URL obtained via the green <code class="docutils literal notranslate"><span class="pre">Code</span></code> buttion:
+<img alt="a screenshot of the clone button" src="../../_images/github_clone_repo.png" /></p>
 <p>We’re going to first navigate to your folder in our course partition:</p>
-<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/courses/PHYS7332.202510/students/USERNAME</span></code> where <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code> is your Northeastern username. Then we’ll clone the repo:</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/courses/PHYS7332.202610/students/USERNAME</span></code> where <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code> is your Northeastern username. Then we’ll clone the repo:</p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">[URL</span> <span class="pre">YOU</span> <span class="pre">COPIED]</span></code></p>
 <p>Now let’s set up a way to get updates from the original repo. Let’s <code class="docutils literal notranslate"><span class="pre">cd</span></code> into the repo:
 <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">REPO_FILEPATH</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span> <span class="pre">upstream</span> <span class="pre">https://github.com/asmithh/student-network-science-data-book.git</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span> <span class="pre">upstream</span> <span class="pre">https://github.com/network-science-data-and-models/phys7332_fa25.git</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">upstream</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">main</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">upstream/main</span></code></p>
-<p>This sets up the original version of the GitHub repo as an upstream source. Now we can, at any point, fetch the upstream source and merge it into our main branch, which is the main branch of your forked repository. You’ll be working in this forked repository in your <code class="docutils literal notranslate"><span class="pre">/courses/PHYS7332.202510/students/USERNAME</span></code> directory throughout the course. If you want to sync your forked version with the original version (as we will be adding new notebooks over the course of the class), you can run the following commands:</p>
+<p>This sets up the original version of the GitHub repo as an upstream source. Now we can, at any point, fetch the upstream source and merge it into our main branch, which is the main branch of your forked repository. You’ll be working in this forked repository in your <code class="docutils literal notranslate"><span class="pre">/courses/PHYS7332.202610/students/USERNAME</span></code> directory throughout the course. If you want to sync your forked version with the original version (as we will be adding new notebooks over the course of the class), you can run the following commands:</p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">upstream</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">main</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">upstream/main</span></code></p>
 <p>(Here’s a <a class="reference internal" href="#(https://stackoverflow.com/questions/7244321/how-do-i-update-or-sync-a-forked-repository-on-github)"><span class="xref myst">StackOverflow thread</span></a> explaining this in more detail.)</p>
 </section>
-</section>
 <hr class="docutils" />
 <section id="final-step-start-a-jupyter-lab-instance">
 <h3>Final step: Start a Jupyter Lab instance!<a class="headerlink" href="#final-step-start-a-jupyter-lab-instance" title="Link to this heading">#</a></h3>
 <p>Recall from earlier, the “Courses” tab:
-<img alt="" src="notebooks/class_00/images/ood_home_courses_tab.png" /></p>
-<p>Click on that, then fill in the following information (after you do this once, it’ll auto-populate for future classes):</p>
-<p><img alt="" src="notebooks/class_00/images/ood_launch_jupyter.png" /></p>
+<img alt="" src="../../_images/ood_home_courses_tab.png" /></p>
+<p>Click on that, then fill in the following information (after you do this once, it’ll auto-populate for future classes):
+<img alt="" src="../../_images/ood_launch_jupyter.png" /></p>
 <hr class="docutils" />
-<p><em>We’re in!</em>
-<img alt="" src="notebooks/class_00/images/ood_jupyter.png" /></p>
+<p><em><strong>We’re in!</strong></em>
+<img alt="" src="../../_images/ood_jupyter.png" /></p>
 <p>Now, navigate to this jupyter notebook, and get a feel for the notebooks, the folders, the files, etc. that you see.</p>
 </section>
 </section>
+<hr class="docutils" />
 <section id="fixing-github-problems-creating-a-one-stop-shop-for-git-updates">
 <h2>Fixing Github Problems &amp; Creating a One-Stop Shop For Git Updates<a class="headerlink" href="#fixing-github-problems-creating-a-one-stop-shop-for-git-updates" title="Link to this heading">#</a></h2>
 <p>We’re going to go through a series of steps to hopefully make updating the Github repo less of a pain in the butt in the long run!</p>
 <section id="setting-up-ssh-keys-with-github">
 <h3>Setting up SSH Keys with GitHub<a class="headerlink" href="#setting-up-ssh-keys-with-github" title="Link to this heading">#</a></h3>
-<p>First we’re going to set up SSH keys on Discovery and put them on GitHub. This lets us authenticate our identity to GitHub and makes it possible for us to push our changed code to our forked repository. Neat! First, let’s follow the tutorial <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">here</a> to create SSH keys, because they explain it way better than I can.
-Then you’ll add your <strong>public SSH key</strong> (the file that ends in <code class="docutils literal notranslate"><span class="pre">.pub</span></code>) to GitHub using <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">these instructions</a>. Label them something memorable, like <code class="docutils literal notranslate"><span class="pre">discovery</span> <span class="pre">key</span></code>, so you’ll know which machine(s) it’s attached to.</p>
+<p>First we’re going to set up SSH keys on Explorer and put them on GitHub. This lets us authenticate our identity to GitHub and makes it possible for us to push our changed code to our forked repository. Neat! First, let’s follow the tutorial <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">here</a> to create SSH keys, because they explain it way better than I can.
+Then you’ll add your <strong>public SSH key</strong> (the file that ends in <code class="docutils literal notranslate"><span class="pre">.pub</span></code>) to GitHub using <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">these instructions</a>. Label them something memorable, like <code class="docutils literal notranslate"><span class="pre">explorer</span> <span class="pre">key</span></code>, so you’ll know which machine(s) it’s attached to.</p>
 </section>
 <section id="syncing-the-fork">
 <h3>Syncing the Fork<a class="headerlink" href="#syncing-the-fork" title="Link to this heading">#</a></h3>
 <p>Now we’re going to sync our forked repository with the main student repository that I own. We can do this on GitHub, which is neat! This will incorporate all the fancy changes I made (okay, it’s basically one script) and let us test out the git update script. Go to your forked repository on GitHub; you’ll see a button that says <code class="docutils literal notranslate"><span class="pre">Sync</span> <span class="pre">fork</span></code>. Click on that; your screen should look something like this.</p>
-<p><img alt="" src="notebooks/class_00/images/sync_fork.png" /></p>
+<p><img alt="" src="../../_images/sync_fork.png" /></p>
 <p>Click the green button (<code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">branch</span></code>) to sync your fork with the main repository. Don’t discard any commits you may have made.</p>
 </section>
-<section id="going-to-discovery-and-trying-this-weird-script">
-<h3>Going to Discovery and Trying This Weird Script<a class="headerlink" href="#going-to-discovery-and-trying-this-weird-script" title="Link to this heading">#</a></h3>
-<p>Next we’ll go to Discovery and pull our new changes using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">main</span></code>. You should see a new file come up that is labeled <code class="docutils literal notranslate"><span class="pre">git_fixer.py</span></code>. That is going to (hopefully) be our new best friend for the near future.</p>
+<section id="going-to-explorer-and-trying-this-weird-script">
+<h3>Going to Explorer and Trying This Weird Script<a class="headerlink" href="#going-to-explorer-and-trying-this-weird-script" title="Link to this heading">#</a></h3>
+<p>Next we’ll go to Explorer and pull our new changes using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">main</span></code>. You should see a new file come up that is labeled <code class="docutils literal notranslate"><span class="pre">git_fixer.py</span></code>. That is going to (hopefully) be our new best friend for the near future.</p>
 <p>Now, make some modifications to <code class="docutils literal notranslate"><span class="pre">class_00_github_computing_setup.ipynb</span></code>. You can just add comments at the end or get fancier; do what your heart desires.</p>
 <p>Next, we’ll run <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">git_fixer.py</span></code>. If this script works well enough, it should create a version of any files that you’ve modified from the original that have <code class="docutils literal notranslate"><span class="pre">MODIFIED_{a</span> <span class="pre">bunch</span> <span class="pre">of</span> <span class="pre">numbers}.ipynb</span></code> at the end of the filename. It will also update any files that have been modified on my end and add any new files that I’ve created in my repository.</p>
 <p>Finally, run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>. You may need to add and commit the changes to <strong>your fork</strong> so you have your modified notebooks (ideally with your notes and added code) on GitHub in your forked repository. Then push them (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">main</span></code>) so they’re reflected in your forked repository.</p>
@@ -890,12 +903,12 @@ Then you’ll add your <strong>public SSH key</strong> (the file that ends in <c
 <ol class="arabic simple">
 <li><p>Class Webpages</p>
 <ul class="simple">
-<li><p>Jupyter Book: <a class="reference external" href="https://asmithh.github.io/network-science-data-book/intro.html">https://asmithh.github.io/network-science-data-book/intro.html</a></p></li>
-<li><p>Github: <a class="github reference external" href="https://github.com/asmithh/network-science-data-book">asmithh/network-science-data-book</a></p></li>
-<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall24">https://brennanklein.com/phys7332-fall24</a></p></li>
+<li><p>Jupyter Book: <a class="reference external" href="https://network-science-data-and-models.github.io/phys7332_fa25/README.html">https://network-science-data-and-models.github.io/phys7332_fa25/README.html</a></p></li>
+<li><p>Github: <a class="github reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/">network-science-data-and-models/phys7332_fa25</a></p></li>
+<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a></p></li>
 </ul>
 </li>
-<li><p>Discovery Cluster “OOD”: <a class="reference external" href="https://ood.discovery.neu.edu/">https://ood.discovery.neu.edu/</a></p>
+<li><p>Explorer Cluster “OOD”: <a class="reference external" href="https://ood.explorer.neu.edu/">https://ood.explorer.neu.edu/</a></p>
 <ul class="simple">
 <li><p>Open OnDemand Documentation: <a class="reference external" href="https://osc.github.io/ood-documentation/latest/">https://osc.github.io/ood-documentation/latest/</a></p></li>
 </ul>
@@ -970,6 +983,7 @@ Then you’ll add your <strong>public SSH key</strong> (the file that ends in <c
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#welcome-to-phys-7332-network-science-data-ii">Welcome to PHYS 7332 - Network Science Data II</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-course-works">How The Course Works</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#course-learning-outcomes">Course Learning Outcomes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#course-materials">Course Materials</a></li>
@@ -990,7 +1004,7 @@ Then you’ll add your <strong>public SSH key</strong> (the file that ends in <c
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schedule">Schedule</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discovery-cluster">Discovery Cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explorer-cluster">Explorer Cluster</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainings">Trainings:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-ondemand-ood">Open OnDemand (OOD)</a><ul class="nav section-nav flex-column">
@@ -1007,17 +1021,15 @@ Then you’ll add your <strong>public SSH key</strong> (the file that ends in <c
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-github">What is GitHub?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#forking-and-maintaining-the-class-repository">Forking and Maintaining The Class Repository</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-github">What is GitHub?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forking-and-maintaining-the-class-repository">Forking and Maintaining The Class Repository</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-step-start-a-jupyter-lab-instance">Final step: Start a Jupyter Lab instance!</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixing-github-problems-creating-a-one-stop-shop-for-git-updates">Fixing Github Problems &amp; Creating a One-Stop Shop For Git Updates</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-ssh-keys-with-github">Setting up SSH Keys with GitHub</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#syncing-the-fork">Syncing the Fork</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-to-discovery-and-trying-this-weird-script">Going to Discovery and Trying This Weird Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-to-explorer-and-trying-this-weird-script">Going to Explorer and Trying This Weird Script</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-forward">Going Forward</a></li>
 </ul>
 </li>
