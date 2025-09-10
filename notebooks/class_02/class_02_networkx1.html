@@ -1,0 +1,2253 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Class 2: Introduction to Networkx 1 — Graph Objects, Properties, Importing Data &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_02/class_02_networkx1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Class 1: Python Refresher, Data Structures, Numpy" href="../class_01/class_01_python_refresher.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PHYS 7332: Network Science Data & Models (Fall 2025)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    PHYS 7332: Network Science Data & Models – Fall 2025
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../class_00/class_00_github_computing_setup.html">Class 00: Introduction and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_01/class_01_python_refresher.html">Class 01: Python Refresher</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Class 02: Introduction to Networkx 1</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_02/class_02_networkx1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/class_02/class_02_networkx1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Class 2: Introduction to Networkx 1 — Graph Objects, Properties, Importing Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-definitions">Basic Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-representations">Network Representations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjacency-matrices-and-network-properties">Adjacency Matrices and Network Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sanity-check-and-little-networkx-preview">Sanity check (and little <code class="docutils literal notranslate"><span class="pre">networkx</span></code> preview)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diving-into-networkx">Diving into <code class="docutils literal notranslate"><span class="pre">networkx</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-objects">Graph objects</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#note-on-bipartite-networks">Note on Bipartite Networks</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#note-on-multigraphs">Note on Multigraphs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-nodes">Adding nodes:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-edges">Adding edges:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-node-and-edge-attributes">Adding node and edge attributes</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-nodes-and-edges">Removing Nodes and Edges</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-operations-and-descriptions-of-the-network">Basic operations and descriptions of the network</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-number-of-nodes-and-links-in-the-graph">Get the number of nodes and links in the graph</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connectivity-components-subgraphs">Connectivity &amp; Components &amp; Subgraphs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#components">Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bowtie-structures-of-directed-graphs">“Bowtie” Structures of Directed Graphs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#network-properties">Network Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#neighbors-and-degrees">Neighbors and Degrees</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-random-graphs">Generating Random Graphs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-random-graph-models">Static Random Graph Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#erdos-renyi-model-s">Erdős-Rényi Model(s)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#random-geometric-graphs">Random geometric graphs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your turn!</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-input-output">Data Input/Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#online-data-resources">Online Data Resources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#network-data-formats">Network Data Formats</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-output-of-network-data-the-polblogs-dataset">Input / output of network data: The “Polblogs” dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-way-to-make-this-network">Step-by-step way to make this network:</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#connectivity-patterns-between-liberal-and-conservative-blogs">Connectivity patterns between liberal and conservative blogs</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#components-strongly-vs-weakly-connected-components">Components (strongly vs weakly connected components)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-paths-and-path-lengths">Preview: Paths and Path Lengths</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-polblogs-data">Visualizing the PolBlogs data</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#input-output-2-bipartite-network-of-paul-revere">Input/Output 2: Bipartite Network of Paul Revere</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="class-2-introduction-to-networkx-1-graph-objects-properties-importing-data">
+<h1>Class 2: Introduction to Networkx 1 — Graph Objects, Properties, Importing Data<a class="headerlink" href="#class-2-introduction-to-networkx-1-graph-objects-properties-importing-data" title="Link to this heading">#</a></h1>
+<p>Goal of today’s class:</p>
+<ol class="arabic simple">
+<li><p>Introduce basic network properties</p></li>
+<li><p>Show various network data input/output approaches</p></li>
+<li><p>Calculate basic network properties from scratch (and their <code class="docutils literal notranslate"><span class="pre">networkx</span></code> analogs)</p></li>
+</ol>
+<hr class="docutils" />
+<ol class="arabic simple">
+<li><p>Come in. Sit down. Open Teams.</p></li>
+<li><p>Find your notebook in your /Class_02/ folder.</p></li>
+</ol>
+<hr class="docutils" />
+<section id="basic-definitions">
+<h2>Basic Definitions<a class="headerlink" href="#basic-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>An <em><strong>undirected graph</strong></em> <span class="math notranslate nohighlight">\(G\)</span> is defined by a pair of sets <span class="math notranslate nohighlight">\(G = (V,E)\)</span>, where <span class="math notranslate nohighlight">\(V\)</span> is a non-empty countable set of elements referred to as <em>nodes</em> or <em>vertices</em> and <span class="math notranslate nohighlight">\(E\)</span> is a set of <em>non-ordered</em> pairs of different vertices, known as <em>edges</em> or <em>links</em>.</p></li>
+<li><p>A <em><strong>directed graph</strong></em> (sometimes shorthanded to “digraph”) is defined by a pair of sets <span class="math notranslate nohighlight">\(G = (V,E)\)</span>, where <span class="math notranslate nohighlight">\(V\)</span> is non-empty countable set of elements, <em>nodes</em> or <em>vertices</em>, and <span class="math notranslate nohighlight">\(E\)</span> is a set of <em>ordered</em> pairs of different vertices, <strong>directed</strong> <em>edges</em> or <em>links</em>.</p></li>
+</ul>
+<p>Let us denote the <strong>total number of nodes</strong> in the graph as <span class="math notranslate nohighlight">\(N\)</span> (also referred to as the <strong>cardinality</strong> of the set <span class="math notranslate nohighlight">\(V\)</span>, or sometimes the <strong>order</strong> of the graph) and the <strong>total number of edges</strong> as <span class="math notranslate nohighlight">\(M\)</span>.</p>
+<p>The <strong>density</strong> of the graph is the number of edges of graph <span class="math notranslate nohighlight">\(G\)</span> divided by the maximum possible number of edges:</p>
+<ul class="simple">
+<li><p>in an <em>undirected graph</em>, density = <span class="math notranslate nohighlight">\(\dfrac{2 M}{N(N-1)}\)</span></p></li>
+<li><p>in an <em>directed graph</em>, density = <span class="math notranslate nohighlight">\(\dfrac{M}{N(N-1)}\)</span></p></li>
+</ul>
+</section>
+<section id="network-representations">
+<h2>Network Representations<a class="headerlink" href="#network-representations" title="Link to this heading">#</a></h2>
+<p>Based on the basic definitions above, all we need to create a network is 1) a list of nodes, and 2) a list of which nodes are connected (i.e., edges). We say that two vertices <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> are adjacent or connected or (nearest) neighbors if there exists an edge <span class="math notranslate nohighlight">\(e_{ij} \in E\)</span> joining them. Note that if we assume that there are no nodes with zero connections, all we really need to represent our graph is a list of edges.</p>
+<p>For <strong>undirected graphs</strong>, an <strong>edgelist</strong> is a set of <em>non-ordered node pairs</em> where each pair represents a link between two nodes.</p>
+<p><img alt="../../images/graph_undirected.png" src="../../_images/graph_undirected.png" />
+Figure 1: Undirected Graph</p>
+<p>For example, in Figure 1 above, the undirected network has the following edgelist:
+<span class="math notranslate nohighlight">\(\left\{ (0,1),(0,2),(0,3),(0,4),(1,2),(1,3),(1,5),(2,3),(4,5) \right\}\)</span>.</p>
+<p><img alt="../../images/graph_directed.png" src="../../_images/graph_directed.png" />
+Figure 2: Directed Graph</p>
+<p>In the case of a <strong>directed graph</strong>, the edgelist is a set of <em>ordered node pairs</em>, where directionality of the connection is encoded in the order that the nodes are listed (i.e., the first node can be thought of as the <em>source</em>, and the second node as the <em>target</em>). As an example, the directed graph in Figure 2 above can be represented by the following edgelist: <span class="math notranslate nohighlight">\(\left\{ (0,1),(0,5),(1,2),(1,3),(2,5),(3,2),(4,0),(4,5) \right\}\)</span>.</p>
+<hr class="docutils" />
+<p>A graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> can be represented mathematically by an <span class="math notranslate nohighlight">\(N\times N\)</span> <em><strong>adjancency matrix</strong></em> <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = 
+\begin{pmatrix}
+    a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,N} \\
+    a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,N} \\
+    \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+    a_{N,1} &amp; a_{N,2} &amp; \cdots &amp; a_{N,N} 
+\end{pmatrix},\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\forall i,j \in V\)</span>,
+$<span class="math notranslate nohighlight">\(a_{ij} =
+\begin{cases}
+    1    &amp; \quad \text{if } e_{ij} \in E\\
+    0    &amp; \quad \text{if } e_{ij} \notin E\\
+\end{cases}\)</span>$</p>
+<p>In an <em>undirected graph</em>, the adjacency matrix <span class="math notranslate nohighlight">\(A\)</span> is symmetric such that <span class="math notranslate nohighlight">\(a_{ij} = a_{ji}\)</span>; in a <em>directed graph</em> the elements <span class="math notranslate nohighlight">\(a_{ij}\)</span> and <span class="math notranslate nohighlight">\(a_{ji}\)</span> are not necessarily equivalent (a property called <em>reciprocity</em>).</p>
+<p><strong>Note:</strong> A lot in network science leads back to <em>linear algebra</em>, a topic in mathematics that describes matrices and their properties. The fact that we can represent a network as a matrix opens a world of possible questions we can ask of the graphs we’ll be working with.</p>
+<p>Adjacency matrices also permit us to represent weighted edges, yielding a <em><strong>weighted graph</strong></em>, which is a network (undirected or directed) where we associate a value (usually a real number) to each edge. This weighted graph <span class="math notranslate nohighlight">\(G=(V,E,\Omega)\)</span>, then, we can define using with a <span class="math notranslate nohighlight">\(N\times N\)</span> <em>weighted adjancency matrix</em>, <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} W = 
+\begin{pmatrix}
+    w_{1,1} &amp; w_{1,2} &amp; \cdots &amp; w_{1,N} \\
+    w_{2,1} &amp; w_{2,2} &amp; \cdots &amp; w_{2,N} \\
+    \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+    w_{N,1} &amp; w_{N,2} &amp; \cdots &amp; w_{N,N} 
+\end{pmatrix},
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\forall i,j \in V\)</span>,
+$<span class="math notranslate nohighlight">\(w_{ij} =
+\begin{cases}
+    w    &amp; \quad \text{if } e_{ij} \in E\\
+    0    &amp; \quad \text{if } e_{ij} \notin E\\
+\end{cases}
+\)</span>$</p>
+<hr class="docutils" />
+<section id="adjacency-matrices-and-network-properties">
+<h3>Adjacency Matrices and Network Properties<a class="headerlink" href="#adjacency-matrices-and-network-properties" title="Link to this heading">#</a></h3>
+<p>Consider the undirected adjacency matrix, <span class="math notranslate nohighlight">\(A\)</span>, of the graph in Figure 1, above:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = 
+\begin{pmatrix}
+    0 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 0 \\
+    1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 1 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+    1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+\end{pmatrix}.\end{split}\]</div>
+<p>Often, working with an adjacency matrix is not ideal. Matrices are large objects, and the price we pay to loop over one node’s neighbors is high (i.e. <span class="math notranslate nohighlight">\(O(N)\)</span>), and it can be quite impractical when dealing with large but <strong>sparse</strong> graphs (networks for which the number of edges <span class="math notranslate nohighlight">\(|E|\)</span> in the graph scales as <span class="math notranslate nohighlight">\(|E| \sim N^\alpha\)</span> with <span class="math notranslate nohighlight">\(\alpha &lt;2\)</span>).</p>
+<p>For this reason, we can also consider storing a network using an <strong>adjacency list</strong> rather than an adjacency matrix. This lets us store a graph as a set of lists where each list is associated with each node and its list of neighbors. The table below shows the adjacency list for the graph in Figure 1.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Vertex</p></th>
+<th class="head"><p>Neighbors</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>[1,2,3,4]</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>[0,2,3,5]</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>[0,1,3]</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>[0,1,2]</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>[0,5]</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>[1,4]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="sanity-check-and-little-networkx-preview">
+<h4>Sanity check (and little <code class="docutils literal notranslate"><span class="pre">networkx</span></code> preview)<a class="headerlink" href="#sanity-check-and-little-networkx-preview" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">edgelist</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)]</span>
+
+<span class="n">adjacency_dict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+                  <span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+                  <span class="mi">2</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+                  <span class="mi">3</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                  <span class="mi">4</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+                  <span class="mi">5</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]}</span>
+
+<span class="n">adjacency_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                             <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                             <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                             <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                             <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                             <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+
+
+<span class="n">G1</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_edgelist</span><span class="p">(</span><span class="n">edgelist</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span>
+<span class="n">G2</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_dict_of_lists</span><span class="p">(</span><span class="n">adjacency_dict</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span>
+<span class="n">G3</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">adjacency_matrix</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G1</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G1</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;cornflowerblue&#39;</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;nx.from_edgelist&#39;</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G2</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;palevioletred&#39;</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;nx.from_dict_of_lists&#39;</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G3</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;goldenrod&#39;</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;nx.from_numpy_array&#39;</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;(they&#39;re all the same)&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f25ec7198e282b8191466cd6be877c0416776faa2a590d11e85725eb1825b535.png" src="../../_images/f25ec7198e282b8191466cd6be877c0416776faa2a590d11e85725eb1825b535.png" />
+</div>
+</div>
+<p>Nice!</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="diving-into-networkx">
+<h2>Diving into <code class="docutils literal notranslate"><span class="pre">networkx</span></code><a class="headerlink" href="#diving-into-networkx" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;3.5&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="graph-objects">
+<h3>Graph objects<a class="headerlink" href="#graph-objects" title="Link to this heading">#</a></h3>
+<p>From the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> documentation page:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;By definition, a Graph is a collection of nodes (vertices) along with identified pairs of nodes (called edges, links, etc). In NetworkX, nodes can be any hashable object e.g., a text string, an image, an XML object, another Graph, a customized node object, etc.&quot;
+</pre></div>
+</div>
+<p>Source: <a class="reference external" href="https://networkx.org/documentation/latest/tutorial.html">https://networkx.org/documentation/latest/tutorial.html</a></p>
+<hr class="docutils" />
+<section id="note-on-bipartite-networks">
+<h4>Note on Bipartite Networks<a class="headerlink" href="#note-on-bipartite-networks" title="Link to this heading">#</a></h4>
+<p>A <em><strong>bipartite</strong></em> graph (or “two-mode network”) is a graph with two distinct sets or classes of vertices, such that edges only exist <em>between</em> the two vertex types. Formally, a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is bipartite if the set of nodes <span class="math notranslate nohighlight">\(V\)</span> is composed by two distinct and disjoint sets <span class="math notranslate nohighlight">\(V_1, V_2\)</span> and all edges <span class="math notranslate nohighlight">\(e_{i,j} \in E\)</span> are such that <span class="math notranslate nohighlight">\(i\in V_1\)</span> and <span class="math notranslate nohighlight">\(j\in V_2\)</span>.</p>
+<p>A bipartite graph <span class="math notranslate nohighlight">\(G=(V = \{V_1,V_2\},E)\)</span> can be represented mathematically by a <span class="math notranslate nohighlight">\(N_1\times N_2\)</span> <em><strong>incidence matrix</strong></em>, <span class="math notranslate nohighlight">\(B\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split} B = 
+\begin{pmatrix}
+    b_{1,1} &amp; b_{1,2} &amp; \cdots &amp; b_{1,N_2} \\
+    \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+    b_{N_1,1} &amp; b_{N,2} &amp; \cdots &amp; b_{N_1,N_2} 
+\end{pmatrix},\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(N_1 = |V_1|\)</span>, <span class="math notranslate nohighlight">\(N_2 = |V_2|\)</span>, and <span class="math notranslate nohighlight">\(\forall i \in V_1\)</span> and <span class="math notranslate nohighlight">\(j \in V_2\)</span>,
+$<span class="math notranslate nohighlight">\(b_{i,j} =
+\begin{cases}
+    1    &amp; \quad \text{if } e_{i,j} \in E\\
+    0    &amp; \quad \text{if } e_{i,j} \notin E\\
+\end{cases}\)</span>$</p>
+<!-- In this example we are going to use a bipartite graph obtained collecting users <i>metadata</i>. <br>
+The analysis in this example is based on information gathered by our field agent Mr David Hackett Fischer and published in an Appendix to his report to the government. For more details consult: https://github.com/kjhealy/revere .
+ -->
+</section>
+<hr class="docutils" />
+<section id="note-on-multigraphs">
+<h4>Note on Multigraphs<a class="headerlink" href="#note-on-multigraphs" title="Link to this heading">#</a></h4>
+<p>The most common objects we’ll be using in <code class="docutils literal notranslate"><span class="pre">networkx</span></code> are <code class="docutils literal notranslate"><span class="pre">nx.Graph</span></code> and <code class="docutils literal notranslate"><span class="pre">nx.DiGraph</span></code>, but there are other classes of graphs that may be more suitable for describing certain processes. <code class="docutils literal notranslate"><span class="pre">networkx</span></code>’s <code class="docutils literal notranslate"><span class="pre">nx.MultiGraph</span></code> and <code class="docutils literal notranslate"><span class="pre">nx.MultiDiGraph</span></code> permit multiple edges (directed or not) to exist between pairs of nodes.</p>
+<p>For instance, consider a bipartite network projection where pairs of students share a connection if they are enrolled in the same class at the same time (e.g. this current class). What if two students are in more than one class together? What are different ways to imagine incorporating this into the graph structure? When might it matter?</p>
+<p><strong>Important to note</strong>: Some algorithms are not well-defined (or, are least, not clearly-defined) on multigraphs, for example there are multiple ways to imagine shortest paths, betweenness, clustering, etc. when there are multiple links connecting pairs of nodes.</p>
+<hr class="docutils" />
+<p><strong>First up:</strong> Let’s create two distinct empty graphs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span> <span class="c1"># undirected graph</span>
+<span class="n">digraph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span> <span class="c1"># directed graph</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-nodes">
+<h4>Adding nodes:<a class="headerlink" href="#adding-nodes" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can populate the graphs with some nodes, and we can do this in several ways:</span>
+
+<span class="c1"># 1) We can add one node at the time</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2) We can add nodes from a list or any other iterable container</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="c1"># notice that nodes can be strings</span>
+<span class="n">digraph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3) We can also directly add edges and if the node is not present, it will be added</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">&#39;brennan&#39;</span><span class="p">,</span><span class="s1">&#39;enya&#39;</span><span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20, &#39;brennan&#39;, &#39;enya&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-edges">
+<h4>Adding edges:<a class="headerlink" href="#adding-edges" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now that we added a bunch of nodes, we can add some edges</span>
+<span class="c1"># 1) We can add one edge at the time (as we have just witnessed above)</span>
+<span class="n">digraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">digraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">edges</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;a&#39;, &#39;b&#39;), (&#39;c&#39;, &#39;a&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2) We can add an entire edge list all at once</span>
+<span class="n">edge_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">)]</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edge_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can retrieve the list of edges in each graph by simply running</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(1, 20), (1, 2), (3, 5), (4, 9), (4, 7), (&#39;brennan&#39;, &#39;enya&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># When graphs are big (either in terms of the number of nodes or in terms of the number of edges),</span>
+<span class="c1"># it is more convenient to loop over &quot;iterators&quot; and not over lists.</span>
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 20)
+(1, 2)
+(3, 5)
+(4, 9)
+(4, 7)
+(&#39;brennan&#39;, &#39;enya&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can also retrieve the list of neighbors of a given node</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[20, 2]
+[&#39;c&#39;]
+[&#39;b&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-node-and-edge-attributes">
+<h4>Adding node and edge attributes<a class="headerlink" href="#adding-node-and-edge-attributes" title="Link to this heading">#</a></h4>
+<p>In <code class="docutils literal notranslate"><span class="pre">networkx</span></code>, we can add additional features to our graphs above and beyond simply nodes and edges. In particular, we can add <em>attributes</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For example, we might wanna add a &quot;size&quot; attribute to each node, </span>
+<span class="c1"># so we can use it once we decide to visualize a graph.</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20, &#39;brennan&#39;, &#39;enya&#39;, 50]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="c1"># the &quot;data=True&quot; bit means you want to see node attributes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(0, {}), (1, {}), (2, {}), (3, {}), (4, {}), (5, {}), (6, {}), (7, {}), (8, {}), (9, {}), (20, {}), (&#39;brennan&#39;, {}), (&#39;enya&#39;, {}), (50, {&#39;size&#39;: 100, &#39;weight&#39;: 90, &#39;height&#39;: 600})]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># or we might want to associate a &quot;weight&quot; to each edge we include in the graph</span>
+<span class="n">digraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="s1">&#39;monday&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;a&#39;, &#39;b&#39;, {&#39;weight&#39;: 10, &#39;timestamp&#39;: &#39;monday&#39;}), (&#39;c&#39;, &#39;a&#39;, {})]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># However, we might also want to add a new attribute to all nodes or edges already present in the graph.</span>
+<span class="c1"># This can be done using the &quot;set_node_attributes&quot; or &quot;set_edge_attributes&quot; methods provided by networkx:</span>
+
+<span class="n">new_node_attribute_values</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span><span class="mi">75</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">new_node_attribute_values</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">)</span>
+
+<span class="c1"># graph= the data you want, new_node_attribute_values is the variable you&#39;re adding,</span>
+<span class="c1"># &#39;size&#39;= is the name of the attribute</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(0, {&#39;size&#39;: 75}), (1, {&#39;size&#39;: 75}), (2, {&#39;size&#39;: 75}), (3, {&#39;size&#39;: 75}), (4, {&#39;size&#39;: 75}), (5, {&#39;size&#39;: 75}), (6, {&#39;size&#39;: 75}), (7, {&#39;size&#39;: 75}), (8, {&#39;size&#39;: 75}), (9, {&#39;size&#39;: 75}), (20, {&#39;size&#39;: 75}), (&#39;brennan&#39;, {&#39;size&#39;: 75}), (&#39;enya&#39;, {&#39;size&#39;: 75}), (50, {&#39;size&#39;: 75, &#39;weight&#39;: 90, &#39;height&#39;: 600})]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_edge_attribute_values</span> <span class="o">=</span> <span class="p">{</span><span class="n">edge</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span> <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">()}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">set_edge_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">new_edge_attribute_values</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{(1, 20): &#39;blue&#39;,
+ (1, 2): &#39;blue&#39;,
+ (3, 5): &#39;blue&#39;,
+ (4, 9): &#39;blue&#39;,
+ (4, 7): &#39;blue&#39;,
+ (&#39;brennan&#39;, &#39;enya&#39;): &#39;blue&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(1, 20, {&#39;color&#39;: &#39;blue&#39;}), (1, 2, {&#39;color&#39;: &#39;blue&#39;}), (3, 5, {&#39;color&#39;: &#39;blue&#39;}), (4, 9, {&#39;color&#39;: &#39;blue&#39;}), (4, 7, {&#39;color&#39;: &#39;blue&#39;}), (&#39;brennan&#39;, &#39;enya&#39;, {&#39;color&#39;: &#39;blue&#39;})]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="removing-nodes-and-edges">
+<h4>Removing Nodes and Edges<a class="headerlink" href="#removing-nodes-and-edges" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can remove all nodes and edges</span>
+<span class="n">digraph</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Or simply remove some of the nodes/edges one item at the time</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">remove_node</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...or several items all at once</span>
+<span class="n">edge_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">)]</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">remove_edges_from</span><span class="p">(</span><span class="n">edge_list</span><span class="p">)</span>
+
+<span class="n">node_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">remove_nodes_from</span><span class="p">(</span><span class="n">node_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="basic-operations-and-descriptions-of-the-network">
+<h3>Basic operations and descriptions of the network<a class="headerlink" href="#basic-operations-and-descriptions-of-the-network" title="Link to this heading">#</a></h3>
+<section id="get-the-number-of-nodes-and-links-in-the-graph">
+<h4>Get the number of nodes and links in the graph<a class="headerlink" href="#get-the-number-of-nodes-and-links-in-the-graph" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">)]</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edge_list</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of nodes: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">graph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of edges: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">graph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of nodes: 14
+Number of edges: 6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of nodes (&#39;len&#39;): </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of nodes (&#39;order&#39;): </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">graph</span><span class="o">.</span><span class="n">order</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of edges (&#39;size&#39;): </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">graph</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of nodes (&#39;len&#39;): 14
+Number of nodes (&#39;order&#39;): 14
+Number of edges (&#39;size&#39;): 6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;My graph&#39;</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;My graph&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="connectivity-components-subgraphs">
+<h4>Connectivity &amp; Components &amp; Subgraphs<a class="headerlink" href="#connectivity-components-subgraphs" title="Link to this heading">#</a></h4>
+<p>A graph is said to be <em><strong>connected</strong></em> if there exists a path connecting any two vertices in the graph. An undirected &amp; connected graph without closed loops is known as a <strong>tree</strong>.</p>
+<p>A graph <span class="math notranslate nohighlight">\(G'= (V',E')\)</span> is said to be a <em><strong>subgraph</strong></em> of graph <span class="math notranslate nohighlight">\(G= (V,E)\)</span> if <span class="math notranslate nohighlight">\(N' \subseteq N\)</span> and <span class="math notranslate nohighlight">\(E' \subseteq E\)</span>. A graph <span class="math notranslate nohighlight">\(G'= (V',E')\)</span> <em><strong>vertex-induced subgraph</strong></em> (or, more colloqially, an  <em><strong>induced subgraph</strong></em>) is a graph that includes only a subset of <span class="math notranslate nohighlight">\(V' \subseteq V\)</span> of vertices of graph <span class="math notranslate nohighlight">\(G= (V,E)\)</span> and any edge <span class="math notranslate nohighlight">\(e_{ij}\)</span> whose vertices <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> are both in <span class="math notranslate nohighlight">\(V'\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">graph</span><span class="p">);</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;nx.is_connected(G):&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">graph</span><span class="p">),</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nx.is_connected(G): False 
+</pre></div>
+</div>
+<img alt="../../_images/9052ce86a505b87b64fbea85b2aeb6d3b975c92c23a83cfade2b08ebef04bab3.png" src="../../_images/9052ce86a505b87b64fbea85b2aeb6d3b975c92c23a83cfade2b08ebef04bab3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">);</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;nx.is_connected(G):&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">G</span><span class="p">),</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nx.is_connected(G): True 
+</pre></div>
+</div>
+<img alt="../../_images/67840f3f8159348b367327308fd1d26145dbd845884b1be3a3971442b4c333eb.png" src="../../_images/67840f3f8159348b367327308fd1d26145dbd845884b1be3a3971442b4c333eb.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="components">
+<h4>Components<a class="headerlink" href="#components" title="Link to this heading">#</a></h4>
+<p>A <em><strong>component</strong></em> <span class="math notranslate nohighlight">\(C\)</span> of a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is a connected subgraph of <span class="math notranslate nohighlight">\(G\)</span>. The <em><strong>largest connected component</strong></em> is simply the connected component with the most nodes in the network. The <em><strong>giant component</strong></em> of a graph is defined as the component whose size scales with the number of vertices of the graph (i.e. it diverges in the limit <span class="math notranslate nohighlight">\(N\rightarrow\infty\)</span>).</p>
+<p>In a <em>directed graph</em>, a we have to introduce the notions of <em>strong</em> and <em>weak</em> when defining connected components. A <em><strong>weakly connected component</strong></em> is a connected subgraph where we consider all paths disregarding the direction of the edges and considering the graph <em>as if</em> it were undirected. <em><strong>Strongly connected components</strong></em> are connected subgraphs where edge direction plays an important factor.</p>
+<section id="bowtie-structures-of-directed-graphs">
+<h5>“Bowtie” Structures of Directed Graphs<a class="headerlink" href="#bowtie-structures-of-directed-graphs" title="Link to this heading">#</a></h5>
+<p>If we define two more subgraph structures…</p>
+<ul class="simple">
+<li><p><em><strong>tendrils</strong></em> formed by nodes for which it does not exist a directed path that allows them to reach the GSCC, or to be reached from the GSCC;</p></li>
+<li><p><em><strong>tubes</strong></em> formed by nodes that belong to a directed path connecting GIN to GOUT without crossing the GSCC.</p></li>
+</ul>
+<p>…we complete what’s known as the “bowtie” structure of directed graphs.</p>
+<img src="../../images/bowtie.png" alt="bowtie" width="500"><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_directed</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_directed</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_directed</span><span class="p">);</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;nx.is_weakly_connected(G_directed):&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">is_weakly_connected</span><span class="p">(</span><span class="n">G_directed</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;nx.is_strongly_connected(G_directed):&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">is_strongly_connected</span><span class="p">(</span><span class="n">G_directed</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nx.is_weakly_connected(G_directed): True
+nx.is_strongly_connected(G_directed): True
+</pre></div>
+</div>
+<img alt="../../_images/8e6f90feb3e3f07191caacc645722f98bad4432dae6b9a176fed43a8c08ae5d9.png" src="../../_images/8e6f90feb3e3f07191caacc645722f98bad4432dae6b9a176fed43a8c08ae5d9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_union</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">rename</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">))))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G_union</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/15cb17da396180ced351c5edf3706c38bb0a99b2cf159efacb18fc45b684bd44.png" src="../../_images/15cb17da396180ced351c5edf3706c38bb0a99b2cf159efacb18fc45b684bd44.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># connected components</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object connected_components at 0x7f20d0e3a240&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33}]
+1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_union</span><span class="o">.</span><span class="n">remove_node</span><span class="p">(</span><span class="s1">&#39;00&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G_union</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">largest_cc</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G_union</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
+<span class="n">largest_cc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;10&#39;,
+ &#39;11&#39;,
+ &#39;110&#39;,
+ &#39;111&#39;,
+ &#39;112&#39;,
+ &#39;113&#39;,
+ &#39;114&#39;,
+ &#39;115&#39;,
+ &#39;116&#39;,
+ &#39;117&#39;,
+ &#39;118&#39;,
+ &#39;119&#39;,
+ &#39;12&#39;,
+ &#39;120&#39;,
+ &#39;121&#39;,
+ &#39;122&#39;,
+ &#39;123&#39;,
+ &#39;124&#39;,
+ &#39;125&#39;,
+ &#39;126&#39;,
+ &#39;127&#39;,
+ &#39;128&#39;,
+ &#39;129&#39;,
+ &#39;13&#39;,
+ &#39;130&#39;,
+ &#39;131&#39;,
+ &#39;132&#39;,
+ &#39;133&#39;,
+ &#39;14&#39;,
+ &#39;15&#39;,
+ &#39;16&#39;,
+ &#39;17&#39;,
+ &#39;18&#39;,
+ &#39;19&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To create the induced subgraph of each component use:</span>
+<span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="n">G_union</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G_union</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">S</span><span class="p">):</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Connected component: </span><span class="si">%i</span><span class="s1"> (N=</span><span class="si">%i</span><span class="s1">)&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">s</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()))</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/94cc1cfa20b68f9086772c6c9bc24298bc55409ed703be9eeaed2ce3eb718efb.png" src="../../_images/94cc1cfa20b68f9086772c6c9bc24298bc55409ed703be9eeaed2ce3eb718efb.png" />
+</div>
+</div>
+<p>See <a class="reference external" href="https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.components.connected_components.html">https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.components.connected_components.html</a> for more information about graphs and subgraphs.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="network-properties">
+<h3>Network Properties<a class="headerlink" href="#network-properties" title="Link to this heading">#</a></h3>
+<section id="neighbors-and-degrees">
+<h4>Neighbors and Degrees<a class="headerlink" href="#neighbors-and-degrees" title="Link to this heading">#</a></h4>
+<p>The <strong>degree</strong> <span class="math notranslate nohighlight">\(k\)</span> of a vertex is the number of neighbors of that node (i.e., its number of edges).</p>
+<p>In an <em>undirected graph</em>, the degree of a node <span class="math notranslate nohighlight">\(i\)</span> can be easily computed from the adjancency matrix <span class="math notranslate nohighlight">\(A\)</span> by counting the number of 1’s either over columns or over rows: <span class="math notranslate nohighlight">\(k_i = \sum_{j}a_{i,j} = \sum_{j}a_{j,i}\)</span>.</p>
+<p>In <em>directed graphs</em>, we can compute the number of edges pointing towards a given node <span class="math notranslate nohighlight">\(i\)</span>,
+the <strong>in-degree</strong> of node <span class="math notranslate nohighlight">\(i\)</span>, as: <span class="math notranslate nohighlight">\(k_i^{in} = \sum_{j}a_{j,i}\)</span>; <br></p>
+<p>or the number of edges pointing outwards a given node <span class="math notranslate nohighlight">\(j\)</span>,
+the <strong>out-degree</strong> of node <span class="math notranslate nohighlight">\(i\)</span>, as: <span class="math notranslate nohighlight">\(k_i^{out} = \sum_{j}a_{i,j}\)</span>.<br></p>
+<p>Then, the <strong>total degree</strong> of node <span class="math notranslate nohighlight">\(i\)</span> in a <em>directed</em> graph can be computed as: <span class="math notranslate nohighlight">\(k_i = k_i^{in} + k_i^{out}\)</span>.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">networkx</span></code>, degree is a view of single node or of <code class="docutils literal notranslate"><span class="pre">nbunch</span></code> of nodes. If nbunch is omitted, then return degrees of <em>all</em> nodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nx.degree<span class="o">?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+<span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DegreeView({0: 16, 1: 9, 2: 10, 3: 6, 4: 3, 5: 4, 6: 4, 7: 4, 8: 5, 9: 2, 10: 3, 11: 1, 12: 2, 13: 5, 14: 2, 15: 2, 16: 2, 17: 2, 18: 2, 19: 3, 20: 2, 21: 2, 22: 2, 23: 5, 24: 3, 25: 3, 26: 2, 27: 4, 28: 3, 29: 4, 30: 4, 31: 6, 32: 12, 33: 17})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Degree of node </span><span class="si">%i</span><span class="s2"> is </span><span class="si">%i</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">node_i</span><span class="p">,</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">node_i</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Degree of node 0 is 16
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">48</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+<span class="ne">AttributeError</span>: &#39;DegreeView&#39; object has no attribute &#39;keys&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dict</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 16,
+ 1: 9,
+ 2: 10,
+ 3: 6,
+ 4: 3,
+ 5: 4,
+ 6: 4,
+ 7: 4,
+ 8: 5,
+ 9: 2,
+ 10: 3,
+ 11: 1,
+ 12: 2,
+ 13: 5,
+ 14: 2,
+ 15: 2,
+ 16: 2,
+ 17: 2,
+ 18: 2,
+ 19: 3,
+ 20: 2,
+ 21: 2,
+ 22: 2,
+ 23: 5,
+ 24: 3,
+ 25: 3,
+ 26: 2,
+ 27: 4,
+ 28: 3,
+ 29: 4,
+ 30: 4,
+ 31: 6,
+ 32: 12,
+ 33: 17}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degree_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Wait a second though… isn’t the Karate Club a weighted graph?</p>
+<p>The <em><strong>strength</strong></em> <span class="math notranslate nohighlight">\(s\)</span> of a node isthe sum of the weights of edges connecting a given node and its neighbors. For an <em>undirected</em> weighted graph, the strength of node <span class="math notranslate nohighlight">\(i\)</span> can be computed from the weighted adjancency matrix <span class="math notranslate nohighlight">\(W\)</span> by summing the values of the weights either over the columns or over rows: <span class="math notranslate nohighlight">\(s_i = \sum_{j}w_{ij} = \sum_{j}w_{ji}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DegreeView({0: 42, 1: 29, 2: 33, 3: 18, 4: 8, 5: 14, 6: 13, 7: 13, 8: 17, 9: 3, 10: 8, 11: 3, 12: 4, 13: 17, 14: 5, 15: 7, 16: 6, 17: 3, 18: 3, 19: 5, 20: 4, 21: 4, 22: 5, 23: 21, 24: 7, 25: 14, 26: 6, 27: 13, 28: 6, 29: 13, 30: 11, 31: 21, 32: 38, 33: 48})
+</pre></div>
+</div>
+</div>
+</div>
+<p>In <em>directed</em> weighted graphs, we compute the sum of the weights of the in/out edges of node <span class="math notranslate nohighlight">\(i\)</span>; the <em><strong>in-strength</strong></em> of node <span class="math notranslate nohighlight">\(i\)</span> is <span class="math notranslate nohighlight">\(s_i^{in} = \sum_{j}w_{ji}\)</span>, and the <em><strong>out-strength</strong></em> of node <span class="math notranslate nohighlight">\(i\)</span> is: <span class="math notranslate nohighlight">\(s_i^{out} = \sum_{j}w_{ij}\)</span>.</p>
+<p>Therefore, the <em><strong>total strength</strong></em> of node <span class="math notranslate nohighlight">\(i\)</span> in a <em>directed</em> graph can be computed as: <span class="math notranslate nohighlight">\(s_i = s_i^{in} + s_i^{out}\)</span>.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="generating-random-graphs">
+<h2>Generating Random Graphs<a class="headerlink" href="#generating-random-graphs" title="Link to this heading">#</a></h2>
+<section id="static-random-graph-models">
+<h3>Static Random Graph Models<a class="headerlink" href="#static-random-graph-models" title="Link to this heading">#</a></h3>
+<section id="erdos-renyi-model-s">
+<h4>Erdős-Rényi Model(s)<a class="headerlink" href="#erdos-renyi-model-s" title="Link to this heading">#</a></h4>
+<p>The original formulation: a <span class="math notranslate nohighlight">\(G_{(N,M)}\)</span> graph is constructed starting from a set <span class="math notranslate nohighlight">\(V\)</span> of <span class="math notranslate nohighlight">\(N\)</span> different vertices connected at random by <span class="math notranslate nohighlight">\(M\)</span> edges (Erdős and Rényi, 1959; 1960; 1961).</p>
+<p>A variation of this model proposed by Gilbert (1959) constructs a <span class="math notranslate nohighlight">\(G_{(N,p)}\)</span> graph from a set <span class="math notranslate nohighlight">\(V\)</span> of <span class="math notranslate nohighlight">\(N\)</span> different vertices in which each of the possibile <span class="math notranslate nohighlight">\(\frac{N(N-1)}{2}\)</span> edges is present with probability <span class="math notranslate nohighlight">\(p\)</span> (the <em>connection probability</em>).</p>
+<p>The two models are statistically equivalent as <span class="math notranslate nohighlight">\(N \rightarrow \infty\)</span> with:</p>
+<div class="math notranslate nohighlight">
+\[ \dfrac{pN(N-1)}{2} = E \]</div>
+<!-- The exact ___degree distribution___ $P(k)$ of an Erdos-Renyi graph is a __Binomial distribution__:
+
+$$ P(k) = \binom{N-1}{k} p^k (1-p)^{N-1-k},$$
+
+in the limit for $N>> \langle k \rangle$ the ___degree distribution___ $P(k)$ can be approximated by the __Poisson distribution__:
+$$ P(k) = e^{-\langle k \rangle}\frac{\langle k \rangle^k}{k!} $$ --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">p</span><span class="o">*</span><span class="n">N</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span>
+<span class="n">av_deg</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">p</span>
+<span class="n">er</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">p</span><span class="p">)</span> 
+<span class="c1"># the function called erdos_renyi actually generates the Gilbert variation of the model</span>
+
+<span class="c1">## To generate the original Erdős-Rényi graph use</span>
+<span class="c1"># er = nx.gnm_random_graph(N,int(E))</span>
+
+<span class="c1">## And to generate the Gilbert graph you can also use</span>
+<span class="c1"># g = nx.gnp_random_graph(N,p)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The average number of edges in this graph is:</p>
+<div class="math notranslate nohighlight">
+\[ \langle E \rangle = \dfrac{N(N-1)p}{2}, \]</div>
+<p>and the average degree is:</p>
+<div class="math notranslate nohighlight">
+\[ \langle k \rangle = \frac{2\langle E \rangle}{N} = (N-1)p \simeq Np .\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the average number of edges generated in the construction of the graph</span>
+<span class="n">exp_E</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">N</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">p</span> 
+
+<span class="n">B</span> <span class="o">=</span> <span class="mi">2000</span> <span class="c1"># number of replications</span>
+<span class="n">actual_E</span> <span class="o">=</span> <span class="p">[</span><span class="n">nx</span><span class="o">.</span><span class="n">gnp_random_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">B</span><span class="p">)]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Expected mean number of edges: </span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">exp_E</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Actual mean number of edges: </span><span class="si">%1.2f</span><span class="s2"> (</span><span class="si">%d</span><span class="s2"> replications)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">actual_E</span><span class="p">),</span><span class="n">B</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Expected mean number of edges: 49.50
+Actual mean number of edges: 49.53 (2000 replications)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_spring</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">]</span><span class="o">*</span><span class="n">N</span><span class="p">,</span>
+                   <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Accent&#39;</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;.5&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p=</span><span class="si">%.3f</span><span class="s1">$&#39;</span><span class="o">%</span><span class="k">p</span>)
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Comparison of Erdős-Rényi graphs ($N=</span><span class="si">%i</span><span class="s1">$, varying $p$)&#39;</span><span class="o">%</span><span class="k">N</span>,
+             <span class="n">y</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/502489970464924369ee8fdff3dbc68a0562e1260fb5179ac7be21b0bd874b79.png" src="../../_images/502489970464924369ee8fdff3dbc68a0562e1260fb5179ac7be21b0bd874b79.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="random-geometric-graphs">
+<h4>Random geometric graphs<a class="headerlink" href="#random-geometric-graphs" title="Link to this heading">#</a></h4>
+<p>Erdős-Rényi graphs are quite powerful, useful objects, despite their lack of realism. The model requires few (two) parameters, which can often allow them to be easily studied analytically numerically. Another similar family of random graphs is known as <em><strong>random geometric graphs</strong></em>. Constructing a random geometric graph (RGG) involves randomly assigning <span class="math notranslate nohighlight">\(N\)</span> nodes to positions on a geometric surface, then connecting each pair of nodes according to some function of their distance <span class="math notranslate nohighlight">\(d(i,j)\)</span>.</p>
+<p>A simple version of this is to place <span class="math notranslate nohighlight">\(N\)</span> nodes uniformly at random in the unit square, and connect every pair of nodes if the distance between the nodes is at most radius <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_geometric_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">]</span><span class="o">*</span><span class="n">N</span><span class="p">,</span>
+            <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Accent&#39;</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;.5&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$r=</span><span class="si">%.3f</span><span class="s1">$&#39;</span><span class="o">%</span><span class="k">r</span>)
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Comparison of random geometric graphs ($N=</span><span class="si">%i</span><span class="s1">$, varying $r$)&#39;</span><span class="o">%</span><span class="k">N</span>,
+             <span class="n">y</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/3a25666ecb584634ade4dee0c53e83845612bff9c004e3cee7af179a5aba0a24.png" src="../../_images/3a25666ecb584634ade4dee0c53e83845612bff9c004e3cee7af179a5aba0a24.png" />
+</div>
+</div>
+</section>
+<section id="your-turn">
+<h4>Your turn!<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h4>
+<p>In <code class="docutils literal notranslate"><span class="pre">networkx</span></code> there are many ways to create graphs, functions known as graph generators.</p>
+<p>Pick three graph generators from this list (that you haven’t heard of!), and adapt the graph visualization code above to visualize small samples from each ensemble <a class="reference external" href="https://networkx.org/documentation/stable/reference/generators.html">https://networkx.org/documentation/stable/reference/generators.html</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="data-input-output">
+<h2>Data Input/Output<a class="headerlink" href="#data-input-output" title="Link to this heading">#</a></h2>
+<section id="online-data-resources">
+<h3>Online Data Resources<a class="headerlink" href="#online-data-resources" title="Link to this heading">#</a></h3>
+<p>There are many online resources that share network data to play around with.</p>
+<ul class="simple">
+<li><p>Network Repository (<a class="reference external" href="https://networkrepository.com/">https://networkrepository.com/</a>)</p></li>
+<li><p>Netzschleuder (<a class="reference external" href="https://networks.skewed.de/">https://networks.skewed.de/</a>)</p></li>
+<li><p>Index of Complex Networks, aka ICON (<a class="reference external" href="https://icon.colorado.edu/">https://icon.colorado.edu/</a>)</p></li>
+<li><p>Mark Newman’s collection (<a class="reference external" href="https://public.websites.umich.edu/~mejn/netdata/">https://public.websites.umich.edu/~mejn/netdata/</a>)</p></li>
+<li><p>Awesome Network Analysis (<a class="github reference external" href="https://github.com/briatte/awesome-network-analysis?tab=readme-ov-file#datasets">briatte/awesome-network-analysis</a>)</p></li>
+</ul>
+</section>
+<section id="network-data-formats">
+<h3>Network Data Formats<a class="headerlink" href="#network-data-formats" title="Link to this heading">#</a></h3>
+<p><a name="formats"></a>
+There are a number of established network file formats that you may used for existing datasets. In the most basic form, all file formats must include: a. A list of nodes (perhaps with associated attributes) b. A list of edges (perhaps with associated attributes). Different file formats will store this in different, and some provide features that others don’t. Here we ask you to look at a few file formats:</p>
+<ul class="simple">
+<li><p>Edgelist or CSV (<a class="reference external" href="https://networkx.org/documentation/stable/reference/readwrite/index.html">https://networkx.org/documentation/stable/reference/readwrite/index.html</a>)</p></li>
+<li><p>GraphML (<a class="reference external" href="https://networkx.org/documentation/stable/reference/readwrite/graphml.html">https://networkx.org/documentation/stable/reference/readwrite/graphml.html</a>)</p></li>
+<li><p>GML (<a class="reference external" href="https://networkx.org/documentation/stable/reference/readwrite/gml.html">https://networkx.org/documentation/stable/reference/readwrite/gml.html</a>)</p></li>
+<li><p>Gephi (<a class="reference external" href="https://networkx.org/documentation/stable/reference/readwrite/gexf.html">https://networkx.org/documentation/stable/reference/readwrite/gexf.html</a>)</p></li>
+<li><p>JSON (<a class="reference external" href="https://networkx.org/documentation/stable/reference/readwrite/json_graph.html">https://networkx.org/documentation/stable/reference/readwrite/json_graph.html</a>)</p></li>
+</ul>
+<p>We typically will use edgelist formats, but GraphML files are often quite useful for storing and transmitting edge/node attribute data.</p>
+</section>
+<section id="input-output-of-network-data-the-polblogs-dataset">
+<h3>Input / output of network data: The “Polblogs” dataset<a class="headerlink" href="#input-output-of-network-data-the-polblogs-dataset" title="Link to this heading">#</a></h3>
+<p><strong>Source:</strong> <a class="reference external" href="https://doi.org/10.1145/1134271.1134277https://doi.org/10.1145/1134271.1134277">Adamic, L. A., &amp; Glance, N. (2005)</a>. The political blogosphere and the 2004 US election: Divided they blog. In <em>Proceedings of the 3rd International Workshop on Link Discovery</em> (pp. 36-43).</p>
+<p>In the following we will learn how to load a directed graph, extract a vertex-induced subgraph, and compute the in- and out-degree of the vertices of the graph. We will use a directed graph that includes a collection of hyperlinks between weblogs on US politics, recorded in 2005 by Adamic and Glance.</p>
+<p>The data are included in two tab-separated files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">polblogs_nodes.tsv</span></code>: node id, node label, political orientation (0 = left or liberal, 1 = right or conservative).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">polblogs_edges.tsv</span></code>: source node id, target node id.</p></li>
+</ul>
+<section id="step-by-step-way-to-make-this-network">
+<h4>Step-by-step way to make this network:<a class="headerlink" href="#step-by-step-way-to-make-this-network" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>One-by-one add nodes (blogs)</p></li>
+<li><p>Connect nodes based on hyperlinks between blogs</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">digraph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/polblogs_nodes_class.tsv&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="n">node_id</span><span class="p">,</span> <span class="n">node_label</span><span class="p">,</span> <span class="n">node_political</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">political_orientation</span> <span class="o">=</span> <span class="s1">&#39;liberal&#39;</span> <span class="k">if</span> <span class="n">node_political</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="k">else</span> <span class="s1">&#39;conservative&#39;</span>
+        <span class="n">digraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="n">website</span><span class="o">=</span><span class="n">node_label</span><span class="p">,</span> <span class="n">political_orientation</span><span class="o">=</span><span class="n">political_orientation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/polblogs_edges_class.tsv&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="n">source_node_id</span><span class="p">,</span> <span class="n">target_node_id</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">digraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">source_node_id</span><span class="p">,</span> <span class="n">target_node_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of nodes: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">digraph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of edges: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">digraph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Graph density:</span><span class="se">\t</span><span class="s2"> </span><span class="si">%1.7f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nx</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">digraph</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of nodes: 1490
+Number of edges: 19025
+Graph density:	 0.0085752
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degree</span> <span class="o">=</span> <span class="n">digraph</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span>
+<span class="n">in_degree</span> <span class="o">=</span> <span class="n">digraph</span><span class="o">.</span><span class="n">in_degree</span><span class="p">()</span>
+<span class="n">out_degree</span> <span class="o">=</span> <span class="n">digraph</span><span class="o">.</span><span class="n">out_degree</span><span class="p">()</span>
+
+<span class="c1"># I ususally make this a dictionary straight away</span>
+<span class="n">degree</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">degree</span><span class="p">)</span>
+<span class="n">in_degree</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">in_degree</span><span class="p">)</span>
+<span class="n">out_degree</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">out_degree</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">degree</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">7</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Node&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;is connected to&#39;</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s1">&#39;other nodes&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...... and so on&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 0 is connected to 27 other nodes
+Node 1 is connected to 48 other nodes
+Node 2 is connected to 0 other nodes
+Node 3 is connected to 0 other nodes
+Node 4 is connected to 4 other nodes
+Node 5 is connected to 1 other nodes
+Node 6 is connected to 1 other nodes
+...
+...... and so on
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Degree of node </span><span class="si">%s</span><span class="s1">: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">degree</span><span class="p">[</span><span class="n">node</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;In-degree of node </span><span class="si">%s</span><span class="s1">: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">in_degree</span><span class="p">[</span><span class="n">node</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Out-degree of node </span><span class="si">%s</span><span class="s1">: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">out_degree</span><span class="p">[</span><span class="n">node</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Node </span><span class="si">%s</span><span class="s2">&#39;s political orientation: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">digraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;political_orientation&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average degree: </span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">degree</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average in-degree: </span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">in_degree</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average out-degree: </span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">out_degree</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Degree of node 0: 27
+In-degree of node 0: 12
+Out-degree of node 0: 15
+Node 0&#39;s political orientation: liberal
+
+Average degree: 25.54
+Average in-degree: 12.77
+Average out-degree: 12.77
+</pre></div>
+</div>
+</div>
+</div>
+<section id="connectivity-patterns-between-liberal-and-conservative-blogs">
+<h5>Connectivity patterns between liberal and conservative blogs<a class="headerlink" href="#connectivity-patterns-between-liberal-and-conservative-blogs" title="Link to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let us define two sets:</span>
+<span class="c1"># 1) a set of &quot;liberal&quot; nodes</span>
+<span class="c1"># 2) a set of &quot;conservative&quot; nodes</span>
+
+<span class="n">liberal</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">conservative</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">digraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+
+    <span class="k">if</span> <span class="n">digraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">][</span><span class="s1">&#39;political_orientation&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;liberal&#39;</span><span class="p">:</span>
+        <span class="n">liberal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">conservative</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of liberal blogs: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">liberal</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of conservative blogs: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">conservative</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of liberal blogs: 758
+Number of conservative blogs: 732
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s now compute:</p>
+<ol class="arabic simple">
+<li><p>the number of edges between liberal blogs</p></li>
+<li><p>the number of edges between conservative blogs</p></li>
+<li><p>the number of edges from conservative blogs to liberal blogs</p></li>
+<li><p>the number of edges from liberal blogs to conservative blogs</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">liberal_liberal</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">conservative_conservative</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">liberal_conservative</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">conservative_liberal</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">source_node_id</span><span class="p">,</span> <span class="n">target_node_id</span> <span class="ow">in</span> <span class="n">digraph</span><span class="o">.</span><span class="n">edges</span><span class="p">():</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">source_node_id</span> <span class="ow">in</span> <span class="n">liberal</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">target_node_id</span> <span class="ow">in</span> <span class="n">liberal</span><span class="p">):</span>
+        <span class="n">liberal_liberal</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+    <span class="k">elif</span> <span class="p">(</span><span class="n">source_node_id</span> <span class="ow">in</span> <span class="n">liberal</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">target_node_id</span> <span class="ow">in</span> <span class="n">conservative</span><span class="p">):</span>
+        <span class="n">liberal_conservative</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+    <span class="k">elif</span> <span class="p">(</span><span class="n">source_node_id</span> <span class="ow">in</span> <span class="n">conservative</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">target_node_id</span> <span class="ow">in</span> <span class="n">liberal</span><span class="p">):</span>
+        <span class="n">conservative_liberal</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">conservative_conservative</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of edges between liberal blogs: </span><span class="si">%d</span><span class="s2"> (</span><span class="si">%1.3f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">liberal_liberal</span><span class="p">,</span> 
+                                       <span class="n">liberal_liberal</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">())</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of edges between conservative blogs: </span><span class="si">%d</span><span class="s2"> (</span><span class="si">%1.3f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">conservative_conservative</span><span class="p">,</span> 
+                                            <span class="n">conservative_conservative</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">())</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of edges from liberal to conservative blogs: </span><span class="si">%d</span><span class="s2"> (</span><span class="si">%1.3f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">liberal_conservative</span><span class="p">,</span> 
+                                                    <span class="n">liberal_conservative</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">())</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of edges from conservative to liberal blogs: </span><span class="si">%d</span><span class="s2"> (</span><span class="si">%1.3f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">conservative_liberal</span><span class="p">,</span> 
+                                                    <span class="n">conservative_liberal</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">())</span> <span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of edges between liberal blogs: 8387 (0.441)
+Number of edges between conservative blogs: 8955 (0.471)
+Number of edges from liberal to conservative blogs: 781 (0.041)
+Number of edges from conservative to liberal blogs: 902 (0.047)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="components-strongly-vs-weakly-connected-components">
+<h5>Components (strongly vs weakly connected components)<a class="headerlink" href="#components-strongly-vs-weakly-connected-components" title="Link to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Number of components</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of weakly connected components: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nx</span><span class="o">.</span><span class="n">number_weakly_connected_components</span><span class="p">(</span><span class="n">digraph</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of strongly connected components: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nx</span><span class="o">.</span><span class="n">number_strongly_connected_components</span><span class="p">(</span><span class="n">digraph</span><span class="p">))</span>
+
+<span class="c1"># Find the size of the giant weakly connected component</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">digraph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+<span class="n">wccs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">weakly_connected_components</span><span class="p">(</span><span class="n">digraph</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gwcc</span> <span class="o">=</span> <span class="n">digraph</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">wccs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Size of the weakly giant connected component: </span><span class="si">%d</span><span class="s2"> (</span><span class="si">%1.2f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gwcc</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">gwcc</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="p">))</span>
+
+<span class="c1"># Find the size of the giant strongly connected component</span>
+<span class="n">sccs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">strongly_connected_components</span><span class="p">(</span><span class="n">digraph</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gscc</span> <span class="o">=</span> <span class="n">digraph</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">sccs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Size of the strongly giant connected component: </span><span class="si">%d</span><span class="s2"> (</span><span class="si">%1.2f</span><span class="s2">)&quot;</span> <span class="o">%</span>  <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gscc</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">gscc</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of weakly connected components: 268
+Number of strongly connected components: 688
+Size of the weakly giant connected component: 1222 (0.82)
+Size of the strongly giant connected component: 793 (0.53)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preview-paths-and-path-lengths">
+<h5>Preview: Paths and Path Lengths<a class="headerlink" href="#preview-paths-and-path-lengths" title="Link to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">gscc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is the graph directed?&quot;</span><span class="p">,</span><span class="n">graph</span><span class="o">.</span><span class="n">is_directed</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average shortest-path length: </span><span class="si">%1.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Graph radius: </span><span class="si">%1.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nx</span><span class="o">.</span><span class="n">radius</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Graph diameter: </span><span class="si">%1.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nx</span><span class="o">.</span><span class="n">diameter</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">to_undirected</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average shortest-path length: </span><span class="si">%1.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Graph radius: </span><span class="si">%1.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nx</span><span class="o">.</span><span class="n">radius</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Graph diameter: </span><span class="si">%1.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nx</span><span class="o">.</span><span class="n">diameter</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Is the graph directed? True
+Average shortest-path length: 3.189
+Graph radius: 5.000
+Graph diameter: 8.000
+
+Average shortest-path length: 2.424
+Graph radius: 3.000
+Graph diameter: 5.000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-the-polblogs-data">
+<h5>Visualizing the PolBlogs data<a class="headerlink" href="#visualizing-the-polblogs-data" title="Link to this heading">#</a></h5>
+<p>(helpful color website: <a class="reference external" href="http://tools.medialab.sciences-po.fr/iwanthue/">http://tools.medialab.sciences-po.fr/iwanthue/</a>)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patheffects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">path_effects</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">rc</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;savefig&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">axisbelow</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#c5c03a&quot;</span><span class="p">,</span><span class="s2">&quot;#7275d7&quot;</span><span class="p">,</span><span class="s2">&quot;#8fb755&quot;</span><span class="p">,</span><span class="s2">&quot;#c361bd&quot;</span><span class="p">,</span><span class="s2">&quot;#5ec384&quot;</span><span class="p">,</span><span class="s2">&quot;#d3537a&quot;</span><span class="p">,</span><span class="s2">&quot;#3fe0d8&quot;</span><span class="p">,</span><span class="s2">&quot;#cb6b3b&quot;</span><span class="p">]</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="o">*</span><span class="mf">1.75</span><span class="p">,</span><span class="mf">1.5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+
+<span class="n">xvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">([</span><span class="n">xvals</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">xvals</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]],</span>
+                     <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">xvals</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">xvals</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]]),</span><span class="mf">0.5</span><span class="p">,</span><span class="s1">&#39;Index = </span><span class="si">%i</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;.1&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;x-large&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Example list of colors (variable name `cols`)&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/79da958ddd74a4db13194b13615ecda8e18bb156b98556275b2bfa6c7f8a2ee6.png" src="../../_images/79da958ddd74a4db13194b13615ecda8e18bb156b98556275b2bfa6c7f8a2ee6.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get the political leanings and assign them to colors</span>
+<span class="n">leanings</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span><span class="s1">&#39;political_orientation&#39;</span><span class="p">)</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">leaning</span><span class="o">==</span><span class="s1">&#39;conservative&#39;</span> <span class="k">else</span> <span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> \
+               <span class="k">for</span> <span class="n">leaning</span> <span class="ow">in</span> <span class="n">leanings</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+
+<span class="n">edge_colors</span> <span class="o">=</span> <span class="s1">&#39;.4&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># first assign nodes to a position in the pos dictionary</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+
+<span class="c1"># then draw the nodes</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span>
+                       <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="c1">## without node outlines</span>
+<span class="c1"># nx.draw_networkx_nodes(graph, pos, node_color=node_colors, node_size=50, alpha=0.9, ax=ax)</span>
+
+<span class="c1"># then draw the edges</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hyperlinks between Political Blogs</span><span class="se">\n</span><span class="s1">(Adamic &amp; Glance, 2005)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+<span class="n">legend_node0</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+<span class="n">legend_node1</span> <span class="o">=</span> <span class="s1">&#39;1000&#39;</span>
+
+<span class="c1">##### just for adding legend, is unnecessary #####</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="n">legend_node0</span><span class="p">:</span><span class="n">pos</span><span class="p">[</span><span class="n">legend_node0</span><span class="p">]},</span> <span class="n">nodelist</span><span class="o">=</span><span class="p">[</span><span class="n">legend_node0</span><span class="p">],</span> 
+                       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;liberal blogs&#39;</span><span class="p">,</span> 
+                       <span class="n">node_color</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="n">legend_node1</span><span class="p">:</span><span class="n">pos</span><span class="p">[</span><span class="n">legend_node1</span><span class="p">]},</span> <span class="n">nodelist</span><span class="o">=</span><span class="p">[</span><span class="n">legend_node1</span><span class="p">],</span> 
+                       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;conservative blogs&#39;</span><span class="p">,</span>
+                       <span class="n">node_color</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">)</span>
+
+<span class="c1">## I tend to save two figures each time:</span>
+<span class="c1">## - one png, which is good for slides, and</span>
+<span class="c1">## - one pdf, which is good for papers</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pngs/PolBlogs_network.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pdfs/PolBlogs_network.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/18740cb3e155805ee8137646383544c4e9fa1675670427a1394078d1f077cc74.png" src="../../_images/18740cb3e155805ee8137646383544c4e9fa1675670427a1394078d1f077cc74.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="input-output-2-bipartite-network-of-paul-revere">
+<h4>Input/Output 2: Bipartite Network of Paul Revere<a class="headerlink" href="#input-output-2-bipartite-network-of-paul-revere" title="Link to this heading">#</a></h4>
+<p>In this example we are going to use a bipartite graph obtained collecting users <em>metadata</em>.</p>
+<p>The analysis in this example is based on information gathered by our field agent Mr. David Hackett Fischer and published in an Appendix to his report to the government. For more details consult: <a class="github reference external" href="https://github.com/kjhealy/revere">kjhealy/revere</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># reading Paul Revere data line by line; print the first few lines to get a sense of the data</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/PaulRevereAppD.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span> 
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">z</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>,StAndrewsLodge,LoyalNine,NorthCaucus,LongRoomClub,TeaParty,BostonCommittee,LondonEnemies
+Adams.John,0,0,1,1,0,0,0
+Adams.Samuel,0,0,1,1,0,1,1
+Allen.Dr,0,0,1,0,0,0,0
+Appleton.Nathaniel,0,0,1,0,0,1,0
+Ash.Gilbert,1,0,0,0,0,0,0
+Austin.Benjamin,0,0,0,0,0,0,1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># reading Paul Revere data line by line</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+
+<span class="n">societies</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;StAndrewsLodge&#39;</span><span class="p">,</span><span class="s1">&#39;LoyalNine&#39;</span><span class="p">,</span><span class="s1">&#39;NorthCaucus&#39;</span><span class="p">,</span><span class="s1">&#39;LongRoomClub&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;TeaParty&#39;</span><span class="p">,</span><span class="s1">&#39;BostonCommittee&#39;</span><span class="p">,</span><span class="s1">&#39;LondonEnemies&#39;</span><span class="p">]</span>
+<span class="n">individuals</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/PaulRevereAppD.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">node_incidence_i</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">node_id_i</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">node_incidence_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">individuals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id_i</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">ij</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">node_incidence_i</span><span class="p">[</span><span class="mi">1</span><span class="p">:])):</span>
+                <span class="k">if</span> <span class="n">node_incidence_i</span><span class="p">[</span><span class="mi">1</span><span class="p">:][</span><span class="n">ij</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node_id_i</span><span class="p">,</span> <span class="n">societies</span><span class="p">[</span><span class="n">ij</span><span class="p">])</span>
+
+        <span class="n">z</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">individuals</span><span class="p">)</span>
+<span class="n">N2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">societies</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of individuals: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">N1</span>)
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of organizations: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">N2</span>)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of individuals: 254
+Number of organizations: 7
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">is_bipartite</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>A <em><strong>bipartite</strong></em> graph (or two-mode network) is a graph with two distinct node types and links that only connect across node type.</p>
+<p>Formally, a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is bipartite if the set of nodes <span class="math notranslate nohighlight">\(V\)</span> is composed by two distinct and disjoint sets <span class="math notranslate nohighlight">\(V_1,V_2\)</span> and all edges <span class="math notranslate nohighlight">\(e_{i,j} \in E\)</span> are such that <span class="math notranslate nohighlight">\(i\in V_1\)</span> and <span class="math notranslate nohighlight">\(j\in V_2\)</span>.</p>
+<p>A bipartite graph <span class="math notranslate nohighlight">\(G=(V = \{V_1,V_2\},E)\)</span> can be represented by an <span class="math notranslate nohighlight">\(N_1\times N_2\)</span> <strong>incidence matrix</strong> <span class="math notranslate nohighlight">\(B\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} B = 
+\begin{pmatrix}
+    b_{1,1} &amp; b_{1,2} &amp; \cdots &amp; b_{1,N_2} \\
+    \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+    b_{N_1,1} &amp; b_{N,2} &amp; \cdots &amp; b_{N_1,N_2} 
+\end{pmatrix},
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(N_1 = |V_1|\)</span>, <span class="math notranslate nohighlight">\(N_2 = |V_2|\)</span>, and <span class="math notranslate nohighlight">\(\forall i \in V_1\)</span> and <span class="math notranslate nohighlight">\(j \in V_2\)</span>,
+$<span class="math notranslate nohighlight">\(b_{i,j} =
+  \begin{cases}
+    1       &amp; \quad \text{if } e_{i,j} \in E\\
+    0  &amp; \quad \text{if } e_{i,j} \notin E\\
+  \end{cases}\)</span>$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;.5&#39;</span><span class="p">,</span>
+        <span class="n">node_size</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">individuals</span> <span class="k">else</span> <span class="mi">200</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()],</span> 
+        <span class="n">node_color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;palevioletred&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">individuals</span> <span class="k">else</span> <span class="s1">&#39;navy&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Bipartite Network&#39;</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a3c77ed8db11c6bcb5ab857494c91487429a4eaff3c5ac0d8ccfdc5433ed22ce.png" src="../../_images/a3c77ed8db11c6bcb5ab857494c91487429a4eaff3c5ac0d8ccfdc5433ed22ce.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">projected_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">societies</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;.5&#39;</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">projected_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">individuals</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;.5&#39;</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Organization-Organization projection&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Individual-Individual projection&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/96600bcef721d35d09934dbb844fa2a65cc0a9a307e4c0c54a400d56f7793541.png" src="../../_images/96600bcef721d35d09934dbb844fa2a65cc0a9a307e4c0c54a400d56f7793541.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="next-time">
+<h2>Next time…<a class="headerlink" href="#next-time" title="Link to this heading">#</a></h2>
+<p>Further Introduction to Networkx — Graph Algorithms! <code class="docutils literal notranslate"><span class="pre">class_03_networkx2.ipynb</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="references-and-further-resources">
+<h2>References and further resources:<a class="headerlink" href="#references-and-further-resources" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Class Webpages</p>
+<ul class="simple">
+<li><p>Jupyter Book: <a class="reference external" href="https://network-science-data-and-models.github.io/phys7332_fa25/README.html">https://network-science-data-and-models.github.io/phys7332_fa25/README.html</a></p></li>
+<li><p>Github: <a class="github reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/">network-science-data-and-models/phys7332_fa25</a></p></li>
+<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">networkx</span></code> documentation and tutorials: <a class="reference external" href="https://networkx.org/documentation/latest/tutorial.html">https://networkx.org/documentation/latest/tutorial.html</a></p></li>
+<li><p>Gilbert, E.N. (1959). Random Graphs. <em>Ann. Math. Stat.</em>, 30, 1141.</p></li>
+<li><p>Erdős, P. and Rényi, A. (1959). On Random Graphs. <em>Publ. Math.</em> 6, 290.</p></li>
+<li><p>Penrose, M. (2003). Random Geometric Graphs. <em>Oxford Studies in Probability</em>, 5.</p></li>
+</ol>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_02"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../class_01/class_01_python_refresher.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Class 1: Python Refresher, Data Structures, Numpy</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-definitions">Basic Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-representations">Network Representations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjacency-matrices-and-network-properties">Adjacency Matrices and Network Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sanity-check-and-little-networkx-preview">Sanity check (and little <code class="docutils literal notranslate"><span class="pre">networkx</span></code> preview)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diving-into-networkx">Diving into <code class="docutils literal notranslate"><span class="pre">networkx</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-objects">Graph objects</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#note-on-bipartite-networks">Note on Bipartite Networks</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#note-on-multigraphs">Note on Multigraphs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-nodes">Adding nodes:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-edges">Adding edges:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-node-and-edge-attributes">Adding node and edge attributes</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-nodes-and-edges">Removing Nodes and Edges</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-operations-and-descriptions-of-the-network">Basic operations and descriptions of the network</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-number-of-nodes-and-links-in-the-graph">Get the number of nodes and links in the graph</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connectivity-components-subgraphs">Connectivity &amp; Components &amp; Subgraphs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#components">Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bowtie-structures-of-directed-graphs">“Bowtie” Structures of Directed Graphs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#network-properties">Network Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#neighbors-and-degrees">Neighbors and Degrees</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-random-graphs">Generating Random Graphs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-random-graph-models">Static Random Graph Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#erdos-renyi-model-s">Erdős-Rényi Model(s)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#random-geometric-graphs">Random geometric graphs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your turn!</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-input-output">Data Input/Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#online-data-resources">Online Data Resources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#network-data-formats">Network Data Formats</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-output-of-network-data-the-polblogs-dataset">Input / output of network data: The “Polblogs” dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-way-to-make-this-network">Step-by-step way to make this network:</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#connectivity-patterns-between-liberal-and-conservative-blogs">Connectivity patterns between liberal and conservative blogs</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#components-strongly-vs-weakly-connected-components">Components (strongly vs weakly connected components)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-paths-and-path-lengths">Preview: Paths and Path Lengths</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-polblogs-data">Visualizing the PolBlogs data</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#input-output-2-bipartite-network-of-paul-revere">Input/Output 2: Bipartite Network of Paul Revere</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brennan Klein
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

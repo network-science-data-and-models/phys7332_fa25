@@ -62,6 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_01/class_01_python_refresher';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Class 2: Introduction to Networkx 1 — Graph Objects, Properties, Importing Data" href="../class_02/class_02_networkx1.html" />
     <link rel="prev" title="Class 0: Introduction to the Course, Github, Computing Setup" href="../class_00/class_00_github_computing_setup.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -177,6 +178,7 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../class_00/class_00_github_computing_setup.html">Class 00: Introduction and Setup</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Class 01: Python Refresher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_02/class_02_networkx1.html">Class 02: Introduction to Networkx 1</a></li>
 </ul>
 
     </div>
@@ -498,7 +500,7 @@ document.write(`
 <p><em>Acknowledgement: Much of the material in this lesson is based on a previous course offered by Matteo Chinazzi and Qian Zhang.</em></p>
 <ol class="arabic simple">
 <li><p>Come in. Sit down. Open Teams.</p></li>
-<li><p>Find your notebook in your /Class_01/ folder</p></li>
+<li><p>Find your notebook in your /Class_01/ folder.</p></li>
 </ol>
 <hr class="docutils" />
 <section id="python">
@@ -1658,11 +1660,6 @@ TypeError: object does not support item assignment
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([1, 2], 4)
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1864,7 +1861,7 @@ TypeError: object does not support item assignment
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">66</span><span class="o">-</span><span class="n">f77ba5d01082</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">65</span><span class="o">-</span><span class="n">f77ba5d01082</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="nb">print</span><span class="p">(</span><span class="n">my_set</span><span class="p">)</span>
 <span class="g g-Whitespace">     </span><span class="mi">10</span> 
 <span class="ne">---&gt; </span><span class="mi">11</span> <span class="n">my_set</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -2033,7 +2030,7 @@ TypeError: object does not support item assignment
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">78</span><span class="o">-</span><span class="mi">7</span><span class="n">f98da8a8c6d</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">77</span><span class="o">-</span><span class="mi">7</span><span class="n">f98da8a8c6d</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">my_dict</span><span class="p">[</span><span class="s1">&#39;sda&#39;</span><span class="p">]</span>
 
 <span class="ne">KeyError</span>: &#39;sda&#39;
@@ -2355,7 +2352,7 @@ Return random integer in range [a, b], including both end points.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6,11,14,14,39,42,55,86,98,118,131,136,158,168,173,198,221,221,226,246,252,255,283,302,303,304,304,308,308,320,330,342,344,346,348,350,360,372,391,447,454,463,467,473,476,483,486,489,493,509,518,522,534,551,558,579,601,622,627,634,654,660,660,662,682,684,686,693,693,695,697,712,715,727,727,735,739,777,782,804,813,818,821,824,831,839,882,901,903,903,935,939,950,953,963,968,972,973,989,995,
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16,22,35,36,37,40,47,66,66,73,75,76,87,120,137,165,165,166,178,181,183,185,188,189,197,204,206,208,225,230,233,236,282,287,303,312,326,349,354,358,390,393,407,407,417,427,431,436,473,499,512,523,556,584,584,599,601,605,605,607,608,614,626,637,644,644,666,672,675,676,687,692,693,723,746,768,771,773,781,785,786,789,790,794,802,803,808,816,843,859,868,871,880,882,903,907,913,915,968,986,
 </pre></div>
 </div>
 </div>
@@ -2522,7 +2519,7 @@ c 3 z
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;zip at 0x7fc42002e840&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;zip at 0x7fdba09ec100&gt;
 </pre></div>
 </div>
 </div>
@@ -2721,7 +2718,7 @@ c 3 z
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3148
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3573
 </pre></div>
 </div>
 </div>
@@ -2739,7 +2736,7 @@ c 3 z
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3148
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3573
 </pre></div>
 </div>
 </div>
@@ -2759,7 +2756,7 @@ c 3 z
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3148
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3573
 </pre></div>
 </div>
 </div>
@@ -2816,7 +2813,7 @@ c 3 z
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;&lt;ipython-input-126-39d65b6213c2&gt;&quot;</span><span class="gt">, line </span><span class="mi">2</span>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;&lt;ipython-input-125-193db8b86ca5&gt;&quot;</span><span class="gt">, line </span><span class="mi">3</span>
     
     <span class="o">^</span>
 <span class="ne">SyntaxError</span>: unexpected EOF while parsing
@@ -3089,7 +3086,7 @@ finally we have this many potatoes:  5
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>206 µs ± 1.12 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200 µs ± 730 ns per loop (mean ± std. dev. of 7 runs, 1000 loops each)
 </pre></div>
 </div>
 </div>
@@ -3102,7 +3099,7 @@ finally we have this many potatoes:  5
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>626 ns ± 1.56 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>694 ns ± 3.73 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
 </pre></div>
 </div>
 </div>
@@ -3506,7 +3503,7 @@ finally we have this many potatoes:  5
 </div>
 <hr class="docutils" />
 <p>Illustrations of numpy array slicing and indexing</p>
-<img src="images/numpy_indexing.png" width=480><div class="cell docutils container">
+<img src="../../images/numpy_indexing.png" width=480><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">new_arr</span>
@@ -3669,7 +3666,7 @@ finally we have this many potatoes:  5
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
 </pre></div>
 </div>
 </div>
@@ -3683,11 +3680,11 @@ finally we have this many potatoes:  5
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
-200
-4
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>23
+3
 2
-22
+4
+300
 </pre></div>
 </div>
 </div>
@@ -3722,8 +3719,8 @@ finally we have this many potatoes:  5
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>replace=False: [4 3 1 2 5]
-replace=True: [1 5 1 1 5]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>replace=False: [2 4 3 1 5]
+replace=True: [4 2 1 4 4]
 </pre></div>
 </div>
 </div>
@@ -3735,11 +3732,11 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1,
-       0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1,
-       0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1,
-       0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0,
-       1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1,
+       0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1,
+       0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0,
+       1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1,
+       1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1])
 </pre></div>
 </div>
 </div>
@@ -3751,11 +3748,11 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 60, 160, 182, 103,  28],
-       [ 66,  25,  70, 191,  57],
-       [160, 157,  36, 194,  49],
-       [ 89,  46,  27, 112, 129],
-       [148, 136, 129, 162,  98]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 17,  61, 189,   6, 142],
+       [179, 179, 143, 122, 166],
+       [172,  15,  99, 148, 122],
+       [183, 158,  90, 184,  15],
+       [175,  17, 182,  17, 133]])
 </pre></div>
 </div>
 </div>
@@ -3767,10 +3764,11 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1.38538459, -0.22499655,  0.44265991,  1.84486781,  0.91635511,
-       -1.49724389, -1.56061478,  0.40359774, -0.22923305,  1.26643928,
-        0.6307696 , -0.30890966, -0.39230262,  0.06575317, -0.10915068,
-        1.01247965, -0.56251802, -0.8125841 ,  1.9370336 ,  1.75435461])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.50469035e+00,  8.82649785e-02,  1.83581355e-01, -5.61152648e-01,
+        7.36322542e-01, -8.75209656e-01,  4.58459328e-01,  9.68902193e-01,
+       -4.78449723e-01,  3.00537795e-01,  9.73069098e-04,  4.14261740e-01,
+       -8.46403648e-01,  6.74210401e-01, -1.60029655e+00,  2.09739243e-01,
+       -5.29489404e-01, -4.07432493e-02,  6.02985223e-01,  3.14974672e-01])
 </pre></div>
 </div>
 </div>
@@ -3784,7 +3782,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([90,  0,  1,  0,  2,  1,  0,  1,  2,  2,  1])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([91,  0,  0,  2,  0,  3,  0,  2,  1,  1,  0])
 </pre></div>
 </div>
 </div>
@@ -3796,11 +3794,11 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[92,  0,  0,  1,  1,  0,  0,  4,  1,  0,  1],
-       [91,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1],
-       [86,  0,  0,  0,  3,  0,  0,  6,  1,  2,  2],
-       [90,  2,  1,  1,  0,  2,  2,  0,  1,  0,  1],
-       [92,  2,  3,  1,  0,  0,  1,  0,  0,  1,  0]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[94,  1,  1,  1,  0,  0,  2,  0,  0,  1,  0],
+       [88,  1,  2,  2,  0,  1,  1,  2,  1,  1,  1],
+       [91,  2,  3,  1,  1,  1,  1,  0,  0,  0,  0],
+       [90,  0,  1,  0,  1,  0,  2,  2,  1,  0,  3],
+       [92,  1,  3,  1,  0,  2,  0,  0,  1,  0,  0]])
 </pre></div>
 </div>
 </div>
@@ -3813,9 +3811,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2, 2, 3],
-       [1, 1, 5],
-       [1, 4, 5]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4, 2, 2],
+       [5, 3, 1],
+       [1, 3, 1]])
 </pre></div>
 </div>
 </div>
@@ -3830,7 +3828,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>24
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>22
 </pre></div>
 </div>
 </div>
@@ -3842,7 +3840,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 4,  7, 13])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([10,  8,  4])
 </pre></div>
 </div>
 </div>
@@ -3854,7 +3852,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 7,  7, 10])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8, 9, 5])
 </pre></div>
 </div>
 </div>
@@ -3866,9 +3864,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2, 1, 1],
-       [2, 1, 4],
-       [3, 5, 5]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4, 5, 1],
+       [2, 3, 3],
+       [2, 1, 1]])
 </pre></div>
 </div>
 </div>
@@ -3880,9 +3878,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2, 1, 1],
-       [2, 1, 4],
-       [3, 5, 5]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4, 5, 1],
+       [2, 3, 3],
+       [2, 1, 1]])
 </pre></div>
 </div>
 </div>
@@ -3894,7 +3892,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 2, 3, 1, 1, 5, 1, 4, 5])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4, 2, 2, 5, 3, 1, 1, 3, 1])
 </pre></div>
 </div>
 </div>
@@ -3906,9 +3904,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2, 2, 3],
-       [1, 1, 5],
-       [1, 4, 5]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4, 2, 2],
+       [5, 3, 1],
+       [1, 3, 1]])
 </pre></div>
 </div>
 </div>
@@ -3920,7 +3918,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 2, 3, 1, 1, 5, 1, 4, 5])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4, 2, 2, 5, 3, 1, 1, 3, 1])
 </pre></div>
 </div>
 </div>
@@ -3932,7 +3930,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 2, 3, 1, 1, 5, 1, 4, 5])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4, 2, 2, 5, 3, 1, 1, 3, 1])
 </pre></div>
 </div>
 </div>
@@ -3944,9 +3942,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.69314718, 0.69314718, 1.09861229],
-       [0.        , 0.        , 1.60943791],
-       [0.        , 1.38629436, 1.60943791]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.38629436, 0.69314718, 0.69314718],
+       [1.60943791, 1.09861229, 0.        ],
+       [0.        , 1.09861229, 0.        ]])
 </pre></div>
 </div>
 </div>
@@ -3958,9 +3956,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.30103   , 0.30103   , 0.47712125],
-       [0.        , 0.        , 0.69897   ],
-       [0.        , 0.60205999, 0.69897   ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.60205999, 0.30103   , 0.30103   ],
+       [0.69897   , 0.47712125, 0.        ],
+       [0.        , 0.47712125, 0.        ]])
 </pre></div>
 </div>
 </div>
@@ -3972,9 +3970,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.41421356, 1.41421356, 1.73205081],
-       [1.        , 1.        , 2.23606798],
-       [1.        , 2.        , 2.23606798]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2.        , 1.41421356, 1.41421356],
+       [2.23606798, 1.73205081, 1.        ],
+       [1.        , 1.73205081, 1.        ]])
 </pre></div>
 </div>
 </div>
@@ -3986,9 +3984,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 4,  4,  9],
-       [ 1,  1, 25],
-       [ 1, 16, 25]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[16,  4,  4],
+       [25,  9,  1],
+       [ 1,  9,  1]])
 </pre></div>
 </div>
 </div>
@@ -4000,9 +3998,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2, 2, 3],
-       [1, 1, 5],
-       [1, 4, 5]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4, 2, 2],
+       [5, 3, 1],
+       [1, 3, 1]])
 </pre></div>
 </div>
 </div>
@@ -4014,9 +4012,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 4,  4,  9],
-       [ 1,  1, 25],
-       [ 1, 16, 25]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[16,  4,  4],
+       [25,  9,  1],
+       [ 1,  9,  1]])
 </pre></div>
 </div>
 </div>
@@ -4028,9 +4026,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 9, 18, 31],
-       [ 8, 23, 33],
-       [11, 26, 48]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[28, 20, 12],
+       [36, 22, 14],
+       [20, 14,  6]])
 </pre></div>
 </div>
 </div>
@@ -4042,9 +4040,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 9, 18, 31],
-       [ 8, 23, 33],
-       [11, 26, 48]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[28, 20, 12],
+       [36, 22, 14],
+       [20, 14,  6]])
 </pre></div>
 </div>
 </div>
@@ -4056,9 +4054,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 9, 18, 31],
-       [ 8, 23, 33],
-       [11, 26, 48]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[28, 20, 12],
+       [36, 22, 14],
+       [20, 14,  6]])
 </pre></div>
 </div>
 </div>
@@ -4070,12 +4068,12 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2, 2, 3],
-       [1, 1, 5],
-       [1, 4, 5],
-       [2, 2, 3],
-       [1, 1, 5],
-       [1, 4, 5]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4, 2, 2],
+       [5, 3, 1],
+       [1, 3, 1],
+       [4, 2, 2],
+       [5, 3, 1],
+       [1, 3, 1]])
 </pre></div>
 </div>
 </div>
@@ -4087,9 +4085,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2, 2, 3, 2, 2, 3],
-       [1, 1, 5, 1, 1, 5],
-       [1, 4, 5, 1, 4, 5]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4, 2, 2, 4, 2, 2],
+       [5, 3, 1, 5, 3, 1],
+       [1, 3, 1, 1, 3, 1]])
 </pre></div>
 </div>
 </div>
@@ -4101,9 +4099,9 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2, 2, 3],
-       [1, 1, 5],
-       [1, 4, 5]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4, 2, 2],
+       [5, 3, 1],
+       [1, 3, 1]])
 </pre></div>
 </div>
 </div>
@@ -4115,7 +4113,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 1, 5])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4, 3, 1])
 </pre></div>
 </div>
 </div>
@@ -4173,7 +4171,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/588defe7b6ebcbe420bacc107a44ae11511461f0266c554a5d9f6f33c0e35c87.png" src="../../_images/588defe7b6ebcbe420bacc107a44ae11511461f0266c554a5d9f6f33c0e35c87.png" />
+<img alt="../../_images/9f9e059a074b5a380eb41af30e421f827c3b171dd4309b52d255679c7e5682b4.png" src="../../_images/9f9e059a074b5a380eb41af30e421f827c3b171dd4309b52d255679c7e5682b4.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4183,7 +4181,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/d272d6ed9c80dd87ee5e01b9a4cf4ac27789615e6ed9665cac121a6f35ecee81.png" src="../../_images/d272d6ed9c80dd87ee5e01b9a4cf4ac27789615e6ed9665cac121a6f35ecee81.png" />
+<img alt="../../_images/9e30ce2e95b4d10b702cf4ff87dd1284046ee6713599ec86f6b8118cb80e1e6c.png" src="../../_images/9e30ce2e95b4d10b702cf4ff87dd1284046ee6713599ec86f6b8118cb80e1e6c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4193,7 +4191,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/c0fb3b5713da0931ccd4afe805050fc528765078451d21587cb49c273c31362d.png" src="../../_images/c0fb3b5713da0931ccd4afe805050fc528765078451d21587cb49c273c31362d.png" />
+<img alt="../../_images/0d2a4fb74ce39d952e96fbc6d2eebe02d523eabdfbdf570cf2b9de638f687272.png" src="../../_images/0d2a4fb74ce39d952e96fbc6d2eebe02d523eabdfbdf570cf2b9de638f687272.png" />
 </div>
 </div>
 <section id="matplotlib-tip-1">
@@ -4204,7 +4202,7 @@ replace=True: [1 5 1 1 5]
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">h</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -4212,14 +4210,14 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/d811ea04262df37985511dd6d18e9185b9659c38e368a63723bd6e815f85e94b.png" src="../../_images/d811ea04262df37985511dd6d18e9185b9659c38e368a63723bd6e815f85e94b.png" />
+<img alt="../../_images/f1a140c5d5c796ec4d465cfb6d8d989bbb378b7c499eb188dc02d6ef36d5b1b5.png" src="../../_images/f1a140c5d5c796ec4d465cfb6d8d989bbb378b7c499eb188dc02d6ef36d5b1b5.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="mf">6.0</span>
 <span class="n">h</span> <span class="o">=</span> <span class="mf">4.0</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="c1"># note the &quot;ax&quot; instead of the &quot;plt&quot;!</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;.8&#39;</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -4229,14 +4227,14 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/ef91c650d6644b694a614c3674660bdca2e58953835048a9d1b3ea3c22d25119.png" src="../../_images/ef91c650d6644b694a614c3674660bdca2e58953835048a9d1b3ea3c22d25119.png" />
+<img alt="../../_images/9f0426cc18f0f1871d64368245854665d0040b557687e31ad4e72bfb36830d54.png" src="../../_images/9f0426cc18f0f1871d64368245854665d0040b557687e31ad4e72bfb36830d54.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="mf">6.0</span>
 <span class="n">h</span> <span class="o">=</span> <span class="mf">4.0</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="n">data_label</span> <span class="o">=</span> <span class="s2">&quot;legend if you&#39;d like&quot;</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;.8&#39;</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">data_label</span><span class="p">)</span>
@@ -4256,7 +4254,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/1313780a95c92a4c038e07583b8e3df9f7a2710b494bc390f8730f7b95e14086.png" src="../../_images/1313780a95c92a4c038e07583b8e3df9f7a2710b494bc390f8730f7b95e14086.png" />
+<img alt="../../_images/901df57fa7f441282e1ec434f61021df33feabc7373ef2f90ec27a8f7f0c5590.png" src="../../_images/901df57fa7f441282e1ec434f61021df33feabc7373ef2f90ec27a8f7f0c5590.png" />
 </div>
 </div>
 </section>
@@ -4307,7 +4305,7 @@ replace=True: [1 5 1 1 5]
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="mf">6.0</span>
 <span class="n">h</span> <span class="o">=</span> <span class="mf">4.0</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="n">data_label</span> <span class="o">=</span> <span class="s2">&quot;legend if you&#39;d like&quot;</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;.8&#39;</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">data_label</span><span class="p">)</span>
@@ -4319,15 +4317,15 @@ replace=True: [1 5 1 1 5]
 
 <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pngs/class_01_figure1.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pdfs/class_01_figure1.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pngs/class_01_figure1.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pdfs/class_01_figure1.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/edb44c9bedb8a6fc12f3a899139a7ebf755f688cc60e9b0752a1024166d444c8.png" src="../../_images/edb44c9bedb8a6fc12f3a899139a7ebf755f688cc60e9b0752a1024166d444c8.png" />
+<img alt="../../_images/cd48586a4b6c6114857cd59698393cc271195e4bfa58a6b1098196699b371117.png" src="../../_images/cd48586a4b6c6114857cd59698393cc271195e4bfa58a6b1098196699b371117.png" />
 </div>
 </div>
 </section>
@@ -4340,7 +4338,7 @@ replace=True: [1 5 1 1 5]
 <span class="n">h</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                        <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width_ratios&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> 
                                     <span class="s2">&quot;height_ratios&quot;</span><span class="p">:[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]})</span>
 
@@ -4349,7 +4347,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a6ae96e28e20c671086bc830be1fb3c7abc7bf4b9375d54207e18c237b79460a.png" src="../../_images/a6ae96e28e20c671086bc830be1fb3c7abc7bf4b9375d54207e18c237b79460a.png" />
+<img alt="../../_images/a0e9b7613106f70691af5ef744e44cf6f0af01b0427b25a4f8851dec0103eaaf.png" src="../../_images/a0e9b7613106f70691af5ef744e44cf6f0af01b0427b25a4f8851dec0103eaaf.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4358,7 +4356,7 @@ replace=True: [1 5 1 1 5]
 <span class="n">h</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">nrows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span>
 <span class="n">ncols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                        <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width_ratios&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">ncols</span><span class="p">),</span>
                                     <span class="s2">&quot;height_ratios&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">nrows</span><span class="p">)})</span>
 
@@ -4367,7 +4365,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/56f7a308b1bddf0c6ac76152409a395fa5c6ac36a1a5e03f89769d4e27691d82.png" src="../../_images/56f7a308b1bddf0c6ac76152409a395fa5c6ac36a1a5e03f89769d4e27691d82.png" />
+<img alt="../../_images/5893b6e4a3c0e98c6b4948e547e47ca256ee119beb6d459588f1c2cd0d69f50b.png" src="../../_images/5893b6e4a3c0e98c6b4948e547e47ca256ee119beb6d459588f1c2cd0d69f50b.png" />
 </div>
 </div>
 </section>
@@ -4380,7 +4378,7 @@ replace=True: [1 5 1 1 5]
 <span class="n">h</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">nrows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span>
 <span class="n">ncols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                        <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width_ratios&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">ncols</span><span class="p">),</span>
                                     <span class="s2">&quot;height_ratios&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">nrows</span><span class="p">)})</span>
 
@@ -4392,7 +4390,7 @@ replace=True: [1 5 1 1 5]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/434fcf3ba873e1c950e1b58d4371a96622e54169a1e5bb2f6bfff02e4f6e5334.png" src="../../_images/434fcf3ba873e1c950e1b58d4371a96622e54169a1e5bb2f6bfff02e4f6e5334.png" />
+<img alt="../../_images/c59d748b0f4ec3177db1026b1823fda1e15b19ec5a5c3598351803f682741623.png" src="../../_images/c59d748b0f4ec3177db1026b1823fda1e15b19ec5a5c3598351803f682741623.png" />
 </div>
 </div>
 </section>
@@ -4410,7 +4408,7 @@ replace=True: [1 5 1 1 5]
 <span class="n">h</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="n">actualtext</span> <span class="o">=</span> <span class="s1">&#39;ax.transAxes makes the xlim and ylim [0,1]</span><span class="se">\n</span><span class="s1">making positioning text easier&#39;</span>
 
@@ -4432,14 +4430,14 @@ replace=True: [1 5 1 1 5]
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">ypos1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;va=&quot;bottom&quot;&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pngs/class_01_figure2.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pdfs/class_01_figure2.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pngs/class_01_figure2.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pdfs/class_01_figure2.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/f521188c0fbc379f03bab599990505efbb6d111b0337d87f93fedfd155824878.png" src="../../_images/f521188c0fbc379f03bab599990505efbb6d111b0337d87f93fedfd155824878.png" />
+<img alt="../../_images/c694430b00f4b197662885aebfd33e9bf9ae94fba57d63fe542e1497d03bec07.png" src="../../_images/c694430b00f4b197662885aebfd33e9bf9ae94fba57d63fe542e1497d03bec07.png" />
 </div>
 </div>
 </section>
@@ -4453,7 +4451,7 @@ replace=True: [1 5 1 1 5]
 <span class="n">h</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                        <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width_ratios&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> 
                                     <span class="s2">&quot;height_ratios&quot;</span><span class="p">:[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
@@ -4470,8 +4468,8 @@ replace=True: [1 5 1 1 5]
         <span class="n">ax</span><span class="p">[</span><span class="n">tup</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="p">),</span>
                         <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pngs/class_01_figure3.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pdfs/class_01_figure3.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pngs/class_01_figure3.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pdfs/class_01_figure3.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -4480,7 +4478,7 @@ replace=True: [1 5 1 1 5]
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>These are all your axis indices: [(0, 0), (0, 1), (0, 2), (0, 3), (1, 0), (1, 1), (1, 2), (1, 3), (2, 0), (2, 1), (2, 2), (2, 3)]
 </pre></div>
 </div>
-<img alt="../../_images/964e6d195e005d5a0938609fef79f6813cfb94f8ce5987058928b5ab3e1b34b3.png" src="../../_images/964e6d195e005d5a0938609fef79f6813cfb94f8ce5987058928b5ab3e1b34b3.png" />
+<img alt="../../_images/3b578a0a65dce4278cef6b1f7b91920fec77a3b39191294b67e1be34c7d54210.png" src="../../_images/3b578a0a65dce4278cef6b1f7b91920fec77a3b39191294b67e1be34c7d54210.png" />
 </div>
 </div>
 </section>
@@ -4497,7 +4495,7 @@ replace=True: [1 5 1 1 5]
 <span class="n">h</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                        <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width_ratios&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> 
                                     <span class="s2">&quot;height_ratios&quot;</span><span class="p">:[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
@@ -4534,14 +4532,14 @@ replace=True: [1 5 1 1 5]
     <span class="n">a</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s2">&quot;&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">get_yticks</span><span class="p">()])</span>
     
     
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pngs/class_01_figure4.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pdfs/class_01_figure4.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pngs/class_01_figure4.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pdfs/class_01_figure4.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/4458bf31d48466fd9af2edb64af4e57b50c747f9791ed0c334b0a086a31b2df8.png" src="../../_images/4458bf31d48466fd9af2edb64af4e57b50c747f9791ed0c334b0a086a31b2df8.png" />
+<img alt="../../_images/718947f0ef80b67e1e4d18997bf3ff7f07438e240f6f6e505c732c479f8cdfd2.png" src="../../_images/718947f0ef80b67e1e4d18997bf3ff7f07438e240f6f6e505c732c479f8cdfd2.png" />
 </div>
 </div>
 </section>
@@ -4557,7 +4555,7 @@ replace=True: [1 5 1 1 5]
 <span class="n">h</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">ncols</span><span class="p">,</span><span class="n">h</span><span class="o">*</span><span class="n">nrows</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                        <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width_ratios&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> 
                                     <span class="s2">&quot;height_ratios&quot;</span><span class="p">:[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
@@ -4572,14 +4570,14 @@ replace=True: [1 5 1 1 5]
     <span class="n">ax</span><span class="p">[</span><span class="n">tup</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pngs/class_01_figure5.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pdfs/class_01_figure5.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pngs/class_01_figure5.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pdfs/class_01_figure5.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/aecff4ff8509a72e34f25ddfdf5f30efaa0c2cce8f66ed9c44addc27a580c6c8.png" src="../../_images/aecff4ff8509a72e34f25ddfdf5f30efaa0c2cce8f66ed9c44addc27a580c6c8.png" />
+<img alt="../../_images/67141f57ba4effe0e32eb554e95e67c58f1cef5d8aa8db302cd9ae48c36afcf5.png" src="../../_images/67141f57ba4effe0e32eb554e95e67c58f1cef5d8aa8db302cd9ae48c36afcf5.png" />
 </div>
 </div>
 </section>
@@ -4625,14 +4623,14 @@ replace=True: [1 5 1 1 5]
     <span class="n">a</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Percent.... pizza!!!&#39;</span><span class="p">)</span>
 
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pngs/class_01_figure6.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pdfs/class_01_figure6.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pngs/class_01_figure6.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pdfs/class_01_figure6.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/22f2e706c8f01de8f334388d92fdb52ab104d954cab8797291e64aa0b196811a.png" src="../../_images/22f2e706c8f01de8f334388d92fdb52ab104d954cab8797291e64aa0b196811a.png" />
+<img alt="../../_images/df273294a8c987649613e4eba51e9d0b100024c23c773d7e27a7a239dbc226f4.png" src="../../_images/df273294a8c987649613e4eba51e9d0b100024c23c773d7e27a7a239dbc226f4.png" />
 </div>
 </div>
 </section>
@@ -4697,14 +4695,14 @@ replace=True: [1 5 1 1 5]
     <span class="n">a</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">a</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pngs/class_01_figure7.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pdfs/class_01_figure7.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pngs/class_01_figure7.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pdfs/class_01_figure7.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/f36ca1e00f2c395e73038568d6db84bddb40f7946291ee3860fadf540a0c26b5.png" src="../../_images/f36ca1e00f2c395e73038568d6db84bddb40f7946291ee3860fadf540a0c26b5.png" />
+<img alt="../../_images/586ae174eb66988707f750c3e68c5ce7d8355969607493eb1df299688c3bbfdd.png" src="../../_images/586ae174eb66988707f750c3e68c5ce7d8355969607493eb1df299688c3bbfdd.png" />
 </div>
 </div>
 </section>
@@ -4726,7 +4724,7 @@ replace=True: [1 5 1 1 5]
 
 
 <span class="c1"># First define the figure environment</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
 
 <span class="c1"># Next, define the &quot;GridSpec&quot;</span>
 <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span>
@@ -4829,14 +4827,14 @@ replace=True: [1 5 1 1 5]
 <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Big, Fancy Figure&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span><span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;semibold&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;x-large&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.35</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pngs/class_01_figure8.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/pdfs/class_01_figure8.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pngs/class_01_figure8.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">425</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/pdfs/class_01_figure8.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/2fd936249278caa6cb5a91ed1a02b493a47053175866f3d11cd8a1b0dbb00ddc.png" src="../../_images/2fd936249278caa6cb5a91ed1a02b493a47053175866f3d11cd8a1b0dbb00ddc.png" />
+<img alt="../../_images/be21fdb06fd679a777c985415df608fa45a5ea940a1f15892f300f4e63727be8.png" src="../../_images/be21fdb06fd679a777c985415df608fa45a5ea940a1f15892f300f4e63727be8.png" />
 </div>
 </div>
 <p><strong>Can you think of any more great tips for making visualizations in matplotilb? Send them our way!</strong></p>
@@ -4909,6 +4907,15 @@ replace=True: [1 5 1 1 5]
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Class 0: Introduction to the Course, Github, Computing Setup</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../class_02/class_02_networkx1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Class 2: Introduction to Networkx 1 — Graph Objects, Properties, Importing Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
