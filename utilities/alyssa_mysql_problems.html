@@ -1,0 +1,747 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'utilities/alyssa_mysql_problems';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PHYS 7332: Network Science Data & Models (Fall 2025)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    PHYS 7332: Network Science Data & Models – Fall 2025
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_00/class_00_github_computing_setup.html">Class 00: Introduction and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_01/class_01_python_refresher.html">Class 01: Python Refresher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_02/class_02_networkx1.html">Class 02: Introduction to Networkx 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/class_03/class_03_networkx2.html">Class 03: Introduction to Networkx 2</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25/issues/new?title=Issue%20on%20page%20%2Futilities/alyssa_mysql_problems.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/utilities/alyssa_mysql_problems.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymysql</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pymysql.cursors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">my_creds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/courses/PHYS7332.202610/staff/admin_mysql_credentials.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+        <span class="n">my_creds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        
+<span class="n">connection</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;mysql-0005&#39;</span><span class="p">,</span>
+                             <span class="n">user</span><span class="o">=</span><span class="n">my_creds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                             <span class="n">database</span><span class="o">=</span><span class="s1">&#39;PHYS7332&#39;</span><span class="p">,</span>
+                             <span class="n">password</span><span class="o">=</span><span class="n">my_creds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                             <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8mb4&#39;</span><span class="p">,</span>
+                             <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">my_creds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/courses/PHYS7332.202610/staff/admin_mysql_credentials.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>         <span class="n">my_creds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/IPython/core/interactiveshell.py:343,</span> in <span class="ni">_modified_open</span><span class="nt">(file, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">336</span> <span class="k">if</span> <span class="n">file</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}:</span>
+<span class="g g-Whitespace">    </span><span class="mi">337</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">338</span>         <span class="sa">f</span><span class="s2">&quot;IPython won&#39;t let you open fd=</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2"> by default &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">339</span>         <span class="s2">&quot;as it is likely to crash IPython. If you know what you are doing, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">340</span>         <span class="s2">&quot;you can use builtins&#39; open.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span>     <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">343</span> <span class="k">return</span> <span class="n">io_open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/courses/PHYS7332.202610/staff/admin_mysql_credentials.txt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># creating FL bay species table</span>
+<span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    CREATE TABLE `fla_species` (</span>
+<span class="s2">        `node_id` int(11) NOT NULL,</span>
+<span class="s2">        `name` varchar(255)  COLLATE utf8mb4_bin NOT NULL,</span>
+<span class="s2">        `my_group` varchar(255) COLLATE utf8mb4_bin NULL,</span>
+<span class="s2">    PRIMARY KEY (`node_id`))</span>
+<span class="s2">    ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OperationalError</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="s2">     CREATE TABLE `fla_species` (</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span><span class="s2">         `node_id` int(11) NOT NULL,</span>
+<span class="s2">   (...)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span><span class="s2">     ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span><span class="s2">     &quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">11</span>     <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+<span class="nn">File /courses/PHYS7332.202610/shared/phys7332-env/lib/python3.11/site-packages/pymysql/cursors.py:153,</span> in <span class="ni">Cursor.execute</span><span class="nt">(self, query, args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="k">pass</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span> <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mogrify</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">153</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span> <span class="bp">self</span><span class="o">.</span><span class="n">_executed</span> <span class="o">=</span> <span class="n">query</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span> <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">File /courses/PHYS7332.202610/shared/phys7332-env/lib/python3.11/site-packages/pymysql/cursors.py:322,</span> in <span class="ni">Cursor._query</span><span class="nt">(self, q)</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span> <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_db</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clear_result</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">322</span> <span class="n">conn</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_get_result</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">324</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rowcount</span>
+
+<span class="nn">File /courses/PHYS7332.202610/shared/phys7332-env/lib/python3.11/site-packages/pymysql/connections.py:563,</span> in <span class="ni">Connection.query</span><span class="nt">(self, sql, unbuffered)</span>
+<span class="g g-Whitespace">    </span><span class="mi">561</span>     <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span> <span class="s2">&quot;surrogateescape&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">562</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute_command</span><span class="p">(</span><span class="n">COMMAND</span><span class="o">.</span><span class="n">COM_QUERY</span><span class="p">,</span> <span class="n">sql</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">563</span> <span class="bp">self</span><span class="o">.</span><span class="n">_affected_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_query_result</span><span class="p">(</span><span class="n">unbuffered</span><span class="o">=</span><span class="n">unbuffered</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">564</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_affected_rows</span>
+
+<span class="nn">File /courses/PHYS7332.202610/shared/phys7332-env/lib/python3.11/site-packages/pymysql/connections.py:825,</span> in <span class="ni">Connection._read_query_result</span><span class="nt">(self, unbuffered)</span>
+<span class="g g-Whitespace">    </span><span class="mi">823</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">824</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">MySQLResult</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">825</span>     <span class="n">result</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">826</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span> <span class="o">=</span> <span class="n">result</span>
+<span class="g g-Whitespace">    </span><span class="mi">827</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">server_status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File /courses/PHYS7332.202610/shared/phys7332-env/lib/python3.11/site-packages/pymysql/connections.py:1199,</span> in <span class="ni">MySQLResult.read</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1197</span> <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1198</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1199</span>         <span class="n">first_packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_read_packet</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1201</span>         <span class="k">if</span> <span class="n">first_packet</span><span class="o">.</span><span class="n">is_ok_packet</span><span class="p">():</span>
+<span class="g g-Whitespace">   </span><span class="mi">1202</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_read_ok_packet</span><span class="p">(</span><span class="n">first_packet</span><span class="p">)</span>
+
+<span class="nn">File /courses/PHYS7332.202610/shared/phys7332-env/lib/python3.11/site-packages/pymysql/connections.py:775,</span> in <span class="ni">Connection._read_packet</span><span class="nt">(self, packet_type)</span>
+<span class="g g-Whitespace">    </span><span class="mi">773</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span><span class="o">.</span><span class="n">unbuffered_active</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">774</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_result</span><span class="o">.</span><span class="n">unbuffered_active</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="ne">--&gt; </span><span class="mi">775</span>     <span class="n">packet</span><span class="o">.</span><span class="n">raise_for_error</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">776</span> <span class="k">return</span> <span class="n">packet</span>
+
+<span class="nn">File /courses/PHYS7332.202610/shared/phys7332-env/lib/python3.11/site-packages/pymysql/protocol.py:219,</span> in <span class="ni">MysqlPacket.raise_for_error</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">217</span> <span class="k">if</span> <span class="n">DEBUG</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;errno =&quot;</span><span class="p">,</span> <span class="n">errno</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">219</span> <span class="n">err</span><span class="o">.</span><span class="n">raise_mysql_exception</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+
+<span class="nn">File /courses/PHYS7332.202610/shared/phys7332-env/lib/python3.11/site-packages/pymysql/err.py:150,</span> in <span class="ni">raise_mysql_exception</span><span class="nt">(data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="k">if</span> <span class="n">errorclass</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="n">errorclass</span> <span class="o">=</span> <span class="n">InternalError</span> <span class="k">if</span> <span class="n">errno</span> <span class="o">&lt;</span> <span class="mi">1000</span> <span class="k">else</span> <span class="n">OperationalError</span>
+<span class="ne">--&gt; </span><span class="mi">150</span> <span class="k">raise</span> <span class="n">errorclass</span><span class="p">(</span><span class="n">errno</span><span class="p">,</span> <span class="n">errval</span><span class="p">)</span>
+
+<span class="ne">OperationalError</span>: (1050, &quot;Table &#39;fla_species&#39; already exists&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># populating FL bay species</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Florida-bay-meta.csv&#39;</span><span class="p">)</span>
+<span class="n">insert_sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">INSERT INTO `fla_species` (node_id, name, my_group) </span>
+<span class="s2">values (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">);</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df1</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">sp_name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+    <span class="n">node_id</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;node_id&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]:</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;NULL&#39;</span>
+    <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">insert_sql</span><span class="p">,</span> <span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="n">sp_name</span><span class="p">,</span> <span class="n">group</span><span class="p">))</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># creating food web table</span>
+<span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="c1"># sql = &quot;&quot;&quot;DROP TABLE `fla_foodweb`;&quot;&quot;&quot;</span>
+    <span class="c1"># cursor.execute(sql)</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    CREATE TABLE `fla_foodweb` (</span>
+<span class="s2">        `RowId` int(11) NOT NULL,</span>
+<span class="s2">        `FromNodeId` int(11) NOT NULL,</span>
+<span class="s2">        `ToNodeId` int(11)  NOT NULL,</span>
+<span class="s2">    PRIMARY KEY (`RowId`))</span>
+<span class="s2">    ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># populating food web table</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/Florida-bay.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FromNodeId&#39;</span><span class="p">,</span> <span class="s1">&#39;ToNodeId&#39;</span><span class="p">,</span> <span class="s1">&#39;Extra&#39;</span><span class="p">]</span>
+<span class="n">insert_sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">INSERT INTO `fla_foodweb` (RowId, FromNodeId, ToNodeId) </span>
+<span class="s2">values (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">);</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df2</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">row_id</span> <span class="o">=</span> <span class="n">idx</span>
+    <span class="n">from_node_id</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;FromNodeId&#39;</span><span class="p">]</span>
+    <span class="n">to_node_id</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;ToNodeId&#39;</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">insert_sql</span><span class="p">,</span> <span class="p">(</span><span class="n">row_id</span><span class="p">,</span> <span class="n">from_node_id</span><span class="p">,</span> <span class="n">to_node_id</span><span class="p">))</span>
+<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_body</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data_not_in_git/soc-redditHyperlinks-body.tsv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">df_head</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data_not_in_git/soc-redditHyperlinks-title.tsv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+
+<span class="n">my_creds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../../../staff/admin_mysql_credentials.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+        <span class="n">my_creds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+<span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;mysql-0005&quot;</span>
+<span class="n">dbname</span><span class="o">=</span><span class="s2">&quot;PHYS7332&quot;</span>
+<span class="n">uname</span><span class="o">=</span><span class="n">my_creds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">pwd</span><span class="o">=</span><span class="n">my_creds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;mysql+pymysql://</span><span class="si">{user}</span><span class="s2">:</span><span class="si">{pw}</span><span class="s2">@</span><span class="si">{host}</span><span class="s2">/</span><span class="si">{db}</span><span class="s2">&quot;</span>
+                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">hostname</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">dbname</span><span class="p">,</span>
+                                   <span class="n">user</span><span class="o">=</span><span class="n">uname</span><span class="p">,</span><span class="n">pw</span><span class="o">=</span><span class="n">pwd</span><span class="p">),</span>
+                      <span class="n">connect_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;connect_timeout&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
+                       <span class="n">pool_pre_ping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_body</span><span class="p">[</span><span class="s1">&#39;link_source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;body&#39;</span>
+<span class="n">df_head</span><span class="p">[</span><span class="s1">&#39;link_source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;title&#39;</span>
+<span class="n">df_both</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_body</span><span class="p">,</span> <span class="n">df_head</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+    <span class="n">ix</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">ix</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_both</span><span class="p">):</span>
+        <span class="n">tran</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">df_both</span><span class="p">[[</span>
+                <span class="s1">&#39;SOURCE_SUBREDDIT&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;TARGET_SUBREDDIT&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;POST_ID&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;TIMESTAMP&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;LINK_SENTIMENT&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;link_source&#39;</span><span class="p">]</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">ix</span><span class="p">:</span> <span class="n">ix</span> <span class="o">+</span> <span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;reddit_hyperlinks&#39;</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;append&#39;</span><span class="p">)</span>
+            <span class="n">tran</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">ix</span> <span class="o">+=</span> <span class="mi">100</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">tran</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./utilities"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brennan Klein
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,939 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Class 15: Machine Learning 2 — Building up to Graph Convolutional Networks &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_15/class_15_machine_learning2';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PHYS 7332: Network Science Data & Models (Fall 2025)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    PHYS 7332: Network Science Data & Models – Fall 2025
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../class_00/class_00_github_computing_setup.html">Class 00: Introduction and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_01/class_01_python_refresher.html">Class 01: Python Refresher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_02/class_02_networkx1.html">Class 02: Introduction to Networkx 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_03/class_03_networkx2.html">Class 03: Introduction to Networkx 2</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_15/class_15_machine_learning2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/class_15/class_15_machine_learning2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Class 15: Machine Learning 2 — Building up to Graph Convolutional Networks</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#today-s-goals">Today’s Goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backpropagation-by-request">Backpropagation (by request):</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-ingredients-do-we-need-to-do-backpropagation">What ingredients do we need to do backpropagation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-right-along-tl-dr-for-those-who-hate-math">Moving right along/TL;DR (For those who hate math!!)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-gnns-do">What do GNNs do?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sidebar-graph-isomorphism">Sidebar: graph isomorphism</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-learn-about-nodes-neighborhoods">How do we learn about nodes’ neighborhoods?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enter-permutation-invariant-functions">enter…permutation-invariant functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-permutation-invariant-function">What is a permutation-invariant function?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-care-about-permutation-invariance">Why do we care about permutation-invariance?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-core-functionalities-in-most-gnns">The three core functionalities in most GNNs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate">AGGREGATE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#combine">COMBINE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#readout">READOUT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tidbits">Tidbits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weisfeiler-lehman-test-and-isomorphism">The Weisfeiler-Lehman Test and Isomorphism</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-with-gnns">Challenges with GNNs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gcns-as-an-example-of-a-gnn">GCNs (as an example of a GNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-convolution-in-image-processing-world">What is a convolution in image processing world?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutions">Graph Convolutions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-formulation">Matrix Formulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="class-15-machine-learning-2-building-up-to-graph-convolutional-networks">
+<h1>Class 15: Machine Learning 2 — Building up to Graph Convolutional Networks<a class="headerlink" href="#class-15-machine-learning-2-building-up-to-graph-convolutional-networks" title="Link to this heading">#</a></h1>
+<section id="today-s-goals">
+<h2>Today’s Goals<a class="headerlink" href="#today-s-goals" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Think about how graph neural networks operate at a high level.</p></li>
+<li><p>Understand what the building blocks of a graph neural network are.</p></li>
+<li><p>Play with a graph neural network’s hyperparameters.</p></li>
+</ol>
+</section>
+<section id="backpropagation-by-request">
+<h2>Backpropagation (by request):<a class="headerlink" href="#backpropagation-by-request" title="Link to this heading">#</a></h2>
+<p>At a very high level, backpropagation is how we adjust our weights, going back from the output layer (and our loss function) all the way back to the weights from the input layer.</p>
+<p>It involves computing a bunch of partial derivatives (gradients) and adjusting our weights/biases (the parameters we’re learning in our neural network) according to the relationship between the gradients and the loss.</p>
+<section id="what-ingredients-do-we-need-to-do-backpropagation">
+<h3>What ingredients do we need to do backpropagation?<a class="headerlink" href="#what-ingredients-do-we-need-to-do-backpropagation" title="Link to this heading">#</a></h3>
+<p>First, we need a loss function. Our loss function (or cost function) needs to be differentiable with respect to the weights and biases we use in the network. Our loss also has to be expressed as a function of the input and our weights and biases. For example, let’s look at a toy example with one hidden layer and a mean squared error (MSE) loss function.</p>
+<p><img alt="feed-forward NN" src="https://miro.medium.com/v2/resize:fit:3200/1*ycDUAMaxDYaHx7xl9pqEjg.png" /></p>
+<p>The simplified output <span class="math notranslate nohighlight">\(g(\vec{x})\)</span> of our neural network with input <span class="math notranslate nohighlight">\(\vec{x}\)</span>, given weight matrices <span class="math notranslate nohighlight">\(W^{(1)}\)</span> and <span class="math notranslate nohighlight">\(W^{(2)}\)</span> and generic activation functions <span class="math notranslate nohighlight">\(\sigma^{(1)}\)</span> and <span class="math notranslate nohighlight">\(\sigma^{(2)}\)</span>, is</p>
+<div class="math notranslate nohighlight">
+\[g(x) = \sigma^{(2)}(W^{(2)} \sigma^{(1)}(W^{(1)} \vec{x}))\]</div>
+<p>Our loss function, with ground truth <span class="math notranslate nohighlight">\(\vec{z}\)</span>, is <span class="math notranslate nohighlight">\(\lvert \lvert g(\vec{x}) - \vec{z} \rvert \rvert\)</span>. In the generalized sense, we can use a generic loss function <span class="math notranslate nohighlight">\(C(g(\vec{x}), \vec{z})\)</span>.</p>
+<p>Next, we need partial derivatives and the chain rule!</p>
+<p>This is how backpropagation adjusts the weights – we compute the partial derivative of our cost function <span class="math notranslate nohighlight">\(C\)</span> with respect to one weight from node <span class="math notranslate nohighlight">\(i\)</span> to node <span class="math notranslate nohighlight">\(j\)</span> in the <span class="math notranslate nohighlight">\(2^{nd}\)</span> matrix of weights:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\delta C}{\delta w^{(2)}_{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{\delta w^{(2)}_{ij}}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(y_j\)</span> is the <span class="math notranslate nohighlight">\(j^{th}\)</span> output of our network (in the output layer).</p>
+<div class="math notranslate nohighlight">
+\[y_j = \sigma^{(2)}(\sum_{i}w^{(2)}_{ij} * h_i)\]</div>
+<p>In other words, we’re passing the dot product of row <span class="math notranslate nohighlight">\(j\)</span> of <span class="math notranslate nohighlight">\(W^{(2)}\)</span> and <span class="math notranslate nohighlight">\(\vec{h}\)</span>, our hidden layer’s output, through a sigmoid function. Let’s call <span class="math notranslate nohighlight">\(\sum_{i}w^{(2)}_{ij} * h_i\)</span> <span class="math notranslate nohighlight">\(o_j\)</span>, and let’s expand our partial derivative expression using the chain rule once more.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\delta C}{\delta w^{(2)}_{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{o_j} \frac{o_j}{\delta w^{(2)}_{ij}}\]</div>
+<p>What are we doing here? We’re tracing how our specific weight <span class="math notranslate nohighlight">\(w^{(2)}_{ij}\)</span> affects our computed loss for a particular input (or batch of inputs).</p>
+<p>We know that <span class="math notranslate nohighlight">\(\frac{\delta y_j}{o_j}\)</span> is the partial derivative of the activation function <span class="math notranslate nohighlight">\(\sigma^{(2)}\)</span>.</p>
+<p>Additionally, we know that <span class="math notranslate nohighlight">\(\frac{o_j}{\delta w^{(2)}_{ij}}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{\delta}{\delta w^{(2)}_{ij}}\sum_{k}w^{(2)}_{kj}h_k\]</div>
+<p>Only one term in this sum relies on <span class="math notranslate nohighlight">\(w^{(2)}_{ij}\)</span> – that’s <span class="math notranslate nohighlight">\(w^{(2)}_{ij} h_i\)</span>. This means this part of our partial derivative reduces to</p>
+<div class="math notranslate nohighlight">
+\[\frac{o_j}{\delta w^{(2)}_{ij}} = h_i\]</div>
+<p>Now let’s look at <span class="math notranslate nohighlight">\(\frac{\delta y_j}{h_j}\)</span>. Let’s say we’re using a sigmoid activation function; in this case, this part of our partial derivative is</p>
+<div class="math notranslate nohighlight">
+\[\frac{\delta}{\delta h_j}\sigma(h_j) = \sigma(h_j) (1 - \sigma(h_j)) = y_j * (1 - y_j)\]</div>
+<p>If we’re using MSE for the loss function <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(\vec{z}\)</span> is our ground truth answer,</p>
+<p>$<span class="math notranslate nohighlight">\(\frac{\delta C}{\delta y_j} = 2 (z_j - y_j)\)</span>$.</p>
+<p>Therefore, the gradient of our loss with respect to <span class="math notranslate nohighlight">\(w^{(2)}_{ij}\)</span> is</p>
+<p>$<span class="math notranslate nohighlight">\(\frac{\delta C}{\delta w^{(2)}_{ij}} = 2 (z_j - y_j) * y_j * (1 - y_j) * h_i\)</span>$.</p>
+</section>
+<section id="moving-right-along-tl-dr-for-those-who-hate-math">
+<h3>Moving right along/TL;DR (For those who hate math!!)<a class="headerlink" href="#moving-right-along-tl-dr-for-those-who-hate-math" title="Link to this heading">#</a></h3>
+<p>We take partial derivatives with the chain rule to figure out how much our loss function changes with respect to a particular parameter (like a weight or bias) in the neural network.</p>
+<p>Then we can change that specific weight with this information. We usually have a learning rate <span class="math notranslate nohighlight">\(\eta\)</span> (or an optimizer that governs the learning rate, which is fancier) that tells us how much to change a weight/bias with respect to our computed gradient.</p>
+<p>$<span class="math notranslate nohighlight">\(\delta w^{(2)}_{ij} = \eta \frac{\delta C}{\delta w^{(2)}_{ij}}\)</span>$.</p>
+<p>We don’t want to update our parameters too much based on any one example, which is why the learning rate tends to be pretty small (much less than 1) and optimizers will lower the learning rate as training goes on and the model gets better at its task.</p>
+<p>Let’s review how backpropagation works by watching <a class="reference external" href="https://www.youtube.com/watch?v=GlcnxUlrtek&amp;amp;list=PLiaHhY2iBX9hdHaRr6b7XevZtgZRa1PoU&amp;amp;index=4">this video</a>.</p>
+</section>
+</section>
+<section id="what-do-gnns-do">
+<h2>What do GNNs do?<a class="headerlink" href="#what-do-gnns-do" title="Link to this heading">#</a></h2>
+<p>Bottom line: GNNs learn weight matrices that transform node attributes or embeddings. They aggregate information about a node’s neighborhood in order to make the next round of node embeddings. These embeddings can then be used for interesting downtream tasks.</p>
+<section id="applications">
+<h3>Applications<a class="headerlink" href="#applications" title="Link to this heading">#</a></h3>
+<p><strong>INTERACTIVE MOMENT:</strong>
+Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
+<hr class="docutils" />
+<p>Examples: protein-protein interaction prediction, fraud detection, or social network recommendations.</p>
+</section>
+<section id="sidebar-graph-isomorphism">
+<h3>Sidebar: graph isomorphism<a class="headerlink" href="#sidebar-graph-isomorphism" title="Link to this heading">#</a></h3>
+<p>Graph isomorphism occurs when you have two graph of the same size, one with one set <span class="math notranslate nohighlight">\(G\)</span> and one with node set <span class="math notranslate nohighlight">\(H\)</span>. If you can create a one-to-one mapping <span class="math notranslate nohighlight">\(f\)</span> from <span class="math notranslate nohighlight">\(G\)</span> to <span class="math notranslate nohighlight">\(H\)</span> such every node in <span class="math notranslate nohighlight">\(G\)</span> has exactly one corresponding node in <span class="math notranslate nohighlight">\(H\)</span> that is indicated by <span class="math notranslate nohighlight">\(f(G)\)</span>, and two nodes in <span class="math notranslate nohighlight">\(f(G)\)</span> are connected if and only if they are also connected in <span class="math notranslate nohighlight">\(H\)</span>, then you can say that <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span> are isomorphic. Basically, if you can rename everyone in a graph with a unique name of an individual in another graph and the structure stays the same, you have two isomorphic graphs. This is important because we want graph neural networks to obey isomorphism. If two graphs are isomorphic and their nodes have the same features, their embeddings should be the same.</p>
+</section>
+</section>
+<section id="how-do-we-learn-about-nodes-neighborhoods">
+<h2>How do we learn about nodes’ neighborhoods?<a class="headerlink" href="#how-do-we-learn-about-nodes-neighborhoods" title="Link to this heading">#</a></h2>
+<p>Nodes in networks notably have neighborhoods of variable size, but we want to represent all nodes with vectors of the same size. So an approach like word2vec might not work if we’re trying to aggregate information about a node’s neighborhood. Recall that we concatenated one-hot vectors representing the <span class="math notranslate nohighlight">\(k\)</span> words surrounding a word in a sentence to form a word’s context when training word2vec – but how do we know which <span class="math notranslate nohighlight">\(k\)</span> nodes ought to form the “context” of a node with far more than <span class="math notranslate nohighlight">\(k\)</span> neighbors?</p>
+<section id="enter-permutation-invariant-functions">
+<h3>enter…permutation-invariant functions<a class="headerlink" href="#enter-permutation-invariant-functions" title="Link to this heading">#</a></h3>
+<section id="what-is-a-permutation-invariant-function">
+<h4>What is a permutation-invariant function?<a class="headerlink" href="#what-is-a-permutation-invariant-function" title="Link to this heading">#</a></h4>
+<p>Permutation-invariant functions take in multiple inputs (say, a list of inputs), and they produce the same output regardless of the order in which the inputs are given. So if <span class="math notranslate nohighlight">\(f(x, y, z) = f(y, z, x)\)</span>, and so on for all orderings of <span class="math notranslate nohighlight">\(x, y, z\)</span>, then <span class="math notranslate nohighlight">\(f\)</span> is permutation-invariant.</p>
+</section>
+<section id="why-do-we-care-about-permutation-invariance">
+<h4>Why do we care about permutation-invariance?<a class="headerlink" href="#why-do-we-care-about-permutation-invariance" title="Link to this heading">#</a></h4>
+<p>Permutation-invariance is really useful for incorporating information about a node’s neighborhood in a graph. For example, operations like the mean, maximum, sum, and minimum are all permutation-invariant. We can put in as many nodes’ attributes as we’d like, and our output will maintain the same dimensionality. It will also be insensitive to how we order the inputs, so we don’t have to worry about how to order data that doesn’t come with inherent order.</p>
+</section>
+</section>
+<section id="the-three-core-functionalities-in-most-gnns">
+<h3>The three core functionalities in most GNNs<a class="headerlink" href="#the-three-core-functionalities-in-most-gnns" title="Link to this heading">#</a></h3>
+<section id="aggregate">
+<h4>AGGREGATE<a class="headerlink" href="#aggregate" title="Link to this heading">#</a></h4>
+<p>In order to pass information through a GNN, we first gather up our information about a node’s neighborhood – this might be a set of node embeddings from a previous layer or the nodes’ raw feature vectors. Then, we pass this set of vectors through a permutation-invariant function like MEAN. This aggregates our information about the node’s neighborhood into a vector of fixed length.</p>
+</section>
+<section id="combine">
+<h4>COMBINE<a class="headerlink" href="#combine" title="Link to this heading">#</a></h4>
+<p>Next, we need to update our node’s embedding. We might concatenate our neighborhood vector with our previous node embedding (or feature vector). Some GNNs will include a node in its own neighborhood during aggregation, thereby bypassing the COMBINE step. This gives us the embedding for the node that will be passed to the next layer.</p>
+</section>
+<section id="readout">
+<h4>READOUT<a class="headerlink" href="#readout" title="Link to this heading">#</a></h4>
+<p>Often we need something more than just node embeddings – we might need information about the whole graph, in which case we’ll need to apply a permutation-invariant function to our entire set of node embeddings produced by our last GNN layer, or we might need to pass individual node embeddings through some linear neural network layers to classify nodes, for example.</p>
+</section>
+</section>
+</section>
+<section id="tidbits">
+<h2>Tidbits<a class="headerlink" href="#tidbits" title="Link to this heading">#</a></h2>
+<section id="the-weisfeiler-lehman-test-and-isomorphism">
+<h3>The Weisfeiler-Lehman Test and Isomorphism<a class="headerlink" href="#the-weisfeiler-lehman-test-and-isomorphism" title="Link to this heading">#</a></h3>
+<p>The Weisfeiler-Lehman test (W-L test) is a test of graph isomorphism, which we talked about before. It iteratively assigns colors to nodes in a graph, then updates a node’s color by hashing the colors of its neighbors. Some specially formulated GNNs are at least as powerful as the W-L test, although many GNNs that aren’t specially formulated for this application can’t distinguish graphs that the W-L test <em>can</em> distinguish between. For more on this topic, check out this <a class="reference external" href="https://arxiv.org/abs/1810.00826">paper</a> by Xu et al. or a <a class="reference external" href="https://cs.stanford.edu/people/jure/pubs/idgnn-aaai21.pdf">cool extension</a> on the idea by You et al.</p>
+</section>
+<section id="challenges-with-gnns">
+<h3>Challenges with GNNs<a class="headerlink" href="#challenges-with-gnns" title="Link to this heading">#</a></h3>
+<p>GNNs get computationally intensive pretty fast, particularly with new transformer-based or attention-based models. They also don’t do great when passing long-range signals around the network – while in theory you could have many, many layers that bring in signals from as many hops away as you have layers, in practice, this causes <strong>oversquashing</strong> and <strong>oversmoothing</strong>. <strong>Oversmoothing</strong> is when all node representations start to resemble each other (see <a class="reference external" href="https://arxiv.org/abs/1909.03211">this paper</a> for more details), and <strong>oversquashing</strong> happens when you try to fit enormous amounts of information into fixed-length vectors (see <a class="reference external" href="https://arxiv.org/abs/2006.05205">this paper</a> to learn more). That’s why GNNs typically don’t have very many layers, although each layer can be quite fancy.</p>
+</section>
+</section>
+<section id="gcns-as-an-example-of-a-gnn">
+<h2>GCNs (as an example of a GNN)<a class="headerlink" href="#gcns-as-an-example-of-a-gnn" title="Link to this heading">#</a></h2>
+<p>Material in this section relies heavily on Maxime Labonne’s <a class="reference external" href="https://towardsdatascience.com/graph-convolutional-networks-introduction-to-gnns-24b3f60d6c95">blog post</a> in <em>Towards Data Science</em> and Thomas Kipf’s <a class="reference external" href="https://tkipf.github.io/graph-convolutional-networks/">blog post</a> on his GitHub website.</p>
+<p>A <a class="reference external" href="https://arxiv.org/pdf/1609.02907">GCN</a> (Kipf &amp; Welling, 2017) is a type of graph neural network that aggregates nodes’ neighborhoods in a clever way. It uses insights from image processing to perform the AGGREGATE functionality. It scales nicely (as far as GNNs go), learns about graph structure <strong>and</strong> node features, and performs quite well on graphs with node features &amp; labels.</p>
+<section id="what-is-a-convolution-in-image-processing-world">
+<h3>What is a convolution in image processing world?<a class="headerlink" href="#what-is-a-convolution-in-image-processing-world" title="Link to this heading">#</a></h3>
+<p>A <strong>convolution matrix</strong>, or <strong>kernel</strong>, is used in image processing to blur, enhance, sharpen, or detect edges in an image. It’s a small matrix (relative to the size of the image) that is applied to each pixel in the image <strong>and its neighbors within a certain distance</strong>.</p>
+<p>The generic equation for a kernel is this, where <span class="math notranslate nohighlight">\(\omega\)</span> is the kernel matrix, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> indicate the dimensions of the kernel, and <span class="math notranslate nohighlight">\(f(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the image:</p>
+<div class="math notranslate nohighlight">
+\[g(x, y) = \sum_{i=-a}^{a} \sum^{b}_{j=-b} \omega(i, j) f(x-i, y-j)\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(g(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the output image.</p>
+<p>Here’s a visual example of a convolution matrix being applied to a single pixel (from <a class="reference external" href="https://www.researchgate.net/publication/332190148_Best_Practice_Guide_-_Deep_Learning">this article</a>):
+<img alt="" src="https://www.researchgate.net/profile/Volker-Weinberg/publication/332190148/figure/fig2/AS:743933420249088&#64;1554378957080/Schematic-illustration-of-a-convolutional-operation-The-convolutional-kernel-shifts-over.ppm" /></p>
+</section>
+<section id="graph-convolutions">
+<h3>Graph Convolutions<a class="headerlink" href="#graph-convolutions" title="Link to this heading">#</a></h3>
+<p>You might say, cool, that’s neat, but how does that apply to graphs? First of all, graph neighborhoods are not rectangular in shape, and graphs notably have degree <em>distributions</em> - not every node has the same number of neighbors (far from it)!</p>
+<p>Let’s tackle what happens in GCNs at the node level first. We’ll look at how we create our first embedding for node <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(h_{i}^{(1)}\)</span>.</p>
+<p>We know we need to merge our node features with those of our neighbors, so we define a node <span class="math notranslate nohighlight">\(i\)</span>’s neighborhood here as <span class="math notranslate nohighlight">\(i\)</span>’s neighbors plus <span class="math notranslate nohighlight">\(i\)</span> itself. We’ll denote this as <span class="math notranslate nohighlight">\(\tilde{N_i}\)</span>.</p>
+<p>In the simplest case, we could create a weight matrix <span class="math notranslate nohighlight">\(W_i\)</span> and multiply each node <span class="math notranslate nohighlight">\(j\)</span>’s features <span class="math notranslate nohighlight">\(x_j\)</span> by <span class="math notranslate nohighlight">\(W_i\)</span>, then sum them:</p>
+<div class="math notranslate nohighlight">
+\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
+<p>This seems neat, but there’s a small problem.</p>
+<p><strong>INTERACTIVE MOMENT</strong>: Nodes in graphs notably don’t all have the same degree. What’s going to happen to the vectors of high-degree nodes as compared to those of low-degree nodes right now? How might we fix this?</p>
+<hr class="docutils" />
+<p>Spoiler alert: we’re going to divide by <span class="math notranslate nohighlight">\(k_i\)</span>, the degree of node <span class="math notranslate nohighlight">\(i\)</span>. This keeps vector magnitudes around the same-ish size.</p>
+<div class="math notranslate nohighlight">
+\[h_{i}^{(1)} = \frac{1}{k_i}\sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
+<p>However, there’s one more improvement we can make. Kipf and Welling noticed that features from high-degree nodes tended to propagate through the network more easily than those from low-degree nodes. They therefore up-weight the lower-degree nodes’ contributions in the following way:</p>
+<div class="math notranslate nohighlight">
+\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} \frac{1}{\sqrt{k_i}}\frac{1}{\sqrt{k_j}} W^{(1)} x_j\]</div>
+<p><strong>INTERACTIVE MOMENT</strong>: Why does this work?</p>
+<section id="matrix-formulation">
+<h4>Matrix Formulation<a class="headerlink" href="#matrix-formulation" title="Link to this heading">#</a></h4>
+<p>There’s also a neat way we can formulate this as a matrix multiplication. Here, <span class="math notranslate nohighlight">\(\hat{A}\)</span> is the adjacency matrix with self-loops added, and <span class="math notranslate nohighlight">\(\hat{D}\)</span> is <span class="math notranslate nohighlight">\(\hat{A}\)</span>’s degree matrix (i.e. <span class="math notranslate nohighlight">\(A + I\)</span>). <span class="math notranslate nohighlight">\(H^{(l)}\)</span> is the matrix of node embeddings coming into layer <span class="math notranslate nohighlight">\(l\)</span>, and <span class="math notranslate nohighlight">\(W^{(l)}\)</span> is the weight matrix of layer <span class="math notranslate nohighlight">\(l\)</span>:</p>
+<p>$<span class="math notranslate nohighlight">\(f(H^{(l)}, A) = \sigma(\hat{D}^{-\frac{1}{2}} \hat{A} \hat{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\)</span>$.</p>
+<p>Now we’re going to play with a GCN instance. First, let’s try training the neural network on the <a class="reference external" href="https://paperswithcode.com/dataset/cora">Cora dataset</a>, which is a citation network with 7 classes of publication. There are 2708 publications and 5429 citation links between them. We’re going to train a 2-layer GCN on this dataset and see how well it performs on held-out validation data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">Linear</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">GCNConv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">CitationFull</span>
+
+<span class="c1"># loading the dataset</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">CitationFull</span><span class="p">(</span><span class="s1">&#39;/courses/PHYS7332.202510/shared/data/&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Cora&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">Linear</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">GCNConv</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;torch&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomNodeSplit</span>
+
+<span class="c1"># checking if the GPU is available; else use the CPU. </span>
+<span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="c1"># yell if you don&#39;t see &#39;cuda&#39; here!</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">GCN</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># we&#39;re making two GCN convolutional layers here!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gcn1</span> <span class="o">=</span> <span class="n">GCNConv</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span> 
+        <span class="c1"># the first one takes in the raw node features and outputs a vector of length 64.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gcn2</span> <span class="o">=</span> <span class="n">GCNConv</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="c1"># the second one takes in the output of gcn1 and outputs a vector of length 16.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_classes</span><span class="p">)</span>  
+        <span class="c1"># then we make a one-hot vector with an entry for each class in the dataset.</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">):</span>
+        <span class="n">h1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcn1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">)</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span> <span class="c1"># we use a ReLU activation function.</span>
+        <span class="n">h2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcn2</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">)</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span> <span class="c1"># this indicates how data moves through the network.</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="n">h2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h2</span><span class="p">,</span> <span class="n">z</span>
+
+<span class="n">splits</span> <span class="o">=</span> <span class="n">RandomNodeSplit</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="s1">&#39;train_rest&#39;</span><span class="p">,</span> <span class="n">num_val</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">num_test</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)(</span><span class="n">dataset</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="c1"># this lets us make a mask on our dataset </span>
+<span class="c1"># such that we&#39;re only training the model on a subset of nodes.</span>
+<span class="c1"># we have a validation set that we look at each epoch to track our accuracy</span>
+<span class="c1"># as well as a test set that we can use to look at our performance at the end of training.</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">GCN</span><span class="p">()</span> <span class="c1">#instantiates our GCN</span>
+<span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="c1"># puts it on the GPU</span>
+
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span> 
+<span class="c1"># cross-entropy loss tells us how wrong given our final output </span>
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span> 
+<span class="c1"># you can mess with the learning rate or choice of optimizer</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span> <span class="c1"># keeps track of gradients; this is memory-intensive.</span>
+    <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># keep track of loss</span>
+    <span class="n">tot_accuracy</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># keep track of </span>
+    <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span> 
+        <span class="c1"># zero the gradient so we aren&#39;t accumulating them unnecessarily</span>
+        <span class="n">h2</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">batch</span><span class="o">.</span><span class="n">edge_index</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span> 
+        <span class="c1"># make sure we&#39;re putting our data on GPU</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">splits</span><span class="o">.</span><span class="n">train_mask</span><span class="p">],</span> <span class="n">batch</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)[</span><span class="n">splits</span><span class="o">.</span><span class="n">train_mask</span><span class="p">])</span>
+        <span class="c1"># only do backpropagation based on nodes in the train set.</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="c1"># this is the backpropagation step.</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="c1"># optimizers control how backpropagation goes. T</span>
+        <span class="c1"># The fancier ones, like Adam, can adjust the learning rate </span>
+        <span class="c1"># dynamically depending on the magnitude of the gradients.</span>
+        <span class="c1"># AdaGrad can change the learning rate for each rate, so it&#39;s really fancy.</span>
+        <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="c1"># keep track of our total loss (cross-entropy)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="c1"># put the model in eval mode - don&#39;t accumulate gradients.</span>
+    <span class="c1"># this saves memory!</span>
+    <span class="n">val_h</span><span class="p">,</span> <span class="n">val_z</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">dataset</span><span class="o">.</span><span class="n">edge_index</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span> 
+    <span class="c1"># run our dataset through the model</span>
+    <span class="n">val_z</span> <span class="o">=</span> <span class="n">val_z</span><span class="p">[</span><span class="n">splits</span><span class="o">.</span><span class="n">val_mask</span><span class="p">]</span>
+    <span class="c1"># look only at the validation set&#39;s vectors</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">val_z</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+    <span class="c1"># what predictions did we get for the classes?</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)[</span><span class="n">splits</span><span class="o">.</span><span class="n">val_mask</span><span class="p">]</span>
+    <span class="n">tot_accuracy</span> <span class="o">+=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span> <span class="c1"># how often were we right?</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">tot_accuracy</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">, Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">, Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 001, Loss: 4.2583, Accuracy: 0.0478
+Epoch: 002, Loss: 4.1405, Accuracy: 0.0276
+Epoch: 003, Loss: 3.9989, Accuracy: 0.0623
+Epoch: 004, Loss: 3.7828, Accuracy: 0.1479
+Epoch: 005, Loss: 3.5689, Accuracy: 0.1563
+Epoch: 006, Loss: 3.3722, Accuracy: 0.2587
+Epoch: 007, Loss: 3.1978, Accuracy: 0.3254
+Epoch: 008, Loss: 3.0163, Accuracy: 0.3567
+Epoch: 009, Loss: 2.8457, Accuracy: 0.3772
+Epoch: 010, Loss: 2.6924, Accuracy: 0.4136
+Epoch: 011, Loss: 2.5250, Accuracy: 0.4436
+Epoch: 012, Loss: 2.3838, Accuracy: 0.4732
+Epoch: 013, Loss: 2.2103, Accuracy: 0.4938
+Epoch: 014, Loss: 2.0728, Accuracy: 0.5251
+Epoch: 015, Loss: 1.9217, Accuracy: 0.5487
+Epoch: 016, Loss: 1.7906, Accuracy: 0.5800
+Epoch: 017, Loss: 1.6499, Accuracy: 0.5901
+Epoch: 018, Loss: 1.5480, Accuracy: 0.6069
+Epoch: 019, Loss: 1.4414, Accuracy: 0.6154
+Epoch: 020, Loss: 1.3672, Accuracy: 0.6295
+Epoch: 021, Loss: 1.2793, Accuracy: 0.6443
+Epoch: 022, Loss: 1.2053, Accuracy: 0.6474
+Epoch: 023, Loss: 1.1450, Accuracy: 0.6564
+Epoch: 024, Loss: 1.0935, Accuracy: 0.6632
+Epoch: 025, Loss: 1.0423, Accuracy: 0.6679
+Epoch: 026, Loss: 0.9919, Accuracy: 0.6699
+Epoch: 027, Loss: 0.9460, Accuracy: 0.6723
+Epoch: 028, Loss: 0.9046, Accuracy: 0.6703
+Epoch: 029, Loss: 0.8650, Accuracy: 0.6783
+Epoch: 030, Loss: 0.8287, Accuracy: 0.6898
+Epoch: 031, Loss: 0.7844, Accuracy: 0.6905
+Epoch: 032, Loss: 0.7530, Accuracy: 0.6881
+Epoch: 033, Loss: 0.7233, Accuracy: 0.6881
+Epoch: 034, Loss: 0.6959, Accuracy: 0.6918
+Epoch: 035, Loss: 0.6601, Accuracy: 0.6952
+Epoch: 036, Loss: 0.6347, Accuracy: 0.6932
+Epoch: 037, Loss: 0.6134, Accuracy: 0.6932
+Epoch: 038, Loss: 0.5921, Accuracy: 0.6969
+Epoch: 039, Loss: 0.5692, Accuracy: 0.6979
+Epoch: 040, Loss: 0.5464, Accuracy: 0.7023
+Epoch: 041, Loss: 0.5226, Accuracy: 0.7009
+Epoch: 042, Loss: 0.5065, Accuracy: 0.6972
+Epoch: 043, Loss: 0.4911, Accuracy: 0.6986
+Epoch: 044, Loss: 0.4743, Accuracy: 0.6982
+Epoch: 045, Loss: 0.4558, Accuracy: 0.6948
+Epoch: 046, Loss: 0.4405, Accuracy: 0.6989
+Epoch: 047, Loss: 0.4239, Accuracy: 0.6975
+Epoch: 048, Loss: 0.4094, Accuracy: 0.6992
+Epoch: 049, Loss: 0.3972, Accuracy: 0.6945
+Epoch: 050, Loss: 0.3856, Accuracy: 0.7012
+Epoch: 051, Loss: 0.3733, Accuracy: 0.6996
+Epoch: 052, Loss: 0.3603, Accuracy: 0.6986
+Epoch: 053, Loss: 0.3502, Accuracy: 0.7006
+Epoch: 054, Loss: 0.3386, Accuracy: 0.6996
+Epoch: 055, Loss: 0.3272, Accuracy: 0.6965
+Epoch: 056, Loss: 0.3189, Accuracy: 0.6925
+Epoch: 057, Loss: 0.3124, Accuracy: 0.6932
+Epoch: 058, Loss: 0.3076, Accuracy: 0.6952
+Epoch: 059, Loss: 0.3016, Accuracy: 0.6922
+Epoch: 060, Loss: 0.2941, Accuracy: 0.6982
+Epoch: 061, Loss: 0.2834, Accuracy: 0.6975
+Epoch: 062, Loss: 0.2696, Accuracy: 0.6942
+Epoch: 063, Loss: 0.2638, Accuracy: 0.6945
+Epoch: 064, Loss: 0.2522, Accuracy: 0.6942
+Epoch: 065, Loss: 0.2401, Accuracy: 0.6938
+Epoch: 066, Loss: 0.2357, Accuracy: 0.6989
+Epoch: 067, Loss: 0.2314, Accuracy: 0.6948
+Epoch: 068, Loss: 0.2201, Accuracy: 0.6959
+Epoch: 069, Loss: 0.2098, Accuracy: 0.6938
+Epoch: 070, Loss: 0.2083, Accuracy: 0.6955
+Epoch: 071, Loss: 0.2039, Accuracy: 0.6959
+Epoch: 072, Loss: 0.1930, Accuracy: 0.6948
+Epoch: 073, Loss: 0.1863, Accuracy: 0.6935
+Epoch: 074, Loss: 0.1852, Accuracy: 0.6922
+Epoch: 075, Loss: 0.1788, Accuracy: 0.6952
+Epoch: 076, Loss: 0.1702, Accuracy: 0.6935
+Epoch: 077, Loss: 0.1673, Accuracy: 0.6935
+Epoch: 078, Loss: 0.1638, Accuracy: 0.6925
+Epoch: 079, Loss: 0.1567, Accuracy: 0.6952
+Epoch: 080, Loss: 0.1511, Accuracy: 0.6938
+Epoch: 081, Loss: 0.1490, Accuracy: 0.6938
+Epoch: 082, Loss: 0.1456, Accuracy: 0.6928
+Epoch: 083, Loss: 0.1395, Accuracy: 0.6935
+Epoch: 084, Loss: 0.1365, Accuracy: 0.6878
+Epoch: 085, Loss: 0.1363, Accuracy: 0.6901
+Epoch: 086, Loss: 0.1385, Accuracy: 0.6874
+Epoch: 087, Loss: 0.1503, Accuracy: 0.6787
+Epoch: 088, Loss: 0.1761, Accuracy: 0.6746
+Epoch: 089, Loss: 0.2020, Accuracy: 0.6834
+Epoch: 090, Loss: 0.1682, Accuracy: 0.6891
+Epoch: 091, Loss: 0.1218, Accuracy: 0.6831
+Epoch: 092, Loss: 0.1506, Accuracy: 0.6884
+Epoch: 093, Loss: 0.1248, Accuracy: 0.6854
+Epoch: 094, Loss: 0.1227, Accuracy: 0.6895
+Epoch: 095, Loss: 0.1310, Accuracy: 0.6932
+Epoch: 096, Loss: 0.1050, Accuracy: 0.6841
+Epoch: 097, Loss: 0.1246, Accuracy: 0.6884
+Epoch: 098, Loss: 0.1033, Accuracy: 0.6871
+Epoch: 099, Loss: 0.1087, Accuracy: 0.6861
+Epoch: 100, Loss: 0.1025, Accuracy: 0.6864
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="your-turn">
+<h2>Your Turn<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
+<p>For this Your Turn section, I want you to do one or more of the following:</p>
+<ol class="arabic simple">
+<li><p>Figure out how to make a GCN model with an adjustable number of layers (e.g. <code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">=</span> <span class="pre">GCN(3)</span></code> should give me a model that has three GCN layers). Try training the model with several different numbers of layers. Tell me how the performance changes as the number of layers increases/decreases. Optionally, look at the embeddings that the model produces and tell me if their quality changes.</p></li>
+<li><p>The <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GCNConv.html#torch_geometric.nn.conv.GCNConv">GCNConv</a> layer takes several different keyword arguments that are its own (e.g. <code class="docutils literal notranslate"><span class="pre">improved</span></code>, <code class="docutils literal notranslate"><span class="pre">add_self_loops</span></code>, <code class="docutils literal notranslate"><span class="pre">normalize</span></code>) or can be inherited from the <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.MessagePassing.html#torch_geometric.nn.conv.MessagePassing">MessagePassing</a> class in <code class="docutils literal notranslate"><span class="pre">torch-geometric</span></code>, as GCNConv is a message-passing GNN layer. The <code class="docutils literal notranslate"><span class="pre">MessagePassing</span></code> arguments include a choice of aggregation function and the ability to change the flow of message-passing. Mess with these keyword arguments and keep track of the accuracy and loss as training proceeds for a few settings of, say, aggregation function. Plot your accuracy and/or loss over the course of training for several different settings of the parameter you chose to vary. What do you notice? Why do you think this is the case?</p></li>
+<li><p>Look at the different choices of convolutional layers available <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html#convolutional-layers">here</a>. Choose a couple different types of convolutional layers and build models with those layers. Which do well on this dataset? Which do worse? Why do you think that is?</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_15"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#today-s-goals">Today’s Goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backpropagation-by-request">Backpropagation (by request):</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-ingredients-do-we-need-to-do-backpropagation">What ingredients do we need to do backpropagation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-right-along-tl-dr-for-those-who-hate-math">Moving right along/TL;DR (For those who hate math!!)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-gnns-do">What do GNNs do?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sidebar-graph-isomorphism">Sidebar: graph isomorphism</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-learn-about-nodes-neighborhoods">How do we learn about nodes’ neighborhoods?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enter-permutation-invariant-functions">enter…permutation-invariant functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-permutation-invariant-function">What is a permutation-invariant function?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-care-about-permutation-invariance">Why do we care about permutation-invariance?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-core-functionalities-in-most-gnns">The three core functionalities in most GNNs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate">AGGREGATE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#combine">COMBINE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#readout">READOUT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tidbits">Tidbits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weisfeiler-lehman-test-and-isomorphism">The Weisfeiler-Lehman Test and Isomorphism</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-with-gnns">Challenges with GNNs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gcns-as-an-example-of-a-gnn">GCNs (as an example of a GNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-convolution-in-image-processing-world">What is a convolution in image processing world?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutions">Graph Convolutions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-formulation">Matrix Formulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brennan Klein
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

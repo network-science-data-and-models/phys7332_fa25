@@ -1,0 +1,1454 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Class 6: Data Science 1 — Pandas, SQL, Regressions &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_06/class_06_data_science_and_sql';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PHYS 7332: Network Science Data & Models (Fall 2025)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    PHYS 7332: Network Science Data & Models – Fall 2025
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../class_00/class_00_github_computing_setup.html">Class 00: Introduction and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_01/class_01_python_refresher.html">Class 01: Python Refresher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_02/class_02_networkx1.html">Class 02: Introduction to Networkx 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_03/class_03_networkx2.html">Class 03: Introduction to Networkx 2</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_06/class_06_data_science_and_sql.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/class_06/class_06_data_science_and_sql.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Class 6: Data Science 1 — Pandas, SQL, Regressions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-set-up">Getting Set Up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-today-s-class">Goals of today’s class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">Pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pandas">What is <code class="docutils literal notranslate"><span class="pre">pandas</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-pandas-structures">Basic <code class="docutils literal notranslate"><span class="pre">pandas</span></code> structures</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-column">Adding A Column</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pandas-operations">Common <code class="docutils literal notranslate"><span class="pre">pandas</span></code> operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting">Sorting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering">Filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-functions-to-columns">Applying functions to columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping">Grouping</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practicing-with-pandas">Practicing with Pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring">Exploring</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sql">SQL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-sql">What is SQL?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-is-it-used">When is it used?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-connected-to-sql-on-discovery">Getting connected to SQL on Discovery</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#secrets">Secrets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-query-a-sql-table">How do we query a SQL table?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Filtering</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregating-again">Aggregating (again!)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-tables">Joining Tables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regressions">Regressions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-are-regressions-useful">When are regressions useful?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-do-they-fall-short">When do they fall short?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-a-linear-regression-on-a-pandas-dataframe">Running a linear regression on a Pandas dataframe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-sklearn">Importing <code class="docutils literal notranslate"><span class="pre">sklearn</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-in-fish-species">Adding in Fish Species</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-fancy">Getting Fancy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-acknowledgements">Resources &amp; Acknowledgements</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="class-6-data-science-1-pandas-sql-regressions">
+<h1>Class 6: Data Science 1 — Pandas, SQL, Regressions<a class="headerlink" href="#class-6-data-science-1-pandas-sql-regressions" title="Link to this heading">#</a></h1>
+<section id="getting-set-up">
+<h2>Getting Set Up<a class="headerlink" href="#getting-set-up" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Open up the Jupyter Lab server.</p></li>
+<li><p>Open up the Jupyter Lab terminal.</p></li>
+<li><p>Activate Conda: <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">anaconda3/2024.06</span></code></p></li>
+<li><p>Activate the shared virtual environment: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">activate</span> <span class="pre">/courses/PHYS7332.202610/shared/phys7332-env/</span></code></p></li>
+</ol>
+</section>
+<section id="goals-of-today-s-class">
+<h2>Goals of today’s class<a class="headerlink" href="#goals-of-today-s-class" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Get comfortable using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> for tabular data</p></li>
+<li><p>Learn how to use basic SQL commands</p></li>
+<li><p>Understand how regressions work at a very high level.</p></li>
+</ol>
+</section>
+<section id="pandas">
+<h2>Pandas<a class="headerlink" href="#pandas" title="Link to this heading">#</a></h2>
+<p><em>Adapted from <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/10min.html">10 minutes to pandas</a></em></p>
+<section id="what-is-pandas">
+<h3>What is <code class="docutils literal notranslate"><span class="pre">pandas</span></code>?<a class="headerlink" href="#what-is-pandas" title="Link to this heading">#</a></h3>
+<p>At a basic level, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is a Python library for manipulating &amp; analyzing data. It’s best for <em>tabular data</em>, which is data that can nicely be organized into a table with rows and columns. Tabular data could look like:</p>
+<ul class="simple">
+<li><p>sales from an ecommerce site (each row is a sale, and the columns hold information about the sale – product(s), time of sale, dollar amount of the purchase, etc.)</p></li>
+<li><p>a robot’s position as it changes over time (each row has a timestamp and x, y, and z coordinates indicating the robot’s location)</p></li>
+<li><p>bikeshare trips (each row is an individual trip with source and destination stations, timestamps, and trip duration)</p></li>
+</ul>
+<p>Sometimes it’s okay to store network data in a tabular format; other times, when we’re running (e.g.) spreading simulations or network reconstruction, a tabular format is not very helpful.</p>
+<p>Today, we’re going to be working with non-network tabular data for the most part – it’s easier to get a handle on <code class="docutils literal notranslate"><span class="pre">pandas</span></code> this way.</p>
+<p>We usually import <code class="docutils literal notranslate"><span class="pre">pandas</span></code> like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="basic-pandas-structures">
+<h3>Basic <code class="docutils literal notranslate"><span class="pre">pandas</span></code> structures<a class="headerlink" href="#basic-pandas-structures" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> has two basic units that we care about: a <code class="docutils literal notranslate"><span class="pre">Series</span></code> and a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. <code class="docutils literal notranslate"><span class="pre">Series</span></code> are roughly akin to lists – they’re one-dimensional and can hold data of any type. <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> are two-dimensional (they have rows and columns) and are indexed by one or more columns. This means that a row can be identified by the labels in the index column. Each column of a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> is also a <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
+<p>We’ll focus on <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> for now. We can populate a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> in a few different ways. First, let’s instantiate a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with our own data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Orca&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue Whale&quot;</span><span class="p">,</span> <span class="s2">&quot;Beluga Whale&quot;</span><span class="p">,</span> <span class="s2">&quot;Narwhal&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Weight&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">22000</span><span class="p">,</span> <span class="mi">441000</span><span class="p">,</span> <span class="mi">2530</span><span class="p">,</span> <span class="mi">3500</span><span class="p">],</span>
+    <span class="s2">&quot;Cute&quot;</span><span class="p">:[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+    <span class="s2">&quot;Habitat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Everywhere&quot;</span><span class="p">,</span> <span class="s2">&quot;Everywhere&quot;</span><span class="p">,</span> <span class="s2">&quot;Arctic&quot;</span><span class="p">,</span> <span class="s2">&quot;Arctic&quot;</span><span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at the types the columns of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> <code class="docutils literal notranslate"><span class="pre">df</span></code> have:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name       object
+Weight      int64
+Cute         bool
+Habitat    object
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Wow! These are a lot of different types! Having the incorrect type in your columns can (occasionally) be an issue, but <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is pretty good at converting columns between types.</p>
+<section id="adding-a-column">
+<h4>Adding A Column<a class="headerlink" href="#adding-a-column" title="Link to this heading">#</a></h4>
+<p>Let’s practice adding a new column by converting an existing column’s type. We add new columns like we would add an entry in a Python dictionary. We can also access columns in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> as attributes of the object (e.g. <code class="docutils literal notranslate"><span class="pre">df.column</span></code>). Then we can convert the type using <code class="docutils literal notranslate"><span class="pre">df.column.astype(TYPE)</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cute_numeric&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Cute</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Weight</th>
+      <th>Cute</th>
+      <th>Habitat</th>
+      <th>cute_numeric</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Orca</td>
+      <td>22000</td>
+      <td>True</td>
+      <td>Everywhere</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Blue Whale</td>
+      <td>441000</td>
+      <td>True</td>
+      <td>Everywhere</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Beluga Whale</td>
+      <td>2530</td>
+      <td>True</td>
+      <td>Arctic</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Narwhal</td>
+      <td>3500</td>
+      <td>True</td>
+      <td>Arctic</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can also add a column of our own devising to the dataframe – as long as it’s the same length as the existing dataframe:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Food&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Everything&quot;</span><span class="p">,</span> <span class="s2">&quot;Krill&quot;</span><span class="p">,</span> <span class="s2">&quot;Squid, Clams, Octopus, Cod, Herring&quot;</span><span class="p">,</span> <span class="s2">&quot;Fish&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can  access all the column names like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Name&#39;, &#39;Weight&#39;, &#39;Cute&#39;, &#39;Habitat&#39;, &#39;cute_numeric&#39;, &#39;Food&#39;], dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>or see the first 3 entries like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Weight</th>
+      <th>Cute</th>
+      <th>Habitat</th>
+      <th>cute_numeric</th>
+      <th>Food</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Orca</td>
+      <td>22000</td>
+      <td>True</td>
+      <td>Everywhere</td>
+      <td>1</td>
+      <td>Everything</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Blue Whale</td>
+      <td>441000</td>
+      <td>True</td>
+      <td>Everywhere</td>
+      <td>1</td>
+      <td>Krill</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Beluga Whale</td>
+      <td>2530</td>
+      <td>True</td>
+      <td>Arctic</td>
+      <td>1</td>
+      <td>Squid, Clams, Octopus, Cod, Herring</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="common-pandas-operations">
+<h2>Common <code class="docutils literal notranslate"><span class="pre">pandas</span></code> operations<a class="headerlink" href="#common-pandas-operations" title="Link to this heading">#</a></h2>
+<section id="sorting">
+<h3>Sorting<a class="headerlink" href="#sorting" title="Link to this heading">#</a></h3>
+<p>Now we’ll practice some common operations in <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. One thing we might want to do is sort a dataframe by a particular column. We can indicate which column to sort by using the <code class="docutils literal notranslate"><span class="pre">by</span></code> keyword argument. If we want it in reverse order (as opposed to regular ascending order), we set the <code class="docutils literal notranslate"><span class="pre">ascending</span></code> keyword argument to <code class="docutils literal notranslate"><span class="pre">False</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;Weight&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Weight</th>
+      <th>Cute</th>
+      <th>Habitat</th>
+      <th>cute_numeric</th>
+      <th>Food</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Blue Whale</td>
+      <td>441000</td>
+      <td>True</td>
+      <td>Everywhere</td>
+      <td>1</td>
+      <td>Krill</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Orca</td>
+      <td>22000</td>
+      <td>True</td>
+      <td>Everywhere</td>
+      <td>1</td>
+      <td>Everything</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Narwhal</td>
+      <td>3500</td>
+      <td>True</td>
+      <td>Arctic</td>
+      <td>1</td>
+      <td>Fish</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Beluga Whale</td>
+      <td>2530</td>
+      <td>True</td>
+      <td>Arctic</td>
+      <td>1</td>
+      <td>Squid, Clams, Octopus, Cod, Herring</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Can you sort the dataframe alphabetically by species name?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your turn!!!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="filtering">
+<h3>Filtering<a class="headerlink" href="#filtering" title="Link to this heading">#</a></h3>
+<p>Another common thing we can do in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is filtering. This means we only select the rows that match a specific condition. Let’s filter for all the cetaceans (umbrella term for whales, dolphins, and porpoises) whose weight is over 5000 pounds. Here, again, we’re using a dictionary-like syntax to filter the data. Filtering conditions should be boolean; you can also combine multiple conditions if you’re feeling fancy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Weight</span> <span class="o">&gt;</span> <span class="mi">5000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Weight</th>
+      <th>Cute</th>
+      <th>Habitat</th>
+      <th>cute_numeric</th>
+      <th>Food</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Orca</td>
+      <td>22000</td>
+      <td>True</td>
+      <td>Everywhere</td>
+      <td>1</td>
+      <td>Everything</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Blue Whale</td>
+      <td>441000</td>
+      <td>True</td>
+      <td>Everywhere</td>
+      <td>1</td>
+      <td>Krill</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Can you filter the data to find all the cetaceans that live in the Arctic?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your turn!!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="applying-functions-to-columns">
+<h3>Applying functions to columns<a class="headerlink" href="#applying-functions-to-columns" title="Link to this heading">#</a></h3>
+<p>We can create and modify existing columns using the <code class="docutils literal notranslate"><span class="pre">apply</span></code> function. Any function that takes in a single argument and returns something (ideally something that fits nicely into a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> column) is fair game. Let’s try an example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">convert_from_lbs_to_kg</span><span class="p">(</span><span class="n">wt</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">wt</span> <span class="o">*</span> <span class="mf">0.45</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Weight_kg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Weight&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convert_from_lbs_to_kg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we apply a function, we can use an actual function, as we did above, or we can use an <strong>anonymous function</strong>, or a “lambda function”. It must use a single expression to modify its input (and the expression can involve functions): <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">INPUT:</span> <span class="pre">np.sqrt(INPUT)</span> <span class="pre">+</span> <span class="pre">5</span></code> is a valid example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Weight_tons&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Weight&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="n">b</span> <span class="o">/</span> <span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="grouping">
+<h3>Grouping<a class="headerlink" href="#grouping" title="Link to this heading">#</a></h3>
+<p>We also might want to group our dataframe into chunks that have something in common. This is a good way to look at aggregate information for particular types of items. For example, if you are looking at a table of patients’ health outcomes, you might be interested in aggregating outcomes by the cities in which patients reside.</p>
+<p>To do this, we  use the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> operator. When we group by a column (or multiple), <code class="docutils literal notranslate"><span class="pre">pandas</span></code> returns an iterable of tuples; each tuple consists of a unique value that the column(s) take(s) and a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with all the rows that have that value in the relevant column(s). Let’s see what this looks like in practice!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Habitat&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">habitat</span><span class="p">,</span> <span class="n">df_gr</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">habitat</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_gr</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Arctic
+           Name  Weight  Cute Habitat  cute_numeric  \
+2  Beluga Whale    2530  True  Arctic             1   
+3       Narwhal    3500  True  Arctic             1   
+
+                                  Food  Weight_kg  Weight_tons  
+2  Squid, Clams, Octopus, Cod, Herring     1138.5        1.265  
+3                                 Fish     1575.0        1.750  
+Everywhere
+         Name  Weight  Cute     Habitat  cute_numeric        Food  Weight_kg  \
+0        Orca   22000  True  Everywhere             1  Everything     9900.0   
+1  Blue Whale  441000  True  Everywhere             1       Krill   198450.0   
+
+   Weight_tons  
+0         11.0  
+1        220.5  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we’re grouping our dataframe by the <code class="docutils literal notranslate"><span class="pre">Habitat</span></code> column. <code class="docutils literal notranslate"><span class="pre">groups</span></code> is an iterable (we can iterate over the items in it, in the order given to us) that has two variables. One of them is the unique value of the column we grouped by (<code class="docutils literal notranslate"><span class="pre">Everywhere</span></code> and <code class="docutils literal notranslate"><span class="pre">Arctic</span></code>) and the other one is the chunk of the dataframe that had that unique value in that column.</p>
+<p>Can you group the cetaceans that weigh more than 5000 pounds apart from the ones that weigh less than 5000 pounds? (Hint: You might have to create a new column!)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your Turn!!!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="practicing-with-pandas">
+<h2>Practicing with Pandas<a class="headerlink" href="#practicing-with-pandas" title="Link to this heading">#</a></h2>
+<p>We can also load a pandas dataframe from a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> (comma separated values) file. We’re going to load up <code class="docutils literal notranslate"><span class="pre">WhaleFromSpaceDB_Whales.csv</span></code>, which we sourced from the <a class="reference external" href="https://ramadda.data.bas.ac.uk/repository/entry/show?entryid=c1afe32c-493c-4dc7-af9f-649593b97b2c">UK Polar Data Centre</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_whales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/WhaleFromSpaceDB_Whales.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_whales</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_whales</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              MstLklSp SpAbbr PtlOtrSp  BoL  BoW  BoS  BoC  FlukeP  Blow  \
+0  Eubalaena australis    SRW     None    2    1    1    2       0     0   
+1  Eubalaena australis    SRW     None    2    1    1    2       0     0   
+2  Eubalaena australis    SRW     None    1    1    1    2       0     0   
+3  Eubalaena australis    SRW     None    1    1    1    2       0     0   
+4  Eubalaena australis    SRW     None    1    1    1    2       0     0   
+
+   Contour  ...        Long   ImageID  \
+0        0  ...  166.281952  1.01E+15   
+1        0  ...  166.278841  1.01E+15   
+2        0  ...  166.274348  1.01E+15   
+3        0  ...  166.291132  1.01E+15   
+4        0  ...  166.268754  1.01E+15   
+
+                                      ImageFile  ImageDate  Satellite  \
+0  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
+1  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
+2  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
+3  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
+4  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
+
+   NumWhale        BoxSize  SpatialRes                  BoxID/ImageChip  \
+0         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B0   
+1         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B1   
+2         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B2   
+3         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B3   
+4         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B4   
+
+                           PointID  
+0  Auckland_SRW_QB2_PS_20060812_P0  
+1  Auckland_SRW_QB2_PS_20060812_P1  
+2  Auckland_SRW_QB2_PS_20060812_P2  
+3  Auckland_SRW_QB2_PS_20060812_P3  
+4  Auckland_SRW_QB2_PS_20060812_P4  
+
+[5 rows x 34 columns]
+Index([&#39;MstLklSp&#39;, &#39;SpAbbr&#39;, &#39;PtlOtrSp&#39;, &#39;BoL&#39;, &#39;BoW&#39;, &#39;BoS&#39;, &#39;BoC&#39;, &#39;FlukeP&#39;,
+       &#39;Blow&#39;, &#39;Contour&#39;, &#39;Wake&#39;, &#39;AfterB&#39;, &#39;Defecation&#39;, &#39;MudTrail&#39;,
+       &#39;OtherDistu&#39;, &#39;Fluke&#39;, &#39;Flipper&#39;, &#39;HeadCalosi&#39;, &#39;Movement&#39;,
+       &#39;Certainty2&#39;, &#39;ClassScore&#39;, &#39;Location&#39;, &#39;GCS&#39;, &#39;Lat&#39;, &#39;Long&#39;, &#39;ImageID&#39;,
+       &#39;ImageFile&#39;, &#39;ImageDate&#39;, &#39;Satellite&#39;, &#39;NumWhale&#39;, &#39;BoxSize&#39;,
+       &#39;SpatialRes&#39;, &#39;BoxID/ImageChip&#39;, &#39;PointID&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="exploring">
+<h3>Exploring<a class="headerlink" href="#exploring" title="Link to this heading">#</a></h3>
+<p>Let’s explore the dataset a little bit! The <code class="docutils literal notranslate"><span class="pre">value_counts</span></code> function tells us how many times each unique value showed up in a column. It returns a nice dictionary-like object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_whales</span><span class="p">[</span><span class="s1">&#39;MstLklSp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eubalaena australis       463
+Eschrichtius robustus      80
+Megaptera novaeangliae     56
+Balaenoptera physalus      34
+Name: MstLklSp, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s check for flukes, or whales’ tails! Flukes are valuable to marine biologists because they help them visually identify individuals. Whale flukes are analogous to human fingerprints in terms of their uniqueness. For each whale species, can you count how many times flukes were and were not seen?</p>
+<p>We have a column, <code class="docutils literal notranslate"><span class="pre">Certainty2</span></code>, that tells us how certain the identification of a whale was.
+Let’s assign numeric values to each of the identification values. We’ll say <code class="docutils literal notranslate"><span class="pre">Definite</span> <span class="pre">=</span> <span class="pre">1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">Probable</span> <span class="pre">=</span> <span class="pre">0.8</span></code>, and <code class="docutils literal notranslate"><span class="pre">Possible</span> <span class="pre">=</span> <span class="pre">0.6</span></code>.
+What is the average certainty for each species? (Hint: <code class="docutils literal notranslate"><span class="pre">df.column.mean()</span></code> gives the average value of a column, and you’ll have to use the <code class="docutils literal notranslate"><span class="pre">apply</span></code> function to create a numeric column for certainty!)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your Turn!!!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sql">
+<h2>SQL<a class="headerlink" href="#sql" title="Link to this heading">#</a></h2>
+<section id="what-is-sql">
+<h3>What is SQL?<a class="headerlink" href="#what-is-sql" title="Link to this heading">#</a></h3>
+<p>SQL stands for “<strong>Structured Query Language</strong>”. It is a way to query a particular kind of database that has – you guessed it – <strong>tabular data</strong>! Remember, tabular data lends itself well to being organized in rows and columns. Each row represents one instance/observation, and each column represents a different attribute the instances/observations have.</p>
+</section>
+<section id="when-is-it-used">
+<h3>When is it used?<a class="headerlink" href="#when-is-it-used" title="Link to this heading">#</a></h3>
+<p>SQL is used a lot in industry to store and query data for analytic purposes. When you have a ton of data to deal with, SQL is a great way to do that.</p>
+</section>
+<section id="getting-connected-to-sql-on-discovery">
+<h3>Getting connected to SQL on Discovery<a class="headerlink" href="#getting-connected-to-sql-on-discovery" title="Link to this heading">#</a></h3>
+<p>We’ll connect to SQL on Discovery using <code class="docutils literal notranslate"><span class="pre">SQLAlchemy</span></code>. This is a package that lets you connect to many different kinds of SQL databases using Python, so we can connect from right inside our Jupyter notebooks on Discovery.</p>
+</section>
+<section id="secrets">
+<h3>Secrets<a class="headerlink" href="#secrets" title="Link to this heading">#</a></h3>
+<p>You’ll notice that I didn’t give you the MySQL username and password in plain text in this notebook; this is intentional. While this particular set of credentials isn’t very useful unless you have Discovery access, it’s nonetheless good practice to <strong>never commit credentials to git</strong> and <strong>never share credentials in plain text with others via the internet</strong>. If you do commit credentials or other secret to GitHub, <a class="reference external" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository">this</a> is how you get rid of the problematic commits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+
+<span class="n">my_creds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/courses/PHYS7332.202610/shared/student_mysql_credentials.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+        <span class="n">my_creds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+<span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;mysql-0005&quot;</span>
+<span class="n">dbname</span><span class="o">=</span><span class="s2">&quot;PHYS7332&quot;</span>
+<span class="n">uname</span><span class="o">=</span><span class="n">my_creds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">pwd</span><span class="o">=</span><span class="n">my_creds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;mysql+pymysql://</span><span class="si">{user}</span><span class="s2">:</span><span class="si">{pw}</span><span class="s2">@</span><span class="si">{host}</span><span class="s2">/</span><span class="si">{db}</span><span class="s2">&quot;</span>
+                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">hostname</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">dbname</span><span class="p">,</span>
+                                   <span class="n">user</span><span class="o">=</span><span class="n">uname</span><span class="p">,</span><span class="n">pw</span><span class="o">=</span><span class="n">pwd</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">my_creds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/courses/PHYS7332.202610/shared/student_mysql_credentials.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>         <span class="n">my_creds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/IPython/core/interactiveshell.py:343,</span> in <span class="ni">_modified_open</span><span class="nt">(file, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">336</span> <span class="k">if</span> <span class="n">file</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}:</span>
+<span class="g g-Whitespace">    </span><span class="mi">337</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">338</span>         <span class="sa">f</span><span class="s2">&quot;IPython won&#39;t let you open fd=</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2"> by default &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">339</span>         <span class="s2">&quot;as it is likely to crash IPython. If you know what you are doing, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">340</span>         <span class="s2">&quot;you can use builtins&#39; open.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span>     <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">343</span> <span class="k">return</span> <span class="n">io_open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/courses/PHYS7332.202610/shared/student_mysql_credentials.txt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="how-do-we-query-a-sql-table">
+<h3>How do we query a SQL table?<a class="headerlink" href="#how-do-we-query-a-sql-table" title="Link to this heading">#</a></h3>
+<p>We can query a SQL table by giving <code class="docutils literal notranslate"><span class="pre">pandas</span></code> a SQL engine object using the <code class="docutils literal notranslate"><span class="pre">sqlalchemy</span></code> package. This makes our life easier so that we just have to worry about the SQL syntax.</p>
+<p>The most basic way to extract data from an SQL table is selecting everything. Here we have a table of species in a Florida marine ecosystem, their node IDs, and the category of organisms they belong to. Let’s select them all:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qu</span> <span class="o">=</span> <span class="s1">&#39;SELECT * FROM fla_species;&#39;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">qu</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This will get us everything in <code class="docutils literal notranslate"><span class="pre">fla_species</span></code>, so sometimes it’s not a good idea to pull <strong>all the data</strong>. In this case, we can set a limit of 5 entries:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qu</span> <span class="o">=</span> <span class="s1">&#39;SELECT * FROM fla_species LIMIT 5;&#39;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">qu</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h4>Filtering<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>But what if we want to filter our data? In this example, we select all entries from the table named <code class="docutils literal notranslate"><span class="pre">table</span></code> that have a value in <code class="docutils literal notranslate"><span class="pre">group</span></code> that is equal to <code class="docutils literal notranslate"><span class="pre">'Pelagic</span> <span class="pre">Fishes'</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qu</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM fla_species WHERE my_group = &#39;Pelagic Fishes&#39;;&quot;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">qu</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or if we want to select based on multiple conditions, we can do this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qu</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM fla_species WHERE my_group = &#39;Pelagic Fishes&#39; AND node_id &gt; 65;&quot;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">qu</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can select just one or two columns by replacing the <code class="docutils literal notranslate"><span class="pre">*</span></code> with the column names, and if we don’t want duplicate rows, we can use <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">DISTINCT</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qu</span> <span class="o">=</span> <span class="s2">&quot;SELECT DISTINCT my_group FROM fla_species WHERE node_id &lt; 10;&quot;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">qu</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="aggregating-again">
+<h3>Aggregating (again!)<a class="headerlink" href="#aggregating-again" title="Link to this heading">#</a></h3>
+<p>What if we want to get aggregate information about the species we’re seeing? We can use an operation called <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> in SQL to do this. <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> puts the table into chunks that all have the same value of the variable we’re grouping by. Then, we can aggregate the values in other columns to learn about each group as a whole. Note that unlike <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, SQL requires that you aggregate all the columns you look at – it needs to return another table, not an iterable that contains tables.</p>
+<p>Here, we’re grabbing each value of <code class="docutils literal notranslate"><span class="pre">group</span></code>, a column that refers to the species type, and counting how many rows have that value in their <code class="docutils literal notranslate"><span class="pre">group</span></code> column. <code class="docutils literal notranslate"><span class="pre">COUNT(*)</span></code> tells us how many rows are in each chunk. Other commonly used aggregate operations include <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">AVG</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qu</span> <span class="o">=</span> <span class="s2">&quot;SELECT my_group, COUNT(*) FROM fla_species GROUP BY my_group;&quot;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">qu</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="joining-tables">
+<h3>Joining Tables<a class="headerlink" href="#joining-tables" title="Link to this heading">#</a></h3>
+<p>We also have a network of species that forms a food web in this Florida marine ecosystem. In a food web edge <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j)</span></code>, energy (or carbon) flows from organism <code class="docutils literal notranslate"><span class="pre">i</span></code> to organism <code class="docutils literal notranslate"><span class="pre">j</span></code>. A whale eating krill would be rpresented as <code class="docutils literal notranslate"><span class="pre">(krill,</span> <span class="pre">whale)</span></code>, for example. Let’s select the first few rows of data about our food web:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qu</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM fla_foodweb LIMIT 10;&quot;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">qu</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we can see that species are referred to by their node IDs – we saw those in the other table, <code class="docutils literal notranslate"><span class="pre">fla_species</span></code>. What if we want information on the species incorporated with our information on which species consume each other?</p>
+<p>We can <em>join tables</em> to make this happen. When we join tables, we usually pick a <em>condition</em> to use to make sure we are joining together rows correctly. In this case, we want to join based on the ID of the node. Let’s try an inner join, also just referred to in SQL as <code class="docutils literal notranslate"><span class="pre">JOIN</span></code>. This matches all items that have values for <code class="docutils literal notranslate"><span class="pre">ToNodeId</span></code> in <code class="docutils literal notranslate"><span class="pre">fla_foodweb</span></code> and <code class="docutils literal notranslate"><span class="pre">NodeId</span></code> in <code class="docutils literal notranslate"><span class="pre">fla_species</span></code>. It does not match items that do not have values in <strong>both tables</strong>. Let’s see what happens:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qu</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT * FROM fla_foodweb JOIN fla_species ON </span><span class="se">\</span>
+<span class="s2">    fla_foodweb.ToNodeId = fla_species.node_id LIMIT 10;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">qu</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have a species name for each species that’s consuming another species!</p>
+<p>Other types of joins include left joins and right joins. A <strong>left join</strong> will keep all the rows of the left table and add information from the right table if it matches on the condition we’re using to match up items. A right join does the opposite.</p>
+<p>We’re also going to create a variable in SQL to do some fancy joining now.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qu</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        SELECT * FROM (SELECT ToNodeId, COUNT(FromNodeId) AS num_species_consumed FROM </span><span class="se">\</span>
+<span class="s2">        fla_foodweb GROUP BY ToNodeId) </span><span class="se">\</span>
+<span class="s2">        species_eaten RIGHT JOIN fla_species ON </span><span class="se">\</span>
+<span class="s2">        species_eaten.ToNodeId = fla_species.node_id;&quot;&quot;&quot;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">qu</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>What are we doing here? First, we’re creating a variable in SQL. It’s called <code class="docutils literal notranslate"><span class="pre">species_eaten</span></code>, and it itself is a table. We make it by grouping <code class="docutils literal notranslate"><span class="pre">fla_foodweb</span></code> by <code class="docutils literal notranslate"><span class="pre">ToNodeId</span></code> – the organism doing the consuming. Then, we count how many other types of organisms that each unique value of <code class="docutils literal notranslate"><span class="pre">ToNodeId</span></code> consumed. That makes our table <code class="docutils literal notranslate"><span class="pre">species_eaten</span></code>!</p>
+<p>Now we join it with <code class="docutils literal notranslate"><span class="pre">fla_species</span></code> to get species names attached to our number of species consumed by each organism! Because we’re doing a <code class="docutils literal notranslate"><span class="pre">RIGHT</span> <span class="pre">JOIN</span></code> operation, and <code class="docutils literal notranslate"><span class="pre">fla_species</span></code> is the right hand table, we’re going to keep all the rows of <code class="docutils literal notranslate"><span class="pre">fla_species</span></code>, even if a species does not consume any other species. Some of the rows returned might have null values in some columns, and that is okay!</p>
+<p>Can you figure out how to count the number of unique species consumed by each <strong>group</strong> of species? (Hint: the <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">DISTINCT</span></code> or <code class="docutils literal notranslate"><span class="pre">COUNT</span> <span class="pre">DISTINCT</span> </code><a class="reference external" href="https://www.w3schools.com/Sql/sql_distinct.asp">operations</a> might come in handy here. These only select unique values or combinations of values (if you select multiple columns), so <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">DISTINCT</span> <span class="pre">group</span> <span class="pre">FROM</span> <span class="pre">fla_species;</span></code> will only show you each value <code class="docutils literal notranslate"><span class="pre">group</span></code> takes once).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your Turn!!!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="regressions">
+<h2>Regressions<a class="headerlink" href="#regressions" title="Link to this heading">#</a></h2>
+<p>Regressions are used to figure out how variables in a dataset are related to each other. Usually, you have a dependent variable (the <strong>outcome</strong> we care about) and some set of <strong>independent variables</strong> that influence the outcome. For example, let’s say we have a bunch of fish and their dimensional measurements. We want to figure out how much the fish weighs, given its measurements. Regression is one way we can do this!</p>
+<p>In its most basic form, a linear regression will try to minimize the <strong>sum of squared error</strong>. Let’s say we have a bunch of observations <span class="math notranslate nohighlight">\(y_i\)</span> and <span class="math notranslate nohighlight">\(x_i\)</span>. Each <span class="math notranslate nohighlight">\(y_i\)</span> is a numeric value, and each <span class="math notranslate nohighlight">\(x_i\)</span> is a vector of dependent variables. We want to find a vector <span class="math notranslate nohighlight">\(\beta\)</span> such that <span class="math notranslate nohighlight">\(\sum_{i=0}^{n} (\beta x_i - y_i)^2\)</span> is minimized. This is also referred to the sum of the squares of the residuals – <strong>residual</strong> is another word for how incorrect an individual prediction is. In aggregate, we want the amount that we are wrong to be as small as possible.</p>
+<p>We often use <span class="math notranslate nohighlight">\(R^2\)</span>, or the <a class="reference external" href="https://en.wikipedia.org/wiki/Coefficient_of_determination">“coefficient of determination,”</a>  to estimate how well a regression explains data. Formally, it takes the following form:
+<span class="math notranslate nohighlight">\(SS_{res} = \sum_{i=0}^{n} (\beta x_i - y_i)^2\)</span> is the sum of the squares of the <strong>residuals</strong> (remember, this is how wrong an individual prediction is).
+<span class="math notranslate nohighlight">\(SS_{tot} = \sum_{i=0}^{n} (y_i - \bar{y})^2\)</span> is the <strong>total sum of squares</strong> - this is proportional to the variance of the dataset.</p>
+<p>Now, <span class="math notranslate nohighlight">\(R^2 = 1 - \frac{SS_{res}}{SS_{tot}}\)</span>. In other words, we’re asking “how well are we explaining all the variance in the dataset?”</p>
+<section id="when-are-regressions-useful">
+<h3>When are regressions useful?<a class="headerlink" href="#when-are-regressions-useful" title="Link to this heading">#</a></h3>
+<p>Regressions are useful for figuring out how different independent variables affect a dependent variable. They are also helpful in predicting how a system might act in the future. For example, if you have a lot of fish and a linear regression model that can predict their weights pretty well, you can then measure even more fish and predict their weights!</p>
+</section>
+<section id="when-do-they-fall-short">
+<h3>When do they fall short?<a class="headerlink" href="#when-do-they-fall-short" title="Link to this heading">#</a></h3>
+<p>Sometimes data isn’t linear! Other times, you might have something that looks like a good fit, but it doesn’t explain your data well. <a class="reference external" href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">Anscombe’s Quartet</a> is a good example that explains why just going ahead and fitting a linear model to your data may not always be wise!</p>
+<p><img alt="Anscombe's Quartet" src="../../_images/anscombe_quartet.png" /></p>
+<p>As you can see, these datasets are doing very different things, but the linear model that best describes them is the same for all four datasets. It also fits each dataset as well as the next: the <span class="math notranslate nohighlight">\(R^2\)</span> is <span class="math notranslate nohighlight">\(0.67\)</span> for all the regressions. This is a cautionary tale: sometimes a linear model is simply not the right model!</p>
+</section>
+<section id="running-a-linear-regression-on-a-pandas-dataframe">
+<h3>Running a linear regression on a Pandas dataframe<a class="headerlink" href="#running-a-linear-regression-on-a-pandas-dataframe" title="Link to this heading">#</a></h3>
+<p>Now we’re going to load another CSV; this time, it will be full of fish measurements (<a class="reference external" href="https://www.kaggle.com/datasets/vipullrathod/fish-market">source</a>) that we will attempt to correlate to the fishes’ weights.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_fish</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/Fish.csv&#39;</span><span class="p">)</span>
+<span class="n">df_fish</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, we’ll try doing a basic regression with <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, more formally known as <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>. This is your one-stop shop for many machine learning algorithms and ways to evaluate how well those algorithms do.</p>
+<p>We need to make two <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays for the linear regression module to use. So we’re going to learn how to grab <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays from a pandas dataframe. We’ll use the columns <code class="docutils literal notranslate"><span class="pre">Length1</span></code>, <code class="docutils literal notranslate"><span class="pre">Length2</span></code>, <code class="docutils literal notranslate"><span class="pre">Length3</span></code>, <code class="docutils literal notranslate"><span class="pre">Height</span></code>, and <code class="docutils literal notranslate"><span class="pre">Width</span></code> as our <em>independent variables</em>. Our <em>dependent variable</em>, of course,  is <code class="docutils literal notranslate"><span class="pre">Weight</span></code>.</p>
+<p>To get a subset of columns from a dataframe, we simply list the columns we want. then call the <code class="docutils literal notranslate"><span class="pre">.numpy()</span></code> function. This converts our dataframe into a numeric numpy array:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_subset</span> <span class="o">=</span> <span class="n">df_fish</span><span class="p">[[</span><span class="s1">&#39;Length1&#39;</span><span class="p">,</span> <span class="s1">&#39;Length2&#39;</span><span class="p">,</span> <span class="s1">&#39;Length3&#39;</span><span class="p">,</span> <span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="s1">&#39;Width&#39;</span><span class="p">]]</span>
+<span class="n">x_mtx</span> <span class="o">=</span> <span class="n">col_subset</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Can you figure out how to obtain the array of fish weights? Let’s give it the variable name <code class="docutils literal notranslate"><span class="pre">y_mtx</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your Turn!!!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="importing-sklearn">
+<h3>Importing <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#importing-sklearn" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, or <a class="reference external" href="https://scikit-learn.org/stable/index.html">scikit-learn</a>, is a Python package that has a bunch of machine learning algorithms built in. We’re going to use it to practice running linear regressions. We’re also going to import <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, which is a great <a class="reference external" href="https://numpy.org/">package</a> for numerical computation and array manipulation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_mtx</span><span class="p">,</span> <span class="n">y_mtx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have created a <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> object, called <code class="docutils literal notranslate"><span class="pre">reg</span></code>. When we call the <code class="docutils literal notranslate"><span class="pre">fit()</span></code> method, we compute the best coefficients to multiply the values in <code class="docutils literal notranslate"><span class="pre">x_mtx</span></code> by to get something close to <code class="docutils literal notranslate"><span class="pre">y_mtx</span></code>. How good is our model? The <code class="docutils literal notranslate"><span class="pre">score()</span></code> method gives us <span class="math notranslate nohighlight">\(R^2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x_mtx</span><span class="p">,</span> <span class="n">y_mtx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s not too bad!</p>
+<section id="adding-in-fish-species">
+<h4>Adding in Fish Species<a class="headerlink" href="#adding-in-fish-species" title="Link to this heading">#</a></h4>
+<p>What if our fish are different densities depending on species? Let’s see if we can make our regression a little better. One way to do this is to introduce a <em>categorical variable</em>. In this case, we’ll have a column for each fish species. Its entry for each row will take the value <span class="math notranslate nohighlight">\(1\)</span> if the fish in that row is of that species; otherwise, it’ll be <span class="math notranslate nohighlight">\(0\)</span>. This is really easy to do with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_fish</span><span class="p">[</span><span class="s2">&quot;fish_category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_fish</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<span class="n">fish_dummies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df_fish</span><span class="p">[</span><span class="s1">&#39;fish_category&#39;</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;species_&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ve created what’s called one-hot encodings, or dummmy variables, which is great news for our fish regression! Let’s create a matrix of species dummy variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">species_mtx</span> <span class="o">=</span> <span class="n">fish_dummies</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And now we’ll concatenate that (along the horizontal axis) to our original matrix of fish measurements:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">species_mtx</span><span class="p">,</span> <span class="n">x_mtx</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ll make a new regression object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg1</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">reg1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_new</span><span class="p">,</span> <span class="n">y_mtx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>How well did we do?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg1</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x_new</span><span class="p">,</span> <span class="n">y_mtx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s better! Adding more information doesn’t always help, but this time around it did!</p>
+</section>
+</section>
+<section id="getting-fancy">
+<h3>Getting Fancy<a class="headerlink" href="#getting-fancy" title="Link to this heading">#</a></h3>
+<p>We can also use something called a <em>kernel function</em> to transform our linear data into higher dimensional space. Specifically, we can apply arbitrary functions to our fish data and add them to our linear regression matrices. Let’s say we have two concentric circles as a dataset:
+<img alt="Concentric circles" src="../../_images/concentric_circles.png" />
+We’re going to have a hard time separating these with either of their <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinates! But what if we add a new column that is <span class="math notranslate nohighlight">\(\sqrt{x_i^2 + y_i^2}\)</span>? We’re able to separate them easily because we’ve projected our points into a higher dimensional space. Neat!!</p>
+<p>Let’s try applying this to the fish dataset. Can you engineer a new column for the fish dataset that improves your <span class="math notranslate nohighlight">\(R^2\)</span>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your Turn!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="resources-acknowledgements">
+<h2>Resources &amp; Acknowledgements<a class="headerlink" href="#resources-acknowledgements" title="Link to this heading">#</a></h2>
+<p>Our intro to <code class="docutils literal notranslate"><span class="pre">pandas</span></code> borrows heavily from <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/10min.html">10 minutes to pandas</a></p>
+<p>Our whale dataset comes from the <a class="reference external" href="https://ramadda.data.bas.ac.uk/repository/entry/show?entryid=c1afe32c-493c-4dc7-af9f-649593b97b2c">UK Polar Data Centre</a></p>
+<p>Our fish dataset is sourced from <a class="reference external" href="https://www.kaggle.com/datasets/vipullrathod/fish-market">Kaggle</a></p>
+<p>The kernel function image comes from the <a class="reference external" href="https://carpentries-incubator.github.io/machine-learning-novice-sklearn/04-clustering/index.html">Carpentries Incubator</a></p>
+<p>For more on kernel methods, check out <a class="reference external" href="https://people.eecs.berkeley.edu/~jordan/kernels/0521813972c02_p25-46.pdf">this textbook chapter</a></p>
+<p>Here’s a <a class="reference external" href="https://www.sqltutorial.org/">list</a> of SQL commands you might want to know at some point.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_06"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-set-up">Getting Set Up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-today-s-class">Goals of today’s class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">Pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pandas">What is <code class="docutils literal notranslate"><span class="pre">pandas</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-pandas-structures">Basic <code class="docutils literal notranslate"><span class="pre">pandas</span></code> structures</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-column">Adding A Column</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pandas-operations">Common <code class="docutils literal notranslate"><span class="pre">pandas</span></code> operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting">Sorting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering">Filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-functions-to-columns">Applying functions to columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping">Grouping</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practicing-with-pandas">Practicing with Pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring">Exploring</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sql">SQL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-sql">What is SQL?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-is-it-used">When is it used?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-connected-to-sql-on-discovery">Getting connected to SQL on Discovery</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#secrets">Secrets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-query-a-sql-table">How do we query a SQL table?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Filtering</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregating-again">Aggregating (again!)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-tables">Joining Tables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regressions">Regressions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-are-regressions-useful">When are regressions useful?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-do-they-fall-short">When do they fall short?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-a-linear-regression-on-a-pandas-dataframe">Running a linear regression on a Pandas dataframe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-sklearn">Importing <code class="docutils literal notranslate"><span class="pre">sklearn</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-in-fish-species">Adding in Fish Species</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-fancy">Getting Fancy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-acknowledgements">Resources &amp; Acknowledgements</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brennan Klein
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
