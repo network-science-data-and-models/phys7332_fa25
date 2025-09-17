@@ -10,4 +10,6 @@ chapters:
     title: "Class 02: Introduction to Networkx 1"
   - file: notebooks/class_03/class_03_networkx2
     title: "Class 03: Introduction to Networkx 2"
+  - file: notebooks/class_04/class_04_distributions
+    title: "Class 04: Distributions of Network Properties & Centralities"
   # etc: append one chapter each week
