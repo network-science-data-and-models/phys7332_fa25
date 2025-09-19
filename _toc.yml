@@ -12,4 +12,11 @@ chapters:
     title: "Class 03: Introduction to Networkx 2"
   - file: notebooks/class_04/class_04_distributions
     title: "Class 04: Distributions of Network Properties & Centralities"
+  - file: notebooks/class_05/class_05_scraping1
+    title: "Class 05: Scraping Web Data 1 - BeautifulSoup & HTML"
+  - file: notebooks/class_06/class_06_data_science_and_sql
+    title: "Class 06: Data Science 1 — Pandas, SQL, Regressions"
+  - file: notebooks/class_07/class_07_creating_a_network_from_sql_tables
+    title: "Class 07: Data Science 2 — SQL for Network Construction"
+    
   # etc: append one chapter each week
