@@ -62,6 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_04/class_04_distributions';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Class 5: Scraping Web Data 1 - BeautifulSoup &amp; HTML" href="../class_05/class_05_scraping1.html" />
     <link rel="prev" title="Class 3: Introduction to Networkx 2 — Graph Properties &amp; Algorithms" href="../class_03/class_03_networkx2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -180,6 +181,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../class_02/class_02_networkx1.html">Class 02: Introduction to Networkx 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../class_03/class_03_networkx2.html">Class 03: Introduction to Networkx 2</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Class 04: Distributions of Network Properties &amp; Centralities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_05/class_05_scraping1.html">Class 05: Scraping Web Data 1 - BeautifulSoup &amp; HTML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_06/class_06_data_science_and_sql.html">Class 06: Data Science 1 — Pandas, SQL, Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_07/class_07_creating_a_network_from_sql_tables.html">Class 07: Data Science 2 — SQL for Network Construction</a></li>
 </ul>
 
     </div>
@@ -421,7 +425,7 @@ document.write(`
 <hr class="docutils" />
 <ol class="arabic simple">
 <li><p>Come in. Sit down. Open Teams.</p></li>
-<li><p>Find your notebook in your /Class_03/ folder.</p></li>
+<li><p>Find your notebook in your /Class_04/ folder.</p></li>
 </ol>
 <hr class="docutils" />
 <p>(quick example of colors and hexcolors in matplotlib)</p>
@@ -933,7 +937,7 @@ C(i) = \frac{N-1}{\sum_{i \neq j} d(i, j)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/4d992764d96f7b5ee47d72f5682d66b46c7feb8f2c2815b4f66ea256e9a4ea5c.png" src="../../_images/4d992764d96f7b5ee47d72f5682d66b46c7feb8f2c2815b4f66ea256e9a4ea5c.png" />
+<img alt="../../_images/90d9d497c87f9bb70ef22223455db33fd2170a853e237e4c002025b885f5825d.png" src="../../_images/90d9d497c87f9bb70ef22223455db33fd2170a853e237e4c002025b885f5825d.png" />
 </div>
 </div>
 <p><em><strong>We will not be going deep into detail of many other centrality measures, but the goal is that you have been exposed to a few of them and can understand the generic structure / motivation behind why they each exist. In Assignment 1, your task is to code one of these measures from scratch.</strong></em></p>
@@ -993,7 +997,7 @@ C(i) = \frac{N-1}{\sum_{i \neq j} d(i, j)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/dc63f7fb93412efbf1d812d1281a5897142162816cc4d2b4f135a2d80dc4c283.png" src="../../_images/dc63f7fb93412efbf1d812d1281a5897142162816cc4d2b4f135a2d80dc4c283.png" />
+<img alt="../../_images/9473123f41451ab035cc025855496ee4dcc22f1dc9c4803fdf55eda9c43a2b0c.png" src="../../_images/9473123f41451ab035cc025855496ee4dcc22f1dc9c4803fdf55eda9c43a2b0c.png" />
 </div>
 </div>
 <p>What about degree-preserving randomization?</p>
@@ -1121,7 +1125,7 @@ C(i) = \frac{N-1}{\sum_{i \neq j} d(i, j)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/9b460fba885bf25b5bbbb02d99bb38f305b7a553efb943ef50eaedb520ddd4f8.png" src="../../_images/9b460fba885bf25b5bbbb02d99bb38f305b7a553efb943ef50eaedb520ddd4f8.png" />
+<img alt="../../_images/886ad862001821cb0a3298d3bea7c057414d216e95f637abd7130f085bee4d60.png" src="../../_images/886ad862001821cb0a3298d3bea7c057414d216e95f637abd7130f085bee4d60.png" />
 </div>
 </div>
 </section>
@@ -1254,7 +1258,7 @@ C(i) = \frac{N-1}{\sum_{i \neq j} d(i, j)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/b6772497a8f68b3137f912d88679627ec3ea2a17767268c90f818547b544fbbe.png" src="../../_images/b6772497a8f68b3137f912d88679627ec3ea2a17767268c90f818547b544fbbe.png" />
+<img alt="../../_images/83889b8a14cc0c3fdac48a0bbfd23053e8338d62cb0fd792f09a53c46f9c0fca.png" src="../../_images/83889b8a14cc0c3fdac48a0bbfd23053e8338d62cb0fd792f09a53c46f9c0fca.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -1385,6 +1389,15 @@ C(i) = \frac{N-1}{\sum_{i \neq j} d(i, j)}
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Class 3: Introduction to Networkx 2 — Graph Properties &amp; Algorithms</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../class_05/class_05_scraping1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Class 5: Scraping Web Data 1 - BeautifulSoup &amp; HTML</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
