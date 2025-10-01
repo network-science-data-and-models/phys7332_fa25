@@ -18,5 +18,7 @@ chapters:
     title: "Class 06: Data Science 1 — Pandas, SQL, Regressions"
   - file: notebooks/class_07/class_07_creating_a_network_from_sql_tables
     title: "Class 07: Data Science 2 — SQL for Network Construction"
+  - file: notebooks/class_08/class_08_communities1
+    title: "Class 08: Clustering & Community Detection 1 — Traditional"
     
   # etc: append one chapter each week
