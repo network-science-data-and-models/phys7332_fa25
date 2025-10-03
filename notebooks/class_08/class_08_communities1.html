@@ -62,6 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_08/class_08_communities1';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Class 09: Clustering &amp; Community Detection 2 — Contemporary" href="../class_09/class_09_communities2.html" />
     <link rel="prev" title="Class 7: Data Science 2 — Querying SQL Tables for Network Construction" href="../class_07/class_07_creating_a_network_from_sql_tables.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,6 +185,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../class_06/class_06_data_science_and_sql.html">Class 06: Data Science 1 — Pandas, SQL, Regressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../class_07/class_07_creating_a_network_from_sql_tables.html">Class 07: Data Science 2 — SQL for Network Construction</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Class 08: Clustering &amp; Community Detection 1 — Traditional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_09/class_09_communities2.html">Class 09: Clustering &amp; Community Detection 2 — Contemporary</a></li>
 </ul>
 
     </div>
@@ -680,7 +682,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3487a215390c7e8f60ab82800053fedc0b2761579624a47e61d00acbbd82d80c.png" src="../../_images/3487a215390c7e8f60ab82800053fedc0b2761579624a47e61d00acbbd82d80c.png" />
+<img alt="../../_images/a697f9003cd49023a0da9e8589ea2e0ff55abc8bfdf65a38b0895d5f5ed230e7.png" src="../../_images/a697f9003cd49023a0da9e8589ea2e0ff55abc8bfdf65a38b0895d5f5ed230e7.png" />
 </div>
 </div>
 </section>
@@ -1067,7 +1069,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best Modularity: 0.3849721706864564
 </pre></div>
 </div>
-<img alt="../../_images/c56f331ff4d79ff9bbd3ae4ad7de2731ea604173db339a78a09c1dba41fe67ab.png" src="../../_images/c56f331ff4d79ff9bbd3ae4ad7de2731ea604173db339a78a09c1dba41fe67ab.png" />
+<img alt="../../_images/b26714d565abe65ec4d52acf60707caf9364fd21dcf18ee90b4558dc3fcac868.png" src="../../_images/b26714d565abe65ec4d52acf60707caf9364fd21dcf18ee90b4558dc3fcac868.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1142,7 +1144,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/fd650634a2a832e563bd037b2d2be6e08980cc0cddf8889c84beb16f7036d1ca.png" src="../../_images/fd650634a2a832e563bd037b2d2be6e08980cc0cddf8889c84beb16f7036d1ca.png" />
+<img alt="../../_images/31b95fedf5b67c346f36244660ed91eb6820894210026fe457e0fa5204163ac7.png" src="../../_images/31b95fedf5b67c346f36244660ed91eb6820894210026fe457e0fa5204163ac7.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -1425,7 +1427,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/fa21f2b484de0239cc1ab6f4d2d3c1058d50cba41ebebf0be8ce7435eb242810.png" src="../../_images/fa21f2b484de0239cc1ab6f4d2d3c1058d50cba41ebebf0be8ce7435eb242810.png" />
+<img alt="../../_images/58f38c49877b33fbdf41ac53af3bbeec3d86488ea7defc593c6fbe79b970c123.png" src="../../_images/58f38c49877b33fbdf41ac53af3bbeec3d86488ea7defc593c6fbe79b970c123.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -1458,7 +1460,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/29dadf46c7a9d82632b929819a13e279bd83a97fcf5e2b5e849bbcd4f56a049a.png" src="../../_images/29dadf46c7a9d82632b929819a13e279bd83a97fcf5e2b5e849bbcd4f56a049a.png" />
+<img alt="../../_images/91bc3a8cb558abe753e64bb58d64b8522831cc0902e47d508a1810da870c1788.png" src="../../_images/91bc3a8cb558abe753e64bb58d64b8522831cc0902e47d508a1810da870c1788.png" />
 </div>
 </div>
 </section>
@@ -1581,6 +1583,15 @@ Q &amp;=&amp; \frac{1}{2M} \sum_{i,j} \left( A_{i,j} - \frac{k_ik_j}{2M} \right)
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Class 7: Data Science 2 — Querying SQL Tables for Network Construction</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../class_09/class_09_communities2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Class 09: Clustering &amp; Community Detection 2 — Contemporary</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
