@@ -20,5 +20,7 @@ chapters:
     title: "Class 07: Data Science 2 — SQL for Network Construction"
   - file: notebooks/class_08/class_08_communities1
     title: "Class 08: Clustering & Community Detection 1 — Traditional"
+  - file: notebooks/class_09/class_09_communities2
+    title: "Class 09: Clustering & Community Detection 2 — Contemporary"
     
   # etc: append one chapter each week
