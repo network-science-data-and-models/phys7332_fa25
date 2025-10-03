@@ -1,0 +1,1630 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Class 09: Clustering &amp; Community Detection 2 — Contemporary &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_09/class_09_communities2';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PHYS 7332: Network Science Data & Models (Fall 2025)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    PHYS 7332: Network Science Data & Models – Fall 2025
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../class_00/class_00_github_computing_setup.html">Class 00: Introduction and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_01/class_01_python_refresher.html">Class 01: Python Refresher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_02/class_02_networkx1.html">Class 02: Introduction to Networkx 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_03/class_03_networkx2.html">Class 03: Introduction to Networkx 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_04/class_04_distributions.html">Class 04: Distributions of Network Properties &amp; Centralities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_05/class_05_scraping1.html">Class 05: Scraping Web Data 1 - BeautifulSoup &amp; HTML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_06/class_06_data_science_and_sql.html">Class 06: Data Science 1 — Pandas, SQL, Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_07/class_07_creating_a_network_from_sql_tables.html">Class 07: Data Science 2 — SQL for Network Construction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_08/class_08_communities1.html">Class 08: Clustering &amp; Community Detection 1 — Traditional</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_09/class_09_communities2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/class_09/class_09_communities2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Class 09: Clustering & Community Detection 2 — Contemporary</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trouble-in-modularity-paradise">Trouble in Modularity Paradise…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enter-graph-tool">Enter: <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netzschleuder-integration">Netzschleuder Integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-so-special-why-are-we-so-excited-about-graph-tool">What’s so special, why are we so excited about <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code>?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-machine-from-blockmodels-to-block-models">Time Machine: From Blockmodels to Block Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#early-stochastic-blockmodels-1970s-1980s">Early Stochastic Blockmodels (1970s-1980s)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#canonical-and-microcanonical-sbms">Canonical and Microcanonical SBMs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#canonical-approach-g-n-p-analog">“Canonical” Approach: G(n,p) analog</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#microcanonical-approach-g-n-m-analog">Microcanonical Approach: G(n,m) analog</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contemporary-stochastic-block-models">Contemporary Stochastic Block Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-references">Useful References:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transition-highlights-from-the-70s-to-today">Transition Highlights: From the 70s to today</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-function-as-we-transition-from-between-networkx-and-graph-tool">Helper function as we transition from/between <code class="docutils literal notranslate"><span class="pre">networkx</span></code> and <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nonparametric-statistical-inference">Nonparametric Statistical Inference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-game-how-to-describe-the-network-above-20-questions-edition">A game: How to describe the network above — 20 Questions Edition</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-art-and-mathematics-of-minimizing-description-length">The art (and mathematics) of minimizing description length</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#there-is-so-much-more-to-cover-in-graph-tool">There is so much more to cover in <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code>…</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#today-we-didn-t-cover">Today, we didn’t cover:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="class-09-clustering-community-detection-2-contemporary">
+<h1>Class 09: Clustering &amp; Community Detection 2 — Contemporary<a class="headerlink" href="#class-09-clustering-community-detection-2-contemporary" title="Link to this heading">#</a></h1>
+<p>Goal of today’s class:</p>
+<ol class="arabic simple">
+<li><p>Isolate issues with modularity</p></li>
+<li><p>Introduce a statistical framework for community detection</p></li>
+<li><p>Graph!Tool!</p></li>
+</ol>
+<hr class="docutils" />
+<ol class="arabic simple">
+<li><p>Come in. Sit down. Open Teams.</p></li>
+<li><p><strong>We’ll be using a different virtual environment in today’s class.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/courses/PHYS7332.202610/shared/gt</span></code></p></li>
+</ul>
+</li>
+<li><p>Find your notebook in your /Class_09/ folder.</p></li>
+</ol>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">rc</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;savefig&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">axisbelow</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="trouble-in-modularity-paradise">
+<h2>Trouble in Modularity Paradise…<a class="headerlink" href="#trouble-in-modularity-paradise" title="Link to this heading">#</a></h2>
+<p>Let’s start with two exercises to motivate today’s lesson, both of which point to a deep concern in the utility of <em>modularity</em> as a graph property and as a measure to optimize over when identifying communities in networks.</p>
+<p>Recall that the modularity, <span class="math notranslate nohighlight">\(Q\)</span>, of a given partition <span class="math notranslate nohighlight">\(C\)</span> of our adjacency matrix <span class="math notranslate nohighlight">\(A\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) \]</div>
+<p>The key idea behind this measure was that to calculate the number of within-community edges that exist above and beyond what we’d expect just based on nodes’ degrees. What follows is the assumption (or, rather, the hope) that we should not find community structure in Erdős–Rényi random graphs. Let’s explore this with two exercises where we run a modularity-maximizing community detection algorithm over hundreds of ER graphs.</p>
+<p>Using a graph of size <span class="math notranslate nohighlight">\(N=200\)</span>, loop over various values for <span class="math notranslate nohighlight">\(p\)</span> to create many ER graphs. Compute the <code class="docutils literal notranslate"><span class="pre">community.best_partition</span></code> of each of these, and store the following:</p>
+<ol class="arabic simple">
+<li><p>The modularity of the <code class="docutils literal notranslate"><span class="pre">best_partition</span></code> for each randomly generated graph.</p></li>
+<li><p>The number of communities detected in each partition.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">community</span>
+<span class="n">plist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">501</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">modularity_out</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">num_commun_out</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">plist</span><span class="p">:</span>
+    <span class="n">G_i</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">part_i</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">best_partition</span><span class="p">(</span><span class="n">G_i</span><span class="p">)</span>
+    <span class="n">num_commun_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">part_i</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+    <span class="n">modularity_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">modularity</span><span class="p">(</span><span class="n">part_i</span><span class="p">,</span> <span class="n">G_i</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mf">3.5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">plist</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">num_commun_out</span><span class="p">)</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.2&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">plist</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">modularity_out</span><span class="p">)</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.2&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number of communities detected</span><span class="se">\n</span><span class="s1">(network size = 200)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\langle k \rangle = 1$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;firebrick&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\langle k \rangle = \log N$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Modularity&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.75&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.75&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e1c2f44e549d6d30fd4bca14a4c7900c827e4ad3f13227ec47f3152c35df486d.png" src="../../_images/e1c2f44e549d6d30fd4bca14a4c7900c827e4ad3f13227ec47f3152c35df486d.png" />
+</div>
+</div>
+<p>What does this mean?</p>
+<p>What does this mean for real networks? Let’s find out.</p>
+<hr class="docutils" />
+<p>For reference, let’s load the PolBlogs datasets from class 2 and 3:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;savefig&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+<span class="n">digraph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/polblogs_nodes_class.tsv&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="n">node_id</span><span class="p">,</span> <span class="n">node_label</span><span class="p">,</span> <span class="n">node_political</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">political_orientation</span> <span class="o">=</span> <span class="s1">&#39;liberal&#39;</span> <span class="k">if</span> <span class="n">node_political</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="k">else</span> <span class="s1">&#39;conservative&#39;</span>
+        <span class="n">digraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="n">website</span><span class="o">=</span><span class="n">node_label</span><span class="p">,</span> <span class="n">political_orientation</span><span class="o">=</span><span class="n">political_orientation</span><span class="p">)</span>
+        
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/polblogs_edges_class.tsv&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="n">source_node_id</span><span class="p">,</span> <span class="n">target_node_id</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">digraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">source_node_id</span><span class="p">,</span> <span class="n">target_node_id</span><span class="p">)</span>
+
+<span class="c1"># just select the largest strongly connected component, and </span>
+<span class="n">sccs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">strongly_connected_components</span><span class="p">(</span><span class="n">digraph</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_undirected</span><span class="p">(</span><span class="n">digraph</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">sccs</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># get the political leanings and assign them to colors</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#c5c03a&quot;</span><span class="p">,</span><span class="s2">&quot;#7275d7&quot;</span><span class="p">,</span><span class="s2">&quot;#8fb755&quot;</span><span class="p">,</span><span class="s2">&quot;#c361bd&quot;</span><span class="p">,</span><span class="s2">&quot;#5ec384&quot;</span><span class="p">,</span><span class="s2">&quot;#d3537a&quot;</span><span class="p">,</span><span class="s2">&quot;#3fe0d8&quot;</span><span class="p">,</span><span class="s2">&quot;#cb6b3b&quot;</span><span class="p">]</span>
+<span class="n">leanings</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="s1">&#39;political_orientation&#39;</span><span class="p">)</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">leaning</span><span class="o">==</span><span class="s1">&#39;conservative&#39;</span> <span class="k">else</span> <span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> \
+               <span class="k">for</span> <span class="n">leaning</span> <span class="ow">in</span> <span class="n">leanings</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+
+<span class="n">edge_colors</span> <span class="o">=</span> <span class="s1">&#39;.4&#39;</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span>
+                       <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hyperlinks between Political Blogs</span><span class="se">\n</span><span class="s1">(Adamic &amp; Glance, 2005)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+<span class="n">legend_node0</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+<span class="n">legend_node1</span> <span class="o">=</span> <span class="s1">&#39;1000&#39;</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="p">{</span><span class="n">legend_node0</span><span class="p">:</span><span class="n">pos</span><span class="p">[</span><span class="n">legend_node0</span><span class="p">]},</span> <span class="n">nodelist</span><span class="o">=</span><span class="p">[</span><span class="n">legend_node0</span><span class="p">],</span> 
+                       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;liberal blogs&#39;</span><span class="p">,</span> 
+                       <span class="n">node_color</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="p">{</span><span class="n">legend_node1</span><span class="p">:</span><span class="n">pos</span><span class="p">[</span><span class="n">legend_node1</span><span class="p">]},</span> <span class="n">nodelist</span><span class="o">=</span><span class="p">[</span><span class="n">legend_node1</span><span class="p">],</span> 
+                       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;conservative blogs&#39;</span><span class="p">,</span>
+                       <span class="n">node_color</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">)</span>
+
+
+<span class="n">part</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">best_partition</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">ncs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Set3</span><span class="p">([</span><span class="n">i</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">ncs</span><span class="p">,</span>
+                       <span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;.2&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;PolBlogs with modularity maximization</span><span class="se">\n</span><span class="s1">(Q = </span><span class="si">%.4f</span><span class="s1">)&#39;</span><span class="o">%</span><span class="k">community</span>.modularity(part,G),
+                <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c3eb61d653d9f66df5e3d71701c79b06ed282f9b54cb43f5962d4f3a084c0324.png" src="../../_images/c3eb61d653d9f66df5e3d71701c79b06ed282f9b54cb43f5962d4f3a084c0324.png" />
+</div>
+</div>
+<p>Where does the PolBlogs modularity fall in our plot from above?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mf">3.5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">plist</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">num_commun_out</span><span class="p">)</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.2&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">semilogx</span><span class="p">([</span><span class="n">nx</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">G</span><span class="p">)],</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">values</span><span class="p">()))],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+               <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PolBlogs&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">plist</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">modularity_out</span><span class="p">)</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.2&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number of communities detected</span><span class="se">\n</span><span class="s1">(network size = 200)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\langle k \rangle = 1$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;firebrick&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\langle k \rangle = \log N$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">semilogx</span><span class="p">([</span><span class="n">nx</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">G</span><span class="p">)],[</span><span class="n">community</span><span class="o">.</span><span class="n">modularity</span><span class="p">(</span><span class="n">part</span><span class="p">,</span><span class="n">G</span><span class="p">)],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> 
+               <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PolBlogs&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Modularity&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/643c4e5ecf5d67cd96610c6514e7bf7ef2c0271c176a0bdb882cc87d4958fe98.png" src="../../_images/643c4e5ecf5d67cd96610c6514e7bf7ef2c0271c176a0bdb882cc87d4958fe98.png" />
+</div>
+</div>
+<hr class="docutils" />
+<p>This result is quite remarkable! And known for quite some time! Indeed in 2004, Roger Guimerà, Marta Sales-Pardo, and Luís Amaral published an article exploring this exact issue with the modularity measure.</p>
+<ul class="simple">
+<li><p>Guimera, R., Sales-Pardo, M., &amp; Amaral, L.A.N. (2004). <a class="reference external" href="https://link.aps.org/doi/10.1103/PhysRevE.70.025101">Modularity from fluctuations in random graphs and complex networks</a>. <em>Physical Review E</em>, 70(2), 025101.</p></li>
+</ul>
+<p>From the conclusion of their article: “…modularity in networks can arise due to a number of mechanisms. We have demonstrated that networks embedded in low-dimensional spaces have high modularity. We have also shown analytically and numerically that, surprisingly, <strong>random graphs and scale-free networks have high modularity due to fluctuations in the establishment of links</strong>.”</p>
+<p>They continue, arguing that many of the papers emerging in the early 2000s, which make theoretical claims about some real-world system based on measures of modularity (e.g. biological systems must have evolved to become modular) are potentially incomplete. These claims are based on network data that yields a partition with high (“high”) modularity. Crucially, the authors note, this “<strong>relies implicitly on the assumption that random graphs have low modularity.</strong>”</p>
+<p><img alt="" src="../../_images/modularity_from_fluctuations.png" /></p>
+<p>The authors conclude by arguing that their result paves the way for a notion of statistical significance for modularity (similar to what had been created for clustering coefficients, etc.). However, today, we revisit this paper for a different reason: to emphasize that the problems with modularity maximization don’t just stop there (though these findings are particularly damning for a measure purporting to offer a useful and interpretable notion of how strong the community structure is in a graph).</p>
+</section>
+<hr class="docutils" />
+<section id="enter-graph-tool">
+<h2>Enter: <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code><a class="headerlink" href="#enter-graph-tool" title="Link to this heading">#</a></h2>
+<p>Note: The remainder of this lesson will draw heavily from the <a class="reference external" href="https://graph-tool.skewed.de/"><code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> documentation</a> directly. This package is written and maintained almost entirely by <a class="reference external" href="https://skewed.de/lab/contact.html">Tiago Peixoto</a>, professor of Complex Systems and Network Science at IT:U in Linz, Austria.</p>
+<p><a class="reference external" href="https://graph-tool.skewed.de/static/doc/quickstart.html">https://graph-tool.skewed.de/static/doc/quickstart.html</a></p>
+<p><strong>Punchline:</strong> Use this package to detect communities (and other types of mesoscopic structures!!) in your network data.</p>
+<p><img alt="" src="../../_images/graphtool.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">graph_tool.all</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">graph_tool.all</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gt</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;graph_tool&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="netzschleuder-integration">
+<h3>Netzschleuder Integration<a class="headerlink" href="#netzschleuder-integration" title="Link to this heading">#</a></h3>
+<p><img alt="" src="../../_images/netzschleuder.png" /></p>
+<ul class="simple">
+<li><p>Tiago P. Peixoto, “The Netzschleuder network catalogue and repository”, <a class="reference external" href="https://networks.skewed.de/">https://networks.skewed.de/</a> (2020). <a class="reference external" href="https://doi.org/10.5281/zenodo.7839981">https://doi.org/10.5281/zenodo.7839981</a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">ns</span><span class="p">[</span><span class="s2">&quot;ego_social/facebook_combined&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gt</span><span class="o">.</span><span class="n">graph_draw</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">_pos</span><span class="p">);</span>
+<span class="c1">#gt.graph_draw(g, g.vp._pos, output=&quot;images/pngs/facebook.pdf&quot;) # creates large pdf file</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../_images/73afb198b617ee50a09708a360023db4807e9cdb9e13d113d640772d63a12dbb.png"><img alt="../../_images/73afb198b617ee50a09708a360023db4807e9cdb9e13d113d640772d63a12dbb.png" src="../../_images/73afb198b617ee50a09708a360023db4807e9cdb9e13d113d640772d63a12dbb.png" style="width: 600px; height: 434px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">state</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_blockmodel_dl</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">state</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">_pos</span><span class="p">);</span>
+<span class="n">state</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">_pos</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;images/pngs/facebook-sbm.png&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../_images/20abb7e93c103f76fddb05faf49e77bb3f5d396e2d9efaee70983f0b11f1d3f7.png"><img alt="../../_images/20abb7e93c103f76fddb05faf49e77bb3f5d396e2d9efaee70983f0b11f1d3f7.png" src="../../_images/20abb7e93c103f76fddb05faf49e77bb3f5d396e2d9efaee70983f0b11f1d3f7.png" style="width: 600px; height: 434px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;football&quot;</span><span class="p">]</span>
+<span class="n">a0</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">graph_draw</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">mplfig</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span>
+<span class="n">a0</span><span class="o">.</span><span class="n">fit_view</span><span class="p">()</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;football&quot;</span><span class="p">]</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_blockmodel_dl</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">mplfig</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">fit_view</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;American Football competition network&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;American Football (colored by community)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/51c1986683bb866a83f4ea66f2f1bacb7202ce203c529e54831352609f8b2431.png" src="../../_images/51c1986683bb866a83f4ea66f2f1bacb7202ce203c529e54831352609f8b2431.png" />
+</div>
+</div>
+</section>
+<section id="what-s-so-special-why-are-we-so-excited-about-graph-tool">
+<h3>What’s so special, why are we so excited about <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code>?<a class="headerlink" href="#what-s-so-special-why-are-we-so-excited-about-graph-tool" title="Link to this heading">#</a></h3>
+<p>The level of mathematical details underpinning SBM inference <em>in addition to</em> the technical/computational details powering the Bayesian inference procedure in <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> are too extensive to conver in one class. What we hope to convey, though, is core concepts and mathematical objects that:</p>
+<ol class="arabic simple">
+<li><p>Gives you the ability to use <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> for community detection</p></li>
+<li><p>Understand specifications, limitations, and the promise of using this framework for detecting mesoscopic structure in your network data</p></li>
+<li><p>Point out areas for future development and trends in the field</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="time-machine-from-blockmodels-to-block-models">
+<h2>Time Machine: From Blockmodels to Block Models<a class="headerlink" href="#time-machine-from-blockmodels-to-block-models" title="Link to this heading">#</a></h2>
+<p>The transition from early stochastic blockmodels (SBMs), widely used in sociology and social network analysis during the 1970s and 80s, to contemporary versions (e.g. those pioneered by Tiago Peixoto), reflects an evolution from simple partitioning techniques to highly sophisticated probabilistic modeling frameworks for community detection and network analysis.</p>
+<section id="early-stochastic-blockmodels-1970s-1980s">
+<h3>Early Stochastic Blockmodels (1970s-1980s)<a class="headerlink" href="#early-stochastic-blockmodels-1970s-1980s" title="Link to this heading">#</a></h3>
+<p>The original SBMs were first introduced in sociology and social network analysis (good starter references: [1,2]) as a way to model social structures and interactions between groups. These early SBMs were primarily focused on detecting communities, or blocks, where nodes within the same block were thought to share similar patterns of connections. These models assumed that each block or group had a specific probability of connection both within and between groups, and they were often used to study social networks, kinship structures, and small-scale organizational networks. Some key aspects of early SBMs:</p>
+<ul class="simple">
+<li><p><strong>Simple Probabilistic Assumptions</strong>: Each node was assigned to a specific block, and the model defined fixed probabilities of edges occurring within and between blocks. These models typically used maximum likelihood estimation or similar methods to infer block memberships.</p></li>
+<li><p><strong>Limited Scalability</strong>: Early SBMs were computationally expensive and difficult to apply to large networks due to the limited computing power at the time.</p></li>
+<li><p><strong>Static and Deterministic</strong>: These models assumed fixed partitions of nodes and did not incorporate dynamic aspects of networks or node characteristics beyond group membership.</p></li>
+</ul>
+<p><img alt="" src="../../_images/sbm_1970s.png" /></p>
+<section id="references">
+<h4>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>[1] White, H.C., Boorman, S.A., &amp; Breiger, R.L. (1976). Social structure from multiple networks. I. Blockmodels of roles and positions. American Journal of Sociology, 81(4), 730-780. <a class="reference external" href="https://www.jstor.org/stable/2777596">https://www.jstor.org/stable/2777596</a></p></li>
+<li><p>[2] Holland, P.W., Laskey, K.B., &amp; Leinhardt, S. (1983). Stochastic blockmodels: First steps. <em>Social Networks</em>. 5(2), 109–137. <a class="reference external" href="https://doi.org/10.1016/0378-8733(83)90021-7">https://doi.org/10.1016/0378-8733(83)90021-7</a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="canonical-and-microcanonical-sbms">
+<h4>Canonical and Microcanonical SBMs<a class="headerlink" href="#canonical-and-microcanonical-sbms" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_ii</span> <span class="o">=</span> <span class="mf">0.925</span>
+<span class="n">p_ij</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p_ii</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">block_matrix1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">p_ii</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">],</span> 
+                          <span class="p">[</span><span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ii</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">],</span> 
+                          <span class="p">[</span><span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ii</span><span class="p">]])</span>
+
+<span class="n">p_ii</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">p_ij</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p_ii</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">block_matrix2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">p_ii</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">],</span> 
+                          <span class="p">[</span><span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ii</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">],</span> 
+                          <span class="p">[</span><span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ii</span><span class="p">]])</span>
+
+<span class="n">p_ii</span> <span class="o">=</span> <span class="mf">0.3333</span>
+<span class="n">p_ij</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p_ii</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">block_matrix3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">p_ii</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">],</span> 
+                          <span class="p">[</span><span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ii</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">],</span> 
+                          <span class="p">[</span><span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ii</span><span class="p">]])</span>
+
+<span class="n">p_ii</span> <span class="o">=</span> <span class="mf">0.025</span>
+<span class="n">p_ij</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p_ii</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">block_matrix4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">p_ii</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">],</span> 
+                          <span class="p">[</span><span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ii</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">],</span> 
+                          <span class="p">[</span><span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ij</span><span class="p">,</span> <span class="n">p_ii</span><span class="p">]])</span>
+
+<span class="n">plot_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">block_matrix1</span><span class="p">,</span> <span class="n">block_matrix2</span><span class="p">,</span> <span class="n">block_matrix3</span><span class="p">,</span> <span class="n">block_matrix4</span><span class="p">]</span>
+<span class="n">pii_list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.925</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3333</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plot_blocks</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Block matrix</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;$p_</span><span class="si">{ii}</span><span class="s2"> = </span><span class="si">%.3f</span><span class="s2">$&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">pii_list</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4ec7c78d3e2f13df288b1a763d2acf7a9ea1fdb1d9c00c28868877fcb0a4e6de.png" src="../../_images/4ec7c78d3e2f13df288b1a763d2acf7a9ea1fdb1d9c00c28868877fcb0a4e6de.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># just for viz purposes, create a layout of the graph we want</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">Gz</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">ring_of_cliques</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">kamada_kawai_layout</span><span class="p">(</span><span class="n">Gz</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="canonical-approach-g-n-p-analog">
+<h4>“Canonical” Approach: G(n,p) analog<a class="headerlink" href="#canonical-approach-g-n-p-analog" title="Link to this heading">#</a></h4>
+<p>Note here that canonical is not used in the colloquial sense… It’s a term from statistical mechanics that describes a system in thermal equilibrium with a heat bath at a fixed temperature. It refers to the collection of all possible microstates of a system, each assigned a probability based on the Boltzmann distribution. The term “canonical” here emphasizes that this ensemble is one of the standard, fundamental ways to describe the statistical properties of a system.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># assign nodes to blocks, then create a matrix of probabilities, p_ij, of node i connecting to node i</span>
+<span class="n">partition</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">block_matrix_x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plot_blocks</span><span class="p">):</span>
+    <span class="n">Pij</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">b_i</span> <span class="o">=</span> <span class="n">partition</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">b_j</span> <span class="o">=</span> <span class="n">partition</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">Pij</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">block_matrix_x</span><span class="p">[</span><span class="n">b_i</span><span class="p">,</span><span class="n">b_j</span><span class="p">])</span>
+
+
+    <span class="n">ax</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Pij</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Connection probs.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;$p_</span><span class="si">{ii}</span><span class="s2"> = </span><span class="si">%.3f</span><span class="s2">$&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">pii_list</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>
+
+    <span class="c1"># now sample a random graph from this Pij matrix!</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">Pij</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]):</span>
+                    <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+    
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;.6&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">)])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Canonical approach to SMBs&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.965</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/5aed79b6342296db4e43b5117abd4aca218bc71f422ca1eef0ba3d50b000e1bd.png" src="../../_images/5aed79b6342296db4e43b5117abd4aca218bc71f422ca1eef0ba3d50b000e1bd.png" />
+</div>
+</div>
+</section>
+<section id="microcanonical-approach-g-n-m-analog">
+<h4>Microcanonical Approach: G(n,m) analog<a class="headerlink" href="#microcanonical-approach-g-n-m-analog" title="Link to this heading">#</a></h4>
+<p>A “microcanonical” network ensemble is a collection of graphs that share fixed structural properties, often used to model or study networks with highly constrained features. The term microcanonical is applied because, analogous to physics, certain state variables are conserved, and we only consider networks that strictly obey these constraints.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">it</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_graph_from_e</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a graph with N nodes and assigns edges based on a predefined </span>
+<span class="sd">    edge budget matrix e1, where the nodes are divided into three blocks.</span>
+
+<span class="sd">    The adjacency matrix `e1` specifies the number of edges to add between </span>
+<span class="sd">    each pair of blocks. Nodes are partitioned equally into three groups, </span>
+<span class="sd">    and edges are randomly assigned between and within these groups based </span>
+<span class="sd">    on the values in `e1`.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    ----------</span>
+<span class="sd">    N : int</span>
+<span class="sd">        The total number of nodes in the graph. This should be divisible by 3 </span>
+<span class="sd">        for an equal partitioning of nodes into three groups.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    -------</span>
+<span class="sd">    G : networkx.Graph</span>
+<span class="sd">        A graph object where nodes are partitioned into three groups and edges </span>
+<span class="sd">        are added based on the edge budget matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Create a graph with N nodes</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)))</span>
+
+    <span class="c1"># Define partition for the nodes</span>
+    <span class="n">num_blocks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">partition</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_blocks</span><span class="p">):</span>
+        <span class="n">partition</span> <span class="o">=</span> <span class="n">partition</span> <span class="o">+</span> <span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="n">num_blocks</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span><span class="o">!=</span><span class="n">N</span><span class="p">:</span>
+        <span class="n">add_nodes</span> <span class="o">=</span> <span class="n">N</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">add_nodes</span><span class="p">):</span>
+            <span class="n">partition</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">partition</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Loop over the blocks in the partition    </span>
+    <span class="k">for</span> <span class="n">block_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">block_j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+
+            <span class="c1"># Get nodes belonging to block i and block j            </span>
+            <span class="n">nodes_i</span> <span class="o">=</span> <span class="p">[</span><span class="n">ix</span> <span class="k">for</span> <span class="n">ix</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">block_i</span><span class="p">]</span>
+            <span class="n">nodes_j</span> <span class="o">=</span> <span class="p">[</span><span class="n">ix</span> <span class="k">for</span> <span class="n">ix</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">block_j</span><span class="p">]</span>
+            
+            <span class="c1"># Get the number of edges to add between blocks</span>
+            <span class="n">budget_edges</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="n">block_i</span><span class="p">,</span> <span class="n">block_j</span><span class="p">]</span>
+            
+            <span class="c1"># Create all possible edges between nodes in block_i and block_j</span>
+            <span class="n">possible_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">nodes_i</span><span class="p">,</span> <span class="n">nodes_j</span><span class="p">)))</span>
+            
+            <span class="c1"># Randomly select edges based on the budget</span>
+            <span class="n">selected_edges_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+                <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">possible_edges</span><span class="p">))),</span>
+                <span class="n">size</span><span class="o">=</span><span class="n">budget_edges</span><span class="p">,</span>
+                <span class="n">replace</span><span class="o">=</span><span class="kc">True</span> <span class="c1"># allow repeat edges?</span>
+                <span class="c1"># replace=False  # Ensure no repeated edges</span>
+            <span class="p">)</span>
+            <span class="n">selected_edges</span> <span class="o">=</span> <span class="n">possible_edges</span><span class="p">[</span><span class="n">selected_edges_inds</span><span class="p">]</span>
+
+            <span class="c1"># Add the selected edges to the graph</span>
+            <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">selected_edges</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">G</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># instead of a matrix of probabilities, we have a matrix of edge counts between blocks</span>
+<span class="n">e1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">]])</span>
+
+<span class="n">e2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">650</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">130</span><span class="p">]])</span>
+
+<span class="n">e3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">]])</span>
+
+<span class="n">e4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">620</span><span class="p">],</span> 
+               <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">50</span><span class="p">]])</span>
+
+<span class="n">plot_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">e1</span><span class="p">,</span><span class="n">e2</span><span class="p">,</span><span class="n">e3</span><span class="p">,</span><span class="n">e4</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">block_matrix_x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plot_blocks</span><span class="p">):</span>
+
+    <span class="n">Gx</span> <span class="o">=</span> <span class="n">create_graph_from_e</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">block_matrix_x</span><span class="p">)</span>
+    <span class="n">Aij</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span><span class="n">Gx</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Aij</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Total number of edges:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="sa">r</span><span class="s2">&quot;$M = </span><span class="si">%i</span><span class="s2">$&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">Gx</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()))</span>
+
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">Gx</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;.6&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">)])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Microcanonical approach to SMBs&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.965</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/7887c98c2507b088a5e66089cae081835be33e6c3594a787663915dde3a71448.png" src="../../_images/7887c98c2507b088a5e66089cae081835be33e6c3594a787663915dde3a71448.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="contemporary-stochastic-block-models">
+<h3>Contemporary Stochastic Block Models<a class="headerlink" href="#contemporary-stochastic-block-models" title="Link to this heading">#</a></h3>
+<p>The study of SBMs has significantly advanced, especially over the last 10-15 years, focusing on improving both their theoretical foundations and computational efficiency. Contemporary research addresses many limitations of early SBMs, incorporating more flexible and scalable approaches suitable for large and complex networks. Here’s some key innnovations that have ushered in this new era of SBMs:</p>
+<ul class="simple">
+<li><p><strong>Bayesian Inference</strong>: Today’s approaches incorporate Bayesian methods for SBM inference, which offer a more rigorous approach to <em>selecting the most probable model</em> and <em>avoid overfitting</em>. This allows for estimating the number of blocks directly from the data, removing the need to predefine the number of groups.</p></li>
+<li><p><strong>Degree-Correction (DCSBM)</strong>: A key innovation was to account for the degree heterogeneity within blocks, making it possible to model real-world networks with highly varying node degrees. Early SBMs often assumed homogeneity within blocks, which is leads to poor performance in networks with hubs or highly connected nodes.</p></li>
+<li><p><strong>Hierarchical SBMs</strong>: SBMs have also been extended to hierarchical structures, allowing for multi-level community detection. This is crucial for networks that exhibit nested or overlapping communities, as many real-world networks do (e.g., social, biological, or infrastructure networks).</p></li>
+<li><p><strong>Efficient Inference Algorithms</strong>: Using Markov Chain Monte Carlo (MCMC) and other techniques for sampling the space of partitions to search significantly reduces the computational burden of applying SBMs to large networks, making it feasible to analyze networks with millions of nodes and edges.</p></li>
+<li><p><strong>Model Selection and Regularization</strong>: A Bayesian approach to model selection ensures that the complexity of the model (e.g., the number of blocks) is balanced with its fit to the data. This helps in avoiding overfitting and yields more meaningful community structures.</p></li>
+</ul>
+<p><img alt="" src="https://skewed.de/lab/posts/inference-compression/generative.png" /></p>
+<p><strong>Source:</strong> Inferring, explaining, and compressing (<a class="reference external" href="https://skewed.de/lab/posts/inference-compression/">https://skewed.de/lab/posts/inference-compression/</a>)</p>
+<section id="useful-references">
+<h4>Useful References:<a class="headerlink" href="#useful-references" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>[1] Peixoto, T.P. (2019). Bayesian Stochastic Blockmodeling, in <em>Advances in Network Clustering and Blockmodeling</em> (John Wiley &amp; Sons, Ltd), pp. 289–332. <a class="reference external" href="https://doi.org/10.1002/9781119483298.ch11">https://doi.org/10.1002/9781119483298.ch11</a></p></li>
+<li><p>[2] Peixoto, T.P. (2023). Descriptive vs. inferential community detection in networks: Pitfalls, myths and half-truths. Cambridge University Press. <a class="reference external" href="https://doi.org/10.1017/9781009118897">https://doi.org/10.1017/9781009118897</a></p></li>
+<li><p>[3] Peixoto, T.P. (2017). Nonparametric Bayesian Inference of the Microcanonical Stochastic Block Model. <em>Physical Review E</em> 95, 012317. <a class="reference external" href="https://doi.org/10.1103/PhysRevE.95.012317">https://doi.org/10.1103/PhysRevE.95.012317</a></p></li>
+<li><p>[4] Peixoto, T.P. (2014). Hierarchical block structures and high-resolution model selection in large networks. <em>Physical Review X</em>. 4, 011047. <a class="reference external" href="https://doi.org/10.1103/PhysRevX.4.011047">https://doi.org/10.1103/PhysRevX.4.011047</a></p></li>
+</ul>
+</section>
+</section>
+<section id="transition-highlights-from-the-70s-to-today">
+<h3>Transition Highlights: From the 70s to today<a class="headerlink" href="#transition-highlights-from-the-70s-to-today" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>From fixed assumptions to flexible (<em>unsupervised</em>) models</strong>: Early SBMs assumed simple connection probabilities and homogeneity, while modern SBMs allow for complex structures like degree heterogeneity and hierarchical organizations.</p></li>
+<li><p><strong>From small to large-scale networks</strong>: With computational advances, modern SBMs can handle massive datasets, something that was impractical with earlier models.</p></li>
+</ul>
+<p>Let’s dive in some more.</p>
+<hr class="docutils" />
+<section id="helper-function-as-we-transition-from-between-networkx-and-graph-tool">
+<h4>Helper function as we transition from/between <code class="docutils literal notranslate"><span class="pre">networkx</span></code> and <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code><a class="headerlink" href="#helper-function-as-we-transition-from-between-networkx-and-graph-tool" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">graph_tool.all</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_prop_type</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs typing and value conversion for the graph_tool PropertyMap class.</span>
+<span class="sd">    If a key is provided, it also ensures the key is in a format that can be</span>
+<span class="sd">    used with the PropertyMap. Returns a tuple, (type name, value, key).</span>
+
+<span class="sd">    This function is adapted from Benjamin Bengfort&#39;s blog post!</span>
+<span class="sd">    https://bbengfort.github.io/2016/06/graph-tool-from-networkx/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>  <span class="c1"># Keep the key as a string</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">key</span>  <span class="c1"># No encoding necessary in Python 3</span>
+
+    <span class="c1"># Deal with the value</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;bool&#39;</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;float&#39;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;float&#39;</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;string&#39;</span>
+        
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;bytes&#39;</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;object&#39;</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;string&#39;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tname</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">key</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">nx2gt</span><span class="p">(</span><span class="n">nxG</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a networkx graph to a graph-tool graph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Phase 0: Create a directed or undirected graph-tool Graph</span>
+    <span class="n">gtG</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="n">nxG</span><span class="o">.</span><span class="n">is_directed</span><span class="p">())</span>
+
+    <span class="c1"># Add the Graph properties as &quot;internal properties&quot;</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">nxG</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># Convert the value and key into a type for graph-tool</span>
+        <span class="n">tname</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">get_prop_type</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+        <span class="n">prop</span> <span class="o">=</span> <span class="n">gtG</span><span class="o">.</span><span class="n">new_graph_property</span><span class="p">(</span><span class="n">tname</span><span class="p">)</span> <span class="c1"># Create the PropertyMap</span>
+        <span class="n">gtG</span><span class="o">.</span><span class="n">graph_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">prop</span>     <span class="c1"># Set the PropertyMap</span>
+        <span class="n">gtG</span><span class="o">.</span><span class="n">graph_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>    <span class="c1"># Set the actual value</span>
+
+    <span class="c1"># Phase 1: Add the vertex and edge property maps</span>
+    <span class="c1"># Go through all nodes and edges and add seen properties</span>
+    <span class="c1"># Add the node properties first</span>
+    <span class="n">nprops</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span> <span class="c1"># cache keys to only add properties once</span>
+    <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">nxG</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="c1"># Go through all the properties if not seen and add them.</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">nprops</span><span class="p">:</span> <span class="k">continue</span> <span class="c1"># Skip properties already added</span>
+
+            <span class="c1"># Convert the value and key into a type for graph-tool</span>
+            <span class="n">tname</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">key</span>  <span class="o">=</span> <span class="n">get_prop_type</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+            <span class="n">prop</span> <span class="o">=</span> <span class="n">gtG</span><span class="o">.</span><span class="n">new_vertex_property</span><span class="p">(</span><span class="n">tname</span><span class="p">)</span> <span class="c1"># Create the PropertyMap</span>
+            <span class="n">gtG</span><span class="o">.</span><span class="n">vertex_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">prop</span>     <span class="c1"># Set the PropertyMap</span>
+
+            <span class="c1"># Add the key to the already seen properties</span>
+            <span class="n">nprops</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="c1"># Also add the node id: in NetworkX a node can be any hashable type, but</span>
+    <span class="c1"># in graph-tool node are defined as indices. So we capture any strings</span>
+    <span class="c1"># in a special PropertyMap called &#39;id&#39; -- modify as needed!</span>
+    <span class="n">gtG</span><span class="o">.</span><span class="n">vertex_properties</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gtG</span><span class="o">.</span><span class="n">new_vertex_property</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Add the edge properties second</span>
+    <span class="n">eprops</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span> <span class="c1"># cache keys to only add properties once</span>
+    <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">nxG</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="c1"># Go through all the edge properties if not seen and add them.</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">eprops</span><span class="p">:</span> <span class="k">continue</span> <span class="c1"># Skip properties already added</span>
+
+            <span class="c1"># Convert the value and key into a type for graph-tool</span>
+            <span class="n">tname</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">get_prop_type</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+            <span class="n">prop</span> <span class="o">=</span> <span class="n">gtG</span><span class="o">.</span><span class="n">new_edge_property</span><span class="p">(</span><span class="n">tname</span><span class="p">)</span> <span class="c1"># Create the PropertyMap</span>
+            <span class="n">gtG</span><span class="o">.</span><span class="n">edge_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">prop</span>     <span class="c1"># Set the PropertyMap</span>
+
+            <span class="c1"># Add the key to the already seen properties</span>
+            <span class="n">eprops</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="c1"># Phase 2: Actually add all the nodes and vertices with their properties</span>
+    <span class="c1"># Add the nodes</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># vertex mapping for tracking edges later</span>
+    <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">nxG</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="c1"># Create the vertex and annotate for our edges later</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">gtG</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
+        <span class="n">vertices</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="c1"># Set the vertex properties, not forgetting the id property</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">gtG</span><span class="o">.</span><span class="n">vp</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span> <span class="c1"># vp is short for vertex_properties</span>
+
+    <span class="c1"># Add the edges</span>
+    <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">nxG</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="c1"># Look up the vertex structs from our vertices mapping and add edge.</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">gtG</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="n">src</span><span class="p">],</span> <span class="n">vertices</span><span class="p">[</span><span class="n">dst</span><span class="p">])</span>
+
+        <span class="c1"># Add the edge properties</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">gtG</span><span class="o">.</span><span class="n">ep</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span> <span class="c1"># ep is short for edge_properties</span>
+
+    <span class="c1"># Done, finally!</span>
+    <span class="k">return</span> <span class="n">gtG</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="nonparametric-statistical-inference">
+<h3>Nonparametric Statistical Inference<a class="headerlink" href="#nonparametric-statistical-inference" title="Link to this heading">#</a></h3>
+<p><strong>Source:</strong> The following is directly modeled from the <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> cookbooks <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html">https://graph-tool.skewed.de/static/doc/demos/inference/inference.html</a>. Find this, and many more informative tutorials on this website. The goal of the SBM inference procedure is to find a partition that best describes data, without over-fitting.</p>
+<p>From Tiago Peixoto’s cookbook: We want to (from cookbook above) “formulate generative models that include the idea of modules in their descriptions, which then can be detected by inferring the model parameters from data. More precisely, given the partition <span class="math notranslate nohighlight">\(\mathbf{b} = \{b_i\}\)</span> of the network into <span class="math notranslate nohighlight">\(B\)</span> groups, where <span class="math notranslate nohighlight">\(b_i \in [0, B-1]\)</span> is the group membership of node <span class="math notranslate nohighlight">\(i\)</span>, we define a model that generates a network <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> with a probability</p>
+<div class="math notranslate nohighlight">
+\[P(\mathbf{A}|\mathbf{\theta},\mathbf{b})\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> are additional model parameters that control how the node partition affects the structure of the network.”</p>
+<p>The whole trick behind this approach is that after defining this probability <span class="math notranslate nohighlight">\(P(\mathbf{A}|\mathbf{\theta},\mathbf{b})\)</span>, we can define the <em>likelihood that our network was generated using a given partition</em> <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> based on Bayes rule:</p>
+<div class="math notranslate nohighlight">
+\[P(\mathbf{b}|\mathbf{A}) = \dfrac{\sum_\mathbf{\theta} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}\]</div>
+<p>“where <span class="math notranslate nohighlight">\(P(\mathbf{\theta}|\mathbf{b})\)</span> is the prior probability of the model parameters and <span class="math notranslate nohighlight">\(P(\mathbf{A}) = \sum_{\mathbf{\theta},\mathbf{b}} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b})\)</span> is called the <em>evidence</em>, and corresponds to the total probability of the data summed over all model parameters. The particular types of model that will be considered here have “hard constraints”, such that there is only one choice for the remaining parameters <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> that is compatible with the generated network, meaning that our equation above simplifies to</p>
+<div class="math notranslate nohighlight">
+\[P(\mathbf{b}|\mathbf{A}) = \dfrac{P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}\]</div>
+<p>with <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> being the only choice compatible with <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>. The inference procedures considered here will consist in either finding a network partition that maximizes the equation above, or sampling different partitions according its posterior probability. […] this approach also enables the comparison of different models according to statistical evidence (a.k.a. model selection).”</p>
+<p><em>(continued from cookbook)</em></p>
+<p>The equation above can be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[P(\mathbf{b}|\mathbf{A}) = \dfrac{\exp (-\Sigma)}{P(A)}\]</div>
+<p>“where <span class="math notranslate nohighlight">\(\Sigma = -\ln P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) - \ln P(\mathbf{\theta},\mathbf{b})\)</span> is the <em><strong>description length</strong></em> of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>. It measures the amount of information required to describe the data, if we encode it using the particular parametrization of the generative model given by <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, as well as the parameters themselves. Therefore, if we choose to maximize the posterior distribution of Eq. (4) it will be fully equivalent to the so-called minimum description length method. This approach corresponds to an implementation of Occam’s razor, where the simplest model is selected, among all possibilities with the same explanatory power. The selection is based on the statistical evidence available, and therefore will not overfit, i.e. mistake stochastic fluctuations for actual structure. In particular this means that we will not find modules in networks if they could have arisen simply because of stochastic fluctuations, as they do in fully random graphs.”</p>
+<p><strong>We want to select a (the) partition that minimizes the description length.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gx = nx2gt(digraph)</span>
+<span class="c1"># G = gt.extract_largest_component(Gx)</span>
+
+<span class="n">Gx</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">ns</span><span class="p">[</span><span class="s1">&#39;polblogs&#39;</span><span class="p">]</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">extract_largest_component</span><span class="p">(</span><span class="n">Gx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">ns</span><span class="p">[</span><span class="s2">&quot;polblogs&quot;</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">extract_largest_component</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">sfdp_layout</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Rotate the positions by `a` degrees.&quot;&quot;&quot;</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">),</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">)))</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="n">get_2d_array</span><span class="p">()</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()])</span>
+    <span class="k">return</span> <span class="n">pos</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">R</span> <span class="o">@</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">a</span> <span class="o">-</span> <span class="n">cm</span><span class="p">)</span> <span class="o">+</span> <span class="n">cm</span><span class="p">)</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="mi">160</span><span class="p">)</span>
+
+<span class="n">dprms</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span>  <span class="n">output_size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">))</span>
+
+<span class="n">gt</span><span class="o">.</span><span class="n">graph_draw</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">vertex_fill_color</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">vp</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">vcmap</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span>
+           <span class="n">vcnorm</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="o">**</span><span class="n">dprms</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../_images/622ad50421a0a22eafd872b833456eaaa390126b6f0eb60164935aa49cc37dc7.png"><img alt="../../_images/622ad50421a0a22eafd872b833456eaaa390126b6f0eb60164935aa49cc37dc7.png" src="../../_images/622ad50421a0a22eafd872b833456eaaa390126b6f0eb60164935aa49cc37dc7.png" style="width: 586px; height: 600px;" />
+</a>
+</div>
+</div>
+<!-- # g = gt.collection.ns["polblogs"]
+# g = gt.extract_largest_component(g, directed=False)
+# state = gt.minimize_blockmodel_dl(g,
+#                                   state_args={"deg_corr":False},
+#                                   multilevel_mcmc_args=dict(B_max=2))
+# # gt.graph_draw(g, pos, **dprms);
+
+
+# g = gt.collection.ns["polblogs"]
+# g = gt.extract_largest_component(g, directed=False)
+# state = gt.BlockState(g, deg_corr=False)
+# # state = gt.BlockState(g, B=2, deg_corr=False)
+# ent_out = []
+# for i in range(1000):
+#     state.mcmc_sweep(niter=1)
+#     # state.multilevel_mcmc_sweep(niter=2, B_max=2)
+#     ent_out.append(state.entropy())
+
+# g2 = gt.collection.ns["polblogs"]
+# g2 = gt.extract_largest_component(g2, directed=False)
+# state2 = gt.BlockState(g2, deg_corr=True)
+# # state2 = gt.BlockState(g2, B=2, deg_corr=True)
+# ent_out2 = []
+# for i in range(1000):
+#     # state2.multilevel_mcmc_sweep(niter=2, B_max=2)
+#     state2.mcmc_sweep(niter=1)
+#     ent_out2.append(state2.entropy())
+
+
+
+# plt.plot(ent_out, label='Non-degree-corrected')
+# plt.plot(ent_out2, label='Degree-corrected')
+# plt.legend()
+# plt.show() --><!-- # pos = gt.sfdp_layout(g)
+
+# def rotate(pos, a):
+#     """Rotate the positions by `a` degrees."""
+#     theta = np.radians(a)
+#     c, s = np.cos(theta), np.sin(theta)
+#     R = np.array(((c, -s), (s, c)))
+#     x, y = pos.get_2d_array()
+#     cm = np.array([x.mean(), y.mean()])
+#     return pos.t(lambda x: R @ (x.a - cm) + cm)
+
+# pos = rotate(pos, 160)
+
+# fig, ax = plt.subplots(2, 2, figsize=(12, 11.5))
+
+# g = gt.collection.ns["polblogs"]
+# g = gt.extract_largest_component(g, directed=False)
+
+# pos = gt.sfdp_layout(g)
+# def rotate(pos, a):
+#     """Rotate the positions by `a` degrees."""
+#     theta = np.radians(a)
+#     c, s = np.cos(theta), np.sin(theta)
+#     R = np.array(((c, -s), (s, c)))
+#     x, y = pos.get_2d_array()
+#     cm = np.array([x.mean(), y.mean()])
+#     return pos.t(lambda x: R @ (x.a - cm) + cm)
+
+# pos = rotate(pos, 160)
+
+# state = gt.minimize_blockmodel_dl(g,
+#                                   state_args={"deg_corr":False},
+#                                   multilevel_mcmc_args=dict(B_max=2))
+
+# a1 = state.draw(pos=pos,mplfig=ax[0,0])
+# a1.fit_view(yflip=True, margin=0)
+
+# g = gt.collection.ns["polblogs"]
+# g = gt.extract_largest_component(g, directed=False)
+# state = gt.minimize_blockmodel_dl(g,
+#                                   state_args={"deg_corr":True},
+#                                   multilevel_mcmc_args=dict(B_max=2))
+# a2 = state.draw(pos=pos,mplfig=ax[0,1])
+# a2.fit_view(yflip=True, margin=0)
+
+# ax[(1,0)].semilogy(ent_out)
+# ax[(1,1)].semilogy(ent_out2)
+
+# ax[(1,0)].set_ylim(60000,100000)
+# ax[(1,1)].set_ylim(60000,100000)
+
+
+# plt.show() --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The description length of this partition is&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">entropy</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The description length of this partition is 1791.5616783434389
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nx2gt</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">())</span>
+<span class="n">gt</span><span class="o">.</span><span class="n">graph_draw</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">output_size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="mi">400</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../_images/fd67efd12117f5008852c99dbd5cbe71c12cd8d0dfb8830826e44430f9e990c8.png"><img alt="../../_images/fd67efd12117f5008852c99dbd5cbe71c12cd8d0dfb8830826e44430f9e990c8.png" src="../../_images/fd67efd12117f5008852c99dbd5cbe71c12cd8d0dfb8830826e44430f9e990c8.png" style="width: 225px; height: 400px;" />
+</a>
+</div>
+</div>
+</section>
+<section id="a-game-how-to-describe-the-network-above-20-questions-edition">
+<h3>A game: How to describe the network above — 20 Questions Edition<a class="headerlink" href="#a-game-how-to-describe-the-network-above-20-questions-edition" title="Link to this heading">#</a></h3>
+<p><em>Inspired by an exercise from <a class="reference external" href="https://laurenthebertdufresne.github.io/">Laurent Hebert-Dufresne</a>.</em></p>
+<p>How would you describe the network you see above? In the fewest ways possible…</p>
+<hr class="docutils" />
+<section id="the-art-and-mathematics-of-minimizing-description-length">
+<h4>The art (and mathematics) of minimizing description length<a class="headerlink" href="#the-art-and-mathematics-of-minimizing-description-length" title="Link to this heading">#</a></h4>
+<p>There have been many developments in recent years about smarter ways to find partitions that minimize the description length. From nested SBMs to SBMs that incorporate triadic closure, to network reconstruction, <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> is able to isolate different important aspects of network structures commonly found in data in order to model (and infer) meaningful structure.</p>
+<p>Below is one such example:</p>
+<p><img alt="" src="../../_images/nested_sbm.png" /></p>
+<p><strong>Source: <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#the-nested-stochastic-block-model">https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#the-nested-stochastic-block-model</a></strong></p>
+<p>But, in general, one could conceive of all sorts of approaches for minimizing the description length of a model…</p>
+<p><img alt="" src="../../_images/mdl_spectrum.png" /></p>
+<p><strong>Source: <a class="reference external" href="https://skewed.de/lab/posts/objective-inference/">https://skewed.de/lab/posts/objective-inference/</a></strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">state_ndc</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_blockmodel_dl</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">state_args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">deg_corr</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">state_dc</span>  <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_blockmodel_dl</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">state_args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">deg_corr</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Non-degree-corrected DL:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">state_ndc</span><span class="o">.</span><span class="n">entropy</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Degree-corrected DL:</span><span class="se">\t\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">state_dc</span><span class="o">.</span><span class="n">entropy</span><span class="p">(),</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">state_ndc_nest</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_nested_blockmodel_dl</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">state_args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">deg_corr</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">state_dc_nest</span>  <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_nested_blockmodel_dl</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">state_args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">deg_corr</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Non-degree-corrected, nested DL:&quot;</span><span class="p">,</span> <span class="n">state_ndc_nest</span><span class="o">.</span><span class="n">entropy</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Degree-corrected, nested DL:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">state_dc_nest</span><span class="o">.</span><span class="n">entropy</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Non-degree-corrected DL:	 49113.41430660523
+Degree-corrected DL:		 47447.0411610215 
+
+Non-degree-corrected, nested DL: 48359.521095815355
+Degree-corrected, nested DL:	 47185.49230180453
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">state_dc_nest</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_nested_blockmodel_dl</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">state_args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">deg_corr</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">multilevel_mcmc_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;niter&#39;</span><span class="p">:</span><span class="mi">20</span><span class="p">})</span>
+<span class="c1"># state_dc_nest.draw();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">state_dc_nest</span><span class="o">.</span><span class="n">entropy</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>47207.72568463312
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="there-is-so-much-more-to-cover-in-graph-tool">
+<h3>There is so much more to cover in <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code>…<a class="headerlink" href="#there-is-so-much-more-to-cover-in-graph-tool" title="Link to this heading">#</a></h3>
+<p>…but one key takeaway: How many communities are detected in Erdős-Rényi networks??</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">nx2gt</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_blockmodel_dl</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">state</span><span class="o">.</span><span class="n">draw</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../_images/2a2b0cc144c5e8114e71a80a20e3283f9e0e301cb4c71d9e30f1d46cdce5d7d4.png"><img alt="../../_images/2a2b0cc144c5e8114e71a80a20e3283f9e0e301cb4c71d9e30f1d46cdce5d7d4.png" src="../../_images/2a2b0cc144c5e8114e71a80a20e3283f9e0e301cb4c71d9e30f1d46cdce5d7d4.png" style="width: 600px; height: 516px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section id="today-we-didn-t-cover">
+<h2>Today, we didn’t cover:<a class="headerlink" href="#today-we-didn-t-cover" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>MCMC sampling procedure (e.g. merge-split algorithm) <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#refinements-using-merge-split-mcmc">https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#refinements-using-merge-split-mcmc</a></p></li>
+<li><p>SBM and topic models <a class="reference external" href="https://topsbm.github.io/">https://topsbm.github.io/</a></p></li>
+<li><p>Uncertain network structure <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/reconstruction_direct/reconstruction.html">https://graph-tool.skewed.de/static/doc/demos/reconstruction_direct/reconstruction.html</a></p></li>
+<li><p>Network reconstruction from dynamics <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/reconstruction_indirect/reconstruction.html">https://graph-tool.skewed.de/static/doc/demos/reconstruction_indirect/reconstruction.html</a></p></li>
+<li><p>Visualization in <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> (which is awesome!) <a class="reference external" href="https://skewed.de/lab/posts/hairball/">https://skewed.de/lab/posts/hairball/</a> (e.g. see below)</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">ns</span><span class="p">[</span><span class="s2">&quot;polblogs&quot;</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">extract_largest_component</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">sfdp_layout</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Rotate the positions by `a` degrees.&quot;&quot;&quot;</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">),</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">)))</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="n">get_2d_array</span><span class="p">()</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()])</span>
+    <span class="k">return</span> <span class="n">pos</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">R</span> <span class="o">@</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">a</span> <span class="o">-</span> <span class="n">cm</span><span class="p">)</span> <span class="o">+</span> <span class="n">cm</span><span class="p">)</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="mi">160</span><span class="p">)</span>
+
+<span class="n">dprms</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span>  <span class="n">output_size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">))</span>
+
+
+<span class="n">state</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_nested_blockmodel_dl</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">state</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="o">**</span><span class="n">dprms</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../_images/b842cbb9a3dd8263522a36c2cb4166ca17b08c5f6141882835bda4d2625d9f61.png"><img alt="../../_images/b842cbb9a3dd8263522a36c2cb4166ca17b08c5f6141882835bda4d2625d9f61.png" src="../../_images/b842cbb9a3dd8263522a36c2cb4166ca17b08c5f6141882835bda4d2625d9f61.png" style="width: 600px; height: 501px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos2</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">sfdp_layout</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">.04</span><span class="p">)</span> 
+<span class="n">pos2</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">pos2</span><span class="p">,</span> <span class="mi">110</span><span class="p">)</span> 
+<span class="n">state</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">pos2</span><span class="p">,</span> <span class="n">edge_gradient</span><span class="o">=</span><span class="p">[],</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;#33333322&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">dprms</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../../_images/7829dd840d1c63bef953456b3f054f705cd40ca53a787b41bfda58751dafa5a2.png"><img alt="../../_images/7829dd840d1c63bef953456b3f054f705cd40ca53a787b41bfda58751dafa5a2.png" src="../../_images/7829dd840d1c63bef953456b3f054f705cd40ca53a787b41bfda58751dafa5a2.png" style="width: 600px; height: 481px;" />
+</a>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="next-time">
+<h2>Next time…<a class="headerlink" href="#next-time" title="Link to this heading">#</a></h2>
+<p>Visualization 1 — Data Viz in Python! <code class="docutils literal notranslate"><span class="pre">class_10_visualization1.ipynb</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="references-and-further-resources">
+<h2>References and further resources:<a class="headerlink" href="#references-and-further-resources" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Class Webpages</p>
+<ul class="simple">
+<li><p>Jupyter Book: <a class="reference external" href="https://network-science-data-and-models.github.io/phys7332_fa25/README.html">https://network-science-data-and-models.github.io/phys7332_fa25/README.html</a></p></li>
+<li><p>Github: <a class="github reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/">network-science-data-and-models/phys7332_fa25</a></p></li>
+<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> documentation: <a class="reference external" href="https://graph-tool.skewed.de/">https://graph-tool.skewed.de/</a></p></li>
+<li><p>Guimera, R., Sales-Pardo, M., &amp; Amaral, L.A.N. (2004). <a class="reference external" href="https://link.aps.org/doi/10.1103/PhysRevE.70.025101">Modularity from fluctuations in random graphs and complex networks</a>. <em>Physical Review E</em>, 70(2), 025101.</p></li>
+<li><p>Tiago Peixoto’s blog: <a class="reference external" href="https://skewed.de/lab/blog.html">https://skewed.de/lab/blog.html</a></p></li>
+<li><p>Statistical Inference Satellite at the NetSci conference <a class="reference external" href="https://sinm.network/">https://sinm.network/</a></p></li>
+<li><p>Peixoto, T.P. (2013). Parsimonious module inference in large networks. <em>Physical Review Letters</em>, 110(14), 148701.</p></li>
+<li><p>Peixoto, T.P. (2014). Hierarchical block structures and high-resolution model selection in large networks. <em>Physical Review X</em>, 4(1), 011047.</p></li>
+<li><p>Peixoto, T.P. (2015). Model selection and hypothesis testing for large-scale network models with overlapping groups. <em>Physical Review X</em>, 5(1), 011033.</p></li>
+<li><p>Peixoto, T.P. (2023). Descriptive vs. inferential community detection in networks: Pitfalls, myths and half-truths. Cambridge University Press. <a class="reference external" href="https://doi.org/10.1017/9781009118897">https://doi.org/10.1017/9781009118897</a></p></li>
+<li><p>White, H.C., Boorman, S.A., &amp; Breiger, R.L. (1976). Social structure from multiple networks. I. Blockmodels of roles and positions. American Journal of Sociology, 81(4), 730-780. <a class="reference external" href="https://www.jstor.org/stable/2777596">https://www.jstor.org/stable/2777596</a></p></li>
+<li><p>Holland, P.W., Laskey, K.B., &amp; Leinhardt, S. (1983). Stochastic blockmodels: First steps. <em>Social Networks</em>. 5(2), 109–137. <a class="reference external" href="https://doi.org/10.1016/0378-8733(83)90021-7">https://doi.org/10.1016/0378-8733(83)90021-7</a></p></li>
+<li><p>Ghasemian, A., Hosseinmardi, H., &amp; Clauset, A. (2019). Evaluating overfit and underfit in models of network community structure. <em>IEEE Transactions on Knowledge and Data Engineering</em>, 32(9), 1722-1735. <a class="reference external" href="https://doi.org/10.1109/TKDE.2019.2911585">https://doi.org/10.1109/TKDE.2019.2911585</a></p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_09"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trouble-in-modularity-paradise">Trouble in Modularity Paradise…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enter-graph-tool">Enter: <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netzschleuder-integration">Netzschleuder Integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-so-special-why-are-we-so-excited-about-graph-tool">What’s so special, why are we so excited about <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code>?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-machine-from-blockmodels-to-block-models">Time Machine: From Blockmodels to Block Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#early-stochastic-blockmodels-1970s-1980s">Early Stochastic Blockmodels (1970s-1980s)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#canonical-and-microcanonical-sbms">Canonical and Microcanonical SBMs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#canonical-approach-g-n-p-analog">“Canonical” Approach: G(n,p) analog</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#microcanonical-approach-g-n-m-analog">Microcanonical Approach: G(n,m) analog</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contemporary-stochastic-block-models">Contemporary Stochastic Block Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-references">Useful References:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transition-highlights-from-the-70s-to-today">Transition Highlights: From the 70s to today</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-function-as-we-transition-from-between-networkx-and-graph-tool">Helper function as we transition from/between <code class="docutils literal notranslate"><span class="pre">networkx</span></code> and <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nonparametric-statistical-inference">Nonparametric Statistical Inference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-game-how-to-describe-the-network-above-20-questions-edition">A game: How to describe the network above — 20 Questions Edition</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-art-and-mathematics-of-minimizing-description-length">The art (and mathematics) of minimizing description length</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#there-is-so-much-more-to-cover-in-graph-tool">There is so much more to cover in <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code>…</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#today-we-didn-t-cover">Today, we didn’t cover:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brennan Klein
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
