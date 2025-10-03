@@ -502,15 +502,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name       object
-Weight      int64
-Cute         bool
-Habitat    object
-dtype: object
-</pre></div>
-</div>
-</div>
 </div>
 <p>Wow! These are a lot of different types! Having the incorrect type in your columns can (occasionally) be an issue, but <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is pretty good at converting columns between types.</p>
 <section id="adding-a-column">
@@ -523,68 +514,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Name</th>
-      <th>Weight</th>
-      <th>Cute</th>
-      <th>Habitat</th>
-      <th>cute_numeric</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Orca</td>
-      <td>22000</td>
-      <td>True</td>
-      <td>Everywhere</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Blue Whale</td>
-      <td>441000</td>
-      <td>True</td>
-      <td>Everywhere</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Beluga Whale</td>
-      <td>2530</td>
-      <td>True</td>
-      <td>Arctic</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Narwhal</td>
-      <td>3500</td>
-      <td>True</td>
-      <td>Arctic</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>We can also add a column of our own devising to the dataframe – as long as it’s the same length as the existing dataframe:</p>
 <div class="cell docutils container">
@@ -601,11 +530,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Name&#39;, &#39;Weight&#39;, &#39;Cute&#39;, &#39;Habitat&#39;, &#39;cute_numeric&#39;, &#39;Food&#39;], dtype=&#39;object&#39;)
-</pre></div>
-</div>
-</div>
 </div>
 <p>or see the first 3 entries like this:</p>
 <div class="cell docutils container">
@@ -614,64 +538,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Name</th>
-      <th>Weight</th>
-      <th>Cute</th>
-      <th>Habitat</th>
-      <th>cute_numeric</th>
-      <th>Food</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Orca</td>
-      <td>22000</td>
-      <td>True</td>
-      <td>Everywhere</td>
-      <td>1</td>
-      <td>Everything</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Blue Whale</td>
-      <td>441000</td>
-      <td>True</td>
-      <td>Everywhere</td>
-      <td>1</td>
-      <td>Krill</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Beluga Whale</td>
-      <td>2530</td>
-      <td>True</td>
-      <td>Arctic</td>
-      <td>1</td>
-      <td>Squid, Clams, Octopus, Cod, Herring</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </section>
 </section>
@@ -687,73 +553,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Name</th>
-      <th>Weight</th>
-      <th>Cute</th>
-      <th>Habitat</th>
-      <th>cute_numeric</th>
-      <th>Food</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>Blue Whale</td>
-      <td>441000</td>
-      <td>True</td>
-      <td>Everywhere</td>
-      <td>1</td>
-      <td>Krill</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>Orca</td>
-      <td>22000</td>
-      <td>True</td>
-      <td>Everywhere</td>
-      <td>1</td>
-      <td>Everything</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Narwhal</td>
-      <td>3500</td>
-      <td>True</td>
-      <td>Arctic</td>
-      <td>1</td>
-      <td>Fish</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Beluga Whale</td>
-      <td>2530</td>
-      <td>True</td>
-      <td>Arctic</td>
-      <td>1</td>
-      <td>Squid, Clams, Octopus, Cod, Herring</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Can you sort the dataframe alphabetically by species name?</p>
 <div class="cell docutils container">
@@ -773,55 +572,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Name</th>
-      <th>Weight</th>
-      <th>Cute</th>
-      <th>Habitat</th>
-      <th>cute_numeric</th>
-      <th>Food</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Orca</td>
-      <td>22000</td>
-      <td>True</td>
-      <td>Everywhere</td>
-      <td>1</td>
-      <td>Everything</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Blue Whale</td>
-      <td>441000</td>
-      <td>True</td>
-      <td>Everywhere</td>
-      <td>1</td>
-      <td>Krill</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Can you filter the data to find all the cetaceans that live in the Arctic?</p>
 <div class="cell docutils container">
@@ -866,26 +616,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Arctic
-           Name  Weight  Cute Habitat  cute_numeric  \
-2  Beluga Whale    2530  True  Arctic             1   
-3       Narwhal    3500  True  Arctic             1   
-
-                                  Food  Weight_kg  Weight_tons  
-2  Squid, Clams, Octopus, Cod, Herring     1138.5        1.265  
-3                                 Fish     1575.0        1.750  
-Everywhere
-         Name  Weight  Cute     Habitat  cute_numeric        Food  Weight_kg  \
-0        Orca   22000  True  Everywhere             1  Everything     9900.0   
-1  Blue Whale  441000  True  Everywhere             1       Krill   198450.0   
-
-   Weight_tons  
-0         11.0  
-1        220.5  
-</pre></div>
-</div>
-</div>
 </div>
 <p>Here, we’re grouping our dataframe by the <code class="docutils literal notranslate"><span class="pre">Habitat</span></code> column. <code class="docutils literal notranslate"><span class="pre">groups</span></code> is an iterable (we can iterate over the items in it, in the order given to us) that has two variables. One of them is the unique value of the column we grouped by (<code class="docutils literal notranslate"><span class="pre">Everywhere</span></code> and <code class="docutils literal notranslate"><span class="pre">Arctic</span></code>) and the other one is the chunk of the dataframe that had that unique value in that column.</p>
 <p>Can you group the cetaceans that weigh more than 5000 pounds apart from the ones that weigh less than 5000 pounds? (Hint: You might have to create a new column!)</p>
@@ -909,53 +639,6 @@ Everywhere
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              MstLklSp SpAbbr PtlOtrSp  BoL  BoW  BoS  BoC  FlukeP  Blow  \
-0  Eubalaena australis    SRW     None    2    1    1    2       0     0   
-1  Eubalaena australis    SRW     None    2    1    1    2       0     0   
-2  Eubalaena australis    SRW     None    1    1    1    2       0     0   
-3  Eubalaena australis    SRW     None    1    1    1    2       0     0   
-4  Eubalaena australis    SRW     None    1    1    1    2       0     0   
-
-   Contour  ...        Long   ImageID  \
-0        0  ...  166.281952  1.01E+15   
-1        0  ...  166.278841  1.01E+15   
-2        0  ...  166.274348  1.01E+15   
-3        0  ...  166.291132  1.01E+15   
-4        0  ...  166.268754  1.01E+15   
-
-                                      ImageFile  ImageDate  Satellite  \
-0  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
-1  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
-2  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
-3  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
-4  06AUG12231250-P2AS-052609152010_01_P001+M2AS   20060812        QB2   
-
-   NumWhale        BoxSize  SpatialRes                  BoxID/ImageChip  \
-0         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B0   
-1         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B1   
-2         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B2   
-3         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B3   
-4         1  128x128pixels       0.54m  Auckland_SRW_QB2_PS_20060812_B4   
-
-                           PointID  
-0  Auckland_SRW_QB2_PS_20060812_P0  
-1  Auckland_SRW_QB2_PS_20060812_P1  
-2  Auckland_SRW_QB2_PS_20060812_P2  
-3  Auckland_SRW_QB2_PS_20060812_P3  
-4  Auckland_SRW_QB2_PS_20060812_P4  
-
-[5 rows x 34 columns]
-Index([&#39;MstLklSp&#39;, &#39;SpAbbr&#39;, &#39;PtlOtrSp&#39;, &#39;BoL&#39;, &#39;BoW&#39;, &#39;BoS&#39;, &#39;BoC&#39;, &#39;FlukeP&#39;,
-       &#39;Blow&#39;, &#39;Contour&#39;, &#39;Wake&#39;, &#39;AfterB&#39;, &#39;Defecation&#39;, &#39;MudTrail&#39;,
-       &#39;OtherDistu&#39;, &#39;Fluke&#39;, &#39;Flipper&#39;, &#39;HeadCalosi&#39;, &#39;Movement&#39;,
-       &#39;Certainty2&#39;, &#39;ClassScore&#39;, &#39;Location&#39;, &#39;GCS&#39;, &#39;Lat&#39;, &#39;Long&#39;, &#39;ImageID&#39;,
-       &#39;ImageFile&#39;, &#39;ImageDate&#39;, &#39;Satellite&#39;, &#39;NumWhale&#39;, &#39;BoxSize&#39;,
-       &#39;SpatialRes&#39;, &#39;BoxID/ImageChip&#39;, &#39;PointID&#39;],
-      dtype=&#39;object&#39;)
-</pre></div>
-</div>
-</div>
 </div>
 <section id="exploring">
 <h3>Exploring<a class="headerlink" href="#exploring" title="Link to this heading">#</a></h3>
@@ -963,15 +646,6 @@ Index([&#39;MstLklSp&#39;, &#39;SpAbbr&#39;, &#39;PtlOtrSp&#39;, &#39;BoL&#39;, 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_whales</span><span class="p">[</span><span class="s1">&#39;MstLklSp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eubalaena australis       463
-Eschrichtius robustus      80
-Megaptera novaeangliae     56
-Balaenoptera physalus      34
-Name: MstLklSp, dtype: int64
 </pre></div>
 </div>
 </div>
@@ -1023,29 +697,6 @@ What is the average certainty for each species? (Hint: <code class="docutils lit
 <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;mysql+pymysql://</span><span class="si">{user}</span><span class="s2">:</span><span class="si">{pw}</span><span class="s2">@</span><span class="si">{host}</span><span class="s2">/</span><span class="si">{db}</span><span class="s2">&quot;</span>
                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">hostname</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">dbname</span><span class="p">,</span>
                                    <span class="n">user</span><span class="o">=</span><span class="n">uname</span><span class="p">,</span><span class="n">pw</span><span class="o">=</span><span class="n">pwd</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">19</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">my_creds</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/courses/PHYS7332.202610/shared/student_mysql_credentials.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>         <span class="n">my_creds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/IPython/core/interactiveshell.py:343,</span> in <span class="ni">_modified_open</span><span class="nt">(file, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">336</span> <span class="k">if</span> <span class="n">file</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}:</span>
-<span class="g g-Whitespace">    </span><span class="mi">337</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">338</span>         <span class="sa">f</span><span class="s2">&quot;IPython won&#39;t let you open fd=</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2"> by default &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">339</span>         <span class="s2">&quot;as it is likely to crash IPython. If you know what you are doing, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">340</span>         <span class="s2">&quot;you can use builtins&#39; open.&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">341</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">343</span> <span class="k">return</span> <span class="n">io_open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/courses/PHYS7332.202610/shared/student_mysql_credentials.txt&#39;
 </pre></div>
 </div>
 </div>
