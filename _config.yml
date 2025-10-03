@@ -4,7 +4,7 @@ title: "PHYS 7332: Network Science Data & Models (Fall 2025)"
 author: Brennan Klein
 logo: assets/logo.png
 execute:
-  execute_notebooks: cache
+  execute_notebooks: "off"   # options: "auto"|"force"|"cache"|"off"
 
 # Only look under our notebooks directory
 jupyter_book:
