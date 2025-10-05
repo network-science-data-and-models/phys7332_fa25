@@ -465,7 +465,7 @@ document.write(`
 <p>Recall that the modularity, <span class="math notranslate nohighlight">\(Q\)</span>, of a given partition <span class="math notranslate nohighlight">\(C\)</span> of our adjacency matrix <span class="math notranslate nohighlight">\(A\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) \]</div>
-<p>The key idea behind this measure was that to calculate the number of within-community edges that exist above and beyond what we’d expect just based on nodes’ degrees. What follows is the assumption (or, rather, the hope) that we should not find community structure in Erdős–Rényi random graphs. Let’s explore this with two exercises where we run a modularity-maximizing community detection algorithm over hundreds of ER graphs.</p>
+<p>The key idea behind this measure was that to calculate the number of within-community edges that exist above and beyond what we’d expect just based on nodes’ degrees. What follows is the assumption (or, rather, the hope) that we should not find community structure in Erdős-Rényi random graphs. Let’s explore this with two exercises where we run a modularity-maximizing community detection algorithm over hundreds of ER graphs.</p>
 <p>Using a graph of size <span class="math notranslate nohighlight">\(N=200\)</span>, loop over various values for <span class="math notranslate nohighlight">\(p\)</span> to create many ER graphs. Compute the <code class="docutils literal notranslate"><span class="pre">community.best_partition</span></code> of each of these, and store the following:</p>
 <ol class="arabic simple">
 <li><p>The modularity of the <code class="docutils literal notranslate"><span class="pre">best_partition</span></code> for each randomly generated graph.</p></li>
@@ -474,6 +474,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">community</span>
+
 <span class="n">plist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">501</span><span class="p">)</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">modularity_out</span> <span class="o">=</span> <span class="p">[]</span>
@@ -514,7 +515,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/96a5bad50277c6020078ffa9fbd24059342a2328a596e9932e88dec3a0c72b68.png" src="../../_images/96a5bad50277c6020078ffa9fbd24059342a2328a596e9932e88dec3a0c72b68.png" />
+<img alt="../../_images/e4e5f6f8df2ae551586c525aee15263fb27cb19d76ba717908ae7ffe617594b0.png" src="../../_images/e4e5f6f8df2ae551586c525aee15263fb27cb19d76ba717908ae7ffe617594b0.png" />
 </div>
 </div>
 <p>What does this mean?</p>
@@ -593,7 +594,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/78325f7351ca1b482d04d706a480df7eb726d67f4a6b23f64a638d39fb0dfd4f.png" src="../../_images/78325f7351ca1b482d04d706a480df7eb726d67f4a6b23f64a638d39fb0dfd4f.png" />
+<img alt="../../_images/af0b7a4e07f88edb5581805684ff90f77db1a5c096367b43052a620d1806c7df.png" src="../../_images/af0b7a4e07f88edb5581805684ff90f77db1a5c096367b43052a620d1806c7df.png" />
 </div>
 </div>
 <p>Where does the PolBlogs modularity fall in our plot from above?</p>
@@ -627,10 +628,30 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/f423aeb9ef4519ab1f91751de6dba1f8988671eb246dfae44b5991a8b53ec406.png" src="../../_images/f423aeb9ef4519ab1f91751de6dba1f8988671eb246dfae44b5991a8b53ec406.png" />
+<img alt="../../_images/5f649cd30dc54d849d5f2d977cb2a40950a0ac54596f259eb82c115dd9814818.png" src="../../_images/5f649cd30dc54d849d5f2d977cb2a40950a0ac54596f259eb82c115dd9814818.png" />
 </div>
 </div>
 <hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.018</span>
+<span class="n">Gtest</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">Gtest</span><span class="p">):</span>
+    <span class="n">Gtest</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">Gtest</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b5ed927810ac97a17cc6a2e7adbbd6c80e7e3754e6ac56283fd28cf53b6e68a1.png" src="../../_images/b5ed927810ac97a17cc6a2e7adbbd6c80e7e3754e6ac56283fd28cf53b6e68a1.png" />
+</div>
+</div>
 <p>This result is quite remarkable! And known for quite some time! Indeed in 2004, Roger Guimerà, Marta Sales-Pardo, and Luís Amaral published an article exploring this exact issue with the modularity measure.</p>
 <ul class="simple">
 <li><p>Guimera, R., Sales-Pardo, M., &amp; Amaral, L.A.N. (2004). <a class="reference external" href="https://link.aps.org/doi/10.1103/PhysRevE.70.025101">Modularity from fluctuations in random graphs and complex networks</a>. <em>Physical Review E</em>, 70(2), 025101.</p></li>
@@ -694,7 +715,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../_images/20abb7e93c103f76fddb05faf49e77bb3f5d396e2d9efaee70983f0b11f1d3f7.png"><img alt="../../_images/20abb7e93c103f76fddb05faf49e77bb3f5d396e2d9efaee70983f0b11f1d3f7.png" src="../../_images/20abb7e93c103f76fddb05faf49e77bb3f5d396e2d9efaee70983f0b11f1d3f7.png" style="width: 600px; height: 434px;" />
+<a class="reference internal image-reference" href="../../_images/55e80060eb565938064bf0ef1ef2fa679abc7196c8388ec1e534c11966c29f7a.png"><img alt="../../_images/55e80060eb565938064bf0ef1ef2fa679abc7196c8388ec1e534c11966c29f7a.png" src="../../_images/55e80060eb565938064bf0ef1ef2fa679abc7196c8388ec1e534c11966c29f7a.png" style="width: 600px; height: 434px;" />
 </a>
 </div>
 </div>
@@ -721,7 +742,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/51c1986683bb866a83f4ea66f2f1bacb7202ce203c529e54831352609f8b2431.png" src="../../_images/51c1986683bb866a83f4ea66f2f1bacb7202ce203c529e54831352609f8b2431.png" />
+<img alt="../../_images/c6a61dc4303e5f20a896351a5bb8748ec22285db691b20a5cafd9e3619719620.png" src="../../_images/c6a61dc4303e5f20a896351a5bb8748ec22285db691b20a5cafd9e3619719620.png" />
 </div>
 </div>
 </section>
@@ -855,7 +876,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/5aed79b6342296db4e43b5117abd4aca218bc71f422ca1eef0ba3d50b000e1bd.png" src="../../_images/5aed79b6342296db4e43b5117abd4aca218bc71f422ca1eef0ba3d50b000e1bd.png" />
+<img alt="../../_images/470c6ebe0a54877c415a2b18d48b0e1b62a67d212995cf7a1821efac75b6a1df.png" src="../../_images/470c6ebe0a54877c415a2b18d48b0e1b62a67d212995cf7a1821efac75b6a1df.png" />
 </div>
 </div>
 </section>
@@ -975,7 +996,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/7887c98c2507b088a5e66089cae081835be33e6c3594a787663915dde3a71448.png" src="../../_images/7887c98c2507b088a5e66089cae081835be33e6c3594a787663915dde3a71448.png" />
+<img alt="../../_images/64d2b55eae924b418e9c914093817f8ff669b945ef67f075cfb7803e673856b9.png" src="../../_images/64d2b55eae924b418e9c914093817f8ff669b945ef67f075cfb7803e673856b9.png" />
 </div>
 </div>
 </section>
@@ -1203,7 +1224,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../_images/622ad50421a0a22eafd872b833456eaaa390126b6f0eb60164935aa49cc37dc7.png"><img alt="../../_images/622ad50421a0a22eafd872b833456eaaa390126b6f0eb60164935aa49cc37dc7.png" src="../../_images/622ad50421a0a22eafd872b833456eaaa390126b6f0eb60164935aa49cc37dc7.png" style="width: 586px; height: 600px;" />
+<a class="reference internal image-reference" href="../../_images/6fcbf38ba8fa9476dfbc0f8588503bb54441fc992e358eae19641c6d7f1593ec.png"><img alt="../../_images/6fcbf38ba8fa9476dfbc0f8588503bb54441fc992e358eae19641c6d7f1593ec.png" src="../../_images/6fcbf38ba8fa9476dfbc0f8588503bb54441fc992e358eae19641c6d7f1593ec.png" style="width: 585px; height: 600px;" />
 </a>
 </div>
 </div>
@@ -1299,7 +1320,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The description length of this partition is 1791.5616783434389
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The description length of this partition is 1791.5616783434393
 </pre></div>
 </div>
 </div>
@@ -1313,7 +1334,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../../_images/fd67efd12117f5008852c99dbd5cbe71c12cd8d0dfb8830826e44430f9e990c8.png"><img alt="../../_images/fd67efd12117f5008852c99dbd5cbe71c12cd8d0dfb8830826e44430f9e990c8.png" src="../../_images/fd67efd12117f5008852c99dbd5cbe71c12cd8d0dfb8830826e44430f9e990c8.png" style="width: 225px; height: 400px;" />
+<a class="reference internal image-reference" href="../../_images/1b268cb006c4542745aa86a9f7062f41fe373d6b36f6cc38badc3cd09d16afa1.png"><img alt="../../_images/1b268cb006c4542745aa86a9f7062f41fe373d6b36f6cc38badc3cd09d16afa1.png" src="../../_images/1b268cb006c4542745aa86a9f7062f41fe373d6b36f6cc38badc3cd09d16afa1.png" style="width: 400px; height: 291px;" />
 </a>
 </div>
 </div>
@@ -1349,11 +1370,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Non-degree-corrected DL:	 49113.41430660523
-Degree-corrected DL:		 47447.0411610215 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Non-degree-corrected DL:	 49089.66862253932
+Degree-corrected DL:		 47485.167272909894 
 
-Non-degree-corrected, nested DL: 48359.521095815355
-Degree-corrected, nested DL:	 47185.49230180453
+Non-degree-corrected, nested DL: 48276.45564868653
+Degree-corrected, nested DL:	 47271.77701538871
 </pre></div>
 </div>
 </div>
@@ -1365,15 +1386,80 @@ Degree-corrected, nested DL:	 47185.49230180453
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">42</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">state_dc_nest</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_nested_blockmodel_dl</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">state_args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">deg_corr</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">multilevel_mcmc_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;niter&#39;</span><span class="p">:</span><span class="mi">20</span><span class="p">})</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># state_dc_nest.draw();</span>
+
+<span class="nn">File /usr/local/anaconda3/envs/gt/lib/python3.12/site-packages/graph_tool/inference/minimize.py:235,</span> in <span class="ni">minimize_nested_blockmodel_dl</span><span class="nt">(g, init_bs, state, state_args, multilevel_mcmc_args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span> <span class="k">while</span> <span class="n">l</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">235</span>     <span class="n">ret</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">multilevel_mcmc_sweep</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">237</span>     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">238</span>         <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">ret</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/anaconda3/envs/gt/lib/python3.12/site-packages/graph_tool/inference/base_states.py:79,</span> in <span class="ni">mcmc_sweep_wrap.&lt;locals&gt;.wrapper</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span>         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_clabel</span><span class="p">(),</span> <span class="s2">&quot;invalid clabel before sweep&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span>     <span class="n">Si</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="o">**</span><span class="n">entropy_args</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">79</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="k">if</span> <span class="n">_bm_test</span><span class="p">()</span> <span class="ow">and</span> <span class="n">test</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_check_clabel&quot;</span><span class="p">):</span>
+
+<span class="nn">File /usr/local/anaconda3/envs/gt/lib/python3.12/site-packages/graph_tool/inference/nested_blockmodel.py:711,</span> in <span class="ni">NestedBlockState.multilevel_mcmc_sweep</span><span class="nt">(self, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>     <span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">levels</span><span class="p">))]</span>
+<span class="g g-Whitespace">    </span><span class="mi">710</span> <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">711</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h_sweep</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="o">**</span><span class="n">a</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">multilevel_mcmc_sweep</span><span class="p">(</span><span class="o">**</span><span class="n">a</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">712</span>                          <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">713</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">714</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h_sweep_states</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="o">**</span><span class="n">a</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">multilevel_mcmc_sweep</span><span class="p">(</span><span class="o">**</span><span class="n">a</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">715</span>                                 <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/anaconda3/envs/gt/lib/python3.12/site-packages/graph_tool/inference/nested_blockmodel.py:567,</span> in <span class="ni">NestedBlockState._h_sweep</span><span class="nt">(self, algo, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">563</span> <span class="n">nmoves</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">    </span><span class="mi">565</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">lstate</span><span class="p">,</span> <span class="n">args</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h_sweep_gen</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">567</span>     <span class="n">ret</span> <span class="o">=</span> <span class="n">algo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">569</span>     <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;beta_dl&quot;</span> <span class="ow">in</span> <span class="n">entropy_args</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span>         <span class="n">dS</span> <span class="o">+=</span> <span class="n">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">entropy_args</span><span class="p">[</span><span class="s2">&quot;beta_dl&quot;</span><span class="p">]</span>
+
+<span class="nn">File /usr/local/anaconda3/envs/gt/lib/python3.12/site-packages/graph_tool/inference/nested_blockmodel.py:711,</span> in <span class="ni">NestedBlockState.multilevel_mcmc_sweep.&lt;locals&gt;.&lt;lambda&gt;</span><span class="nt">(s, **a)</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>     <span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">levels</span><span class="p">))]</span>
+<span class="g g-Whitespace">    </span><span class="mi">710</span> <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">711</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h_sweep</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="o">**</span><span class="n">a</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">multilevel_mcmc_sweep</span><span class="p">(</span><span class="o">**</span><span class="n">a</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">712</span>                          <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">713</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">714</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h_sweep_states</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="o">**</span><span class="n">a</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">multilevel_mcmc_sweep</span><span class="p">(</span><span class="o">**</span><span class="n">a</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">715</span>                                 <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/anaconda3/envs/gt/lib/python3.12/site-packages/graph_tool/inference/base_states.py:79,</span> in <span class="ni">mcmc_sweep_wrap.&lt;locals&gt;.wrapper</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span>         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_clabel</span><span class="p">(),</span> <span class="s2">&quot;invalid clabel before sweep&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span>     <span class="n">Si</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="o">**</span><span class="n">entropy_args</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">79</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="k">if</span> <span class="n">_bm_test</span><span class="p">()</span> <span class="ow">and</span> <span class="n">test</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_check_clabel&quot;</span><span class="p">):</span>
+
+<span class="nn">File /usr/local/anaconda3/envs/gt/lib/python3.12/site-packages/graph_tool/inference/base_states.py:533,</span> in <span class="ni">MultilevelMCMCState.multilevel_mcmc_sweep</span><span class="nt">(self, niter, beta, c, d, r, random_bisect, merge_sweeps, mh_sweeps, init_r, init_min_iter, init_beta, gibbs, B_min, B_max, b_min, b_max, M, cache_states, force_accept, parallel, entropy_args, verbose, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">530</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;unrecognized keyword arguments: &quot;</span> <span class="o">+</span>
+<span class="g g-Whitespace">    </span><span class="mi">531</span>                      <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+<span class="g g-Whitespace">    </span><span class="mi">532</span> <span class="k">if</span> <span class="n">dispatch</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">533</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multilevel_mcmc_sweep_dispatch</span><span class="p">(</span><span class="n">mcmc_state</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">534</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span>     <span class="k">return</span> <span class="n">mcmc_state</span>
+
+<span class="nn">File /usr/local/anaconda3/envs/gt/lib/python3.12/site-packages/graph_tool/inference/blockmodel.py:1313,</span> in <span class="ni">BlockState._multilevel_mcmc_sweep_dispatch</span><span class="nt">(self, mcmc_state)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1312</span> <span class="k">def</span><span class="w"> </span><span class="nf">_multilevel_mcmc_sweep_dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mcmc_state</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1313</span>     <span class="k">return</span> <span class="n">libinference</span><span class="o">.</span><span class="n">multilevel_mcmc_sweep</span><span class="p">(</span><span class="n">mcmc_state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1314</span>                                              <span class="n">_get_rng</span><span class="p">())</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">state_dc_nest</span><span class="o">.</span><span class="n">entropy</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>47207.72568463312
 </pre></div>
 </div>
 </div>
