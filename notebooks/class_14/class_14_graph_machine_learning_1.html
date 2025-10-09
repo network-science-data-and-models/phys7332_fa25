@@ -394,26 +394,16 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn!</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edge-prediction">Edge Prediction</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#link-prediction">Link Prediction</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-based-methods">Similarity-Based Methods</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-limited-whirlwind-tour-of-similarity-measures">A Limited Whirlwind Tour of Similarity Measures</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#for-discussion">For Discussion:</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-based-methods">Classifier-Based Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-classifier">What is a classifier?</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-limited-whirlwind-tour-of-classifiers">A Limited Whirlwind Tour of Classifiers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-based-methods">Classifier-Based Methods</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tovec">*ToVec</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detour-word2vec">Detour: Word2Vec</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#actually-relevant-node2vec">Actually Relevant: Node2Vec</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-we-do-with-these-embeddings">What can we do with these embeddings?</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#freeform-experimentation">Freeform Experimentation!</a></li>
 </ul>
             </nav>
         </div>
@@ -460,7 +450,7 @@ document.write(`
 <p>Machine learning basically involves building algorithms that can learn things from data and make generalizations to new data.
 Supervised machine learning is the practice of building a model when we have training data – the information that we use to inform our model how the world works – that has correct ground truth answers. When you’re building a linear regression or a Naive Bayes classifier (for example), you’re doing supervised machine learning.</p>
 <p>In contrast, unsupervised machine learning (which we won’t be doing much of today) is useful when we don’t have access to exact ground truths about desired outcomes, but we have to build insights with our dataset anyway. When we do unsupervised ML, we figure out what patterns are present in unlabeled data. Clustering is one type of unsupervised machine learning technique; when we cluster a dataset, we’re learning to recognize similar kinds of data points. Generating new examples is also (kind of) an unsupervised ML task. Training GPT and its ilk to produce language requires massive amounts of scraped text that doesn’t have “answers” attached to it per se. Humans aren’t going through and labeling the terabytes of data that GPT is trained on (before it is fine-tuned for specific tasks). Instead, at a high level, GPT and friends are trained to produce text that we can’t tell comes from a computer – it should “look like” the text that showed up in the massive amounts of data it was trained on. Once GPT has been trained in this fashion, it is also fine-tuned for specific tasks – this is where human labeling and direction do come in.</p>
-<p>Today, when we talk about doing machine learning we’re going to mostly focus on supervised ML, specifically <em>binary classification</em>. Binary classification involves learning to answer a yes-or-no question about a given data point.</p>
+<p>Today, when we talk about doing machine learning we’re going to mostly focus on supervised ML, specifically <em>binary classification</em>. Binary classification involves learning to answer a yes-or-no question about new data points after optimizing a model’s parameters using a set of data points with established answers.</p>
 <section id="train-test-splits">
 <h3>Train/Test Splits<a class="headerlink" href="#train-test-splits" title="Link to this heading">#</a></h3>
 <p>Training models requires training data and test data at minimum. Our training data is what the model learns patterns from, and the test data tells us how well the model does on data it hasn’t seen before.</p>
@@ -532,11 +522,10 @@ Supervised machine learning is the practice of building a model when we have tra
 </tbody>
 </table>
 </div>
-<p>Let’s try a toy example using the dataframe with user attributes and explicit language usage. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has a lot of classifiers; right now we’re going to try using a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">random forest classifier</a>. Random forest classifiers consist of many decision tree classifiers, each of which is trained on a different subset of the training dataset. Broadly speaking, decision tree classifiers learn decision rules from the data; they can be very complicated, but you can also force them to limit their breadth or depth. The average prediction output by all the decision trees for a particular data point is the classifier’s final output.</p>
+<p>Let’s try a toy example using the dataframe with user attributes and explicit language usage. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has a lot of classifiers; right now we’re going to try using a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">random forest classifier</a>. Random forest classifiers consist of many <a class="reference external" href="https://en.wikipedia.org/wiki/Decision_tree_learning">decision tree classifiers</a>, each of which is trained on a different subset of the training dataset. Broadly speaking, decision tree classifiers learn decision rules from the data; they can be very complicated, but you can also force them to limit their breadth or depth. The average prediction output by all the decision trees for a particular data point is the random forest classifier’s final output.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 
 <span class="n">explicit_train_x</span> <span class="o">=</span> <span class="n">explicit_train</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;attr_&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">explicit_test_x</span> <span class="o">=</span> <span class="n">explicit_test</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;attr_&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
@@ -544,7 +533,6 @@ Supervised machine learning is the practice of building a model when we have tra
 <span class="n">explicit_train_y</span> <span class="o">=</span> <span class="n">explicit_train</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">explicit_test_y</span> <span class="o">=</span> <span class="n">explicit_test</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
-<span class="c1"># clf = DecisionTreeClassifier()</span>
 <span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">)</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">explicit_train_x</span><span class="p">,</span> <span class="n">explicit_train_y</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
 <span class="n">preds</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">explicit_test_x</span><span class="p">)</span>
@@ -742,35 +730,230 @@ Rate of True Positives Correctly Identified: 0.8734309623430963
 <p>Can you toy with the <code class="docutils literal notranslate"><span class="pre">local_classifier</span></code> function to produce better performance with this classification algorithm?</p>
 </section>
 </section>
-<section id="edge-prediction">
-<h2>Edge Prediction<a class="headerlink" href="#edge-prediction" title="Link to this heading">#</a></h2>
+<section id="link-prediction">
+<h2>Link Prediction<a class="headerlink" href="#link-prediction" title="Link to this heading">#</a></h2>
+<p>Next, we’re going to learn about predicting the existence of missing links (or links that will be formed at the next time step) in a graph, also known as <em>link prediction</em>. For a more comprehensive overview of link prediction, check out <a class="reference external" href="http://dx.doi.org/10.1145/3012704">this survey article</a> by Martinez et al., which this section draws from quite a bit. Many link prediction tasks are formulated as a ranking problem, where all pairs of nodes that aren’t connected yet get a score that is proportional to the likelihood of a link forming between them. Then we usually choose a threshold, above which we predict a link will exist. We can also view link prediction as a binary classification problem; today we will explore both points of view.</p>
 <section id="similarity-based-methods">
 <h3>Similarity-Based Methods<a class="headerlink" href="#similarity-based-methods" title="Link to this heading">#</a></h3>
+<p>Homophily refers to the tendency of similar nodes to be connected to each other. Not all networks are completely homophilous on all dimensions (think dating networks, for example), but many are. Similarity-based methods operate on the assumption that the more similar a pair of nodes is, the more likely they are to be connected to each other. We can define similarity in many different ways, but in general, we choose a similarity measure, rank candidate node pairs by their similarity, and then pick a threshold above which we say we will predict a link exists.</p>
 <section id="a-limited-whirlwind-tour-of-similarity-measures">
 <h4>A Limited Whirlwind Tour of Similarity Measures<a class="headerlink" href="#a-limited-whirlwind-tour-of-similarity-measures" title="Link to this heading">#</a></h4>
+<p>In this table, we’ve laid out some of the more commonly used similarity measures. Some of them are based on local structural information about a node’s neighborhood (“Local”); others use global approaches, usually involving paths between two nodes or random walks, to determine similarity (“Global”); there are also approaches that mix the two, considering more topological information than strictly local measures while still being relatively fast to compute (“Quasi-Local”. Today we’ll focus on local measures of similarity; for a node pair <span class="math notranslate nohighlight">\((u, v)\)</span>, we will define the similarity for a number of measures.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Similarity Measure</p></th>
+<th class="head"><p>Definition</p></th>
+<th class="head"><p>Formula</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Common Neighbors</p></td>
+<td><p>How many neighbors do <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(v\)</span> have in common?</p></td>
+<td><p>$</p></td>
+</tr>
+<tr class="row-odd"><td><p>Adamic-Adar Index</p></td>
+<td><p>Common neighbors but normalized by neighbors’ degree</p></td>
+<td><p>$\sum\limits_{w \in N(u) \cap N(v)} \frac{1}{</p></td>
+</tr>
+<tr class="row-even"><td><p>Preferential Attachment Index</p></td>
+<td><p>Product of nodes’ number of neighbors</p></td>
+<td><p>$</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jaccard Index</p></td>
+<td><p>Ratio of shared neighbors to total number of neighbors</p></td>
+<td><p>$\frac{</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>What are some other ways we could measure similarity/proximity in the network, perhaps looking at paths between nodes?</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="c1"># make a train/test split of edges in the graph; we&#39;ll remove 1/4 of all edges to start.</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">]</span>
+<span class="n">edges_train</span><span class="p">,</span> <span class="n">edges_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># get nodes that don&#39;t show up in the training set</span>
+<span class="n">nodes_in_train</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">node</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">edges_train</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">])</span>
+<span class="n">nodes_in_test</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">node</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">edges_test</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">])</span>
+<span class="n">node_not_in_G</span> <span class="o">=</span> <span class="n">nodes_in_test</span> <span class="o">-</span> <span class="n">nodes_in_train</span> 
+
+<span class="c1"># construct a graph with just the known (i.e. training) edges</span>
+<span class="n">G_train</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_edgelist</span><span class="p">(</span><span class="n">edges_train</span><span class="p">)</span>
+<span class="c1"># make sure we have all the nodes in the original graph in case we&#39;re missing some in the set of training edges.</span>
+<span class="n">G_train</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">node_not_in_G</span><span class="p">))</span> 
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_sample_negative_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">edges_test</span><span class="p">,</span> <span class="n">multiplier</span><span class="o">=</span><span class="mf">2.1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a graph G and a test set of edges that will be predicted, </span>
+<span class="sd">    produce a list of edges that don&#39;t exist in G OR in the test set.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">      G: networkx graph object; contains only edges from a training set (i.e. it&#39;s a masked version of an original graph)</span>
+<span class="sd">      edges_test: the edges missing from the original graph that are not present in G</span>
+<span class="sd">      multiplier: very approximately multiply the number of test edges by this to express the desired quantity of negative examples.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      list of candidate edges that don&#39;t exist in G OR in edges_test </span>
+<span class="sd">      (negative examples for a link prediction strategy to be evaluated on).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
+    <span class="n">edge_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">])</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">edges_test</span><span class="p">))</span>
+    <span class="n">combos</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">combos</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edges_train</span><span class="p">)</span> <span class="o">*</span> <span class="n">multiplier</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">candidates</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">edge_set</span><span class="p">]</span>
+
+<span class="c1"># make some fake edges</span>
+<span class="n">candidate_edges</span> <span class="o">=</span> <span class="n">generate_sample_negative_edges</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">edges_test</span><span class="p">)</span>
+<span class="c1"># run adamic adar index on a limited subset of negative &amp; positive candidate edges</span>
+<span class="n">similarities</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adamic_adar_index</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">candidate_edges</span> <span class="o">+</span> <span class="n">edges_test</span><span class="p">)</span> 
+<span class="c1"># rank edges by their similarity scores</span>
+<span class="n">similarities</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">similarities</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_max_similarity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">similarities</span><span class="p">])))</span> <span class="c1"># similarity is roughly distributed on a log scale</span>
+<span class="n">set_edges_test</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">edges_test</span><span class="p">)</span>
+
+<span class="c1"># evaluating precision &amp; recall at different threshold values</span>
+<span class="n">precisions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">recalls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">threshold</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">log_max_similarity</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">):</span>
+    <span class="c1"># edges w/ similarity above the assigned threshold; contains all true &amp; false positives</span>
+    <span class="n">edges_above</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">similarities</span> <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">threshold</span><span class="p">)])</span> 
+    <span class="c1"># edges w/ similarity at or below the assigned threshold; contains all true &amp; false negatives</span>
+    <span class="n">edges_below</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">similarities</span> <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">threshold</span><span class="p">)])</span>
+    
+    <span class="n">true_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">set_edges_test</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">edges_above</span><span class="p">))</span> <span class="c1"># number of true positives</span>
+    <span class="n">false_neg</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">set_edges_test</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">edges_below</span><span class="p">))</span> <span class="c1"># number of false negatives</span>
+    <span class="n">precisions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">true_pos</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges_above</span><span class="p">))</span> 
+    <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">true_pos</span> <span class="o">/</span> <span class="p">(</span><span class="n">true_pos</span> <span class="o">+</span> <span class="n">false_neg</span><span class="p">))</span>
+
+<span class="c1"># plots precision and recall at various thresholds</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Link Prediction Threshold vs Precision and Recall &#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">log_max_similarity</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">precisions</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">log_max_similarity</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">recalls</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;recall&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Link Prediction Threshold (log scale)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Precision/Recall (higher is better)&#39;</span><span class="p">)</span>
+                    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Precision/Recall (higher is better)&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/1cc7eabd0efbc60167f351b96a7f25746984c8a7ad400d1fb4d8a6005d9feeab.png" src="../../_images/1cc7eabd0efbc60167f351b96a7f25746984c8a7ad400d1fb4d8a6005d9feeab.png" />
+</div>
+</div>
+</section>
+<section id="for-discussion">
+<h4>For Discussion:<a class="headerlink" href="#for-discussion" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Based on this plot, what would you choose as the approximate threshold? Why?</p></li>
+<li><p>Why do you think we see the trends that we see (high threshold = terrible recall; low threshold = bad precision)?</p></li>
+<li><p>Would this task get harder if we looked at all possible links (i.e. all links that didn’t exist in the training graph)?</p></li>
+</ul>
 </section>
 </section>
 <section id="classifier-based-methods">
 <h3>Classifier-Based Methods<a class="headerlink" href="#classifier-based-methods" title="Link to this heading">#</a></h3>
-<section id="what-is-a-classifier">
-<h4>What is a classifier?<a class="headerlink" href="#what-is-a-classifier" title="Link to this heading">#</a></h4>
+<p>We can also use binary classifiers for link prediction. In this case, we treat our examples more independently (i.e. without ranking). We can use node features, information about network topology, and even the similarity measures we just used. Discussing the various binary classifiers that exist is beyond the scope of this lesson, but we will try out a random forest classifier on our dataset that incorporates the 4 similarity measures we just discussed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make some fake edges</span>
+<span class="n">candidate_edges_train</span> <span class="o">=</span> <span class="n">generate_sample_negative_edges</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">edges_test</span><span class="p">)</span>
+<span class="n">candidate_edges_test</span> <span class="o">=</span> <span class="n">generate_sample_negative_edges</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">edges_test</span> <span class="o">+</span> <span class="n">candidate_edges_train</span><span class="p">)</span>
+
+<span class="c1"># create similarity measures for training data</span>
+<span class="n">adamic_adar_train</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adamic_adar_index</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">candidate_edges_train</span> <span class="o">+</span> <span class="n">edges_train</span><span class="p">)</span> 
+<span class="n">jaccard_train</span>  <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">jaccard_coefficient</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">candidate_edges_train</span> <span class="o">+</span> <span class="n">edges_train</span><span class="p">)</span>
+<span class="n">pref_attachment_train</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">preferential_attachment</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">candidate_edges_train</span> <span class="o">+</span> <span class="n">edges_train</span><span class="p">)</span>
+<span class="n">common_neighbors_train</span> <span class="o">=</span> <span class="p">[(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">common_neighbors</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">candidate_edges_train</span> <span class="o">+</span> <span class="n">edges_train</span><span class="p">]</span>
+
+<span class="c1"># create similarity measures for test data</span>
+<span class="n">adamic_adar_test</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adamic_adar_index</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">candidate_edges_test</span> <span class="o">+</span> <span class="n">edges_test</span><span class="p">)</span> 
+<span class="n">jaccard_test</span>  <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">jaccard_coefficient</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">candidate_edges_test</span> <span class="o">+</span> <span class="n">edges_test</span><span class="p">)</span>
+<span class="n">pref_attachment_test</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">preferential_attachment</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">candidate_edges_test</span> <span class="o">+</span> <span class="n">edges_test</span><span class="p">)</span>
+<span class="n">common_neighbors_test</span> <span class="o">=</span> <span class="p">[(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">common_neighbors</span><span class="p">(</span><span class="n">G_train</span><span class="p">,</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">candidate_edges_test</span> <span class="o">+</span> <span class="n">edges_test</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># build numpy matrices of the similarity measures</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">]</span> 
+     <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="p">[</span><span class="n">adamic_adar_train</span><span class="p">,</span> <span class="n">jaccard_train</span><span class="p">,</span> <span class="n">pref_attachment_train</span><span class="p">,</span> <span class="n">common_neighbors_train</span><span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">candidate_edges_train</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edges_train</span><span class="p">))))</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">]</span> 
+     <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="p">[</span><span class="n">adamic_adar_test</span><span class="p">,</span> <span class="n">jaccard_test</span><span class="p">,</span> <span class="n">pref_attachment_test</span><span class="p">,</span> <span class="n">common_neighbors_test</span><span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">candidate_edges_test</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edges_test</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a random forest classifier; fit it to the training data &amp; predict for the test data.</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">preds</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Briefly, how well did we do?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;accuracy score:&#39;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;precision:&#39;</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;recall:&#39;</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;F1:&#39;</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy score: 0.9089123328059052
+precision: 0.6442523001884491
+recall: 0.759017892124853
+F1: 0.6969420793860175
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="a-limited-whirlwind-tour-of-classifiers">
-<h4>A Limited Whirlwind Tour of Classifiers<a class="headerlink" href="#a-limited-whirlwind-tour-of-classifiers" title="Link to this heading">#</a></h4>
 </section>
-</section>
-</section>
-<section id="tovec">
-<h2>*ToVec<a class="headerlink" href="#tovec" title="Link to this heading">#</a></h2>
-<section id="detour-word2vec">
-<h3>Detour: Word2Vec<a class="headerlink" href="#detour-word2vec" title="Link to this heading">#</a></h3>
-</section>
-<section id="actually-relevant-node2vec">
-<h3>Actually Relevant: Node2Vec<a class="headerlink" href="#actually-relevant-node2vec" title="Link to this heading">#</a></h3>
-<section id="what-can-we-do-with-these-embeddings">
-<h4>What can we do with these embeddings?<a class="headerlink" href="#what-can-we-do-with-these-embeddings" title="Link to this heading">#</a></h4>
-</section>
-</section>
+<section id="freeform-experimentation">
+<h2>Freeform Experimentation!<a class="headerlink" href="#freeform-experimentation" title="Link to this heading">#</a></h2>
+<p>For the remainder of the class period, pick a question you’d like to answer with respect to link prediction, and write code to answer it.</p>
+<p>Here are some examples:</p>
+<ul class="simple">
+<li><p>How does classifier performance change as the ratio of negative to positive examples increases?</p></li>
+<li><p>Which kinds of classifiers in the <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html">sklearn binary classification pantheon</a> perform better for link prediction?</p></li>
+<li><p>What happens if we add in new <a class="reference external" href="https://networkx.org/documentation/stable/reference/algorithms/similarity.html">similarity measures</a> to the code from the previous example? What if we remove some similarity measures?</p></li>
+<li><p>What if we drastically change the prevalence of negative examples in the training set relative to the prevalence in the test set?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your Turn!</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -833,26 +1016,16 @@ Rate of True Positives Correctly Identified: 0.8734309623430963
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn!</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edge-prediction">Edge Prediction</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#link-prediction">Link Prediction</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-based-methods">Similarity-Based Methods</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-limited-whirlwind-tour-of-similarity-measures">A Limited Whirlwind Tour of Similarity Measures</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#for-discussion">For Discussion:</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-based-methods">Classifier-Based Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-classifier">What is a classifier?</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-limited-whirlwind-tour-of-classifiers">A Limited Whirlwind Tour of Classifiers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-based-methods">Classifier-Based Methods</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tovec">*ToVec</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detour-word2vec">Detour: Word2Vec</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#actually-relevant-node2vec">Actually Relevant: Node2Vec</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-we-do-with-these-embeddings">What can we do with these embeddings?</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#freeform-experimentation">Freeform Experimentation!</a></li>
 </ul>
   </nav></div>
 
