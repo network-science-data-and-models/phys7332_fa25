@@ -1,0 +1,1593 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Class 13: Visualization 2 — Advanced Python &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_13/class_13_visualization_python';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PHYS 7332: Network Science Data & Models (Fall 2025)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    PHYS 7332: Network Science Data & Models – Fall 2025
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../class_00/class_00_github_computing_setup.html">Class 00: Introduction and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_01/class_01_python_refresher.html">Class 01: Python Refresher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_02/class_02_networkx1.html">Class 02: Introduction to Networkx 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_03/class_03_networkx2.html">Class 03: Introduction to Networkx 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_04/class_04_distributions.html">Class 04: Distributions of Network Properties &amp; Centralities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_05/class_05_scraping1.html">Class 05: Scraping Web Data 1 - BeautifulSoup &amp; HTML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_06/class_06_data_science_and_sql.html">Class 06: Data Science 1 — Pandas, SQL, Regressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_07/class_07_creating_a_network_from_sql_tables.html">Class 07: Data Science 2 — SQL for Network Construction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_08/class_08_communities1.html">Class 08: Clustering &amp; Community Detection 1 — Traditional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_09/class_09_communities2.html">Class 09: Clustering &amp; Community Detection 2 — Contemporary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_12/class_12_visualization_python.html">Class 12: Visualization 1 — Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/network-science-data-and-models/phys7332_fa25/issues/new?title=Issue%20on%20page%20%2Fnotebooks/class_13/class_13_visualization_python.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/class_13/class_13_visualization_python.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Class 13: Visualization 2 — Advanced Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Class 13: Visualization 2 — Advanced Python</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#picking-up-where-we-left-off">Picking up where we left off…</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key features:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-plot-multilayer-network">3-D plot (multilayer network)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commuting-data-and-spatial-data">Commuting data and spatial data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-network-for-boston-commutes">Create the network for boston commutes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-the-two">Combine the two!</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-turn-this-into-a-3d-plot">How to turn this into a 3d plot?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next">Next</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="class-13-visualization-2-advanced-python">
+<h1>Class 13: Visualization 2 — Advanced Python<a class="headerlink" href="#class-13-visualization-2-advanced-python" title="Link to this heading">#</a></h1>
+<p>Goal of today’s class:</p>
+<ol class="arabic simple">
+<li><p>Starting with a multilayer network visualization…</p></li>
+<li><p>Add spatial elements and network links…</p></li>
+<li><p>Try to reproduce fancy <a class="reference external" href="http://kepler.gl">kepler.gl</a> visualizaions!</p></li>
+</ol>
+<hr class="docutils" />
+<ol class="arabic simple">
+<li><p>Come in. Sit down. Open Teams.</p></li>
+<li><p>Find your notebook in your /Class_13/ folder.</p></li>
+</ol>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">it</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patheffects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">path_effects</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSpec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">rc</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPolygon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d.art3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Poly3DCollection</span>
+
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">axisbelow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;savefig&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="picking-up-where-we-left-off">
+<h1>Picking up where we left off…<a class="headerlink" href="#picking-up-where-we-left-off" title="Link to this heading">#</a></h1>
+<p>A suggestion! (challenge)</p>
+<p><img alt="" src="../../_images/keplergl.png" /></p>
+<p>How to visualize fancy 3D urban flow networks?</p>
+<p>They really are just (“just”) a combination of elements, which, when mastered, open the doors for all sorts of complicated, beautiful visualizations.</p>
+<section id="key-features">
+<h2>Key features:<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>3-dimensional plot</p></li>
+<li><p>Dark background</p></li>
+<li><p>Spatial data</p></li>
+<li><p>Arching edges</p></li>
+<li><p>Edge coloring by kernel density</p></li>
+</ol>
+</section>
+<section id="d-plot-multilayer-network">
+<h2>3-D plot (multilayer network)<a class="headerlink" href="#d-plot-multilayer-network" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patheffects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">path_effects</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d.art3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Line3DCollection</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s start with the important stuff. pick your colors.</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="s1">&#39;darksalmon&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumseagreen&#39;</span><span class="p">]</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Imagine you have three node-aligned snapshots of a network</span>
+<span class="n">G1</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+<span class="n">G2</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+<span class="n">G3</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+
+<span class="n">pos3</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G1</span><span class="p">)</span> <span class="c1"># assuming common node location</span>
+<span class="n">graphs</span> <span class="o">=</span> <span class="p">[</span><span class="n">G1</span><span class="p">,</span><span class="n">G2</span><span class="p">,</span> <span class="n">G3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;projection&#39;</span><span class="p">:</span><span class="s1">&#39;3d&#39;</span><span class="p">})</span>
+
+<span class="k">for</span> <span class="n">gi</span><span class="p">,</span> <span class="n">G</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">graphs</span><span class="p">):</span>
+    <span class="c1"># node positions</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">pos3</span><span class="o">.</span><span class="n">values</span><span class="p">())))[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">pos3</span><span class="o">.</span><span class="n">values</span><span class="p">())))[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">zs</span> <span class="o">=</span> <span class="p">[</span><span class="n">gi</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="c1"># set a common z-position of the nodes </span>
+
+    <span class="c1"># node colors</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">gi</span><span class="p">]]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+    
+    <span class="c1"># if you want to have between-layer connections</span>
+    <span class="k">if</span> <span class="n">gi</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">thru_nodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()),</span><span class="mi">10</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">lines3d_between</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">list</span><span class="p">(</span><span class="n">pos3</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="p">[</span><span class="n">gi</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="nb">list</span><span class="p">(</span><span class="n">pos3</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="p">[</span><span class="n">gi</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">thru_nodes</span><span class="p">]</span>
+        <span class="n">between_lines</span> <span class="o">=</span> <span class="n">Line3DCollection</span><span class="p">(</span><span class="n">lines3d_between</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">gi</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.5&#39;</span><span class="p">,</span>
+                                         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_collection3d</span><span class="p">(</span><span class="n">between_lines</span><span class="p">)</span>
+
+    <span class="c1"># add within-layer edges </span>
+    <span class="n">lines3d</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">list</span><span class="p">(</span><span class="n">pos3</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="p">[</span><span class="n">gi</span><span class="p">],</span><span class="nb">list</span><span class="p">(</span><span class="n">pos3</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">+</span><span class="p">[</span><span class="n">gi</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">()]</span>
+    <span class="n">line_collection</span> <span class="o">=</span> <span class="n">Line3DCollection</span><span class="p">(</span><span class="n">lines3d</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">gi</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="n">gi</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_collection3d</span><span class="p">(</span><span class="n">line_collection</span><span class="p">)</span>
+    
+    <span class="c1"># now add nodes</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">zs</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">cs</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;.2&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">gi</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># add a plane to designate the layer</span>
+    <span class="n">xdiff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+    <span class="n">ydiff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+    <span class="n">ymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span><span class="o">-</span><span class="n">ydiff</span><span class="o">*</span><span class="mf">0.1</span>
+    <span class="n">ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span><span class="o">+</span><span class="n">ydiff</span><span class="o">*</span><span class="mf">0.1</span>
+    <span class="n">xmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="o">-</span><span class="n">xdiff</span><span class="o">*</span><span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">xmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="o">+</span><span class="n">xdiff</span><span class="o">*</span><span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">([</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">],[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">])</span>
+    <span class="n">zz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">+</span><span class="n">gi</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="n">gi</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">gi</span><span class="p">)</span>
+
+    <span class="c1"># add label</span>
+    <span class="n">layertext</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">,</span> <span class="n">gi</span><span class="o">*</span><span class="mf">0.95</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;Layer </span><span class="si">%i</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">gi</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span>
+                        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.95&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                        <span class="n">path_effects</span><span class="o">=</span><span class="p">[</span><span class="n">path_effects</span><span class="o">.</span><span class="n">Stroke</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="n">gi</span><span class="p">]),</span>
+                                      <span class="n">path_effects</span><span class="o">.</span><span class="n">Normal</span><span class="p">()])</span>
+
+<span class="c1"># set them all at the same x,y,zlims</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span><span class="o">-</span><span class="n">ydiff</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span><span class="o">+</span><span class="n">ydiff</span><span class="o">*</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="o">-</span><span class="n">xdiff</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="o">+</span><span class="n">xdiff</span><span class="o">*</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">graphs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># select viewing angle</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">height_angle</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">height_angle</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+
+<span class="c1"># Optionally, adjust the 3D figure&#39;s aspect ratio or other properties for zoom</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">3.25</span><span class="p">])</span>  <span class="c1"># Modify aspect ratio if necessary</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+<span class="c1"># plt.savefig(&#39;images/pngs/multilayer_network.png&#39;,dpi=425,bbox_inches=&#39;tight&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d93144a8d41d6801c25b7fd6024f4a06246ebbc5f3db7cfb151358be719513d2.png" src="../../_images/d93144a8d41d6801c25b7fd6024f4a06246ebbc5f3db7cfb151358be719513d2.png" />
+</div>
+</div>
+</section>
+<section id="commuting-data-and-spatial-data">
+<h2>Commuting data and spatial data<a class="headerlink" href="#commuting-data-and-spatial-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/commuters.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+    <span class="n">commute_data</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s import a shapefile of the city of Boston.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boston_shp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data/2020_Census_Tracts_in_Boston/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boston_shp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geoid20</th>
+      <th>countyfp20</th>
+      <th>namelsad20</th>
+      <th>statefp20</th>
+      <th>tractce20</th>
+      <th>intptlat20</th>
+      <th>name20</th>
+      <th>funcstat20</th>
+      <th>intptlon20</th>
+      <th>mtfcc20</th>
+      <th>aland20</th>
+      <th>awater20</th>
+      <th>objectid</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>25025140202</td>
+      <td>025</td>
+      <td>Census Tract</td>
+      <td>25</td>
+      <td>140202</td>
+      <td>+42.2495181</td>
+      <td>1402.02</td>
+      <td>S</td>
+      <td>-071.1175430</td>
+      <td>G5020</td>
+      <td>1538599</td>
+      <td>17120</td>
+      <td>1</td>
+      <td>POLYGON ((757373.035 2913676.433, 757377.218 2...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25025140300</td>
+      <td>025</td>
+      <td>Census Tract</td>
+      <td>25</td>
+      <td>140300</td>
+      <td>+42.2587734</td>
+      <td>1403</td>
+      <td>S</td>
+      <td>-071.1188131</td>
+      <td>G5020</td>
+      <td>1548879</td>
+      <td>38736</td>
+      <td>2</td>
+      <td>POLYGON ((756308.459 2916770.814, 756446.058 2...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>25025140400</td>
+      <td>025</td>
+      <td>Census Tract</td>
+      <td>25</td>
+      <td>140400</td>
+      <td>+42.2692219</td>
+      <td>1404</td>
+      <td>S</td>
+      <td>-071.1118088</td>
+      <td>G5020</td>
+      <td>1874512</td>
+      <td>11680</td>
+      <td>3</td>
+      <td>POLYGON ((757682.058 2924622.055, 757807.152 2...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>25025140106</td>
+      <td>025</td>
+      <td>Census Tract</td>
+      <td>25</td>
+      <td>140106</td>
+      <td>+42.2738738</td>
+      <td>1401.06</td>
+      <td>S</td>
+      <td>-071.1371416</td>
+      <td>G5020</td>
+      <td>278837</td>
+      <td>3116</td>
+      <td>4</td>
+      <td>POLYGON ((753408.502 2925331.042, 753418.584 2...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>25025110201</td>
+      <td>025</td>
+      <td>Census Tract</td>
+      <td>25</td>
+      <td>110201</td>
+      <td>+42.2804960</td>
+      <td>1102.01</td>
+      <td>S</td>
+      <td>-071.1170508</td>
+      <td>G5020</td>
+      <td>348208</td>
+      <td>0</td>
+      <td>5</td>
+      <td>POLYGON ((759003.960 2926858.165, 759043.378 2...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">boston_shp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;.6&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="c1"># ax.set_axis_off()</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ab61838c95c70164b00c2f0ce1137978c592410cbc3e2b438ac514e9b072586c.png" src="../../_images/ab61838c95c70164b00c2f0ce1137978c592410cbc3e2b438ac514e9b072586c.png" />
+</div>
+</div>
+</section>
+<section id="create-the-network-for-boston-commutes">
+<h2>Create the network for boston commutes<a class="headerlink" href="#create-the-network-for-boston-commutes" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boston_tracts</span> <span class="o">=</span> <span class="n">boston_shp</span><span class="p">[</span><span class="s1">&#39;geoid20&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">boston_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">commute_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">boston_tracts</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">boston_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+    <span class="n">present</span> <span class="o">=</span> <span class="n">boston_shp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">boston_shp</span><span class="p">[</span><span class="s1">&#39;geoid20&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">present</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        
+        <span class="c1"># get the centroid for each census tract</span>
+        <span class="n">pos_i</span> <span class="o">=</span> <span class="p">[</span><span class="n">boston_shp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">boston_shp</span><span class="p">[</span><span class="s1">&#39;geoid20&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                 <span class="n">boston_shp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">boston_shp</span><span class="p">[</span><span class="s1">&#39;geoid20&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        
+        
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos_i</span><span class="p">,</span> 
+                      <span class="n">population</span><span class="o">=</span><span class="n">boston_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;population&#39;</span><span class="p">],</span>
+                      <span class="n">state</span><span class="o">=</span><span class="n">boston_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;state&#39;</span><span class="p">],</span>
+                      <span class="n">housing</span><span class="o">=</span><span class="n">boston_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;housing&#39;</span><span class="p">])</span>
+        <span class="n">edge_data</span> <span class="o">=</span> <span class="n">boston_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;edge_data&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edge_data</span><span class="p">[</span><span class="s1">&#39;edges&#39;</span><span class="p">])):</span>
+            <span class="k">if</span> <span class="n">edge_data</span><span class="p">[</span><span class="s1">&#39;edges&#39;</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="ow">in</span> <span class="n">boston_tracts</span><span class="p">:</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">edge_data</span><span class="p">[</span><span class="s1">&#39;edges&#39;</span><span class="p">][</span><span class="n">j</span><span class="p">],</span>
+                           <span class="n">weight</span><span class="o">=</span><span class="n">edge_data</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">][</span><span class="n">j</span><span class="p">],</span>
+                           <span class="n">margin</span><span class="o">=</span><span class="n">edge_data</span><span class="p">[</span><span class="s1">&#39;margin&#39;</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="s1">&#39;pos&#39;</span><span class="p">))</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">values</span><span class="p">())))[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">values</span><span class="p">())))[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">gp</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_undirected</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">gp</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/572a9eb5148163510deebd349e30b12630951ad0e0598b979a5b72b7583e8dc4.png" src="../../_images/572a9eb5148163510deebd349e30b12630951ad0e0598b979a5b72b7583e8dc4.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="combine-the-two">
+<h1>Combine the two!<a class="headerlink" href="#combine-the-two" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">boston_shp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;.6&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">gp</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span>
+        <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;orangered&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;.2&#39;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="c1"># ax.set_axis_off()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/20def27d61e8982ef7cf022fd203ea60af5a32cdd464cd22bda478749ec6223c.png" src="../../_images/20def27d61e8982ef7cf022fd203ea60af5a32cdd464cd22bda478749ec6223c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearSegmentedColormap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
+
+<span class="c1"># ---- inputs assumed available ----</span>
+<span class="c1"># gp : (DiGraph or Graph) with edge attr &#39;weight&#39;</span>
+<span class="c1"># pos: dict {node: (x,y)}</span>
+<span class="c1"># boston_shp: GeoDataFrame (for the basemap)</span>
+
+<span class="c1"># --- helpers ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_weighted_degree</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">in_degree</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">))</span>  <span class="c1"># you said &quot;in-degree&quot;</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_safe_minmax</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">mn</span><span class="p">,</span> <span class="n">mx</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">mx</span> <span class="o">-</span> <span class="n">mn</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>
+        <span class="n">mx</span> <span class="o">=</span> <span class="n">mn</span> <span class="o">+</span> <span class="mf">1e-12</span>
+    <span class="k">return</span> <span class="n">mn</span><span class="p">,</span> <span class="n">mx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># custom colormap: purple &lt;- orange &lt;- white  (white = most intense)</span>
+<span class="n">wop</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">&quot;wop&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;#6a00a8&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;#ffffff&quot;</span><span class="p">])</span>
+
+<span class="c1"># ----- 1) node weights &amp; coordinates -----</span>
+<span class="n">wd</span> <span class="o">=</span> <span class="n">_weighted_degree</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>                        <span class="c1"># weighted in-degree (or degree)</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pos</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">])</span>          <span class="c1"># N x 2</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">wd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">])</span>   <span class="c1"># sample weights</span>
+
+<span class="c1"># ----- 2) KDE of node locations, weighted by weighted-degree -----</span>
+<span class="c1"># Try SciPy KDE; fallback to simple Gaussian smoothing over nodes if SciPy absent.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_kde</span>
+    <span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">xy</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">bw_method</span><span class="o">=</span><span class="s1">&#39;scott&#39;</span><span class="p">)</span>  <span class="c1"># you can tweak bandwidth</span>
+    <span class="n">node_intensity</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">xy</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>                              <span class="c1"># intensity at node coords</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="c1"># lightweight fallback: RBF smoothing over nodes themselves</span>
+    <span class="c1"># bandwidth = ~average nearest-neighbor distance</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">NearestNeighbors</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span>
+    <span class="n">dists</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span>
+    <span class="n">bw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">dists</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">1.0</span>
+    <span class="c1"># Gaussian kernel weights from all nodes (vectorized)</span>
+    <span class="c1"># node_intensity[i] = Σ_j w_j * exp(-||xi - xj||^2 / (2*bw^2))</span>
+    <span class="n">diff2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">xy</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">xy</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">diff2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">bw</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">node_intensity</span> <span class="o">=</span> <span class="p">(</span><span class="n">K</span> <span class="o">@</span> <span class="n">w</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">bw</span><span class="p">)</span>
+
+<span class="c1"># normalize to [0,1]</span>
+<span class="n">mn</span><span class="p">,</span> <span class="n">mx</span> <span class="o">=</span> <span class="n">_safe_minmax</span><span class="p">(</span><span class="n">node_intensity</span><span class="p">)</span>
+<span class="n">node_norm</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_intensity</span> <span class="o">-</span> <span class="n">mn</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">mx</span> <span class="o">-</span> <span class="n">mn</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+
+<span class="c1"># ----- 3) edge colors from endpoint intensities (and optional alpha from edge weight) -----</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">edges</span><span class="p">())</span>
+<span class="n">edge_endpoint_intensity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">node_norm</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">u</span><span class="p">)]</span> <span class="o">+</span> <span class="n">node_norm</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">v</span><span class="p">)])</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">edges</span>
+<span class="p">])</span>
+
+<span class="c1"># edge alpha/width scaled by actual edge weight (log-scaled for dynamic range)</span>
+<span class="n">ew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gp</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">ew_log</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">ew</span><span class="p">)</span>
+<span class="n">ew_mn</span><span class="p">,</span> <span class="n">ew_mx</span> <span class="o">=</span> <span class="n">_safe_minmax</span><span class="p">(</span><span class="n">ew_log</span><span class="p">)</span>
+<span class="n">edge_alpha</span> <span class="o">=</span> <span class="mf">0.15</span> <span class="o">+</span> <span class="mf">0.55</span> <span class="o">*</span> <span class="p">((</span><span class="n">ew_log</span> <span class="o">-</span> <span class="n">ew_mn</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">ew_mx</span> <span class="o">-</span> <span class="n">ew_mn</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">))</span>  <span class="c1"># 0.15–0.70</span>
+<span class="n">edge_width</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">+</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="p">((</span><span class="n">ew_log</span> <span class="o">-</span> <span class="n">ew_mn</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">ew_mx</span> <span class="o">-</span> <span class="n">ew_mn</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">))</span>    <span class="c1"># 0.2–1.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ----- 4) plot -----</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">boston_shp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;.6&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># draw edges with colormap by endpoint intensity</span>
+<span class="n">ecol</span> <span class="o">=</span> <span class="n">edge_endpoint_intensity</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+    <span class="n">gp</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="n">ecol</span><span class="p">,</span> <span class="n">edge_cmap</span><span class="o">=</span><span class="n">wop</span><span class="p">,</span> <span class="n">edge_vmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">edge_vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">edge_width</span>
+<span class="p">)</span>
+
+<span class="c1"># we need to apply per-edge alpha manually (Matplotlib quirk)</span>
+<span class="c1"># grab the last collection and set its alphas</span>
+<span class="n">edge_collection</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">edge_collection</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># enable per-segment alpha</span>
+<span class="n">edge_collection</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">ecol</span><span class="p">)</span>  <span class="c1"># keep colormap mapping</span>
+<span class="c1"># per-segment alpha via segment-wise linewidths can&#39;t be set directly; instead:</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Matplotlib &gt;= 3.8 exposes set_linestyle with alpha; otherwise skip</span>
+    <span class="n">alphas</span> <span class="o">=</span> <span class="n">edge_alpha</span>
+    <span class="c1"># set individual alphas on segments:</span>
+    <span class="n">edge_collection</span><span class="o">.</span><span class="n">set_linestyle</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span>  <span class="c1"># noop to enable array props</span>
+    <span class="n">edge_collection</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="n">alphas</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="c1"># if not supported, fall back to a single alpha based on median</span>
+    <span class="n">edge_collection</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">edge_alpha</span><span class="p">)))</span>
+
+<span class="c1"># draw nodes colored by KDE intensity</span>
+<span class="n">ncol</span> <span class="o">=</span> <span class="n">node_norm</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span>
+    <span class="n">gp</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">node_color</span><span class="o">=</span><span class="n">ncol</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">wop</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;.2&#39;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="p">)</span>
+
+<span class="c1"># clean up axes</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([]);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+
+<span class="c1"># colorbar (node/edge share same [0,1] scale)</span>
+<span class="n">sm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">wop</span><span class="p">)</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">set_array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.030</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;KDE intensity (weighted by edge-weighted in-degree)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d93dc82eb63b3f07d76be4c15751839b5a94c1702eed857252bd5ca388bc21cc.png" src="../../_images/d93dc82eb63b3f07d76be4c15751839b5a94c1702eed857252bd5ca388bc21cc.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="how-to-turn-this-into-a-3d-plot">
+<h1>How to turn this into a 3d plot?<a class="headerlink" href="#how-to-turn-this-into-a-3d-plot" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">###################### PLOTTING ####################################</span>
+
+<span class="n">city_name</span> <span class="o">=</span> <span class="s1">&#39;Boston&#39;</span>
+<span class="n">layer_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Commute Data&#39;</span><span class="p">]</span>
+
+<span class="n">plot_edges</span><span class="o">=</span><span class="kc">True</span>
+
+<span class="c1"># Get bounds</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">boston_shp</span><span class="o">.</span><span class="n">total_bounds</span>
+<span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">yrange</span><span class="o">/</span><span class="n">xrange</span>
+
+<span class="c1"># Plot setup</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># # Set consistent view</span>
+<span class="c1"># ax.set_xlim(xmin-xrange*0.025, xmax+xrange*0.025)</span>
+<span class="c1"># ax.set_ylim(ymin-yrange*0.025, ymax+yrange*0.025)</span>
+<span class="c1"># ax.set_zlim(-0.2, 0.2)</span>
+<span class="c1"># ax.set_box_aspect([xrange * 1.0, yrange * 1.3, 1.0])  # scale Y to stretch vertically</span>
+
+<span class="c1"># ax.set_xticks([])</span>
+<span class="c1"># ax.set_yticks([])</span>
+<span class="c1"># ax.set_zticks([])</span>
+
+<span class="c1"># Camera angle and appearance</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c0bb43534c8f92c718fee81b52bc1192e7e0765ccc2bf3f9baa550f98ff1e493.png" src="../../_images/c0bb43534c8f92c718fee81b52bc1192e7e0765ccc2bf3f9baa550f98ff1e493.png" />
+</div>
+</div>
+<section id="next">
+<h2>Next<a class="headerlink" href="#next" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">###################### PLOTTING ####################################</span>
+
+<span class="n">city_name</span> <span class="o">=</span> <span class="s1">&#39;Boston&#39;</span>
+<span class="n">layer_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Commute Data&#39;</span><span class="p">]</span>
+
+<span class="n">plot_edges</span><span class="o">=</span><span class="kc">True</span>
+
+<span class="c1"># Get bounds</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">boston_shp</span><span class="o">.</span><span class="n">total_bounds</span>
+<span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">yrange</span><span class="o">/</span><span class="n">xrange</span>
+
+<span class="c1"># Plot setup</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+
+
+
+
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">([</span><span class="n">xmin</span><span class="o">-</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">ratio</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">ratio</span><span class="p">],</span>
+                     <span class="p">[</span><span class="n">ymin</span><span class="o">-</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">ymax</span><span class="o">+</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.1</span><span class="p">])</span>
+<span class="n">zz_plane</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">zz</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz_plane</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.95&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+
+
+
+
+
+<span class="c1"># Set consistent view</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="o">-</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">-</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">ymax</span><span class="o">+</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">([</span><span class="n">xrange</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">yrange</span> <span class="o">*</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>  <span class="c1"># scale Y to stretch vertically</span>
+
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zticks</span><span class="p">([])</span>
+
+<span class="c1"># Camera angle and appearance</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/febc4ad5f2f30ce26fa9c8622a3e73090fac4b37eeb8c7e478404d1beccb6b3e.png" src="../../_images/febc4ad5f2f30ce26fa9c8622a3e73090fac4b37eeb8c7e478404d1beccb6b3e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPolygon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d.art3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Poly3DCollection</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">###################### PLOTTING ####################################</span>
+
+<span class="n">city_name</span> <span class="o">=</span> <span class="s1">&#39;Boston&#39;</span>
+<span class="n">layer_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Commute Data&#39;</span><span class="p">]</span>
+
+<span class="n">zz</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">plot_edges</span><span class="o">=</span><span class="kc">True</span>
+
+<span class="c1"># Get bounds</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">boston_shp</span><span class="o">.</span><span class="n">total_bounds</span>
+<span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">yrange</span><span class="o">/</span><span class="n">xrange</span>
+
+<span class="n">crv_mean</span> <span class="o">=</span> <span class="mf">0.2</span>
+
+<span class="c1"># Plot setup</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+
+
+<span class="c1"># Set consistent view</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="o">-</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">-</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">ymax</span><span class="o">+</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">([</span><span class="n">xrange</span><span class="o">*</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">yrange</span><span class="o">*</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>  <span class="c1"># scale Y to stretch vertically</span>
+
+<span class="c1">####### DRAW THE BASE PLANE</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">([</span><span class="n">xmin</span><span class="o">-</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">ratio</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">ratio</span><span class="p">],</span>
+                     <span class="p">[</span><span class="n">ymin</span><span class="o">-</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">ymax</span><span class="o">+</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.1</span><span class="p">])</span>
+<span class="n">zz_plane</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">zz</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz_plane</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.95&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">boston_shp</span><span class="o">.</span><span class="n">geometry</span><span class="p">:</span>
+    <span class="c1"># Ensure iterable of polygons</span>
+    <span class="n">polys</span> <span class="o">=</span> <span class="p">[</span><span class="n">geom</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">)</span> <span class="k">else</span> <span class="n">geom</span><span class="o">.</span><span class="n">geoms</span>
+    <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polys</span><span class="p">:</span>
+        <span class="n">exterior_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">exterior_verts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">zz</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">exterior_coords</span><span class="p">]</span>
+        <span class="n">patch</span> <span class="o">=</span> <span class="n">Poly3DCollection</span><span class="p">([</span><span class="n">exterior_verts</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">patch</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;.2&#39;</span><span class="p">)</span>
+
+        <span class="n">patch</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_collection3d</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
+
+
+
+
+<span class="c1"># add label</span>
+<span class="n">layertext</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xmax</span><span class="o">+</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">ymax</span><span class="o">-</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">zz</span><span class="p">,</span> <span class="n">layer_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;italic&#39;</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.25&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                    <span class="n">path_effects</span><span class="o">=</span><span class="p">[</span><span class="n">path_effects</span><span class="o">.</span><span class="n">Stroke</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="s1">&#39;.95&#39;</span><span class="p">),</span>
+                                  <span class="n">path_effects</span><span class="o">.</span><span class="n">Normal</span><span class="p">()])</span>
+
+
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">city_name</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span>
+          <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.4&#39;</span><span class="p">)</span>
+
+<span class="c1"># Camera angle and appearance</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/23a946a9cb5154b70adf56867cbc2e85a53fff4b7c4027d18ae8d1f6b8f8929c.png" src="../../_images/23a946a9cb5154b70adf56867cbc2e85a53fff4b7c4027d18ae8d1f6b8f8929c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">colors</span>
+
+<span class="c1">###################### PLOTTING ####################################</span>
+
+<span class="n">city_name</span> <span class="o">=</span> <span class="s1">&#39;Boston&#39;</span>
+<span class="n">layer_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Commute Data&#39;</span><span class="p">]</span>
+
+<span class="n">zz</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">plot_edges</span><span class="o">=</span><span class="kc">True</span>
+
+<span class="c1"># Get bounds</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">boston_shp</span><span class="o">.</span><span class="n">total_bounds</span>
+<span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">yrange</span><span class="o">/</span><span class="n">xrange</span>
+
+<span class="n">crv_mean</span> <span class="o">=</span> <span class="mi">5000</span>
+
+<span class="c1"># Plot setup</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;dark_background&#39;</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;.1&#39;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;.1&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># fig = plt.figure(figsize=(10, 5), dpi=150)</span>
+<span class="c1"># ax = fig.add_subplot(111, projection=&#39;3d&#39;)</span>
+
+
+
+<span class="c1">####### DRAW THE BASE PLANE</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">([</span><span class="n">xmin</span><span class="o">-</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">ratio</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">ratio</span><span class="p">],</span>
+                     <span class="p">[</span><span class="n">ymin</span><span class="o">-</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">ymax</span><span class="o">+</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.1</span><span class="p">])</span>
+<span class="n">zz_plane</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">zz</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz_plane</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.95&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;.2&#39;</span>
+
+<span class="n">layer_coords</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">ix</span><span class="p">,</span><span class="n">geom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">boston_shp</span><span class="o">.</span><span class="n">geometry</span><span class="p">):</span>
+    <span class="n">tract_i</span> <span class="o">=</span> <span class="n">boston_tracts</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span>
+    <span class="n">layer_coords</span><span class="p">[</span><span class="n">tract_i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">zz</span><span class="p">]</span>
+    <span class="c1"># Ensure iterable of polygons</span>
+    <span class="n">polys</span> <span class="o">=</span> <span class="p">[</span><span class="n">geom</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">)</span> <span class="k">else</span> <span class="n">geom</span><span class="o">.</span><span class="n">geoms</span>
+    <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polys</span><span class="p">:</span>
+        <span class="n">exterior_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">exterior_verts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">zz</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">exterior_coords</span><span class="p">]</span>
+        <span class="n">patch</span> <span class="o">=</span> <span class="n">Poly3DCollection</span><span class="p">([</span><span class="n">exterior_verts</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">patch</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+        <span class="n">patch</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_collection3d</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                   <span class="n">poly</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                   <span class="n">zz</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.9&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+                   <span class="n">zorder</span><span class="o">=</span><span class="mi">1000000</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_curved_line</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">curvature</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                     <span class="n">zzz</span><span class="o">=</span><span class="mi">100000000</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="c1"># Interpolate a curved line (e.g., arc) between (x1, y1, z1) and (x2, y2, z2)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># Parameter for interpolation</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">x2</span>  <span class="c1"># Linear interpolation of x</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">y2</span>  <span class="c1"># Linear interpolation of y</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">z1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">z2</span>  <span class="c1"># Linear interpolation of z (baseline)</span>
+    <span class="c1"># Apply curvature in the z-direction</span>
+    <span class="n">z</span> <span class="o">+=</span> <span class="n">curvature</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># Sinusoidal curve for an arch effect</span>
+
+    <span class="c1"># Plot the curved line</span>
+    <span class="k">if</span> <span class="n">ec</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+        <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;.7&#39;</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">ec</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">width</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zzz</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+
+
+<span class="n">xs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">layer_coords</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">layer_coords</span><span class="p">))[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">zs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">layer_coords</span><span class="p">))[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">max_ew</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">edge</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">pos_i</span> <span class="o">=</span> <span class="n">layer_coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">pos_j</span> <span class="o">=</span> <span class="n">layer_coords</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+    
+    <span class="n">wid</span> <span class="o">=</span> <span class="mf">0.25</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">max_ew</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">crv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">crv_mean</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span>
+
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ec</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">magma</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">wid</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="n">plot_curved_line</span><span class="p">(</span><span class="n">pos_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pos_i</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                     <span class="n">pos_j</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_j</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pos_j</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">ax</span><span class="p">,</span>
+                     <span class="n">curvature</span><span class="o">=</span><span class="n">crv</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="n">ec</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="p">(</span><span class="n">wid</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span>
+                     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="o">*</span><span class="nb">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">max_ew</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">]))</span>  <span class="c1"># Adjust curvature as needed</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">city_name</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span>
+          <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Set consistent view</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="o">-</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">-</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">ymax</span><span class="o">+</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">([</span><span class="n">xrange</span><span class="o">*</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">yrange</span><span class="o">*</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>  <span class="c1"># scale Y to stretch vertically</span>
+
+
+<span class="c1"># Camera angle and appearance</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+
+<span class="c1"># plt.savefig(&quot;images/pngs/boston_commute_dark.png&quot;,</span>
+<span class="c1">#             dpi=300, bbox_inches=&#39;tight&#39;, pad_inches=0, facecolor=&#39;black&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f8876067f8b4f0d02b484e51bfec8ab33a3421708a58c07018c11cbea4f6401a.png" src="../../_images/f8876067f8b4f0d02b484e51bfec8ab33a3421708a58c07018c11cbea4f6401a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- curvature ~ f(distance) --------------------------------------</span>
+<span class="c1"># precompute edge distances in XY</span>
+<span class="n">dists</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">():</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="n">layer_coords</span><span class="p">[</span><span class="n">u</span><span class="p">];</span> <span class="n">pj</span> <span class="o">=</span> <span class="n">layer_coords</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="n">dists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">pi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pj</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span>
+<span class="n">dmin</span><span class="p">,</span> <span class="n">dmax</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">dists</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">dists</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+
+
+<span class="c1"># set a curvature range relative to plot size (tweak these if you want more/less arch)</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">xrange</span> <span class="o">+</span> <span class="n">yrange</span><span class="p">)</span>          <span class="c1"># characteristic XY scale</span>
+<span class="n">curv_min</span> <span class="o">=</span> <span class="mf">0.001</span> <span class="o">*</span> <span class="n">L</span>                 <span class="c1"># arch for very short links</span>
+<span class="n">curv_max</span> <span class="o">=</span> <span class="mf">0.150</span> <span class="o">*</span> <span class="n">L</span>                 <span class="c1"># arch for very long links</span>
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.95</span>                         <span class="c1"># &lt;1 = sublinear, &gt;1 = superlinear</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dist_to_curv</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">dmax</span> <span class="o">==</span> <span class="n">dmin</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">curv_min</span> <span class="o">+</span> <span class="n">curv_max</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span> <span class="o">-</span> <span class="n">dmin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">dmax</span> <span class="o">-</span> <span class="n">dmin</span><span class="p">)</span>   <span class="c1"># normalize to [0,1]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">**</span> <span class="n">gamma</span>
+    <span class="k">return</span> <span class="n">curv_min</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">curv_max</span> <span class="o">-</span> <span class="n">curv_min</span><span class="p">)</span>
+<span class="c1"># ------------------------------------------------------------------</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">###################### PLOTTING ####################################</span>
+
+<span class="n">city_name</span> <span class="o">=</span> <span class="s1">&#39;Boston&#39;</span>
+<span class="n">layer_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Commute Data&#39;</span><span class="p">]</span>
+
+<span class="n">zz</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">plot_edges</span><span class="o">=</span><span class="kc">True</span>
+
+<span class="c1"># Get bounds</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">boston_shp</span><span class="o">.</span><span class="n">total_bounds</span>
+<span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">yrange</span><span class="o">/</span><span class="n">xrange</span>
+
+<span class="n">crv_mean</span> <span class="o">=</span> <span class="mi">5000</span>
+
+<span class="c1"># Plot setup</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;dark_background&#39;</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;.1&#39;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;.1&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># fig = plt.figure(figsize=(10, 5), dpi=150)</span>
+<span class="c1"># ax = fig.add_subplot(111, projection=&#39;3d&#39;)</span>
+
+
+
+<span class="c1">####### DRAW THE BASE PLANE</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">([</span><span class="n">xmin</span><span class="o">-</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">ratio</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">ratio</span><span class="p">],</span>
+                     <span class="p">[</span><span class="n">ymin</span><span class="o">-</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">ymax</span><span class="o">+</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.1</span><span class="p">])</span>
+<span class="n">zz_plane</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">zz</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz_plane</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.95&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;.2&#39;</span>
+
+<span class="n">layer_coords</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">ix</span><span class="p">,</span><span class="n">geom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">boston_shp</span><span class="o">.</span><span class="n">geometry</span><span class="p">):</span>
+    <span class="n">tract_i</span> <span class="o">=</span> <span class="n">boston_tracts</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span>
+    <span class="n">layer_coords</span><span class="p">[</span><span class="n">tract_i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">zz</span><span class="p">]</span>
+    <span class="c1"># Ensure iterable of polygons</span>
+    <span class="n">polys</span> <span class="o">=</span> <span class="p">[</span><span class="n">geom</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">)</span> <span class="k">else</span> <span class="n">geom</span><span class="o">.</span><span class="n">geoms</span>
+    <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polys</span><span class="p">:</span>
+        <span class="n">exterior_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">exterior_verts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">zz</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">exterior_coords</span><span class="p">]</span>
+        <span class="n">patch</span> <span class="o">=</span> <span class="n">Poly3DCollection</span><span class="p">([</span><span class="n">exterior_verts</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">patch</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+        <span class="n">patch</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_collection3d</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                   <span class="n">poly</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                   <span class="n">zz</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;.9&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+                   <span class="n">zorder</span><span class="o">=</span><span class="mi">1000000</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_curved_line</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">curvature</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                     <span class="n">zzz</span><span class="o">=</span><span class="mi">100000000</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="c1"># Interpolate a curved line (e.g., arc) between (x1, y1, z1) and (x2, y2, z2)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># Parameter for interpolation</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">x2</span>  <span class="c1"># Linear interpolation of x</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">y2</span>  <span class="c1"># Linear interpolation of y</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">z1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">z2</span>  <span class="c1"># Linear interpolation of z (baseline)</span>
+    <span class="c1"># Apply curvature in the z-direction</span>
+    <span class="n">z</span> <span class="o">+=</span> <span class="n">curvature</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># Sinusoidal curve for an arch effect</span>
+
+    <span class="c1"># Plot the curved line</span>
+    <span class="k">if</span> <span class="n">ec</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+        <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;.7&#39;</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">ec</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">width</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zzz</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+
+
+<span class="n">xs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">layer_coords</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">layer_coords</span><span class="p">))[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">zs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">layer_coords</span><span class="p">))[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">max_ew</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">edge</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">pos_i</span> <span class="o">=</span> <span class="n">layer_coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">pos_j</span> <span class="o">=</span> <span class="n">layer_coords</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+    
+    <span class="n">wid</span> <span class="o">=</span> <span class="mf">0.25</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">max_ew</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1">#     crv = np.random.normal(crv_mean, 0.04)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">pos_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos_j</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos_j</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">crv</span> <span class="o">=</span> <span class="n">dist_to_curv</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ec</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">magma</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">wid</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="n">plot_curved_line</span><span class="p">(</span><span class="n">pos_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pos_i</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                     <span class="n">pos_j</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_j</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pos_j</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">ax</span><span class="p">,</span>
+                     <span class="n">curvature</span><span class="o">=</span><span class="n">crv</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="n">ec</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="p">(</span><span class="n">wid</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span>
+                     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="o">*</span><span class="nb">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">max_ew</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">]))</span>  <span class="c1"># Adjust curvature as needed</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">city_name</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span>
+          <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Set consistent view</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="o">-</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="n">xrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">-</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">ymax</span><span class="o">+</span><span class="n">yrange</span><span class="o">*</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">([</span><span class="n">xrange</span><span class="o">*</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">yrange</span><span class="o">*</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>  <span class="c1"># scale Y to stretch vertically</span>
+
+
+<span class="c1"># Camera angle and appearance</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+
+<span class="c1"># plt.savefig(&quot;images/pngs/boston_commute_dark.png&quot;,</span>
+<span class="c1">#             dpi=300, bbox_inches=&#39;tight&#39;, pad_inches=0, facecolor=&#39;black&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/5924c6fa34fb32d81ac4abaa4164616c0493a70b07c42946901a580bc94686cf.png" src="../../_images/5924c6fa34fb32d81ac4abaa4164616c0493a70b07c42946901a580bc94686cf.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="next-time">
+<h2>Next time…<a class="headerlink" href="#next-time" title="Link to this heading">#</a></h2>
+<p>Introduction to Machine Learning 1 — General <code class="docutils literal notranslate"><span class="pre">class_14_machine_learning1</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="references-and-further-resources">
+<h2>References and further resources:<a class="headerlink" href="#references-and-further-resources" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Class Webpages</p>
+<ul class="simple">
+<li><p>Jupyter Book: <a class="reference external" href="https://network-science-data-and-models.github.io/phys7332_fa25/README.html">https://network-science-data-and-models.github.io/phys7332_fa25/README.html</a></p></li>
+<li><p>Github: <a class="github reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/">network-science-data-and-models/phys7332_fa25</a></p></li>
+<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a></p></li>
+</ul>
+</li>
+<li><p>Github! Find papers with figures that you like and stalk the authors’ github pages! I’ll start with a few from my own github… <a class="github reference external" href="https://github.com/jkbren/networks-and-dataviz?tab=readme-ov-file">jkbren/networks-and-dataviz</a>. But send over any that you like and we’ll add them to the list!</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/class_13"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Class 13: Visualization 2 — Advanced Python</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#picking-up-where-we-left-off">Picking up where we left off…</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key features:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-plot-multilayer-network">3-D plot (multilayer network)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commuting-data-and-spatial-data">Commuting data and spatial data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-network-for-boston-commutes">Create the network for boston commutes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-the-two">Combine the two!</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-turn-this-into-a-3d-plot">How to turn this into a 3d plot?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next">Next</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brennan Klein
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
