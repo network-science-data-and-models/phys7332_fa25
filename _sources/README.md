@@ -130,7 +130,7 @@ The final project for this course is a chance for students to synthesize their k
 |                 |                                                                            |
 | Mon, Oct 13, 25 | **Indigenous Peoples’ Day**                                                |
 | Wed, Oct 15, 25 | **Class 12:** Visualization 1 — Python                                     |
-| Fri, Oct 17, 25 | **Class 13:** Visualization 2 — Guest Lecture (*Pedro Cruz, Northeastern*) |
+| Fri, Oct 17, 25 | **Class 13:** Visualization 2 — Advanced Python
 |                 |                                                                            |
 | Mon, Oct 20, 25 | *Assignment 2 due October 20*                                              |
 | Wed, Oct 22, 25 | **Class 14:** Introduction to Machine Learning 1 — General                 |
