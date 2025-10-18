@@ -22,5 +22,9 @@ chapters:
     title: "Class 08: Clustering & Community Detection 1 — Traditional"
   - file: notebooks/class_09/class_09_communities2
     title: "Class 09: Clustering & Community Detection 2 — Contemporary"
+  - file: notebooks/class_12/class_12_visualization_python
+    title: "Class 12: Visualization 1 — Python"
+  - file: notebooks/class_13/class_13_visualization_python
+    title: "Class 13: Visualization 2 — Advanced Python"
     
   # etc: append one chapter each week
