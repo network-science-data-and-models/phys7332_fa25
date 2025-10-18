@@ -527,7 +527,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/1d886fd086da1f6f883e5e8316d26da7516c86836302d32f31e7c247d94a6f0a.png" src="../../_images/1d886fd086da1f6f883e5e8316d26da7516c86836302d32f31e7c247d94a6f0a.png" />
+<img alt="../../_images/781fde894367668f4747fdccb577f04c92b1ed3af0a3c9796e8b041d0ef43a98.png" src="../../_images/781fde894367668f4747fdccb577f04c92b1ed3af0a3c9796e8b041d0ef43a98.png" />
 </div>
 </div>
 </section>
@@ -591,7 +591,7 @@ $<span class="math notranslate nohighlight">\(
 <span class="c1"># you can play with optimizer choices; Adam and AdaGrad are popular choices.</span>
 <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SparseAdam</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">):</span> <span class="c1"># an epoch refers to going over all the data once</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">51</span><span class="p">):</span> <span class="c1"># an epoch refers to going over all the data once</span>
     <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span> <span class="c1"># set the model to training mode; </span>
     <span class="c1"># this lets it accumulate gradients and do backpropagation</span>
     <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span>
@@ -604,6 +604,61 @@ $<span class="math notranslate nohighlight">\(
         <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="c1"># keeps track of our total loss (it should decrease over time)</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span> <span class="c1"># how wrong are we on average?</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">, Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># keep track of our progress</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cuda
+Epoch: 001, Loss: 2.9328
+Epoch: 002, Loss: 1.5111
+Epoch: 003, Loss: 1.1077
+Epoch: 004, Loss: 0.9537
+Epoch: 005, Loss: 0.8816
+Epoch: 006, Loss: 0.8436
+Epoch: 007, Loss: 0.8215
+Epoch: 008, Loss: 0.8074
+Epoch: 009, Loss: 0.7978
+Epoch: 010, Loss: 0.7916
+Epoch: 011, Loss: 0.7870
+Epoch: 012, Loss: 0.7841
+Epoch: 013, Loss: 0.7816
+Epoch: 014, Loss: 0.7800
+Epoch: 015, Loss: 0.7788
+Epoch: 016, Loss: 0.7777
+Epoch: 017, Loss: 0.7773
+Epoch: 018, Loss: 0.7766
+Epoch: 019, Loss: 0.7760
+Epoch: 020, Loss: 0.7755
+Epoch: 021, Loss: 0.7754
+Epoch: 022, Loss: 0.7751
+Epoch: 023, Loss: 0.7749
+Epoch: 024, Loss: 0.7744
+Epoch: 025, Loss: 0.7745
+Epoch: 026, Loss: 0.7743
+Epoch: 027, Loss: 0.7739
+Epoch: 028, Loss: 0.7739
+Epoch: 029, Loss: 0.7737
+Epoch: 030, Loss: 0.7734
+Epoch: 031, Loss: 0.7733
+Epoch: 032, Loss: 0.7731
+Epoch: 033, Loss: 0.7730
+Epoch: 034, Loss: 0.7729
+Epoch: 035, Loss: 0.7727
+Epoch: 036, Loss: 0.7724
+Epoch: 037, Loss: 0.7721
+Epoch: 038, Loss: 0.7720
+Epoch: 039, Loss: 0.7719
+Epoch: 040, Loss: 0.7716
+Epoch: 041, Loss: 0.7714
+Epoch: 042, Loss: 0.7714
+Epoch: 043, Loss: 0.7712
+Epoch: 044, Loss: 0.7710
+Epoch: 045, Loss: 0.7706
+Epoch: 046, Loss: 0.7705
+Epoch: 047, Loss: 0.7703
+Epoch: 048, Loss: 0.7701
+Epoch: 049, Loss: 0.7700
+Epoch: 050, Loss: 0.7698
 </pre></div>
 </div>
 </div>
@@ -627,7 +682,7 @@ $<span class="math notranslate nohighlight">\(
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cx</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
-
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">adj_inv_length_kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">z_cpu</span><span class="p">)</span>
 <span class="n">geo_df</span><span class="p">[</span><span class="s2">&quot;label_adj_inv_length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">adj_inv_length_kmeans</span><span class="o">.</span><span class="n">labels_</span><span class="p">]</span>
@@ -638,6 +693,9 @@ $<span class="math notranslate nohighlight">\(
 <span class="n">cx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">geo_df</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a886147053f9fd216b0dc47b8b7387800946fd97397ba2d196c328ebf62a1171.png" src="../../_images/a886147053f9fd216b0dc47b8b7387800946fd97397ba2d196c328ebf62a1171.png" />
 </div>
 </div>
 <p>That’s pretty cool! However, Node2Vec is just the beginning of graph machine learning. We’re now going to talk about graph neural networks – neural networks that take graph data as input and learn patterns in the graph data.</p>
@@ -700,7 +758,7 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomNodeSplit</span>
 
 <span class="c1"># loading the dataset</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">CitationFull</span><span class="p">(</span><span class="s1">&#39;/courses/PHYS7332.202510/shared/data/&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Cora&#39;</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">CitationFull</span><span class="p">(</span><span class="s1">&#39;/courses/PHYS7332.202610/shared/data/&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Cora&#39;</span><span class="p">)</span>
 
 <span class="c1"># checking if the GPU is available; else use the CPU. </span>
 <span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span>
@@ -771,6 +829,67 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span>
     <span class="n">accuracy</span> <span class="o">=</span> <span class="n">tot_accuracy</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">, Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">, Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cuda
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/courses/PHYS7332.202610/shared/ml-env-hopefully-working/lib/python3.11/site-packages/torch_geometric/data/in_memory_dataset.py:300: UserWarning: It is not recommended to directly access the internal storage format `data` of an &#39;InMemoryDataset&#39;. If you are absolutely certain what you are doing, access the internal storage via `InMemoryDataset._data` instead to suppress this warning. Alternatively, you can access stacked individual attributes of every graph via `dataset.{attr_name}`.
+  warnings.warn(msg)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 001, Loss: 4.2748, Accuracy: 0.0165
+Epoch: 002, Loss: 4.1549, Accuracy: 0.0505
+Epoch: 003, Loss: 3.9971, Accuracy: 0.1876
+Epoch: 004, Loss: 3.7546, Accuracy: 0.1738
+Epoch: 005, Loss: 3.5283, Accuracy: 0.1671
+Epoch: 006, Loss: 3.3456, Accuracy: 0.2327
+Epoch: 007, Loss: 3.1314, Accuracy: 0.2849
+Epoch: 008, Loss: 2.9415, Accuracy: 0.3425
+Epoch: 009, Loss: 2.7567, Accuracy: 0.3860
+Epoch: 010, Loss: 2.5565, Accuracy: 0.4362
+Epoch: 011, Loss: 2.3663, Accuracy: 0.4722
+Epoch: 012, Loss: 2.1951, Accuracy: 0.4998
+Epoch: 013, Loss: 2.0282, Accuracy: 0.5312
+Epoch: 014, Loss: 1.8785, Accuracy: 0.5544
+Epoch: 015, Loss: 1.7522, Accuracy: 0.5709
+Epoch: 016, Loss: 1.6255, Accuracy: 0.5776
+Epoch: 017, Loss: 1.5199, Accuracy: 0.5921
+Epoch: 018, Loss: 1.4267, Accuracy: 0.5958
+Epoch: 019, Loss: 1.3424, Accuracy: 0.6073
+Epoch: 020, Loss: 1.2561, Accuracy: 0.6117
+Epoch: 021, Loss: 1.1884, Accuracy: 0.6207
+Epoch: 022, Loss: 1.1326, Accuracy: 0.6309
+Epoch: 023, Loss: 1.0834, Accuracy: 0.6332
+Epoch: 024, Loss: 1.0323, Accuracy: 0.6356
+Epoch: 025, Loss: 0.9814, Accuracy: 0.6443
+Epoch: 026, Loss: 0.9338, Accuracy: 0.6511
+Epoch: 027, Loss: 0.8880, Accuracy: 0.6544
+Epoch: 028, Loss: 0.8490, Accuracy: 0.6561
+Epoch: 029, Loss: 0.8212, Accuracy: 0.6568
+Epoch: 030, Loss: 0.7861, Accuracy: 0.6642
+Epoch: 031, Loss: 0.7516, Accuracy: 0.6628
+Epoch: 032, Loss: 0.7247, Accuracy: 0.6612
+Epoch: 033, Loss: 0.6996, Accuracy: 0.6598
+Epoch: 034, Loss: 0.6705, Accuracy: 0.6655
+Epoch: 035, Loss: 0.6443, Accuracy: 0.6585
+Epoch: 036, Loss: 0.6261, Accuracy: 0.6618
+Epoch: 037, Loss: 0.6055, Accuracy: 0.6645
+Epoch: 038, Loss: 0.5796, Accuracy: 0.6686
+Epoch: 039, Loss: 0.5566, Accuracy: 0.6686
+Epoch: 040, Loss: 0.5352, Accuracy: 0.6699
+Epoch: 041, Loss: 0.5160, Accuracy: 0.6706
+Epoch: 042, Loss: 0.4985, Accuracy: 0.6713
+Epoch: 043, Loss: 0.4841, Accuracy: 0.6676
+Epoch: 044, Loss: 0.4713, Accuracy: 0.6716
+Epoch: 045, Loss: 0.4548, Accuracy: 0.6679
+Epoch: 046, Loss: 0.4356, Accuracy: 0.6706
+Epoch: 047, Loss: 0.4190, Accuracy: 0.6709
+Epoch: 048, Loss: 0.4081, Accuracy: 0.6686
+Epoch: 049, Loss: 0.3965, Accuracy: 0.6733
+Epoch: 050, Loss: 0.3822, Accuracy: 0.6726
 </pre></div>
 </div>
 </div>
