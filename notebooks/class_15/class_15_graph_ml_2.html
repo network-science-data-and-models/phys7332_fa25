@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Embeddings and Neural Networks &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
+    <title>Class 15: Graph Machine Learning 2 &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
   
   
   
@@ -376,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Embeddings and Neural Networks</h1>
+    <h1>Class 15: Graph Machine Learning 2</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -386,60 +386,56 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Embeddings and Neural Networks</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings">Embeddings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural Networks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tovec">*tovec</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">Word2Vec</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">Node2Vec</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-today-s-class">Goals of today’s class:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings-and-neural-networks">Embeddings and Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings">Embeddings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural Networks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tovec">*tovec</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">Word2Vec</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">Node2Vec</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#on-training-neural-networks">On Training Neural Networks</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpus">GPUs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-validation-test-sets">Train/Validation/Test Sets</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters">Hyperparameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-training-neural-networks">On Training Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gpus">GPUs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters">Hyperparameters</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-gnns-do">What do GNNs do?</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-graph-neural-networks-gnns-do">What do graph neural networks (GNNs) do?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-learn-about-nodes-neighborhoods">How do we learn about nodes’ neighborhoods?</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enter-permutation-invariant-functions">enter…permutation-invariant functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-permutation-invariant-function">What is a permutation-invariant function?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-care-about-permutation-invariance">Why do we care about permutation-invariance?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-learn-about-nodes-neighborhoods">How do we learn about nodes’ neighborhoods?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enter-permutation-invariant-functions">enter…permutation-invariant functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-permutation-invariant-function">What is a permutation-invariant function?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-care-about-permutation-invariance">Why do we care about permutation-invariance?</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-core-functionalities-in-most-gnns">The three core functionalities in most GNNs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate">AGGREGATE</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine">COMBINE</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#readout">READOUT</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tidbits">Tidbits</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-with-gnns">Challenges with GNNs</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gcns-as-an-example-of-a-gnn">GCNs (as an example of a GNN)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-convolution-in-image-processing-world">What is a convolution in image processing world?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutions">Graph Convolutions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-formulation">Matrix Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-core-functionalities-in-most-gnns">The three core functionalities in most GNNs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate">AGGREGATE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#combine">COMBINE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#readout">READOUT</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-backpropagation-by-request">Appendix: Backpropagation (by request):</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-ingredients-do-we-need-to-do-backpropagation">What ingredients do we need to do backpropagation?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-right-along-tl-dr-for-those-who-hate-math">Moving right along/TL;DR (For those who hate math!!)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#today-s-fun">Today’s Fun</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-backpropagation-by-request">Appendix: Backpropagation (by request):</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-ingredients-do-we-need-to-do-backpropagation">What ingredients do we need to do backpropagation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-right-along-tl-dr-for-those-who-hate-math">Moving right along/TL;DR (For those who hate math!!)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gcns-as-an-example-of-a-gnn">GCNs (as an example of a GNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-convolution-in-image-processing-world">What is a convolution in image processing world?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutions">Graph Convolutions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-formulation">Matrix Formulation</a></li>
 </ul>
 </li>
 </ul>
-
+</li>
+</ul>
             </nav>
         </div>
     </div>
@@ -450,34 +446,47 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="embeddings-and-neural-networks">
-<h1>Embeddings and Neural Networks<a class="headerlink" href="#embeddings-and-neural-networks" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="class-15-graph-machine-learning-2">
+<h1>Class 15: Graph Machine Learning 2<a class="headerlink" href="#class-15-graph-machine-learning-2" title="Link to this heading">#</a></h1>
+<section id="goals-of-today-s-class">
+<h2>Goals of today’s class:<a class="headerlink" href="#goals-of-today-s-class" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Understand what embeddings are and how neural networks work at a high level.</p></li>
+<li><p>Explain what makes graph neural networks different from other kinds of neural networks (i.e. how do they learn on network data?)</p></li>
+<li><p>Iterate on an example neural network model to learn about what affects its performance.</p></li>
+</ol>
+</section>
+<section id="embeddings-and-neural-networks">
+<h2>Embeddings and Neural Networks<a class="headerlink" href="#embeddings-and-neural-networks" title="Link to this heading">#</a></h2>
+<p>TL;DR: We often represent our data as vectors, but these vectors can get really, really long. They also tend to be sparse. By learning <strong>embeddings</strong> that more concisely represent our data, we can learn more meaningful patterns in our data.</p>
 <section id="embeddings">
-<h2>Embeddings<a class="headerlink" href="#embeddings" title="Link to this heading">#</a></h2>
-<p>When we talk about making <strong>embeddings</strong>, we’re talking about representing our data points or objects in our dataset as meaningful vectors. In graphs, and in natural language, we <em>could</em> represent nodes and words as sparse vectors. These might look like the sparse vectors we saw in the previous crappy example, where we ran k-means clustering on the adjacency matrix, or they might look like one-hot representations whose length is equal to the cardinality of a language’s entire vocabulary. Of course, representations like these aren’t very useful when we think about looking at questions of similarity or really any sort of machine learning applications.</p>
+<h3>Embeddings<a class="headerlink" href="#embeddings" title="Link to this heading">#</a></h3>
+<p>When we talk about making <strong>embeddings</strong>, we’re talking about representing our data points or objects in our dataset as meaningful vectors. In graphs, and in natural language, we <em>could</em> represent nodes and words as sparse vectors. These might look like the sparse rows in an adjacency matrix, or they might look like one-hot representations whose length is equal to the cardinality of a language’s entire vocabulary. Of course, representations like these aren’t very useful when we think about looking at questions of similarity or really any sort of machine learning applications.</p>
 <p>Enter <strong>embeddings</strong>. Embeddings can result from dimensionality reduction techniques like principal component analysis (PCA), but nowadays, when we think about embeddings, we tend to think about vectors that are created via training a neural network model to do a task.</p>
 </section>
 <section id="neural-networks">
-<h2>Neural Networks<a class="headerlink" href="#neural-networks" title="Link to this heading">#</a></h2>
+<h3>Neural Networks<a class="headerlink" href="#neural-networks" title="Link to this heading">#</a></h3>
 <p>(this section borrows heavily from the coverage of ML in Bagrow &amp; Ahn, section 16.2)</p>
 <p>These can seem complicated to understand, but they, are at their heart, just doing a bunch of very parallelizable matrix operations. Here’s a picture of a simple <strong>feed-forward</strong> neural network, sourced from this handy <a class="reference external" href="https://medium.com/analytics-vidhya/in-depth-explanation-of-feedforward-in-neural-network-mathematically-448092216b63">Medium post</a>.</p>
 <p><img alt="feed-forward NN" src="https://miro.medium.com/v2/resize:fit:3200/1*ycDUAMaxDYaHx7xl9pqEjg.png" /></p>
-<p>Neural networks consist of sets of units (neurons) arranged in a sequence of layers. When we talk about the <strong>architecture</strong> of a neural network, we’re talking about how the units are arranged, how many of them there are, how many layers we have, and the number of units per layer. In a fully connected feed-forward network, each unit in each layer is connected to all the nodes in the layer after it. First, the input nodes (the green ones) receive the input data (this could be attributes of a product, for example). Data moves through the network in the picture from left to right. The output of a particular unit is the activation function of the weighted sum of its inputs (<span class="math notranslate nohighlight">\(\sigma(\vec{w}^T \vec{x})\)</span>), where <span class="math notranslate nohighlight">\(\vec{w}\)</span> is the weights of the inputs for that unit, and <span class="math notranslate nohighlight">\(\vec{x}\)</span> is the inputs coming from the previous layer. <span class="math notranslate nohighlight">\(\sigma\)</span> is the nonlinear activation function; in this case, we’re probably thinking of the sigmoid function (pictured below &amp; sourced <a class="reference external" href="https://groups.csail.mit.edu/medg/hamish/medcomp3/sld007.htm">here</a>), but other activation functions, like <span class="math notranslate nohighlight">\(\tanh\)</span>, are possible as well (image sourced <a class="reference external" href="https://sebastianraschka.com/faq/docs/activation-functions.html">here</a>.</p>
+<p>Neural networks consist of sets of units (neurons) arranged in a sequence of layers. When we talk about the <strong>architecture</strong> of a neural network, we’re talking about how the units are arranged, how many of them there are, how many layers we have, and the number of units per layer. In a fully connected feed-forward network, each unit in each layer is connected to all the nodes in the layer after it. First, the input nodes (the green ones) receive the input data (this could be attributes of a product, for example). Data moves through the network in the picture from left to right.</p>
+<p>The output of a particular unit is the activation function of the weighted sum of its inputs (<span class="math notranslate nohighlight">\(\sigma(\vec{w}^T \vec{x})\)</span>), where <span class="math notranslate nohighlight">\(\vec{w}\)</span> is the weights of the inputs for that unit, and <span class="math notranslate nohighlight">\(\vec{x}\)</span> is the inputs coming from the previous layer. <span class="math notranslate nohighlight">\(\sigma\)</span> is the nonlinear activation function; in this case, we’re probably thinking of the sigmoid function (pictured below &amp; sourced <a class="reference external" href="https://groups.csail.mit.edu/medg/hamish/medcomp3/sld007.htm">here</a>), but other activation functions, like <span class="math notranslate nohighlight">\(\tanh\)</span>, are possible as well (image sourced <a class="reference external" href="https://sebastianraschka.com/faq/docs/activation-functions.html">here</a>).</p>
 <p><img alt="sigmoid" src="https://groups.csail.mit.edu/medg/hamish/medcomp3/img007.gif" /></p>
+<p>Neural networks can learn nonlinear patterns in data because of these nonlinear activation functions. If they only used linear activation functions, they would be learning the weights for a weighted piecewise linear function on their inputs. In other words, neural networks are powerful precisely because they have many built-in nonlinearities.</p>
 <p><img alt="activations" src="https://sebastianraschka.com/images/faq/activation-functions/activation-functions.png" /></p>
 <p>The outputs we get from each unit in the middle layer then are passed to the final layer, and then we compare the final layer’s output to our desired output. Maybe the <span class="math notranslate nohighlight">\(\vec{y}\)</span> outputs in the picture are probabilities of the product belonging to a particular class, for example. Our task is to use a <strong>loss function</strong>, of which there are many, to express how far off we are from our correct answer. Once we’ve done that, we can use an algorithm called <strong>backpropagation</strong> to nudge the weights (<span class="math notranslate nohighlight">\(\vec{w}\)</span>) towards values that would be closer to producing the desired label.</p>
 <p>Our choice of loss function is important here; what works well for classifying products may be terrible for predicting flight prices, for example. For a more complete primer on loss functions, check out <a class="reference external" href="https://www.geeksforgeeks.org/loss-functions-in-deep-learning/">this blog post</a>. Generally, your loss function and the tasks you’re setting up the neural network to learn will reflect what you want your neural network to do effectively. We might use a squared error loss function if we’re predicting flight prices, and we might use a cross-entropy loss function to quantify how incorrect our predictions are for a classifier. There are more complicated loss functions and task setups, one of which we’ll discuss in the next section.</p>
 </section>
 <section id="tovec">
-<h2>*tovec<a class="headerlink" href="#tovec" title="Link to this heading">#</a></h2>
+<h3>*tovec<a class="headerlink" href="#tovec" title="Link to this heading">#</a></h3>
 <section id="word2vec">
-<h3>Word2Vec<a class="headerlink" href="#word2vec" title="Link to this heading">#</a></h3>
+<h4>Word2Vec<a class="headerlink" href="#word2vec" title="Link to this heading">#</a></h4>
 <p><a class="reference external" href="https://arxiv.org/pdf/1301.3781">Word2Vec</a> was a pretty early natural language processing technique that was very exciting at the time. It trained a fairly simple neural network to do one of two tasks: Continuous Bag-of-Words (CBOW) or Skip-Gram. CBOW involves predicting which word is missing from a given context of surrounding words, and Skip-Gram involves doing the opposite: predicting the surrounding context given a specific word. The loss function here is cross-entropy loss; we use a softmax activation function to turn the outputs of the final layer into a probability distribution and then use cross-entropy loss to quantify how incorrect we were. Here’s some more info; the links are where we sourced our images for <a class="reference external" href="https://gombru.github.io/2018/05/23/cross_entropy_loss/">softmax</a> and <a class="reference external" href="https://devopedia.org/word2vec">word2vec</a>.</p>
 <p><img alt="word2vec tasks" src="https://devopedia.org/images/article/221/9279.1570465016.png" /></p>
 <p><img alt="softmax + cross-entropy" src="https://gombru.github.io/assets/cross_entropy_loss/softmax_CE_pipeline.png" /></p>
 </section>
 <section id="node2vec">
-<h3>Node2Vec<a class="headerlink" href="#node2vec" title="Link to this heading">#</a></h3>
+<h4>Node2Vec<a class="headerlink" href="#node2vec" title="Link to this heading">#</a></h4>
 <p><a class="reference external" href="https://arxiv.org/pdf/1607.00653">Node2Vec</a> follows similar logic to Word2Vec. We do random walks through a network and treat these random walks like sentences. Then we can do CBOW or Skip-Gram to obtain node embeddings. At each iteration, Node2Vec samples <span class="math notranslate nohighlight">\(n * r\)</span> random walks (with <span class="math notranslate nohighlight">\(r\)</span> walks starting at each node). It has hyperparameters that influence how much we revisit nodes (<span class="math notranslate nohighlight">\(p\)</span>) and how much we favor visiting close nodes versus nodes that are further from where we started (<span class="math notranslate nohighlight">\(q\)</span>).</p>
 <p>When people around the time of Node2Vec were thinking about building node embeddings, they tended to consider homophily (nodes that are linked are likely to be similar) or structural equivalence (nodes with similarly structured neighborhoods are likely to be similar). Random walks that are closer to depth-first search tend to get further away from their start node, so they’ll have a better sense of the community structure of a given graph and we’ll get more information about node homophily (in theory). However, longer-range dependencies can be harder to make sense of and more complicated. If we instead do something more like a breadth-first search, we’re thinking more about structural equivalence – whose neighborhoods looks similar? This isn’t likely to explore more distant parts of the graph, and nodes will repeat themselves a lot in a given walk. So Grover &amp; Leskovec structured their random walks with hyperparameters <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span> that allow us to figure out where on the BFS - DFS spectrum we want to end up.</p>
 <p>Our non-normalized probability <span class="math notranslate nohighlight">\(\alpha(v, x) * w(v, x)\)</span> of visiting a given node <span class="math notranslate nohighlight">\(x\)</span> after having visited <span class="math notranslate nohighlight">\(v\)</span> in the previous step is:
@@ -493,34 +502,151 @@ $<span class="math notranslate nohighlight">\(
 <p>Here’s an image from the original Node2Vec paper of the different outcomes of Node2Vec on a network generated from the novel <em>Les Misérables</em> with hyperparameter settings that lean more towards prioritizing homophily (closer to DFS) and structural equivalence (closer to BFS).</p>
 <p><img alt="lesmis" src="../../_images/les_mis_node2vec.png" /></p>
 <p>Node2Vec also incorporates <strong>negative sampling</strong>, where we only look at the outputs for a couple nodes that definitely <strong>shouldn’t</strong> be in an input node’s neighborhood. We make sure our outputs for those nodes are zero and do backpropagation accordingly; it’s possible to tune how many negative samples we do for each positive sample. Adding negative samples improves our model’s performance, and it’s relatively cheap to do because we’re not tuning all the weights in the model at once.</p>
-<p>We can do a version of Node2Vec where we’re making embeddings for embeddings’ sake, as we do in this setting, or we can try to train a classifier on Node2Vec embeddings to predict labels for nodes. Here we’re going to train Node2Vec (without node or edge labels) on the Cambridge, MA network data. Let’s see what happens! Our training code is borrowed from <code class="docutils literal notranslate"><span class="pre">pytorch-geometric</span></code> and can be found <a class="reference external" href="https://github.com/pyg-team/pytorch_geometric/blob/master/examples/node2vec.py">here</a>.</p>
+<p>We can do a version of Node2Vec where we’re making embeddings for embeddings’ sake, as we do in this setting, or we can try to train a classifier on Node2Vec embeddings to predict labels for nodes. Here we’re going to train Node2Vec (without node or edge labels) on the Cambridge, MA road network dataset. Let’s see what happens! Our training code is borrowed from <code class="docutils literal notranslate"><span class="pre">pytorch-geometric</span></code> and can be found <a class="reference external" href="https://github.com/pyg-team/pytorch_geometric/blob/master/examples/node2vec.py">here</a>.</p>
+<p>Notice that since we’re just trying to build embeddings to demonstrate Node2Vec’s capabilities, we’re not holding out any data right now. Node2Vec <em>does</em> sample negative examples as it trains, so that the model learns which contexts or nodes are correct and builds accurate embeddings. If we were training a link prediction model with Node2Vec, as you can choose to do at the end of this class, we would at minimum hold out some fraction of links to make sure our embeddings were of good quality and useful for the downstream link prediction task.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cx</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">S</span> <span class="o">=</span> <span class="mi">15</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_from_place</span><span class="p">(</span><span class="s1">&#39;Cambridge, Massachusetts, United States&#39;</span><span class="p">)</span>
+
+<span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point</span><span class="p">((</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
+<span class="n">geo_df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">points</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+
+<span class="n">plot</span> <span class="o">=</span> <span class="n">geo_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">markersize</span><span class="o">=</span><span class="n">S</span><span class="p">)</span>
+<span class="n">cx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">geo_df</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1d886fd086da1f6f883e5e8316d26da7516c86836302d32f31e7c247d94a6f0a.png" src="../../_images/1d886fd086da1f6f883e5e8316d26da7516c86836302d32f31e7c247d94a6f0a.png" />
+</div>
+</div>
 </section>
 </section>
 </section>
 <section id="on-training-neural-networks">
-<h1>On Training Neural Networks<a class="headerlink" href="#on-training-neural-networks" title="Link to this heading">#</a></h1>
+<h2>On Training Neural Networks<a class="headerlink" href="#on-training-neural-networks" title="Link to this heading">#</a></h2>
 <p>We’re going to use <a class="reference external" href="https://pytorch.org/"><code class="docutils literal notranslate"><span class="pre">pytorch</span></code></a> and <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">pytorch-geometric</span></code></a> to make our neural network construction relatively pain-free. Pytorch is a widely used package for building &amp; training neural networks. It’s compatible with CUDA-capable GPUs (CUDA is Nvidia’s deep learning framework that makes doing ML in GPUs possible).</p>
 <section id="gpus">
-<h2>GPUs<a class="headerlink" href="#gpus" title="Link to this heading">#</a></h2>
+<h3>GPUs<a class="headerlink" href="#gpus" title="Link to this heading">#</a></h3>
 <p>GPUs, or <em>graphical processing units</em>, are great at doing a lot of tiny calculations at the same time. This is different from CPUs, which are good at doing a few big calculations at once (this is a vast oversimplification, but it’s good enough for an overview). Neural networks do a lot of vector and matrix multiplication (Remember those dot products from before? How do they scale up to a whole layer?) which is very easy to parallelize on a GPU. We’re using GPUs today to speed up our Node2Vec training, which would be pretty slow on a CPU.</p>
 </section>
-<section id="train-validation-test-sets">
-<h2>Train/Validation/Test Sets<a class="headerlink" href="#train-validation-test-sets" title="Link to this heading">#</a></h2>
-<p>A lot of the time, when we train a model (this goes for all models, not just neural network models!) we’re worried about <strong>overfitting</strong>. Overfitting happens when your model learns the data it’s trained on too well – it’s too accustomed to the training data and doesn’t generalize well to new data. We might have too many parameters in our model, such that it’s able to memorize the quirks of the training set too well, or we might’ve selected our training set improperly.</p>
-<p>I once saw an example from a talk about explainability where scientists trained a model to guess where a Google StreetView photo was taken; it did really well on images taken at the same time as other images in the training set and really poorly on images taken at a later date. Turns out that the model was memorizing how windshield smudges changed over time and correlated the state of the windshield smudges to the car’s location. So when the smudges changed (but the landscape didn’t), the model was not able to identify the locations anymore.</p>
-<p>We usually split our data into 3 sets – training, validation, and test. We use our <strong>training</strong> set to train the model; the <strong>validation</strong> set is used to figure out which choice of hyperparameters (like learning rate, optimizer, network size, etc.) works best for the dataset &amp; model; and the <strong>testing</strong> set is for figuring out how well the finalized model does. The model <strong>never</strong> trains on the validation or testing data - it only updates itself based on the training data. A good rule of thumb is to use 10-15% of data for validation, 15-20% of the data for testing, and the rest for training. You should randomly split up your data such that the training, testing, and validation sets have similar distributions.</p>
-<p>Here, though, we’re just trying to build embeddings to demonstrate Node2Vec’s capabilities, so we’re not holding out any data right now. Node2Vec <em>does</em> sample negative examples as it trains, so that the model learns which contexts or nodes are correct and builds accurate embeddings. If we were training a link prediction model with Node2Vec, as you can choose to do at the end of this class, we would at minimum hold out some fraction of links to make sure our embeddings were of good quality and useful for the downstream link prediction task.</p>
-</section>
 <section id="hyperparameters">
-<h2>Hyperparameters<a class="headerlink" href="#hyperparameters" title="Link to this heading">#</a></h2>
-<p><strong>Hyperparameters</strong> are parameters that control how we find the neural network’s weights (the non-hyper parameters, or just plain parameters). Examples of hyperparameters are learning rate, number of layers, choice of optimizer, layer size, and activation function(s). Finding good hyperparameters can take a lot of time, depending on the number and types of hyperparameters you’re playing with; platforms like <a class="reference external" href="https://wandb.ai/site">Weights and Biases</a> have sprung up to help developers tune hyperparameters for their neural network models.</p>
+<h3>Hyperparameters<a class="headerlink" href="#hyperparameters" title="Link to this heading">#</a></h3>
+<p>In the neural network context, <strong>Hyperparameters</strong> are parameters that control how we find the neural network’s weights (the non-hyper parameters, or just plain parameters). Examples of hyperparameters are learning rate, number of layers, choice of optimizer, layer size, and activation function(s). Finding good hyperparameters can take a lot of time, depending on the number and types of hyperparameters you’re playing with; platforms like <a class="reference external" href="https://wandb.ai/site">Weights and Biases</a> have sprung up to help developers tune hyperparameters for their neural network models.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node2Vec</span> 
+
+<span class="c1"># giving nodes new indices, as Node2Vec expects indices to start at 0 and end at |N| - 1. </span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">):</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;idx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span>
+
+<span class="c1"># build a tensor with all the edges in the graph. </span>
+<span class="n">my_tensor</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+    <span class="n">my_tensor</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;idx&#39;</span><span class="p">],</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s1">&#39;idx&#39;</span><span class="p">]])</span>
+
+<span class="c1"># actually convert it to a torch Tensor -- </span>
+<span class="c1"># this has to be a torch datatype or it will not play nicely with the GPU.</span>
+<span class="n">edge_list</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">my_tensor</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+
+<span class="c1"># checking if we have a CUDA-capable GPU available.</span>
+<span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># constructing our Node2Vec model and giving it our edge list as input. </span>
+<span class="c1"># note that you can tweak all of these parameters!</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Node2Vec</span><span class="p">(</span>
+    <span class="n">edge_list</span><span class="p">,</span>
+    <span class="n">embedding_dim</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">walk_length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">context_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">walks_per_node</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">num_negative_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">p</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">q</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># we have 2 CPU cores requested by default in our sessions. </span>
+<span class="c1"># (we use CPU cores to load our data).</span>
+<span class="n">num_workers</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span> <span class="k">else</span> <span class="mi">0</span>
+
+<span class="c1"># we use batches to work through our dataset without overloading the GPU.</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">loader</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">)</span>
+<span class="c1"># you can play with optimizer choices; Adam and AdaGrad are popular choices.</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SparseAdam</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">):</span> <span class="c1"># an epoch refers to going over all the data once</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span> <span class="c1"># set the model to training mode; </span>
+    <span class="c1"># this lets it accumulate gradients and do backpropagation</span>
+    <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">pos_rw</span><span class="p">,</span> <span class="n">neg_rw</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span> <span class="c1"># zero out the gradients to start fresh</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">pos_rw</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">neg_rw</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span> 
+        <span class="c1"># compute the loss (cross-entropy)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span> <span class="c1"># do backpropagation</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span> <span class="c1"># updates the parameters</span>
+        <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="c1"># keeps track of our total loss (it should decrease over time)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span> <span class="c1"># how wrong are we on average?</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">, Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># keep track of our progress</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> 
+<span class="c1"># set model to eval mode - this means it doesn&#39;t accumulate gradients</span>
+<span class="c1"># and uses way less memory</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">model</span><span class="p">()</span> <span class="c1"># get embeddings</span>
+<span class="n">z_cpu</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> 
+<span class="c1"># put these on the CPU and detach it from the neural network. </span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we’ve created embeddings from the Cambridge street network, we’ll want to figure out how useful our embeddings actually are! To do so, we’ll use a clustering algorithm. Clustering can be useful for recommendation algorithms, pattern recognition, and more. We want to partition our dataset such that objects within groups are more similar to objects in the same group than other groups – so it’s similar logic to community detection.</p>
+<p>K-means is a popular clustering algorithm that we’ll try out today; it partitions the dataset into <span class="math notranslate nohighlight">\(k\)</span> clusters, and each point is assigned to the cluster whose centroid (its mean) is closest to that point. Here’s a <a class="reference external" href="https://www.youtube.com/watch?v=R2e3Ls9H_fc">video</a> of K-means in action. It starts by randomly assigning centroids and then assigning each point to its closest centroid. Then, the centroid is recalculated (based on the mean of the points assigned to the cluster) and the process repeats until convergence.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">adj_inv_length_kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">z_cpu</span><span class="p">)</span>
+<span class="n">geo_df</span><span class="p">[</span><span class="s2">&quot;label_adj_inv_length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">adj_inv_length_kmeans</span><span class="o">.</span><span class="n">labels_</span><span class="p">]</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">geo_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="n">S</span><span class="p">,</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">geo_df</span><span class="p">[</span><span class="s2">&quot;label_adj_inv_length&quot;</span><span class="p">],</span> 
+<span class="p">)</span>
+<span class="n">cx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">geo_df</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s pretty cool! However, Node2Vec is just the beginning of graph machine learning. We’re now going to talk about graph neural networks – neural networks that take graph data as input and learn patterns in the graph data.</p>
 </section>
 </section>
-<section id="what-do-gnns-do">
-<h1>What do GNNs do?<a class="headerlink" href="#what-do-gnns-do" title="Link to this heading">#</a></h1>
-<p>Bottom line: GNNs learn weight matrices that transform node attributes or embeddings. They aggregate information about a node’s neighborhood in order to make the next round of node embeddings. These embeddings can then be used for interesting downtream tasks.</p>
+<section id="what-do-graph-neural-networks-gnns-do">
+<h2>What do graph neural networks (GNNs) do?<a class="headerlink" href="#what-do-graph-neural-networks-gnns-do" title="Link to this heading">#</a></h2>
+<p>Bottom line: GNNs learn weight matrices, just like regular neural networks. These matrices transform node attributes or embeddings. They aggregate information about a node’s neighborhood in order to make the next round of node embeddings. These embeddings can then be used for interesting downstream tasks.</p>
 <section id="applications">
-<h2>Applications<a class="headerlink" href="#applications" title="Link to this heading">#</a></h2>
+<h3>Applications<a class="headerlink" href="#applications" title="Link to this heading">#</a></h3>
 <p><strong>INTERACTIVE MOMENT:</strong>
 Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
 <hr class="docutils" />
@@ -528,78 +654,40 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
 </section>
 </section>
 <section id="how-do-we-learn-about-nodes-neighborhoods">
-<h1>How do we learn about nodes’ neighborhoods?<a class="headerlink" href="#how-do-we-learn-about-nodes-neighborhoods" title="Link to this heading">#</a></h1>
+<h2>How do we learn about nodes’ neighborhoods?<a class="headerlink" href="#how-do-we-learn-about-nodes-neighborhoods" title="Link to this heading">#</a></h2>
 <p>Nodes in networks notably have neighborhoods of variable size, but we want to represent all nodes with vectors of the same size. So an approach like word2vec might not work if we’re trying to aggregate information about a node’s neighborhood. Recall that we concatenated one-hot vectors representing the <span class="math notranslate nohighlight">\(k\)</span> words surrounding a word in a sentence to form a word’s context when training word2vec – but how do we know which <span class="math notranslate nohighlight">\(k\)</span> nodes ought to form the “context” of a node with far more than <span class="math notranslate nohighlight">\(k\)</span> neighbors?</p>
 <section id="enter-permutation-invariant-functions">
-<h2>enter…permutation-invariant functions<a class="headerlink" href="#enter-permutation-invariant-functions" title="Link to this heading">#</a></h2>
+<h3>enter…permutation-invariant functions<a class="headerlink" href="#enter-permutation-invariant-functions" title="Link to this heading">#</a></h3>
 <section id="what-is-a-permutation-invariant-function">
-<h3>What is a permutation-invariant function?<a class="headerlink" href="#what-is-a-permutation-invariant-function" title="Link to this heading">#</a></h3>
+<h4>What is a permutation-invariant function?<a class="headerlink" href="#what-is-a-permutation-invariant-function" title="Link to this heading">#</a></h4>
 <p>Permutation-invariant functions take in multiple inputs (say, a list of inputs), and they produce the same output regardless of the order in which the inputs are given. So if <span class="math notranslate nohighlight">\(f(x, y, z) = f(y, z, x)\)</span>, and so on for all orderings of <span class="math notranslate nohighlight">\(x, y, z\)</span>, then <span class="math notranslate nohighlight">\(f\)</span> is permutation-invariant.</p>
 </section>
 <section id="why-do-we-care-about-permutation-invariance">
-<h3>Why do we care about permutation-invariance?<a class="headerlink" href="#why-do-we-care-about-permutation-invariance" title="Link to this heading">#</a></h3>
+<h4>Why do we care about permutation-invariance?<a class="headerlink" href="#why-do-we-care-about-permutation-invariance" title="Link to this heading">#</a></h4>
 <p>Permutation-invariance is really useful for incorporating information about a node’s neighborhood in a graph. For example, operations like the mean, maximum, sum, and minimum are all permutation-invariant. We can put in as many nodes’ attributes as we’d like, and our output will maintain the same dimensionality. It will also be insensitive to how we order the inputs, so we don’t have to worry about how to order data that doesn’t come with inherent order.</p>
 </section>
 </section>
 <section id="the-three-core-functionalities-in-most-gnns">
-<h2>The three core functionalities in most GNNs<a class="headerlink" href="#the-three-core-functionalities-in-most-gnns" title="Link to this heading">#</a></h2>
+<h3>The three core functionalities in most GNNs<a class="headerlink" href="#the-three-core-functionalities-in-most-gnns" title="Link to this heading">#</a></h3>
 <section id="aggregate">
-<h3>AGGREGATE<a class="headerlink" href="#aggregate" title="Link to this heading">#</a></h3>
+<h4>AGGREGATE<a class="headerlink" href="#aggregate" title="Link to this heading">#</a></h4>
 <p>In order to pass information through a GNN, we first gather up our information about a node’s neighborhood – this might be a set of node embeddings from a previous layer or the nodes’ raw feature vectors. Then, we pass this set of vectors through a permutation-invariant function like MEAN. This aggregates our information about the node’s neighborhood into a vector of fixed length.</p>
 </section>
 <section id="combine">
-<h3>COMBINE<a class="headerlink" href="#combine" title="Link to this heading">#</a></h3>
+<h4>COMBINE<a class="headerlink" href="#combine" title="Link to this heading">#</a></h4>
 <p>Next, we need to update our node’s embedding. We might concatenate our neighborhood vector with our previous node embedding (or feature vector). Some GNNs will include a node in its own neighborhood during aggregation, thereby bypassing the COMBINE step. This gives us the embedding for the node that will be passed to the next layer.</p>
 </section>
 <section id="readout">
-<h3>READOUT<a class="headerlink" href="#readout" title="Link to this heading">#</a></h3>
+<h4>READOUT<a class="headerlink" href="#readout" title="Link to this heading">#</a></h4>
 <p>Often we need something more than just node embeddings – we might need information about the whole graph, in which case we’ll need to apply a permutation-invariant function to our entire set of node embeddings produced by our last GNN layer, or we might need to pass individual node embeddings through some linear neural network layers to classify nodes, for example.</p>
 </section>
 </section>
 </section>
-<section id="tidbits">
-<h1>Tidbits<a class="headerlink" href="#tidbits" title="Link to this heading">#</a></h1>
-<section id="challenges-with-gnns">
-<h2>Challenges with GNNs<a class="headerlink" href="#challenges-with-gnns" title="Link to this heading">#</a></h2>
-<p>GNNs get computationally intensive pretty fast, particularly with new transformer-based or attention-based models. They also don’t do great when passing long-range signals around the network – while in theory you could have many, many layers that bring in signals from as many hops away as you have layers, in practice, this causes <strong>oversquashing</strong> and <strong>oversmoothing</strong>. <strong>Oversmoothing</strong> is when all node representations start to resemble each other (see <a class="reference external" href="https://arxiv.org/abs/1909.03211">this paper</a> for more details), and <strong>oversquashing</strong> happens when you try to fit enormous amounts of information into fixed-length vectors (see <a class="reference external" href="https://arxiv.org/abs/2006.05205">this paper</a> to learn more). That’s why GNNs typically don’t have very many layers, although each layer can be quite fancy.</p>
-</section>
-</section>
-<section id="gcns-as-an-example-of-a-gnn">
-<h1>GCNs (as an example of a GNN)<a class="headerlink" href="#gcns-as-an-example-of-a-gnn" title="Link to this heading">#</a></h1>
-<p>Material in this section relies heavily on Maxime Labonne’s <a class="reference external" href="https://towardsdatascience.com/graph-convolutional-networks-introduction-to-gnns-24b3f60d6c95">blog post</a> in <em>Towards Data Science</em> and Thomas Kipf’s <a class="reference external" href="https://tkipf.github.io/graph-convolutional-networks/">blog post</a> on his GitHub website.</p>
-<p>A <a class="reference external" href="https://arxiv.org/pdf/1609.02907">GCN</a> (Kipf &amp; Welling, 2017) is a type of graph neural network that aggregates nodes’ neighborhoods in a clever way. It uses insights from image processing to perform the AGGREGATE functionality. It scales nicely (as far as GNNs go), learns about graph structure <strong>and</strong> node features, and performs quite well on graphs with node features &amp; labels.</p>
-<section id="what-is-a-convolution-in-image-processing-world">
-<h2>What is a convolution in image processing world?<a class="headerlink" href="#what-is-a-convolution-in-image-processing-world" title="Link to this heading">#</a></h2>
-<p>A <strong>convolution matrix</strong>, or <strong>kernel</strong>, is used in image processing to blur, enhance, sharpen, or detect edges in an image. It’s a small matrix (relative to the size of the image) that is applied to each pixel in the image <strong>and its neighbors within a certain distance</strong>.</p>
-<p>The generic equation for a kernel is this, where <span class="math notranslate nohighlight">\(\omega\)</span> is the kernel matrix, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> indicate the dimensions of the kernel, and <span class="math notranslate nohighlight">\(f(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the image:</p>
-<div class="math notranslate nohighlight">
-\[g(x, y) = \sum_{i=-a}^{a} \sum^{b}_{j=-b} \omega(i, j) f(x-i, y-j)\]</div>
-<p>Here, <span class="math notranslate nohighlight">\(g(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the output image.</p>
-<p>Here’s a visual example of a convolution matrix being applied to a single pixel (from <a class="reference external" href="https://zaforf.github.io/isp/study/CNN/">this primer on CNNs by Zafir Nasim</a>):
-<img alt="" src="https://anhreynolds.com/img/cnn.png" /></p>
-</section>
-<section id="graph-convolutions">
-<h2>Graph Convolutions<a class="headerlink" href="#graph-convolutions" title="Link to this heading">#</a></h2>
-<p>You might say, cool, that’s neat, but how does that apply to graphs? First of all, graph neighborhoods are not rectangular in shape, and graphs notably have degree <em>distributions</em> - not every node has the same number of neighbors (far from it)!</p>
-<p>Let’s tackle what happens in GCNs at the node level first. We’ll look at how we create our first embedding for node <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(h_{i}^{(1)}\)</span>.</p>
-<p>We know we need to merge our node features with those of our neighbors, so we define a node <span class="math notranslate nohighlight">\(i\)</span>’s neighborhood here as <span class="math notranslate nohighlight">\(i\)</span>’s neighbors plus <span class="math notranslate nohighlight">\(i\)</span> itself. We’ll denote this as <span class="math notranslate nohighlight">\(\tilde{N_i}\)</span>.</p>
-<p>In the simplest case, we could create a weight matrix <span class="math notranslate nohighlight">\(W_i\)</span> and multiply each node <span class="math notranslate nohighlight">\(j\)</span>’s features <span class="math notranslate nohighlight">\(x_j\)</span> by <span class="math notranslate nohighlight">\(W_i\)</span>, then sum them:</p>
-<div class="math notranslate nohighlight">
-\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
-<p>This seems neat, but there’s a small problem.</p>
-<p><strong>INTERACTIVE MOMENT</strong>: Nodes in graphs notably don’t all have the same degree. What’s going to happen to the vectors of high-degree nodes as compared to those of low-degree nodes right now? How might we fix this?</p>
-<hr class="docutils" />
-<p>Spoiler alert: we’re going to divide by <span class="math notranslate nohighlight">\(k_i\)</span>, the degree of node <span class="math notranslate nohighlight">\(i\)</span>. This keeps vector magnitudes around the same-ish size.</p>
-<div class="math notranslate nohighlight">
-\[h_{i}^{(1)} = \frac{1}{k_i}\sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
-<p>However, there’s one more improvement we can make. Kipf and Welling noticed that features from high-degree nodes tended to propagate through the network more easily than those from low-degree nodes. They therefore up-weight the lower-degree nodes’ contributions in the following way:</p>
-<div class="math notranslate nohighlight">
-\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} \frac{1}{\sqrt{k_i}}\frac{1}{\sqrt{k_j}} W^{(1)} x_j\]</div>
-<p><strong>INTERACTIVE MOMENT</strong>: Why does this work?</p>
-<section id="matrix-formulation">
-<h3>Matrix Formulation<a class="headerlink" href="#matrix-formulation" title="Link to this heading">#</a></h3>
-<p>There’s also a neat way we can formulate this as a matrix multiplication. Here, <span class="math notranslate nohighlight">\(\hat{A}\)</span> is the adjacency matrix with self-loops added, and <span class="math notranslate nohighlight">\(\hat{D}\)</span> is <span class="math notranslate nohighlight">\(\hat{A}\)</span>’s degree matrix (i.e. <span class="math notranslate nohighlight">\(A + I\)</span>). <span class="math notranslate nohighlight">\(H^{(l)}\)</span> is the matrix of node embeddings coming into layer <span class="math notranslate nohighlight">\(l\)</span>, and <span class="math notranslate nohighlight">\(W^{(l)}\)</span> is the weight matrix of layer <span class="math notranslate nohighlight">\(l\)</span>:</p>
-<p>$<span class="math notranslate nohighlight">\(f(H^{(l)}, A) = \sigma(\hat{D}^{-\frac{1}{2}} \hat{A} \hat{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\)</span>$.</p>
+<section id="today-s-fun">
+<h2>Today’s Fun<a class="headerlink" href="#today-s-fun" title="Link to this heading">#</a></h2>
+<p>Today we’re going to use a kind of graph neural network called a GCN (Graph Convolutional Network). I’ve added an in-depth mathematical description of GCNs to the Appendix of this notebook; I’d like to focus on the programming aspects of working with neural networks and graph data for today.</p>
+<p>TL;DR: A <a class="reference external" href="https://arxiv.org/pdf/1609.02907">GCN</a> (Kipf &amp; Welling, 2017) is a type of graph neural network that aggregates nodes’ neighborhoods in a clever way. It uses insights from image processing to perform the AGGREGATE functionality. It scales nicely (as far as GNNs go), learns about graph structure <strong>and</strong> node features, and performs quite well on graphs with node features &amp; labels.</p>
+<p>We’re going to practice training a GCN on the Cora dataset. Cora is a commonly used citation dataset; the task is to label ML publications by subject area based on links (citations) between publications.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -687,10 +775,8 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
 </div>
 </div>
 </section>
-</section>
-</section>
 <section id="your-turn">
-<h1>Your Turn<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h1>
+<h2>Your Turn<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
 <p>For this Your Turn section, I want you to do one or more of the following:</p>
 <ol class="arabic simple">
 <li><p>Figure out how to make a GCN model with an adjustable number of layers (e.g. <code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">=</span> <span class="pre">GCN(3)</span></code> should give me a model that has three GCN layers). Try training the model with several different numbers of layers. Tell me how the performance changes as the number of layers increases/decreases. Optionally, look at the embeddings that the model produces and tell me if their quality changes.</p></li>
@@ -699,11 +785,11 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
 </ol>
 </section>
 <section id="appendix-backpropagation-by-request">
-<h1>Appendix: Backpropagation (by request):<a class="headerlink" href="#appendix-backpropagation-by-request" title="Link to this heading">#</a></h1>
+<h2>Appendix: Backpropagation (by request):<a class="headerlink" href="#appendix-backpropagation-by-request" title="Link to this heading">#</a></h2>
 <p>At a very high level, backpropagation is how we adjust our weights, going back from the output layer (and our loss function) all the way back to the weights from the input layer.</p>
 <p>It involves computing a bunch of partial derivatives (gradients) and adjusting our weights/biases (the parameters we’re learning in our neural network) according to the relationship between the gradients and the loss.</p>
 <section id="what-ingredients-do-we-need-to-do-backpropagation">
-<h2>What ingredients do we need to do backpropagation?<a class="headerlink" href="#what-ingredients-do-we-need-to-do-backpropagation" title="Link to this heading">#</a></h2>
+<h3>What ingredients do we need to do backpropagation?<a class="headerlink" href="#what-ingredients-do-we-need-to-do-backpropagation" title="Link to this heading">#</a></h3>
 <p>First, we need a loss function. Our loss function (or cost function) needs to be differentiable with respect to the weights and biases we use in the network. Our loss also has to be expressed as a function of the input and our weights and biases. For example, let’s look at a toy example with one hidden layer and a mean squared error (MSE) loss function.</p>
 <p><img alt="feed-forward NN" src="https://miro.medium.com/v2/resize:fit:3200/1*ycDUAMaxDYaHx7xl9pqEjg.png" /></p>
 <p>The simplified output <span class="math notranslate nohighlight">\(g(\vec{x})\)</span> of our neural network with input <span class="math notranslate nohighlight">\(\vec{x}\)</span>, given weight matrices <span class="math notranslate nohighlight">\(W^{(1)}\)</span> and <span class="math notranslate nohighlight">\(W^{(2)}\)</span> and generic activation functions <span class="math notranslate nohighlight">\(\sigma^{(1)}\)</span> and <span class="math notranslate nohighlight">\(\sigma^{(2)}\)</span>, is</p>
@@ -737,12 +823,52 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
 <p>$<span class="math notranslate nohighlight">\(\frac{\delta C}{\delta w^{(2)}_{ij}} = 2 (z_j - y_j) * y_j * (1 - y_j) * h_i\)</span>$.</p>
 </section>
 <section id="moving-right-along-tl-dr-for-those-who-hate-math">
-<h2>Moving right along/TL;DR (For those who hate math!!)<a class="headerlink" href="#moving-right-along-tl-dr-for-those-who-hate-math" title="Link to this heading">#</a></h2>
+<h3>Moving right along/TL;DR (For those who hate math!!)<a class="headerlink" href="#moving-right-along-tl-dr-for-those-who-hate-math" title="Link to this heading">#</a></h3>
 <p>We take partial derivatives with the chain rule to figure out how much our loss function changes with respect to a particular parameter (like a weight or bias) in the neural network.</p>
 <p>Then we can change that specific weight with this information. We usually have a learning rate <span class="math notranslate nohighlight">\(\eta\)</span> (or an optimizer that governs the learning rate, which is fancier) that tells us how much to change a weight/bias with respect to our computed gradient.</p>
 <p>$<span class="math notranslate nohighlight">\(\delta w^{(2)}_{ij} = \eta \frac{\delta C}{\delta w^{(2)}_{ij}}\)</span>$.</p>
 <p>We don’t want to update our parameters too much based on any one example, which is why the learning rate tends to be pretty small (much less than 1) and optimizers will lower the learning rate as training goes on and the model gets better at its task.</p>
 <p>Let’s review how backpropagation works by watching <a class="reference external" href="https://www.youtube.com/watch?v=GlcnxUlrtek&amp;amp;list=PLiaHhY2iBX9hdHaRr6b7XevZtgZRa1PoU&amp;amp;index=4">this video</a>.</p>
+</section>
+</section>
+<section id="gcns-as-an-example-of-a-gnn">
+<h2>GCNs (as an example of a GNN)<a class="headerlink" href="#gcns-as-an-example-of-a-gnn" title="Link to this heading">#</a></h2>
+<p>Material in this section relies heavily on Maxime Labonne’s <a class="reference external" href="https://towardsdatascience.com/graph-convolutional-networks-introduction-to-gnns-24b3f60d6c95">blog post</a> in <em>Towards Data Science</em> and Thomas Kipf’s <a class="reference external" href="https://tkipf.github.io/graph-convolutional-networks/">blog post</a> on his GitHub website.</p>
+<p>A <a class="reference external" href="https://arxiv.org/pdf/1609.02907">GCN</a> (Kipf &amp; Welling, 2017) is a type of graph neural network that aggregates nodes’ neighborhoods in a clever way. It uses insights from image processing to perform the AGGREGATE functionality. It scales nicely (as far as GNNs go), learns about graph structure <strong>and</strong> node features, and performs quite well on graphs with node features &amp; labels.</p>
+<section id="what-is-a-convolution-in-image-processing-world">
+<h3>What is a convolution in image processing world?<a class="headerlink" href="#what-is-a-convolution-in-image-processing-world" title="Link to this heading">#</a></h3>
+<p>A <strong>convolution matrix</strong>, or <strong>kernel</strong>, is used in image processing to blur, enhance, sharpen, or detect edges in an image. It’s a small matrix (relative to the size of the image) that is applied to each pixel in the image <strong>and its neighbors within a certain distance</strong>.</p>
+<p>The generic equation for a kernel is this, where <span class="math notranslate nohighlight">\(\omega\)</span> is the kernel matrix, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> indicate the dimensions of the kernel, and <span class="math notranslate nohighlight">\(f(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the image:</p>
+<div class="math notranslate nohighlight">
+\[g(x, y) = \sum_{i=-a}^{a} \sum^{b}_{j=-b} \omega(i, j) f(x-i, y-j)\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(g(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the output image.</p>
+<p>Here’s a visual example of a convolution matrix being applied to a single pixel (from <a class="reference external" href="https://zaforf.github.io/isp/study/CNN/">this primer on CNNs by Zafir Nasim</a>):
+<img alt="" src="https://anhreynolds.com/img/cnn.png" /></p>
+</section>
+<section id="graph-convolutions">
+<h3>Graph Convolutions<a class="headerlink" href="#graph-convolutions" title="Link to this heading">#</a></h3>
+<p>You might say, cool, that’s neat, but how does that apply to graphs? First of all, graph neighborhoods are not rectangular in shape, and graphs notably have degree <em>distributions</em> - not every node has the same number of neighbors (far from it)!</p>
+<p>Let’s tackle what happens in GCNs at the node level first. We’ll look at how we create our first embedding for node <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(h_{i}^{(1)}\)</span>.</p>
+<p>We know we need to merge our node features with those of our neighbors, so we define a node <span class="math notranslate nohighlight">\(i\)</span>’s neighborhood here as <span class="math notranslate nohighlight">\(i\)</span>’s neighbors plus <span class="math notranslate nohighlight">\(i\)</span> itself. We’ll denote this as <span class="math notranslate nohighlight">\(\tilde{N_i}\)</span>.</p>
+<p>In the simplest case, we could create a weight matrix <span class="math notranslate nohighlight">\(W_i\)</span> and multiply each node <span class="math notranslate nohighlight">\(j\)</span>’s features <span class="math notranslate nohighlight">\(x_j\)</span> by <span class="math notranslate nohighlight">\(W_i\)</span>, then sum them:</p>
+<div class="math notranslate nohighlight">
+\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
+<p>This seems neat, but there’s a small problem.</p>
+<p><strong>INTERACTIVE MOMENT</strong>: Nodes in graphs notably don’t all have the same degree. What’s going to happen to the vectors of high-degree nodes as compared to those of low-degree nodes right now? How might we fix this?</p>
+<hr class="docutils" />
+<p>Spoiler alert: we’re going to divide by <span class="math notranslate nohighlight">\(k_i\)</span>, the degree of node <span class="math notranslate nohighlight">\(i\)</span>. This keeps vector magnitudes around the same-ish size.</p>
+<div class="math notranslate nohighlight">
+\[h_{i}^{(1)} = \frac{1}{k_i}\sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
+<p>However, there’s one more improvement we can make. Kipf and Welling noticed that features from high-degree nodes tended to propagate through the network more easily than those from low-degree nodes. They therefore up-weight the lower-degree nodes’ contributions in the following way:</p>
+<div class="math notranslate nohighlight">
+\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} \frac{1}{\sqrt{k_i}}\frac{1}{\sqrt{k_j}} W^{(1)} x_j\]</div>
+<p><strong>INTERACTIVE MOMENT</strong>: Why does this work?</p>
+<section id="matrix-formulation">
+<h4>Matrix Formulation<a class="headerlink" href="#matrix-formulation" title="Link to this heading">#</a></h4>
+<p>There’s also a neat way we can formulate this as a matrix multiplication. Here, <span class="math notranslate nohighlight">\(\hat{A}\)</span> is the adjacency matrix with self-loops added, and <span class="math notranslate nohighlight">\(\hat{D}\)</span> is <span class="math notranslate nohighlight">\(\hat{A}\)</span>’s degree matrix (i.e. <span class="math notranslate nohighlight">\(A + I\)</span>). <span class="math notranslate nohighlight">\(H^{(l)}\)</span> is the matrix of node embeddings coming into layer <span class="math notranslate nohighlight">\(l\)</span>, and <span class="math notranslate nohighlight">\(W^{(l)}\)</span> is the weight matrix of layer <span class="math notranslate nohighlight">\(l\)</span>:</p>
+<p>$<span class="math notranslate nohighlight">\(f(H^{(l)}, A) = \sigma(\hat{D}^{-\frac{1}{2}} \hat{A} \hat{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\)</span>$.</p>
+</section>
+</section>
 </section>
 </section>
 
@@ -792,60 +918,56 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Embeddings and Neural Networks</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings">Embeddings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural Networks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tovec">*tovec</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">Word2Vec</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">Node2Vec</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-today-s-class">Goals of today’s class:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings-and-neural-networks">Embeddings and Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embeddings">Embeddings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural Networks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tovec">*tovec</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">Word2Vec</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#node2vec">Node2Vec</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#on-training-neural-networks">On Training Neural Networks</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpus">GPUs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-validation-test-sets">Train/Validation/Test Sets</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters">Hyperparameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-training-neural-networks">On Training Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gpus">GPUs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters">Hyperparameters</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-gnns-do">What do GNNs do?</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-graph-neural-networks-gnns-do">What do graph neural networks (GNNs) do?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-learn-about-nodes-neighborhoods">How do we learn about nodes’ neighborhoods?</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enter-permutation-invariant-functions">enter…permutation-invariant functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-permutation-invariant-function">What is a permutation-invariant function?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-care-about-permutation-invariance">Why do we care about permutation-invariance?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-learn-about-nodes-neighborhoods">How do we learn about nodes’ neighborhoods?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enter-permutation-invariant-functions">enter…permutation-invariant functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-permutation-invariant-function">What is a permutation-invariant function?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-care-about-permutation-invariance">Why do we care about permutation-invariance?</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-core-functionalities-in-most-gnns">The three core functionalities in most GNNs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate">AGGREGATE</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine">COMBINE</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#readout">READOUT</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tidbits">Tidbits</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-with-gnns">Challenges with GNNs</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gcns-as-an-example-of-a-gnn">GCNs (as an example of a GNN)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-convolution-in-image-processing-world">What is a convolution in image processing world?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutions">Graph Convolutions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-formulation">Matrix Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-core-functionalities-in-most-gnns">The three core functionalities in most GNNs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate">AGGREGATE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#combine">COMBINE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#readout">READOUT</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-backpropagation-by-request">Appendix: Backpropagation (by request):</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-ingredients-do-we-need-to-do-backpropagation">What ingredients do we need to do backpropagation?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-right-along-tl-dr-for-those-who-hate-math">Moving right along/TL;DR (For those who hate math!!)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#today-s-fun">Today’s Fun</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-backpropagation-by-request">Appendix: Backpropagation (by request):</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-ingredients-do-we-need-to-do-backpropagation">What ingredients do we need to do backpropagation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-right-along-tl-dr-for-those-who-hate-math">Moving right along/TL;DR (For those who hate math!!)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gcns-as-an-example-of-a-gnn">GCNs (as an example of a GNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-convolution-in-image-processing-world">What is a convolution in image processing world?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutions">Graph Convolutions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-formulation">Matrix Formulation</a></li>
 </ul>
 </li>
 </ul>
-
+</li>
+</ul>
   </nav></div>
 
 </div></div>

@@ -432,7 +432,7 @@ document.write(`
 </section>
 <section id="today-s-dataset">
 <h2>Today’s Dataset<a class="headerlink" href="#today-s-dataset" title="Link to this heading">#</a></h2>
-<p>The network you’re about to look at is a German language network of Twitch streamers. Each node represents a user, and an edge between them means that they have a mutual friendship (so this is an undirected network). Nodes have attributes that represent streamer behavior &amp; characteristics. To preserve users’ privacy, we don’t know what the features are or what a value for a particular feature means. There’s a binary classification task for this dataset that involves predicting whether or not a streamer uses explicit language.</p>
+<p>The network you’re about to look at is a German language network of Twitch streamers. Each node represents a user, and an edge between them means that they have a mutual friendship (so this is an undirected network). We also have some limited data about each user’s account. There’s a binary classification task for this dataset that involves predicting whether or not a streamer uses explicit language.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -440,11 +440,16 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
 
 <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_edgelist</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./data/twitch/DE/musae_DE_edges.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">nodetype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="c1"># edges between users</span>
-<span class="n">attrs</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./data/twitch/DE/musae_DE.json&#39;</span><span class="p">))</span> <span class="c1"># user attributes as dict mapping user IDs to a vector (list) of attributes</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ml_features&#39;</span><span class="p">)</span> <span class="c1"># set node attributes as attrs</span>
-<span class="n">uses_explicit_language</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/twitch/DE/musae_DE_target.csv&#39;</span><span class="p">)</span> <span class="c1"># binary indicators of whether a streamer uses explicit language</span>
-<span class="n">df_attrs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)}</span> <span class="o">|</span> <span class="p">{</span><span class="s1">&#39;attr_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ix</span><span class="p">):</span> <span class="n">vv</span> <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">vv</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">v</span><span class="p">[:</span><span class="mi">10</span><span class="p">])}</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
-<span class="n">df_attrs_explicit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_attrs</span><span class="p">,</span> <span class="n">uses_explicit_language</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;new_id&#39;</span><span class="p">)</span>
+<span class="c1"># has info about each account plus binary indicators of whether a streamer uses explicit language</span>
+<span class="n">df_attrs_explicit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/twitch/DE/musae_DE_target.csv&#39;</span><span class="p">)</span> 
+<span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">a</span><span class="p">[</span><span class="s1">&#39;new_id&#39;</span><span class="p">]:</span> <span class="p">{</span>
+        <span class="s1">&#39;days&#39;</span><span class="p">:</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;days&#39;</span><span class="p">],</span> 
+        <span class="s1">&#39;views&#39;</span><span class="p">:</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;views&#39;</span><span class="p">],</span> 
+        <span class="s1">&#39;partner&#39;</span><span class="p">:</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;partner&#39;</span><span class="p">]</span>
+    <span class="p">}</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">df_attrs_explicit</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ml_features&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -460,7 +465,10 @@ Supervised machine learning is the practice of building a model when we have tra
 <h3>Train/Test Splits<a class="headerlink" href="#train-test-splits" title="Link to this heading">#</a></h3>
 <p>Training models requires training data and test data at minimum. Our training data is what the model learns patterns from, and the test data tells us how well the model does on data it hasn’t seen before.</p>
 <p><strong>If we were to test on the same data we trained on, what could potentially happen?</strong></p>
-<p>When we construct training and testing sets, we need to make sure the data that we use for training is as akin to the test data as we can make it. We usually accomplish this by randomly splitting the dataset into two parts. In this case, we’ll be using <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, also known as <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, which is a general-purpose machine learning library for Python. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has a handy function called <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> that we can use to generate a training set and test set that are randomly selected. We can also set the <code class="docutils literal notranslate"><span class="pre">random_seed</span></code> parameter to be a fixed number; this will ensure that we get the same train/test split every time.</p>
+<hr class="docutils" />
+<p>Spoiler: This is called <strong>overfitting</strong>. A lot of the time, when we train a model we’re worried about this happening. Overfitting happens when your model learns the data it’s trained on too well – it’s too accustomed to the training data and doesn’t generalize well to new data. We might have too many parameters in our model, such that it’s able to memorize the quirks of the training set too well, or we might’ve selected our training set improperly.</p>
+<p>I once saw an example from a talk about explainability where scientists trained a model to guess where a Google StreetView photo was taken; it did really well on images taken at the same time as other images in the training set and really poorly on images taken at a later date. Turns out that the model was memorizing how windshield smudges changed over time and correlated the state of the windshield smudges to the car’s location. So when the smudges changed (but the landscape didn’t), the model was not able to identify the locations anymore.</p>
+<p>When we construct training and testing sets, we need to make sure the data that we use for training has similar patterns to the test data while keeping the training and testing sets strictly separate from each other. We usually accomplish this by randomly splitting the dataset into two distinct parts. In this case, we’ll be using <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, also known as <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, which is a general-purpose machine learning library for Python. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has a handy function called <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> that we can use to generate a training set and test set that are randomly selected. We can also set the <code class="docutils literal notranslate"><span class="pre">random_seed</span></code> parameter to be a fixed number; this will ensure that we get the same train/test split every time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
@@ -531,9 +539,9 @@ Supervised machine learning is the practice of building a model when we have tra
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-
-<span class="n">explicit_train_x</span> <span class="o">=</span> <span class="n">explicit_train</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;attr_&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-<span class="n">explicit_test_x</span> <span class="o">=</span> <span class="n">explicit_test</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;attr_&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">TRAIN_COLS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="s1">&#39;views&#39;</span><span class="p">,</span> <span class="s1">&#39;partner&#39;</span><span class="p">])</span>
+<span class="n">explicit_train_x</span> <span class="o">=</span> <span class="n">explicit_train</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">TRAIN_COLS</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">explicit_test_x</span> <span class="o">=</span> <span class="n">explicit_test</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_test</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">TRAIN_COLS</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
 <span class="n">explicit_train_y</span> <span class="o">=</span> <span class="n">explicit_train</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">explicit_test_y</span> <span class="o">=</span> <span class="n">explicit_test</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
@@ -563,14 +571,14 @@ Supervised machine learning is the practice of building a model when we have tra
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy score: 0.6182456140350877
-precision: 0.6510859301227573
-recall: 0.7980324074074074
-F1: 0.7171086843473738
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy score: 0.5807017543859649
+precision: 0.6466450216450217
+recall: 0.6879677605066206
+F1: 0.6666666666666666
 
-Rate of True Negatives Correctly Identified: 0.3413547237076649
-False Positives Out of All Negative Labels (false alarm rate): 0.6586452762923352
-False Negatives Out of All Positive Labels (failure to detect): 0.2019675925925926
+Rate of True Negatives Correctly Identified: 0.4132973944294699
+False Positives Out of All Negative Labels (false alarm rate): 0.5867026055705301
+False Negatives Out of All Positive Labels (failure to detect): 0.3120322394933794
 </pre></div>
 </div>
 </div>
@@ -578,13 +586,14 @@ False Negatives Out of All Positive Labels (failure to detect): 0.20196759259259
 </section>
 <section id="hyperparameters">
 <h3>Hyperparameters<a class="headerlink" href="#hyperparameters" title="Link to this heading">#</a></h3>
-<p>Let’s see if we can tweak our decision tree classifier a bit. When we talk about <em>hyperparameters</em> in machine learning, we’re referring to the parameters that govern a model’s behavior, not the parameters that the model learns itself in order to fit the data. For a decision tree, we might control its depth or the maximum number of leaf nodes it’s allowed to make. When we are working with a classifier to figure out the best hyperparameters, we still don’t want to use our test set to see how well we’re doing when we change hyperparameters. Instead, we’ll add another split to the dataset, known as the <em>validation set</em>. We use the validation set to see how well we perform on data we didn’t see in training; this lets us tune our hyperparameters effectively before we see how well our final model performs on the test set.</p>
+<p>Let’s see if we can tweak our decision tree classifier a bit. When we talk about <strong>hyperparameters</strong> in machine learning, we’re referring to the parameters that govern a model’s behavior, not the parameters that the model learns itself in order to fit the data. For a decision tree, we might control its depth or the maximum number of leaf nodes it’s allowed to make. When we are working with a classifier to figure out the best hyperparameters, we still don’t want to use our test set to see how well we’re doing when we change hyperparameters. Instead, we’ll add another split to the dataset, known as the <strong>validation set</strong>. We use the validation set to see how well we perform on data we didn’t see in training; this lets us tune our hyperparameters effectively before we see how well our final model performs on the test set.</p>
+<p>When we’re tweaking a model’s hyperparameters, we usually split our data into 3 sets – training, validation, and test. We use our <strong>training</strong> set to train the model; the <strong>validation</strong> set is used to figure out which choice of hyperparameters (like learning rate, optimizer, network size, etc.) works best for the dataset &amp; model; and the <strong>testing</strong> set is for figuring out how well the finalized model does. The model <strong>never</strong> trains on the validation or testing data - it only updates itself based on the training data. A good rule of thumb is to use 10-15% of data for validation, 15-20% of the data for testing, and the rest for training. You should randomly split up your data such that the training, testing, and validation sets have similar distributions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">explicit_train</span><span class="p">,</span> <span class="n">explicit_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df_attrs_explicit</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">explicit_train_x</span> <span class="o">=</span> <span class="n">explicit_train</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;attr_&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-<span class="n">explicit_val_x</span> <span class="o">=</span> <span class="n">explicit_val</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;attr_&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">explicit_train_x</span> <span class="o">=</span> <span class="n">explicit_train</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">TRAIN_COLS</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">explicit_val_x</span> <span class="o">=</span> <span class="n">explicit_val</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">explicit_val</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">TRAIN_COLS</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
 <span class="n">explicit_train_y</span> <span class="o">=</span> <span class="n">explicit_train</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">explicit_val_y</span> <span class="o">=</span> <span class="n">explicit_val</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
@@ -619,10 +628,10 @@ False Negatives Out of All Positive Labels (failure to detect): 0.20196759259259
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Score&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/6357c2b1fd22b355972cced0fdf46c4543bf3a2e5297173b31be2a4d9fc8d674.png" src="../../_images/6357c2b1fd22b355972cced0fdf46c4543bf3a2e5297173b31be2a4d9fc8d674.png" />
+<img alt="../../_images/8ca0904c7c67e0b0773952ab465e1b8df383eda1e9cce9a210fce136abbcefb0.png" src="../../_images/8ca0904c7c67e0b0773952ab465e1b8df383eda1e9cce9a210fce136abbcefb0.png" />
 </div>
 </div>
-<p>As you can see, we aren’t doing much better than random guessing right now.</p>
+<p>As you can see, we are doing only marginally better than random guessing right now.</p>
 <p><strong>What does that mean about how useful our classifier is?</strong></p>
 <p>Let’s see what happens when we incorporate information about the network into our classification.</p>
 </section>
@@ -644,8 +653,8 @@ O of nodes, then we go through and label each node according to what its neighbo
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">explicit_train_ic</span><span class="p">,</span> <span class="n">explicit_test_ic</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df_attrs_explicit</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">map_train</span> <span class="o">=</span> <span class="p">{</span><span class="n">user</span><span class="p">:</span> <span class="n">mature</span> <span class="k">for</span> <span class="n">user</span><span class="p">,</span> <span class="n">mature</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">explicit_train_ic</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span> <span class="n">explicit_train_ic</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">])}</span>
-<span class="n">map_test</span> <span class="o">=</span> <span class="p">{</span><span class="n">user</span><span class="p">:</span> <span class="n">mature</span> <span class="k">for</span> <span class="n">user</span><span class="p">,</span> <span class="n">mature</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">explicit_test_ic</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span> <span class="n">explicit_test_ic</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">])}</span>
+<span class="n">map_train</span> <span class="o">=</span> <span class="p">{</span><span class="n">user</span><span class="p">:</span> <span class="n">mature</span> <span class="k">for</span> <span class="n">user</span><span class="p">,</span> <span class="n">mature</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">explicit_train_ic</span><span class="p">[</span><span class="s1">&#39;new_id&#39;</span><span class="p">],</span> <span class="n">explicit_train_ic</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">])}</span>
+<span class="n">map_test</span> <span class="o">=</span> <span class="p">{</span><span class="n">user</span><span class="p">:</span> <span class="n">mature</span> <span class="k">for</span> <span class="n">user</span><span class="p">,</span> <span class="n">mature</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">explicit_test_ic</span><span class="p">[</span><span class="s1">&#39;new_id&#39;</span><span class="p">],</span> <span class="n">explicit_test_ic</span><span class="p">[</span><span class="s1">&#39;mature&#39;</span><span class="p">])}</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">local_classifier</span><span class="p">(</span><span class="n">neighbor_labels</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -713,14 +722,14 @@ O of nodes, then we go through and label each node according to what its neighbo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy score: 0.6321330806485576
-precision: 0.6441244535870404
-recall: 0.8734309623430963
-F1: 0.7414533076809234
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy score: 0.6390819119814698
+precision: 0.6576116191500807
+recall: 0.8471933471933472
+F1: 0.7404603270745003
 
-Rate of True Negatives Correctly Identified: 0.2642211589580011
-False Positives Out of All Negative Labels (false alarm rate): 0.735778841041999
-False Negatives Out of All Positive Labels (failure to detect): 0.12656903765690378
+Rate of True Negatives Correctly Identified: 0.3166935050993022
+False Positives Out of All Negative Labels (false alarm rate): 0.6833064949006978
+False Negatives Out of All Positive Labels (failure to detect): 0.15280665280665282
 </pre></div>
 </div>
 </div>
