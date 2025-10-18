@@ -26,5 +26,8 @@ chapters:
     title: "Class 12: Visualization 1 — Python"
   - file: notebooks/class_13/class_13_visualization_python
     title: "Class 13: Visualization 2 — Advanced Python"
-    
+  - file: notebooks/class_14/class_14_graph_machine_learning_1
+    title: "Class 14: Graph Machine Learning 1"
+  - file: notebooks/class_15/class_15_graph_ml_2
+    title: "Class 15: Graph Machine Learning 2"
   # etc: append one chapter each week
