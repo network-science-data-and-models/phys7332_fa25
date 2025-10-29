@@ -546,7 +546,9 @@ document.write(`
 <hr class="docutils" />
 <section id="iv-mixing-method-homogeneous-heterogeneous-etc">
 <h4>IV. Mixing Method: Homogeneous, Heterogeneous, etc.<a class="headerlink" href="#iv-mixing-method-homogeneous-heterogeneous-etc" title="Link to this heading">#</a></h4>
-<p>In the <strong>homogeneous mixing</strong> case, we assume a fully “mixed” population (good approximation for some diseases), where every individual in the population has an equal chance of coming into contact with others. The <em>force of infection</em> (<span class="math notranslate nohighlight">\(\lambda\)</span>) is the per capita rate at which susceptible individuals acquire an infectious disease: <span class="math notranslate nohighlight">\(\lambda = \dfrac{\mathrm{the\; number\; of\; infections}}{\mathrm{the\; number\; of\; susceptible\; person\; exposed}\times\mathrm{duration\; of\; exposed}}\)</span>.</p>
+<p>In the <strong>homogeneous mixing</strong> case, we assume a fully “mixed” population (good approximation for some diseases), where every individual in the population has an equal chance of coming into contact with others. The <em>force of infection</em> (<span class="math notranslate nohighlight">\(\lambda\)</span>) is the per capita rate at which susceptible individuals acquire an infectious disease:</p>
+<div class="math notranslate nohighlight">
+\[\lambda = \dfrac{\mathrm{the\; number\; of\; infections}}{\mathrm{the\; number\; of\; susceptible\; person\; exposed}\times\mathrm{duration\; of\; exposed}}\]</div>
 <p>In this case, infection follows a <em>mass-action law</em>. Suppose <span class="math notranslate nohighlight">\(N\)</span> is the total population, <span class="math notranslate nohighlight">\(I\)</span> is the number of infections, <span class="math notranslate nohighlight">\(\beta\)</span> is the transmission rate (<span class="math notranslate nohighlight">\(\beta^{-1}\)</span> the period of infection); in this case, the force of infection <span class="math notranslate nohighlight">\(\lambda = \beta\dfrac{I}{N}\)</span>.</p>
 <p>In <strong>heterogeneous mixing</strong>, the well-mixed approximation becomes relaxed, and we consider explicitly the connectivity prescribed by a network, <span class="math notranslate nohighlight">\(G\)</span>. Here, we assume a <em>degree-class approximation</em> (sometimes described as an <em>annealed</em> approximation).</p>
 </section>
@@ -558,13 +560,11 @@ document.write(`
 <p>This is probably the simplest model of disease dynamics, where infection is permanent.</p>
 <p><img alt="" src="../../_images/compartments_SI.png" /></p>
 <p>In a homogeneous population:</p>
-<p>$</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 S(t+dt) \; =&amp; \; S(t) - \beta S(t)\frac{I(t)}{N}dt \\
 I(t+dt) \; =&amp; \; I(t) + \beta S(t)\frac{I(t)}{N}dt \\
 \end{align*}\]</div>
-<p>$</p>
 <p><strong>Notes:</strong></p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\frac{S}{N}\)</span> is the probability of meeting a susceptible individual per unit time</p></li>
@@ -572,17 +572,15 @@ I(t+dt) \; =&amp; \; I(t) + \beta S(t)\frac{I(t)}{N}dt \\
 <li><p><span class="math notranslate nohighlight">\(\beta\frac{IS}{N}\)</span> is the average number of susceptibles that become infected per unit time</p></li>
 </ul>
 <p>In the continuous limit <span class="math notranslate nohighlight">\(dt \rightarrow 0\)</span>,</p>
-<p>$</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 d_t S \; =&amp; \; -\beta S \frac{I}{N} \quad d_t s \; = \; -\beta s i \quad s \; = \; \frac{S}{N} \\
 d_t I \; =&amp; \; \beta S\frac{I}{N} \qquad d_t i \; = \; \beta s i \qquad i \; = \; \frac{I}{N} \\
 \end{align*}\]</div>
-<p>$</p>
-<p>with <span class="math notranslate nohighlight">\( s = 1 - i \)</span>. We have,</p>
-<p><span class="math notranslate nohighlight">\(di = \beta i(1-i) dt\)</span> and</p>
-<p><span class="math notranslate nohighlight">\(\int_{i_0}^{i} \frac{di'}{i' (1-i')} = \beta\int_{t_0}^{t} dt\)</span>.</p>
-<p>So the analytical solution is: <span class="math notranslate nohighlight">\(i(t) = \frac{1}{1 + (1-i_0) e^{-\beta t}}\)</span> as <span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>, and</p>
+<p>with <span class="math notranslate nohighlight">\( s = 1 - i \)</span>. We have, <span class="math notranslate nohighlight">\(di = \beta i(1-i) dt\)</span> and <span class="math notranslate nohighlight">\(\int_{i_0}^{i} \frac{di'}{i' (1-i')} = \beta\int_{t_0}^{t} dt\)</span>.</p>
+<p>So the analytical solution is:</p>
+<p><span class="math notranslate nohighlight">\(i(t) = \frac{1}{1 + (1-i_0) e^{-\beta t}}\)</span> as <span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>,</p>
+<p>and</p>
 <p><span class="math notranslate nohighlight">\(i(\infty)\rightarrow 1 \qquad s(\infty)\rightarrow 0\)</span>.</p>
 <hr class="docutils" />
 <section id="sis-susceptible-infectious-susceptible-dynamics">
@@ -591,21 +589,17 @@ d_t I \; =&amp; \; \beta S\frac{I}{N} \qquad d_t i \; = \; \beta s i \qquad i \;
 <p><img alt="" src="../../_images/compartments_SIS.png" /></p>
 <section id="sis-in-homogeneous-populations">
 <h4>SIS in Homogeneous Populations<a class="headerlink" href="#sis-in-homogeneous-populations" title="Link to this heading">#</a></h4>
-<p>$</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 S(t+dt) \; =&amp; \; S(t) - \beta S(t)\frac{I(t)}{N}dt + \mu I(t)dt\\
 I(t+dt) \; =&amp; \; I(t) + \beta S(t)\frac{I(t)}{N}dt - \mu I(t)dt \\
 \end{align*}\]</div>
-<p>$</p>
 <p>or equivalently,</p>
-<p>$</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 d_t s(t) \; =&amp; \; - \beta s(t)i(t) + \mu i(t)\\
 d_t i(t) \; =&amp; \; \beta s(t)i(t) - \mu i(t) \\
 \end{align*}\]</div>
-<p>$</p>
 <p>In early time dynamics, the number of infectious individuals is small with respect to the population size (<span class="math notranslate nohighlight">\(s \sim 1\)</span>) (which makes sense). We can therefore linearize the equation <span class="math notranslate nohighlight">\(d_{t} i = \beta i - \mu i = (\beta - \mu) i\)</span>.</p>
 <p>We therefore have <strong>epidemic threshold</strong> <span class="math notranslate nohighlight">\(\beta - \mu &gt; 0\)</span>  or <span class="math notranslate nohighlight">\(\dfrac{\beta}{\mu}&gt;1\)</span>.</p>
 </section>
@@ -820,14 +814,12 @@ d_t i(t) \; =&amp; \; \beta s(t)i(t) - \mu i(t) \\
 </section>
 <section id="sir-model-in-homogeneous-population">
 <h3>SIR model in homogeneous population<a class="headerlink" href="#sir-model-in-homogeneous-population" title="Link to this heading">#</a></h3>
-<p>$</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 d_t s(t) \; =&amp; \; - \beta s(t)i(t) \\
 d_t i(t) \; =&amp; \; \beta s(t)i(t) - \mu i(t) \\
 d_t r(t) \; =&amp; \; \mu i(t)
 \end{align*}\]</div>
-<p>$</p>
 <p><strong>Assumptions:</strong> In the early time dynamics,</p>
 <ul class="simple">
 <li><p>the number of infectious is small respect to the population size (<span class="math notranslate nohighlight">\(s \sim 1\)</span>, <span class="math notranslate nohighlight">\(i \sim 0\)</span>)</p></li>
@@ -1000,14 +992,12 @@ d_t r(t) \; =&amp; \; \mu i(t)
 </section>
 <section id="id1">
 <h3>SIR model in homogeneous population<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>$</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 d_t s(t) \; =&amp; \; - \beta s(t)i(t) \\
 d_t i(t) \; =&amp; \; \beta s(t)i(t) - \mu i(t) \\
 d_t r(t) \; =&amp; \; \mu i(t)
 \end{align*}\]</div>
-<p>$</p>
 <p><strong>Assumptions:</strong> In the early time dynamics,</p>
 <ul class="simple">
 <li><p>the number of infectious is small respect to the population size (<span class="math notranslate nohighlight">\(s \sim 1\)</span>, <span class="math notranslate nohighlight">\(i \sim 0\)</span>)</p></li>
