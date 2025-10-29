@@ -57,8 +57,6 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_15/class_15_machine_learning2';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -437,7 +435,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="class-15-machine-learning-2-building-up-to-graph-convolutional-networks">
+  <section id="class-15-machine-learning-2-building-up-to-graph-convolutional-networks">
 <h1>Class 15: Machine Learning 2 — Building up to Graph Convolutional Networks<a class="headerlink" href="#class-15-machine-learning-2-building-up-to-graph-convolutional-networks" title="Link to this heading">#</a></h1>
 <section id="today-s-goals">
 <h2>Today’s Goals<a class="headerlink" href="#today-s-goals" title="Link to this heading">#</a></h2>
@@ -455,41 +453,34 @@ document.write(`
 <h3>What ingredients do we need to do backpropagation?<a class="headerlink" href="#what-ingredients-do-we-need-to-do-backpropagation" title="Link to this heading">#</a></h3>
 <p>First, we need a loss function. Our loss function (or cost function) needs to be differentiable with respect to the weights and biases we use in the network. Our loss also has to be expressed as a function of the input and our weights and biases. For example, let’s look at a toy example with one hidden layer and a mean squared error (MSE) loss function.</p>
 <p><img alt="feed-forward NN" src="https://miro.medium.com/v2/resize:fit:3200/1*ycDUAMaxDYaHx7xl9pqEjg.png" /></p>
-<p>The simplified output <span class="math notranslate nohighlight">\(g(\vec{x})\)</span> of our neural network with input <span class="math notranslate nohighlight">\(\vec{x}\)</span>, given weight matrices <span class="math notranslate nohighlight">\(W^{(1)}\)</span> and <span class="math notranslate nohighlight">\(W^{(2)}\)</span> and generic activation functions <span class="math notranslate nohighlight">\(\sigma^{(1)}\)</span> and <span class="math notranslate nohighlight">\(\sigma^{(2)}\)</span>, is</p>
-<div class="math notranslate nohighlight">
-\[g(x) = \sigma^{(2)}(W^{(2)} \sigma^{(1)}(W^{(1)} \vec{x}))\]</div>
-<p>Our loss function, with ground truth <span class="math notranslate nohighlight">\(\vec{z}\)</span>, is <span class="math notranslate nohighlight">\(\lvert \lvert g(\vec{x}) - \vec{z} \rvert \rvert\)</span>. In the generalized sense, we can use a generic loss function <span class="math notranslate nohighlight">\(C(g(\vec{x}), \vec{z})\)</span>.</p>
+<p>The simplified output $g(\vec{x})$ of our neural network with input $\vec{x}$, given weight matrices $W^{(1)}$ and $W^{(2)}$ and generic activation functions $\sigma^{(1)}$ and $\sigma^{(2)}$, is</p>
+<p>$$g(x) = \sigma^{(2)}(W^{(2)} \sigma^{(1)}(W^{(1)} \vec{x}))$$</p>
+<p>Our loss function, with ground truth $\vec{z}$, is $\lvert \lvert g(\vec{x}) - \vec{z} \rvert \rvert$. In the generalized sense, we can use a generic loss function $C(g(\vec{x}), \vec{z})$.</p>
 <p>Next, we need partial derivatives and the chain rule!</p>
-<p>This is how backpropagation adjusts the weights – we compute the partial derivative of our cost function <span class="math notranslate nohighlight">\(C\)</span> with respect to one weight from node <span class="math notranslate nohighlight">\(i\)</span> to node <span class="math notranslate nohighlight">\(j\)</span> in the <span class="math notranslate nohighlight">\(2^{nd}\)</span> matrix of weights:</p>
-<div class="math notranslate nohighlight">
-\[\frac{\delta C}{\delta w^{(2)}_{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{\delta w^{(2)}_{ij}}\]</div>
-<p>Here, <span class="math notranslate nohighlight">\(y_j\)</span> is the <span class="math notranslate nohighlight">\(j^{th}\)</span> output of our network (in the output layer).</p>
-<div class="math notranslate nohighlight">
-\[y_j = \sigma^{(2)}(\sum_{i}w^{(2)}_{ij} * h_i)\]</div>
-<p>In other words, we’re passing the dot product of row <span class="math notranslate nohighlight">\(j\)</span> of <span class="math notranslate nohighlight">\(W^{(2)}\)</span> and <span class="math notranslate nohighlight">\(\vec{h}\)</span>, our hidden layer’s output, through a sigmoid function. Let’s call <span class="math notranslate nohighlight">\(\sum_{i}w^{(2)}_{ij} * h_i\)</span> <span class="math notranslate nohighlight">\(o_j\)</span>, and let’s expand our partial derivative expression using the chain rule once more.</p>
-<div class="math notranslate nohighlight">
-\[\frac{\delta C}{\delta w^{(2)}_{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{o_j} \frac{o_j}{\delta w^{(2)}_{ij}}\]</div>
-<p>What are we doing here? We’re tracing how our specific weight <span class="math notranslate nohighlight">\(w^{(2)}_{ij}\)</span> affects our computed loss for a particular input (or batch of inputs).</p>
-<p>We know that <span class="math notranslate nohighlight">\(\frac{\delta y_j}{o_j}\)</span> is the partial derivative of the activation function <span class="math notranslate nohighlight">\(\sigma^{(2)}\)</span>.</p>
-<p>Additionally, we know that <span class="math notranslate nohighlight">\(\frac{o_j}{\delta w^{(2)}_{ij}}\)</span> is</p>
-<div class="math notranslate nohighlight">
-\[\frac{\delta}{\delta w^{(2)}_{ij}}\sum_{k}w^{(2)}_{kj}h_k\]</div>
-<p>Only one term in this sum relies on <span class="math notranslate nohighlight">\(w^{(2)}_{ij}\)</span> – that’s <span class="math notranslate nohighlight">\(w^{(2)}_{ij} h_i\)</span>. This means this part of our partial derivative reduces to</p>
-<div class="math notranslate nohighlight">
-\[\frac{o_j}{\delta w^{(2)}_{ij}} = h_i\]</div>
-<p>Now let’s look at <span class="math notranslate nohighlight">\(\frac{\delta y_j}{h_j}\)</span>. Let’s say we’re using a sigmoid activation function; in this case, this part of our partial derivative is</p>
-<div class="math notranslate nohighlight">
-\[\frac{\delta}{\delta h_j}\sigma(h_j) = \sigma(h_j) (1 - \sigma(h_j)) = y_j * (1 - y_j)\]</div>
-<p>If we’re using MSE for the loss function <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(\vec{z}\)</span> is our ground truth answer,</p>
-<p>$<span class="math notranslate nohighlight">\(\frac{\delta C}{\delta y_j} = 2 (z_j - y_j)\)</span>$.</p>
-<p>Therefore, the gradient of our loss with respect to <span class="math notranslate nohighlight">\(w^{(2)}_{ij}\)</span> is</p>
-<p>$<span class="math notranslate nohighlight">\(\frac{\delta C}{\delta w^{(2)}_{ij}} = 2 (z_j - y_j) * y_j * (1 - y_j) * h_i\)</span>$.</p>
+<p>This is how backpropagation adjusts the weights – we compute the partial derivative of our cost function $C$ with respect to one weight from node $i$ to node $j$ in the $2^{nd}$ matrix of weights:</p>
+<p>$$\frac{\delta C}{\delta w^{(2)}<em>{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{\delta w^{(2)}</em>{ij}}$$</p>
+<p>Here, $y_j$ is the $j^{th}$ output of our network (in the output layer).</p>
+<p>$$y_j = \sigma^{(2)}(\sum_{i}w^{(2)}_{ij} * h_i)$$</p>
+<p>In other words, we’re passing the dot product of row $j$ of $W^{(2)}$ and $\vec{h}$, our hidden layer’s output, through a sigmoid function. Let’s call $\sum_{i}w^{(2)}_{ij} * h_i$ $o_j$, and let’s expand our partial derivative expression using the chain rule once more.</p>
+<p>$$\frac{\delta C}{\delta w^{(2)}<em>{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{o_j} \frac{o_j}{\delta w^{(2)}</em>{ij}}$$</p>
+<p>What are we doing here? We’re tracing how our specific weight $w^{(2)}_{ij}$ affects our computed loss for a particular input (or batch of inputs).</p>
+<p>We know that $\frac{\delta y_j}{o_j}$ is the partial derivative of the activation function $\sigma^{(2)}$.</p>
+<p>Additionally, we know that $\frac{o_j}{\delta w^{(2)}_{ij}}$ is</p>
+<p>$$\frac{\delta}{\delta w^{(2)}<em>{ij}}\sum</em>{k}w^{(2)}_{kj}h_k$$</p>
+<p>Only one term in this sum relies on $w^{(2)}<em>{ij}$ – that’s $w^{(2)}</em>{ij} h_i$. This means this part of our partial derivative reduces to</p>
+<p>$$\frac{o_j}{\delta w^{(2)}_{ij}} = h_i$$</p>
+<p>Now let’s look at $\frac{\delta y_j}{h_j}$. Let’s say we’re using a sigmoid activation function; in this case, this part of our partial derivative is</p>
+<p>$$\frac{\delta}{\delta h_j}\sigma(h_j) = \sigma(h_j) (1 - \sigma(h_j)) = y_j * (1 - y_j)$$</p>
+<p>If we’re using MSE for the loss function $C$ and $\vec{z}$ is our ground truth answer,</p>
+<p>$$\frac{\delta C}{\delta y_j} = 2 (z_j - y_j)$$.</p>
+<p>Therefore, the gradient of our loss with respect to $w^{(2)}_{ij}$ is</p>
+<p>$$\frac{\delta C}{\delta w^{(2)}_{ij}} = 2 (z_j - y_j) * y_j * (1 - y_j) * h_i$$.</p>
 </section>
 <section id="moving-right-along-tl-dr-for-those-who-hate-math">
 <h3>Moving right along/TL;DR (For those who hate math!!)<a class="headerlink" href="#moving-right-along-tl-dr-for-those-who-hate-math" title="Link to this heading">#</a></h3>
 <p>We take partial derivatives with the chain rule to figure out how much our loss function changes with respect to a particular parameter (like a weight or bias) in the neural network.</p>
-<p>Then we can change that specific weight with this information. We usually have a learning rate <span class="math notranslate nohighlight">\(\eta\)</span> (or an optimizer that governs the learning rate, which is fancier) that tells us how much to change a weight/bias with respect to our computed gradient.</p>
-<p>$<span class="math notranslate nohighlight">\(\delta w^{(2)}_{ij} = \eta \frac{\delta C}{\delta w^{(2)}_{ij}}\)</span>$.</p>
+<p>Then we can change that specific weight with this information. We usually have a learning rate $\eta$ (or an optimizer that governs the learning rate, which is fancier) that tells us how much to change a weight/bias with respect to our computed gradient.</p>
+<p>$$\delta w^{(2)}<em>{ij} = \eta \frac{\delta C}{\delta w^{(2)}</em>{ij}}$$.</p>
 <p>We don’t want to update our parameters too much based on any one example, which is why the learning rate tends to be pretty small (much less than 1) and optimizers will lower the learning rate as training goes on and the model gets better at its task.</p>
 <p>Let’s review how backpropagation works by watching <a class="reference external" href="https://www.youtube.com/watch?v=GlcnxUlrtek&amp;amp;list=PLiaHhY2iBX9hdHaRr6b7XevZtgZRa1PoU&amp;amp;index=4">this video</a>.</p>
 </section>
@@ -506,17 +497,17 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
 </section>
 <section id="sidebar-graph-isomorphism">
 <h3>Sidebar: graph isomorphism<a class="headerlink" href="#sidebar-graph-isomorphism" title="Link to this heading">#</a></h3>
-<p>Graph isomorphism occurs when you have two graph of the same size, one with one set <span class="math notranslate nohighlight">\(G\)</span> and one with node set <span class="math notranslate nohighlight">\(H\)</span>. If you can create a one-to-one mapping <span class="math notranslate nohighlight">\(f\)</span> from <span class="math notranslate nohighlight">\(G\)</span> to <span class="math notranslate nohighlight">\(H\)</span> such every node in <span class="math notranslate nohighlight">\(G\)</span> has exactly one corresponding node in <span class="math notranslate nohighlight">\(H\)</span> that is indicated by <span class="math notranslate nohighlight">\(f(G)\)</span>, and two nodes in <span class="math notranslate nohighlight">\(f(G)\)</span> are connected if and only if they are also connected in <span class="math notranslate nohighlight">\(H\)</span>, then you can say that <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span> are isomorphic. Basically, if you can rename everyone in a graph with a unique name of an individual in another graph and the structure stays the same, you have two isomorphic graphs. This is important because we want graph neural networks to obey isomorphism. If two graphs are isomorphic and their nodes have the same features, their embeddings should be the same.</p>
+<p>Graph isomorphism occurs when you have two graph of the same size, one with one set $G$ and one with node set $H$. If you can create a one-to-one mapping $f$ from $G$ to $H$ such every node in $G$ has exactly one corresponding node in $H$ that is indicated by $f(G)$, and two nodes in $f(G)$ are connected if and only if they are also connected in $H$, then you can say that $G$ and $H$ are isomorphic. Basically, if you can rename everyone in a graph with a unique name of an individual in another graph and the structure stays the same, you have two isomorphic graphs. This is important because we want graph neural networks to obey isomorphism. If two graphs are isomorphic and their nodes have the same features, their embeddings should be the same.</p>
 </section>
 </section>
 <section id="how-do-we-learn-about-nodes-neighborhoods">
 <h2>How do we learn about nodes’ neighborhoods?<a class="headerlink" href="#how-do-we-learn-about-nodes-neighborhoods" title="Link to this heading">#</a></h2>
-<p>Nodes in networks notably have neighborhoods of variable size, but we want to represent all nodes with vectors of the same size. So an approach like word2vec might not work if we’re trying to aggregate information about a node’s neighborhood. Recall that we concatenated one-hot vectors representing the <span class="math notranslate nohighlight">\(k\)</span> words surrounding a word in a sentence to form a word’s context when training word2vec – but how do we know which <span class="math notranslate nohighlight">\(k\)</span> nodes ought to form the “context” of a node with far more than <span class="math notranslate nohighlight">\(k\)</span> neighbors?</p>
+<p>Nodes in networks notably have neighborhoods of variable size, but we want to represent all nodes with vectors of the same size. So an approach like word2vec might not work if we’re trying to aggregate information about a node’s neighborhood. Recall that we concatenated one-hot vectors representing the $k$ words surrounding a word in a sentence to form a word’s context when training word2vec – but how do we know which $k$ nodes ought to form the “context” of a node with far more than $k$ neighbors?</p>
 <section id="enter-permutation-invariant-functions">
 <h3>enter…permutation-invariant functions<a class="headerlink" href="#enter-permutation-invariant-functions" title="Link to this heading">#</a></h3>
 <section id="what-is-a-permutation-invariant-function">
 <h4>What is a permutation-invariant function?<a class="headerlink" href="#what-is-a-permutation-invariant-function" title="Link to this heading">#</a></h4>
-<p>Permutation-invariant functions take in multiple inputs (say, a list of inputs), and they produce the same output regardless of the order in which the inputs are given. So if <span class="math notranslate nohighlight">\(f(x, y, z) = f(y, z, x)\)</span>, and so on for all orderings of <span class="math notranslate nohighlight">\(x, y, z\)</span>, then <span class="math notranslate nohighlight">\(f\)</span> is permutation-invariant.</p>
+<p>Permutation-invariant functions take in multiple inputs (say, a list of inputs), and they produce the same output regardless of the order in which the inputs are given. So if $f(x, y, z) = f(y, z, x)$, and so on for all orderings of $x, y, z$, then $f$ is permutation-invariant.</p>
 </section>
 <section id="why-do-we-care-about-permutation-invariance">
 <h4>Why do we care about permutation-invariance?<a class="headerlink" href="#why-do-we-care-about-permutation-invariance" title="Link to this heading">#</a></h4>
@@ -557,35 +548,31 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
 <section id="what-is-a-convolution-in-image-processing-world">
 <h3>What is a convolution in image processing world?<a class="headerlink" href="#what-is-a-convolution-in-image-processing-world" title="Link to this heading">#</a></h3>
 <p>A <strong>convolution matrix</strong>, or <strong>kernel</strong>, is used in image processing to blur, enhance, sharpen, or detect edges in an image. It’s a small matrix (relative to the size of the image) that is applied to each pixel in the image <strong>and its neighbors within a certain distance</strong>.</p>
-<p>The generic equation for a kernel is this, where <span class="math notranslate nohighlight">\(\omega\)</span> is the kernel matrix, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> indicate the dimensions of the kernel, and <span class="math notranslate nohighlight">\(f(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the image:</p>
-<div class="math notranslate nohighlight">
-\[g(x, y) = \sum_{i=-a}^{a} \sum^{b}_{j=-b} \omega(i, j) f(x-i, y-j)\]</div>
-<p>Here, <span class="math notranslate nohighlight">\(g(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the output image.</p>
+<p>The generic equation for a kernel is this, where $\omega$ is the kernel matrix, $a$ and $b$ indicate the dimensions of the kernel, and $f(x, y)$ is the $(x, y)^{th}$ pixel of the image:</p>
+<p>$$g(x, y) = \sum_{i=-a}^{a} \sum^{b}_{j=-b} \omega(i, j) f(x-i, y-j)$$</p>
+<p>Here, $g(x, y)$ is the $(x, y)^{th}$ pixel of the output image.</p>
 <p>Here’s a visual example of a convolution matrix being applied to a single pixel (from <a class="reference external" href="https://zaforf.github.io/isp/study/CNN/">this primer on CNNs by Zafir Nasim</a>):
 <img alt="" src="https://anhreynolds.com/img/cnn.png" /></p>
 </section>
 <section id="graph-convolutions">
 <h3>Graph Convolutions<a class="headerlink" href="#graph-convolutions" title="Link to this heading">#</a></h3>
 <p>You might say, cool, that’s neat, but how does that apply to graphs? First of all, graph neighborhoods are not rectangular in shape, and graphs notably have degree <em>distributions</em> - not every node has the same number of neighbors (far from it)!</p>
-<p>Let’s tackle what happens in GCNs at the node level first. We’ll look at how we create our first embedding for node <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(h_{i}^{(1)}\)</span>.</p>
-<p>We know we need to merge our node features with those of our neighbors, so we define a node <span class="math notranslate nohighlight">\(i\)</span>’s neighborhood here as <span class="math notranslate nohighlight">\(i\)</span>’s neighbors plus <span class="math notranslate nohighlight">\(i\)</span> itself. We’ll denote this as <span class="math notranslate nohighlight">\(\tilde{N_i}\)</span>.</p>
-<p>In the simplest case, we could create a weight matrix <span class="math notranslate nohighlight">\(W_i\)</span> and multiply each node <span class="math notranslate nohighlight">\(j\)</span>’s features <span class="math notranslate nohighlight">\(x_j\)</span> by <span class="math notranslate nohighlight">\(W_i\)</span>, then sum them:</p>
-<div class="math notranslate nohighlight">
-\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
+<p>Let’s tackle what happens in GCNs at the node level first. We’ll look at how we create our first embedding for node $i$, $h_{i}^{(1)}$.</p>
+<p>We know we need to merge our node features with those of our neighbors, so we define a node $i$’s neighborhood here as $i$’s neighbors plus $i$ itself. We’ll denote this as $\tilde{N_i}$.</p>
+<p>In the simplest case, we could create a weight matrix $W_i$ and multiply each node $j$’s features $x_j$ by $W_i$, then sum them:</p>
+<p>$$h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} W^{(1)} x_j$$</p>
 <p>This seems neat, but there’s a small problem.</p>
 <p><strong>INTERACTIVE MOMENT</strong>: Nodes in graphs notably don’t all have the same degree. What’s going to happen to the vectors of high-degree nodes as compared to those of low-degree nodes right now? How might we fix this?</p>
 <hr class="docutils" />
-<p>Spoiler alert: we’re going to divide by <span class="math notranslate nohighlight">\(k_i\)</span>, the degree of node <span class="math notranslate nohighlight">\(i\)</span>. This keeps vector magnitudes around the same-ish size.</p>
-<div class="math notranslate nohighlight">
-\[h_{i}^{(1)} = \frac{1}{k_i}\sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
+<p>Spoiler alert: we’re going to divide by $k_i$, the degree of node $i$. This keeps vector magnitudes around the same-ish size.</p>
+<p>$$h_{i}^{(1)} = \frac{1}{k_i}\sum_{j \in \tilde{N_i}} W^{(1)} x_j$$</p>
 <p>However, there’s one more improvement we can make. Kipf and Welling noticed that features from high-degree nodes tended to propagate through the network more easily than those from low-degree nodes. They therefore up-weight the lower-degree nodes’ contributions in the following way:</p>
-<div class="math notranslate nohighlight">
-\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} \frac{1}{\sqrt{k_i}}\frac{1}{\sqrt{k_j}} W^{(1)} x_j\]</div>
+<p>$$h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} \frac{1}{\sqrt{k_i}}\frac{1}{\sqrt{k_j}} W^{(1)} x_j$$</p>
 <p><strong>INTERACTIVE MOMENT</strong>: Why does this work?</p>
 <section id="matrix-formulation">
 <h4>Matrix Formulation<a class="headerlink" href="#matrix-formulation" title="Link to this heading">#</a></h4>
-<p>There’s also a neat way we can formulate this as a matrix multiplication. Here, <span class="math notranslate nohighlight">\(\hat{A}\)</span> is the adjacency matrix with self-loops added, and <span class="math notranslate nohighlight">\(\hat{D}\)</span> is <span class="math notranslate nohighlight">\(\hat{A}\)</span>’s degree matrix (i.e. <span class="math notranslate nohighlight">\(A + I\)</span>). <span class="math notranslate nohighlight">\(H^{(l)}\)</span> is the matrix of node embeddings coming into layer <span class="math notranslate nohighlight">\(l\)</span>, and <span class="math notranslate nohighlight">\(W^{(l)}\)</span> is the weight matrix of layer <span class="math notranslate nohighlight">\(l\)</span>:</p>
-<p>$<span class="math notranslate nohighlight">\(f(H^{(l)}, A) = \sigma(\hat{D}^{-\frac{1}{2}} \hat{A} \hat{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\)</span>$.</p>
+<p>There’s also a neat way we can formulate this as a matrix multiplication. Here, $\hat{A}$ is the adjacency matrix with self-loops added, and $\hat{D}$ is $\hat{A}$’s degree matrix (i.e. $A + I$). $H^{(l)}$ is the matrix of node embeddings coming into layer $l$, and $W^{(l)}$ is the weight matrix of layer $l$:</p>
+<p>$$f(H^{(l)}, A) = \sigma(\hat{D}^{-\frac{1}{2}} \hat{A} \hat{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})$$.</p>
 <p>Now we’re going to play with a GCN instance. First, let’s try training the neural network on the <a class="reference external" href="https://paperswithcode.com/dataset/cora">Cora dataset</a>, which is a citation network with 7 classes of publication. There are 2708 publications and 5429 citation links between them. We’re going to train a 2-layer GCN on this dataset and see how well it performs on held-out validation data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

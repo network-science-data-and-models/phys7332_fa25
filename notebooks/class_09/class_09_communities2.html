@@ -57,8 +57,6 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_09/class_09_communities2';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -431,7 +429,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="class-09-clustering-community-detection-2-contemporary">
+  <section id="class-09-clustering-community-detection-2-contemporary">
 <h1>Class 09: Clustering &amp; Community Detection 2 — Contemporary<a class="headerlink" href="#class-09-clustering-community-detection-2-contemporary" title="Link to this heading">#</a></h1>
 <p>Goal of today’s class:</p>
 <ol class="arabic simple">
@@ -469,11 +467,10 @@ document.write(`
 <section id="trouble-in-modularity-paradise">
 <h2>Trouble in Modularity Paradise…<a class="headerlink" href="#trouble-in-modularity-paradise" title="Link to this heading">#</a></h2>
 <p>Let’s start with two exercises to motivate today’s lesson, both of which point to a deep concern in the utility of <em>modularity</em> as a graph property and as a measure to optimize over when identifying communities in networks.</p>
-<p>Recall that the modularity, <span class="math notranslate nohighlight">\(Q\)</span>, of a given partition <span class="math notranslate nohighlight">\(C\)</span> of our adjacency matrix <span class="math notranslate nohighlight">\(A\)</span> is:</p>
-<div class="math notranslate nohighlight">
-\[Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) \]</div>
+<p>Recall that the modularity, $Q$, of a given partition $C$ of our adjacency matrix $A$ is:</p>
+<p>$$Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) $$</p>
 <p>The key idea behind this measure was that to calculate the number of within-community edges that exist above and beyond what we’d expect just based on nodes’ degrees. What follows is the assumption (or, rather, the hope) that we should not find community structure in Erdős-Rényi random graphs. Let’s explore this with two exercises where we run a modularity-maximizing community detection algorithm over hundreds of ER graphs.</p>
-<p>Using a graph of size <span class="math notranslate nohighlight">\(N=200\)</span>, loop over various values for <span class="math notranslate nohighlight">\(p\)</span> to create many ER graphs. Compute the <code class="docutils literal notranslate"><span class="pre">community.best_partition</span></code> of each of these, and store the following:</p>
+<p>Using a graph of size $N=200$, loop over various values for $p$ to create many ER graphs. Compute the <code class="docutils literal notranslate"><span class="pre">community.best_partition</span></code> of each of these, and store the following:</p>
 <ol class="arabic simple">
 <li><p>The modularity of the <code class="docutils literal notranslate"><span class="pre">best_partition</span></code> for each randomly generated graph.</p></li>
 <li><p>The number of communities detected in each partition.</p></li>
@@ -672,7 +669,7 @@ document.write(`
 <section id="enter-graph-tool">
 <h2>Enter: <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code><a class="headerlink" href="#enter-graph-tool" title="Link to this heading">#</a></h2>
 <p>Note: The remainder of this lesson will draw heavily from the <a class="reference external" href="https://graph-tool.skewed.de/"><code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> documentation</a> directly. This package is written and maintained almost entirely by <a class="reference external" href="https://skewed.de/lab/contact.html">Tiago Peixoto</a>, professor of Complex Systems and Network Science at IT:U in Linz, Austria.</p>
-<p><a class="reference external" href="https://graph-tool.skewed.de/static/doc/quickstart.html">https://graph-tool.skewed.de/static/doc/quickstart.html</a></p>
+<p>https://graph-tool.skewed.de/static/doc/quickstart.html</p>
 <p><strong>Punchline:</strong> Use this package to detect communities (and other types of mesoscopic structures!!) in your network data.</p>
 <p><img alt="" src="../../_images/graphtool.png" /></p>
 <div class="cell docutils container">
@@ -686,7 +683,7 @@ document.write(`
 <h3>Netzschleuder Integration<a class="headerlink" href="#netzschleuder-integration" title="Link to this heading">#</a></h3>
 <p><img alt="" src="../../_images/netzschleuder.png" /></p>
 <ul class="simple">
-<li><p>Tiago P. Peixoto, “The Netzschleuder network catalogue and repository”, <a class="reference external" href="https://networks.skewed.de/">https://networks.skewed.de/</a> (2020). <a class="reference external" href="https://doi.org/10.5281/zenodo.7839981">https://doi.org/10.5281/zenodo.7839981</a></p></li>
+<li><p>Tiago P. Peixoto, “The Netzschleuder network catalogue and repository”, https://networks.skewed.de/ (2020). https://doi.org/10.5281/zenodo.7839981</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -779,8 +776,8 @@ document.write(`
 <section id="references">
 <h4>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h4>
 <ul class="simple">
-<li><p>[1] White, H.C., Boorman, S.A., &amp; Breiger, R.L. (1976). Social structure from multiple networks. I. Blockmodels of roles and positions. American Journal of Sociology, 81(4), 730-780. <a class="reference external" href="https://www.jstor.org/stable/2777596">https://www.jstor.org/stable/2777596</a></p></li>
-<li><p>[2] Holland, P.W., Laskey, K.B., &amp; Leinhardt, S. (1983). Stochastic blockmodels: First steps. <em>Social Networks</em>. 5(2), 109–137. <a class="reference external" href="https://doi.org/10.1016/0378-8733(83)90021-7">https://doi.org/10.1016/0378-8733(83)90021-7</a></p></li>
+<li><p>[1] White, H.C., Boorman, S.A., &amp; Breiger, R.L. (1976). Social structure from multiple networks. I. Blockmodels of roles and positions. American Journal of Sociology, 81(4), 730-780. https://www.jstor.org/stable/2777596</p></li>
+<li><p>[2] Holland, P.W., Laskey, K.B., &amp; Leinhardt, S. (1983). Stochastic blockmodels: First steps. <em>Social Networks</em>. 5(2), 109–137. https://doi.org/10.1016/0378-8733(83)90021-7</p></li>
 </ul>
 </section>
 <hr class="docutils" />
@@ -1020,14 +1017,14 @@ document.write(`
 <li><p><strong>Model Selection and Regularization</strong>: A Bayesian approach to model selection ensures that the complexity of the model (e.g., the number of blocks) is balanced with its fit to the data. This helps in avoiding overfitting and yields more meaningful community structures.</p></li>
 </ul>
 <p><img alt="" src="https://skewed.de/lab/posts/inference-compression/generative.png" /></p>
-<p><strong>Source:</strong> Inferring, explaining, and compressing (<a class="reference external" href="https://skewed.de/lab/posts/inference-compression/">https://skewed.de/lab/posts/inference-compression/</a>)</p>
+<p><strong>Source:</strong> Inferring, explaining, and compressing (https://skewed.de/lab/posts/inference-compression/)</p>
 <section id="useful-references">
 <h4>Useful References:<a class="headerlink" href="#useful-references" title="Link to this heading">#</a></h4>
 <ul class="simple">
-<li><p>[1] Peixoto, T.P. (2019). Bayesian Stochastic Blockmodeling, in <em>Advances in Network Clustering and Blockmodeling</em> (John Wiley &amp; Sons, Ltd), pp. 289–332. <a class="reference external" href="https://doi.org/10.1002/9781119483298.ch11">https://doi.org/10.1002/9781119483298.ch11</a></p></li>
-<li><p>[2] Peixoto, T.P. (2023). Descriptive vs. inferential community detection in networks: Pitfalls, myths and half-truths. Cambridge University Press. <a class="reference external" href="https://doi.org/10.1017/9781009118897">https://doi.org/10.1017/9781009118897</a></p></li>
-<li><p>[3] Peixoto, T.P. (2017). Nonparametric Bayesian Inference of the Microcanonical Stochastic Block Model. <em>Physical Review E</em> 95, 012317. <a class="reference external" href="https://doi.org/10.1103/PhysRevE.95.012317">https://doi.org/10.1103/PhysRevE.95.012317</a></p></li>
-<li><p>[4] Peixoto, T.P. (2014). Hierarchical block structures and high-resolution model selection in large networks. <em>Physical Review X</em>. 4, 011047. <a class="reference external" href="https://doi.org/10.1103/PhysRevX.4.011047">https://doi.org/10.1103/PhysRevX.4.011047</a></p></li>
+<li><p>[1] Peixoto, T.P. (2019). Bayesian Stochastic Blockmodeling, in <em>Advances in Network Clustering and Blockmodeling</em> (John Wiley &amp; Sons, Ltd), pp. 289–332. https://doi.org/10.1002/9781119483298.ch11</p></li>
+<li><p>[2] Peixoto, T.P. (2023). Descriptive vs. inferential community detection in networks: Pitfalls, myths and half-truths. Cambridge University Press. https://doi.org/10.1017/9781009118897</p></li>
+<li><p>[3] Peixoto, T.P. (2017). Nonparametric Bayesian Inference of the Microcanonical Stochastic Block Model. <em>Physical Review E</em> 95, 012317. https://doi.org/10.1103/PhysRevE.95.012317</p></li>
+<li><p>[4] Peixoto, T.P. (2014). Hierarchical block structures and high-resolution model selection in large networks. <em>Physical Review X</em>. 4, 011047. https://doi.org/10.1103/PhysRevX.4.011047</p></li>
 </ul>
 </section>
 </section>
@@ -1175,23 +1172,19 @@ document.write(`
 </section>
 <section id="nonparametric-statistical-inference">
 <h3>Nonparametric Statistical Inference<a class="headerlink" href="#nonparametric-statistical-inference" title="Link to this heading">#</a></h3>
-<p><strong>Source:</strong> The following is directly modeled from the <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> cookbooks <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html">https://graph-tool.skewed.de/static/doc/demos/inference/inference.html</a>. Find this, and many more informative tutorials on this website. The goal of the SBM inference procedure is to find a partition that best describes data, without over-fitting.</p>
-<p>From Tiago Peixoto’s cookbook: We want to (from cookbook above) “formulate generative models that include the idea of modules in their descriptions, which then can be detected by inferring the model parameters from data. More precisely, given the partition <span class="math notranslate nohighlight">\(\mathbf{b} = \{b_i\}\)</span> of the network into <span class="math notranslate nohighlight">\(B\)</span> groups, where <span class="math notranslate nohighlight">\(b_i \in [0, B-1]\)</span> is the group membership of node <span class="math notranslate nohighlight">\(i\)</span>, we define a model that generates a network <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> with a probability</p>
-<div class="math notranslate nohighlight">
-\[P(\mathbf{A}|\mathbf{\theta},\mathbf{b})\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> are additional model parameters that control how the node partition affects the structure of the network.”</p>
-<p>The whole trick behind this approach is that after defining this probability <span class="math notranslate nohighlight">\(P(\mathbf{A}|\mathbf{\theta},\mathbf{b})\)</span>, we can define the <em>likelihood that our network was generated using a given partition</em> <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> based on Bayes rule:</p>
-<div class="math notranslate nohighlight">
-\[P(\mathbf{b}|\mathbf{A}) = \dfrac{\sum_\mathbf{\theta} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}\]</div>
-<p>“where <span class="math notranslate nohighlight">\(P(\mathbf{\theta}|\mathbf{b})\)</span> is the prior probability of the model parameters and <span class="math notranslate nohighlight">\(P(\mathbf{A}) = \sum_{\mathbf{\theta},\mathbf{b}} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b})\)</span> is called the <em>evidence</em>, and corresponds to the total probability of the data summed over all model parameters. The particular types of model that will be considered here have “hard constraints”, such that there is only one choice for the remaining parameters <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> that is compatible with the generated network, meaning that our equation above simplifies to</p>
-<div class="math notranslate nohighlight">
-\[P(\mathbf{b}|\mathbf{A}) = \dfrac{P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}\]</div>
-<p>with <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> being the only choice compatible with <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>. The inference procedures considered here will consist in either finding a network partition that maximizes the equation above, or sampling different partitions according its posterior probability. […] this approach also enables the comparison of different models according to statistical evidence (a.k.a. model selection).”</p>
+<p><strong>Source:</strong> The following is directly modeled from the <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> cookbooks https://graph-tool.skewed.de/static/doc/demos/inference/inference.html. Find this, and many more informative tutorials on this website. The goal of the SBM inference procedure is to find a partition that best describes data, without over-fitting.</p>
+<p>From Tiago Peixoto’s cookbook: We want to (from cookbook above) “formulate generative models that include the idea of modules in their descriptions, which then can be detected by inferring the model parameters from data. More precisely, given the partition $\mathbf{b} = {b_i}$ of the network into $B$ groups, where $b_i \in [0, B-1]$ is the group membership of node $i$, we define a model that generates a network $\mathbf{A}$ with a probability</p>
+<p>$$P(\mathbf{A}|\mathbf{\theta},\mathbf{b})$$</p>
+<p>where $\mathbf{\theta}$ are additional model parameters that control how the node partition affects the structure of the network.”</p>
+<p>The whole trick behind this approach is that after defining this probability $P(\mathbf{A}|\mathbf{\theta},\mathbf{b})$, we can define the <em>likelihood that our network was generated using a given partition</em> $\mathbf{b}$ based on Bayes rule:</p>
+<p>$$P(\mathbf{b}|\mathbf{A}) = \dfrac{\sum_\mathbf{\theta} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}$$</p>
+<p>“where $P(\mathbf{\theta}|\mathbf{b})$ is the prior probability of the model parameters and $P(\mathbf{A}) = \sum_{\mathbf{\theta},\mathbf{b}} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b})$ is called the <em>evidence</em>, and corresponds to the total probability of the data summed over all model parameters. The particular types of model that will be considered here have “hard constraints”, such that there is only one choice for the remaining parameters $\mathbf{\theta}$ that is compatible with the generated network, meaning that our equation above simplifies to</p>
+<p>$$P(\mathbf{b}|\mathbf{A}) = \dfrac{P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}$$</p>
+<p>with $\mathbf{\theta}$ being the only choice compatible with $\mathbf{A}$ and $\mathbf{b}$. The inference procedures considered here will consist in either finding a network partition that maximizes the equation above, or sampling different partitions according its posterior probability. […] this approach also enables the comparison of different models according to statistical evidence (a.k.a. model selection).”</p>
 <p><em>(continued from cookbook)</em></p>
 <p>The equation above can be rewritten as</p>
-<div class="math notranslate nohighlight">
-\[P(\mathbf{b}|\mathbf{A}) = \dfrac{\exp (-\Sigma)}{P(A)}\]</div>
-<p>“where <span class="math notranslate nohighlight">\(\Sigma = -\ln P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) - \ln P(\mathbf{\theta},\mathbf{b})\)</span> is the <em><strong>description length</strong></em> of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>. It measures the amount of information required to describe the data, if we encode it using the particular parametrization of the generative model given by <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, as well as the parameters themselves. Therefore, if we choose to maximize the posterior distribution of Eq. (4) it will be fully equivalent to the so-called minimum description length method. This approach corresponds to an implementation of Occam’s razor, where the simplest model is selected, among all possibilities with the same explanatory power. The selection is based on the statistical evidence available, and therefore will not overfit, i.e. mistake stochastic fluctuations for actual structure. In particular this means that we will not find modules in networks if they could have arisen simply because of stochastic fluctuations, as they do in fully random graphs.”</p>
+<p>$$P(\mathbf{b}|\mathbf{A}) = \dfrac{\exp (-\Sigma)}{P(A)}$$</p>
+<p>“where $\Sigma = -\ln P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) - \ln P(\mathbf{\theta},\mathbf{b})$ is the <em><strong>description length</strong></em> of $\mathbf{A}$. It measures the amount of information required to describe the data, if we encode it using the particular parametrization of the generative model given by $\mathbf{\theta}$ and $\mathbf{b}$, as well as the parameters themselves. Therefore, if we choose to maximize the posterior distribution of Eq. (4) it will be fully equivalent to the so-called minimum description length method. This approach corresponds to an implementation of Occam’s razor, where the simplest model is selected, among all possibilities with the same explanatory power. The selection is based on the statistical evidence available, and therefore will not overfit, i.e. mistake stochastic fluctuations for actual structure. In particular this means that we will not find modules in networks if they could have arisen simply because of stochastic fluctuations, as they do in fully random graphs.”</p>
 <p><strong>We want to select a (the) partition that minimizes the description length.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1356,10 +1349,10 @@ document.write(`
 <p>There have been many developments in recent years about smarter ways to find partitions that minimize the description length. From nested SBMs to SBMs that incorporate triadic closure, to network reconstruction, <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> is able to isolate different important aspects of network structures commonly found in data in order to model (and infer) meaningful structure.</p>
 <p>Below is one such example:</p>
 <p><img alt="" src="../../_images/nested_sbm.png" /></p>
-<p><strong>Source: <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#the-nested-stochastic-block-model">https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#the-nested-stochastic-block-model</a></strong></p>
+<p><strong>Source: https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#the-nested-stochastic-block-model</strong></p>
 <p>But, in general, one could conceive of all sorts of approaches for minimizing the description length of a model…</p>
 <p><img alt="" src="../../_images/mdl_spectrum.png" /></p>
-<p><strong>Source: <a class="reference external" href="https://skewed.de/lab/posts/objective-inference/">https://skewed.de/lab/posts/objective-inference/</a></strong></p>
+<p><strong>Source: https://skewed.de/lab/posts/objective-inference/</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">state_ndc</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">minimize_blockmodel_dl</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">state_args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">deg_corr</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
@@ -1430,11 +1423,11 @@ Degree-corrected, nested DL:	 48496.616110097464
 <section id="today-we-didn-t-cover">
 <h2>Today, we didn’t cover:<a class="headerlink" href="#today-we-didn-t-cover" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>MCMC sampling procedure (e.g. merge-split algorithm) <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#refinements-using-merge-split-mcmc">https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#refinements-using-merge-split-mcmc</a></p></li>
-<li><p>SBM and topic models <a class="reference external" href="https://topsbm.github.io/">https://topsbm.github.io/</a></p></li>
-<li><p>Uncertain network structure <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/reconstruction_direct/reconstruction.html">https://graph-tool.skewed.de/static/doc/demos/reconstruction_direct/reconstruction.html</a></p></li>
-<li><p>Network reconstruction from dynamics <a class="reference external" href="https://graph-tool.skewed.de/static/doc/demos/reconstruction_indirect/reconstruction.html">https://graph-tool.skewed.de/static/doc/demos/reconstruction_indirect/reconstruction.html</a></p></li>
-<li><p>Visualization in <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> (which is awesome!) <a class="reference external" href="https://skewed.de/lab/posts/hairball/">https://skewed.de/lab/posts/hairball/</a> (e.g. see below)</p></li>
+<li><p>MCMC sampling procedure (e.g. merge-split algorithm) https://graph-tool.skewed.de/static/doc/demos/inference/inference.html#refinements-using-merge-split-mcmc</p></li>
+<li><p>SBM and topic models https://topsbm.github.io/</p></li>
+<li><p>Uncertain network structure https://graph-tool.skewed.de/static/doc/demos/reconstruction_direct/reconstruction.html</p></li>
+<li><p>Network reconstruction from dynamics https://graph-tool.skewed.de/static/doc/demos/reconstruction_indirect/reconstruction.html</p></li>
+<li><p>Visualization in <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> (which is awesome!) https://skewed.de/lab/posts/hairball/ (e.g. see below)</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1492,22 +1485,22 @@ Degree-corrected, nested DL:	 48496.616110097464
 <ol class="arabic simple">
 <li><p>Class Webpages</p>
 <ul class="simple">
-<li><p>Jupyter Book: <a class="reference external" href="https://network-science-data-and-models.github.io/phys7332_fa25/README.html">https://network-science-data-and-models.github.io/phys7332_fa25/README.html</a></p></li>
-<li><p>Github: <a class="github reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/">network-science-data-and-models/phys7332_fa25</a></p></li>
-<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a></p></li>
+<li><p>Jupyter Book: https://network-science-data-and-models.github.io/phys7332_fa25/README.html</p></li>
+<li><p>Github: https://github.com/network-science-data-and-models/phys7332_fa25/</p></li>
+<li><p>Syllabus and course details: https://brennanklein.com/phys7332-fall25</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> documentation: <a class="reference external" href="https://graph-tool.skewed.de/">https://graph-tool.skewed.de/</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> documentation: https://graph-tool.skewed.de/</p></li>
 <li><p>Guimera, R., Sales-Pardo, M., &amp; Amaral, L.A.N. (2004). <a class="reference external" href="https://link.aps.org/doi/10.1103/PhysRevE.70.025101">Modularity from fluctuations in random graphs and complex networks</a>. <em>Physical Review E</em>, 70(2), 025101.</p></li>
-<li><p>Tiago Peixoto’s blog: <a class="reference external" href="https://skewed.de/lab/blog.html">https://skewed.de/lab/blog.html</a></p></li>
-<li><p>Statistical Inference Satellite at the NetSci conference <a class="reference external" href="https://sinm.network/">https://sinm.network/</a></p></li>
+<li><p>Tiago Peixoto’s blog: https://skewed.de/lab/blog.html</p></li>
+<li><p>Statistical Inference Satellite at the NetSci conference https://sinm.network/</p></li>
 <li><p>Peixoto, T.P. (2013). Parsimonious module inference in large networks. <em>Physical Review Letters</em>, 110(14), 148701.</p></li>
 <li><p>Peixoto, T.P. (2014). Hierarchical block structures and high-resolution model selection in large networks. <em>Physical Review X</em>, 4(1), 011047.</p></li>
 <li><p>Peixoto, T.P. (2015). Model selection and hypothesis testing for large-scale network models with overlapping groups. <em>Physical Review X</em>, 5(1), 011033.</p></li>
-<li><p>Peixoto, T.P. (2023). Descriptive vs. inferential community detection in networks: Pitfalls, myths and half-truths. Cambridge University Press. <a class="reference external" href="https://doi.org/10.1017/9781009118897">https://doi.org/10.1017/9781009118897</a></p></li>
-<li><p>White, H.C., Boorman, S.A., &amp; Breiger, R.L. (1976). Social structure from multiple networks. I. Blockmodels of roles and positions. American Journal of Sociology, 81(4), 730-780. <a class="reference external" href="https://www.jstor.org/stable/2777596">https://www.jstor.org/stable/2777596</a></p></li>
-<li><p>Holland, P.W., Laskey, K.B., &amp; Leinhardt, S. (1983). Stochastic blockmodels: First steps. <em>Social Networks</em>. 5(2), 109–137. <a class="reference external" href="https://doi.org/10.1016/0378-8733(83)90021-7">https://doi.org/10.1016/0378-8733(83)90021-7</a></p></li>
-<li><p>Ghasemian, A., Hosseinmardi, H., &amp; Clauset, A. (2019). Evaluating overfit and underfit in models of network community structure. <em>IEEE Transactions on Knowledge and Data Engineering</em>, 32(9), 1722-1735. <a class="reference external" href="https://doi.org/10.1109/TKDE.2019.2911585">https://doi.org/10.1109/TKDE.2019.2911585</a></p></li>
+<li><p>Peixoto, T.P. (2023). Descriptive vs. inferential community detection in networks: Pitfalls, myths and half-truths. Cambridge University Press. https://doi.org/10.1017/9781009118897</p></li>
+<li><p>White, H.C., Boorman, S.A., &amp; Breiger, R.L. (1976). Social structure from multiple networks. I. Blockmodels of roles and positions. American Journal of Sociology, 81(4), 730-780. https://www.jstor.org/stable/2777596</p></li>
+<li><p>Holland, P.W., Laskey, K.B., &amp; Leinhardt, S. (1983). Stochastic blockmodels: First steps. <em>Social Networks</em>. 5(2), 109–137. https://doi.org/10.1016/0378-8733(83)90021-7</p></li>
+<li><p>Ghasemian, A., Hosseinmardi, H., &amp; Clauset, A. (2019). Evaluating overfit and underfit in models of network community structure. <em>IEEE Transactions on Knowledge and Data Engineering</em>, 32(9), 1722-1735. https://doi.org/10.1109/TKDE.2019.2911585</p></li>
 </ol>
 </section>
 </section>

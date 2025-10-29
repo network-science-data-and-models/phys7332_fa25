@@ -57,8 +57,6 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_08/class_08_communities1';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -459,7 +457,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="class-08-clustering-community-detection-1-traditional">
+  <section id="class-08-clustering-community-detection-1-traditional">
 <h1>Class 08: Clustering &amp; Community Detection 1 — Traditional<a class="headerlink" href="#class-08-clustering-community-detection-1-traditional" title="Link to this heading">#</a></h1>
 <p>Goal of today’s class:</p>
 <ol class="arabic simple">
@@ -494,26 +492,23 @@ document.write(`
 <hr class="docutils" />
 <section id="what-is-a-community">
 <h3>What is a Community?<a class="headerlink" href="#what-is-a-community" title="Link to this heading">#</a></h3>
-<p>A <strong>community</strong> in a network can be intuitively understood as a subset of nodes where connections (edges) between members of the community are more frequent or stronger than connections to the rest of the network. In mathematical terms, a graph <span class="math notranslate nohighlight">\( G = (V, E) \)</span>, where <span class="math notranslate nohighlight">\( V \)</span> represents the set of nodes and <span class="math notranslate nohighlight">\( E \)</span> represents the set of edges, can be partitioned into communities <span class="math notranslate nohighlight">\( C_1, C_2, \dots, C_k \)</span> such that:</p>
-<div class="math notranslate nohighlight">
-\[
+<p>A <strong>community</strong> in a network can be intuitively understood as a subset of nodes where connections (edges) between members of the community are more frequent or stronger than connections to the rest of the network. In mathematical terms, a graph $ G = (V, E) $, where $ V $ represents the set of nodes and $ E $ represents the set of edges, can be partitioned into communities $ C_1, C_2, \dots, C_k $ such that:</p>
+<p>$$
 \sum_{i=1}^{k} \left( \text{Intra-community edges in } C_i \right) \gg \text{Inter-community edges between } C_i \text{ and other communities}.
-\]</div>
-<p>This means that each community <span class="math notranslate nohighlight">\( C_i \)</span> has a higher density of internal connections compared to its connections to other communities in the network.</p>
+$$</p>
+<p>This means that each community $ C_i $ has a higher density of internal connections compared to its connections to other communities in the network.</p>
 <p>A <strong>community</strong> is generally defined as a subset of nodes that are densely connected internally, but sparsely connected to nodes outside the community. In other words, members of a community have many intra-community edges but relatively few inter-community edges.</p>
 <section id="mathematically">
 <h4>Mathematically:<a class="headerlink" href="#mathematically" title="Link to this heading">#</a></h4>
-<p>For a given community <span class="math notranslate nohighlight">\( C \subseteq V \)</span>, the internal density of edges is much higher than the external density:</p>
-<div class="math notranslate nohighlight">
-\[
+<p>For a given community $ C \subseteq V $, the internal density of edges is much higher than the external density:</p>
+<p>$$
 \frac{\text{Intra-community edges in } C}{|C|}
-\]</div>
-<p>should be maximized, while the number of <strong>inter-community edges</strong> should be minimized.</p>
-<p>The goal of <strong>community detection</strong> is to partition the nodes of the network into communities <span class="math notranslate nohighlight">\( C_1, C_2, \dots, C_k \)</span> such that the intra-community connections are maximized and inter-community connections are minimized. Formally, the network is partitioned into <span class="math notranslate nohighlight">\( k \)</span> subsets:</p>
-<div class="math notranslate nohighlight">
-\[
+$$
+should be maximized, while the number of <strong>inter-community edges</strong> should be minimized.</p>
+<p>The goal of <strong>community detection</strong> is to partition the nodes of the network into communities $ C_1, C_2, \dots, C_k $ such that the intra-community connections are maximized and inter-community connections are minimized. Formally, the network is partitioned into $ k $ subsets:</p>
+<p>$$
 V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad \forall i \neq j.
-\]</div>
+$$</p>
 <p>In practice, community detection helps in revealing the underlying structure of the network and offers insights into the network’s functional modules, social groups, or thematic clusters.</p>
 </section>
 <hr class="docutils" />
@@ -522,24 +517,21 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <p>Communities can be defined in several ways, each based on different structural properties:</p>
 <section id="a-clique">
 <h5>a. Clique:<a class="headerlink" href="#a-clique" title="Link to this heading">#</a></h5>
-<p>A <strong>clique</strong> is the most restrictive form of a community, where every node is connected to every other node in the community. In a graph, a clique of size <span class="math notranslate nohighlight">\( k \)</span> is a subgraph <span class="math notranslate nohighlight">\( K_k \)</span> where every pair of nodes has an edge:</p>
-<div class="math notranslate nohighlight">
-\[ \forall v_i, v_j \in C : (v_i, v_j) \in E. \]</div>
+<p>A <strong>clique</strong> is the most restrictive form of a community, where every node is connected to every other node in the community. In a graph, a clique of size $ k $ is a subgraph $ K_k $ where every pair of nodes has an edge:</p>
+<p>$$ \forall v_i, v_j \in C : (v_i, v_j) \in E. $$</p>
 <p>However, real-world networks rarely exhibit perfect cliques.</p>
 </section>
 <section id="b-dense-subgraph">
 <h5>b. Dense Subgraph:<a class="headerlink" href="#b-dense-subgraph" title="Link to this heading">#</a></h5>
-<p>A less restrictive notion than cliques, a dense subgraph satisfies a high ratio of existing edges to potential edges. The density <span class="math notranslate nohighlight">\( d(C) \)</span> of a community <span class="math notranslate nohighlight">\( C \)</span> is defined as:</p>
-<div class="math notranslate nohighlight">
-\[ d(C) = \frac{|E_C|}{|C|(|C| - 1) / 2}, \]</div>
-<p>where <span class="math notranslate nohighlight">\( E_C \)</span> represents the number of edges within community <span class="math notranslate nohighlight">\( C \)</span>. A high density indicates a tightly-knit group.</p>
+<p>A less restrictive notion than cliques, a dense subgraph satisfies a high ratio of existing edges to potential edges. The density $ d(C) $ of a community $ C $ is defined as:</p>
+<p>$$ d(C) = \frac{|E_C|}{|C|(|C| - 1) / 2}, $$</p>
+<p>where $ E_C $ represents the number of edges within community $ C $. A high density indicates a tightly-knit group.</p>
 </section>
 <section id="c-conductance">
 <h5>c. Conductance:<a class="headerlink" href="#c-conductance" title="Link to this heading">#</a></h5>
-<p>The <strong>conductance</strong> of a community <span class="math notranslate nohighlight">\( C \)</span> measures the fraction of total edge volume that points outside the community:</p>
-<div class="math notranslate nohighlight">
-\[ \Phi(C) = \frac{\sum_{i \in C, j \notin C} A_{ij}}{\min(\text{vol}(C), \text{vol}(V \setminus C))}, \]</div>
-<p>where <span class="math notranslate nohighlight">\( \text{vol}(C) \)</span> is the sum of degrees of nodes in <span class="math notranslate nohighlight">\( C \)</span>. Low conductance implies strong community structure.</p>
+<p>The <strong>conductance</strong> of a community $ C $ measures the fraction of total edge volume that points outside the community:</p>
+<p>$$ \Phi(C) = \frac{\sum_{i \in C, j \notin C} A_{ij}}{\min(\text{vol}(C), \text{vol}(V \setminus C))}, $$</p>
+<p>where $ \text{vol}(C) $ is the sum of degrees of nodes in $ C $. Low conductance implies strong community structure.</p>
 </section>
 </section>
 </section>
@@ -573,17 +565,16 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <hr class="docutils" />
 <section id="modularity">
 <h2>Modularity<a class="headerlink" href="#modularity" title="Link to this heading">#</a></h2>
-<p>One of the most widely used metrics for evaluating the quality of a community structure is <strong>modularity</strong>, proposed by Newman and Girvan (2004). Modularity purports to measure the difference between the actual number of intra-community edges and the expected number of such edges in a random graph with the same degree distribution. The modularity, <span class="math notranslate nohighlight">\(Q\)</span>, of a given partition <span class="math notranslate nohighlight">\(C\)</span> of our adjacency matrix <span class="math notranslate nohighlight">\(A\)</span> is:</p>
-<div class="math notranslate nohighlight">
-\[Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) \]</div>
+<p>One of the most widely used metrics for evaluating the quality of a community structure is <strong>modularity</strong>, proposed by Newman and Girvan (2004). Modularity purports to measure the difference between the actual number of intra-community edges and the expected number of such edges in a random graph with the same degree distribution. The modularity, $Q$, of a given partition $C$ of our adjacency matrix $A$ is:</p>
+<p>$$Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) $$</p>
 <p>Where:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\( A_{ij} \)</span> is the element of the adjacency matrix (1 if there is an edge between nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>, 0 otherwise).</p></li>
-<li><p><span class="math notranslate nohighlight">\( k_i \)</span> and <span class="math notranslate nohighlight">\( k_j \)</span> are the degrees of nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>, respectively.</p></li>
-<li><p><span class="math notranslate nohighlight">\( M \)</span> is the total number of edges in the network.</p></li>
-<li><p><span class="math notranslate nohighlight">\( \delta(C_i, C_j) \)</span> is a Kronecker delta, equal to 1 if nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> are in the same community, and 0 otherwise.</p></li>
+<li><p>$ A_{ij} $ is the element of the adjacency matrix (1 if there is an edge between nodes $i$ and $j$, 0 otherwise).</p></li>
+<li><p>$ k_i $ and $ k_j $ are the degrees of nodes $i$ and $j$, respectively.</p></li>
+<li><p>$ M $ is the total number of edges in the network.</p></li>
+<li><p>$ \delta(C_i, C_j) $ is a Kronecker delta, equal to 1 if nodes $i$ and $j$ are in the same community, and 0 otherwise.</p></li>
 </ul>
-<p>Modularity values range from <span class="math notranslate nohighlight">\(-1\)</span> to <span class="math notranslate nohighlight">\(1\)</span>, with higher values indicating stronger community structure. According to some in the early literature of modularity, values of <span class="math notranslate nohighlight">\( Q \approx 0.3 \)</span> or higher can signifie a significant division into communities.*</p>
+<p>Modularity values range from $-1$ to $1$, with higher values indicating stronger community structure. According to some in the early literature of modularity, values of $ Q \approx 0.3 $ or higher can signifie a significant division into communities.*</p>
 <p>* <strong>Note: Today, there are strong and damning critiques of modularity as a measure. We are introducing it here as a historical exercise and as a way to motivate next class’s theme: <em>inferential approaches to community detection</em>.</strong></p>
 <hr class="docutils" />
 <section id="popular-community-detection-algorithms">
@@ -593,10 +584,10 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <h4>1. <strong>Girvan-Newman Algorithm</strong>:<a class="headerlink" href="#girvan-newman-algorithm" title="Link to this heading">#</a></h4>
 <p>The <strong>Girvan-Newman</strong> algorithm is a hierarchical method based on <strong>betweenness centrality</strong> of edges. The idea is to iteratively remove edges with the highest betweenness centrality, causing the network to break into disconnected components.</p>
 <ul class="simple">
-<li><p><strong>Betweenness Centrality</strong>: For an edge <span class="math notranslate nohighlight">\( e \)</span>, the betweenness centrality is the number of shortest paths between all pairs of nodes that pass through <span class="math notranslate nohighlight">\( e \)</span>.</p></li>
+<li><p><strong>Betweenness Centrality</strong>: For an edge $ e $, the betweenness centrality is the number of shortest paths between all pairs of nodes that pass through $ e $.</p></li>
 </ul>
 <p>The process continues until the network splits into predefined or data-driven numbers of communities.</p>
-<p><strong>Time complexity</strong>: <span class="math notranslate nohighlight">\( O(n^3) \)</span>, making it impractical for large networks.</p>
+<p><strong>Time complexity</strong>: $ O(n^3) $, making it impractical for large networks.</p>
 </section>
 <section id="louvain-method">
 <h4>2. <strong>Louvain Method</strong>:<a class="headerlink" href="#louvain-method" title="Link to this heading">#</a></h4>
@@ -606,7 +597,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <li><p><strong>Community Aggregation</strong>: Once no more reassignments can improve modularity, the network is compressed by treating each community as a “super-node.”</p></li>
 </ol>
 <p>This process is repeated until no further improvement in modularity is possible.</p>
-<p><strong>Time complexity</strong>: <span class="math notranslate nohighlight">\( O(n \log n) \)</span>, making it scalable for large networks.</p>
+<p><strong>Time complexity</strong>: $ O(n \log n) $, making it scalable for large networks.</p>
 </section>
 <section id="infomap-algorithm">
 <h4>3. <strong>Infomap Algorithm</strong>:<a class="headerlink" href="#infomap-algorithm" title="Link to this heading">#</a></h4>
@@ -615,15 +606,14 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <li><p>The idea is to partition the network such that a random walker spends more time within communities than between them, leading to a more concise encoding of its movement.</p></li>
 </ul>
 <p>Infomap is known for detecting hierarchical and overlapping communities.</p>
-<p><strong>Time complexity</strong>: <span class="math notranslate nohighlight">\( O(m \log n) \)</span>.</p>
+<p><strong>Time complexity</strong>: $ O(m \log n) $.</p>
 </section>
 <section id="spectral-clustering">
 <h4>4. <strong>Spectral Clustering</strong>:<a class="headerlink" href="#spectral-clustering" title="Link to this heading">#</a></h4>
-<p><strong>Spectral clustering</strong> relies on the eigenvalues and eigenvectors of the <strong>graph Laplacian</strong> matrix. The <strong>Laplacian matrix</strong> <span class="math notranslate nohighlight">\( L \)</span> is defined as:</p>
-<div class="math notranslate nohighlight">
-\[ L = D - A, \]</div>
-<p>where <span class="math notranslate nohighlight">\( D \)</span> is the degree matrix and <span class="math notranslate nohighlight">\( A \)</span> is the adjacency matrix. Spectral clustering leverages the second-smallest eigenvalue (the <strong>Fiedler value</strong>) and the corresponding eigenvector to find the best partition of nodes into communities.</p>
-<p><strong>Time complexity</strong>: <span class="math notranslate nohighlight">\( O(n^3) \)</span>, as eigenvalue decomposition can be computationally intensive.</p>
+<p><strong>Spectral clustering</strong> relies on the eigenvalues and eigenvectors of the <strong>graph Laplacian</strong> matrix. The <strong>Laplacian matrix</strong> $ L $ is defined as:</p>
+<p>$$ L = D - A, $$</p>
+<p>where $ D $ is the degree matrix and $ A $ is the adjacency matrix. Spectral clustering leverages the second-smallest eigenvalue (the <strong>Fiedler value</strong>) and the corresponding eigenvector to find the best partition of nodes into communities.</p>
+<p><strong>Time complexity</strong>: $ O(n^3) $, as eigenvalue decomposition can be computationally intensive.</p>
 </section>
 <hr class="docutils" />
 <section id="and-many-many-many-more">
@@ -700,9 +690,8 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 </section>
 <section id="coding-modularity">
 <h2>Coding Modularity<a class="headerlink" href="#coding-modularity" title="Link to this heading">#</a></h2>
-<p>Recall from above, the definition of the <em>modularity</em> of a partition, <span class="math notranslate nohighlight">\(C\)</span> of a graph <span class="math notranslate nohighlight">\(A\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) \]</div>
+<p>Recall from above, the definition of the <em>modularity</em> of a partition, $C$ of a graph $A$:</p>
+<p>$$Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) $$</p>
 <p>What are the key steps we’ll need to do in order to implement this?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -933,7 +922,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <h2>Method: Girvan Newman<a class="headerlink" href="#method-girvan-newman" title="Link to this heading">#</a></h2>
 <p>The Girvan-Newman method [1] is a <em>divisive</em> algorithm that iteratively removes the edges connecting the different clusters until the optimal partition is found and the communities are fully isolated. The algorithm calculates a score for each edge (in this case, <em>edge betweenness</em>, though others could have been considered), ranks these scores, and iteratively removes them from the graph. At each iteration, the modularity of the partition of (dis)connected components is measured. We repeat this step until the graph has no edges, and the partition with the highest modularity is chosen.</p>
 <p><img alt="" src="../../_images/girvan_newman.png" /></p>
-<p>[1] Girvan M. &amp; Newman M.E.J. (2002). <strong>Community structure in social and biological networks</strong>. Proceedings of the National Academy of Sciences, 99, 7821–7826. <a class="reference external" href="https://doi.org/10.1073/pnas.122653799">https://doi.org/10.1073/pnas.122653799</a>.</p>
+<p>[1] Girvan M. &amp; Newman M.E.J. (2002). <strong>Community structure in social and biological networks</strong>. Proceedings of the National Academy of Sciences, 99, 7821–7826. https://doi.org/10.1073/pnas.122653799.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
@@ -1170,8 +1159,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <p>Many heuristics give good estimates for the modularity maximization problem, however this can be due to the fact that there is an high degeneracy of large modularity partitions. This problem is particularly severe on graphs with hierarchical community structure (i.e. in many real world networks).</p>
 <hr class="docutils" />
 <p>Another problem is that having “high” modularity does not imply that the partitioning is good: i.e. random graphs might have high modularity even when there is no community structure in them. Indeed, in the standard modularity formulation we are only considering the average (i.e. expected) value of connections between nodes, but we are not considering possible fluctuations. One possible solution is to look at the <em><strong>z-score</strong></em> of the modularity value after having generated multiple realizations of the null model:</p>
-<div class="math notranslate nohighlight">
-\[ Q_z = \frac{Q_{max} - \langle Q \rangle_{null}}{\sigma(Q)_{null}} \]</div>
+<p>$$ Q_z = \frac{Q_{max} - \langle Q \rangle_{null}}{\sigma(Q)_{null}} $$</p>
 </section>
 </section>
 </section>
@@ -1184,7 +1172,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <li><p><strong>Phase 1 - Modularity Optimization:</strong></p></li>
 </ol>
 <ul class="simple">
-<li><p>For each node <span class="math notranslate nohighlight">\(i\)</span>, the algorithm evaluates the gain in modularity from moving that node to each of its neighbors’ <span class="math notranslate nohighlight">\(j\)</span> communities.</p></li>
+<li><p>For each node $i$, the algorithm evaluates the gain in modularity from moving that node to each of its neighbors’ $j$ communities.</p></li>
 <li><p>The node is placed in the community that maximizes the modularity gain. If no such move increases modularity, the node stays in its current community.</p></li>
 </ul>
 <ol class="arabic simple" start="3">
@@ -1198,12 +1186,11 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <li><p><strong>Output:</strong> The algorithm outputs the community structure that maximizes the modularity.</p></li>
 </ol>
 <p><img alt="" src="../../_images/louvain.png" /></p>
-<p>[1] Blondel, V. D., Guillaume, J. L., Lambiotte, R., &amp; Lefebvre, E. (2008). Fast unfolding of communities in large networks. Journal of Statistical Mechanics, 2008(10), P10008. <a class="reference external" href="https://doi.org/10.1088/1742-5468/2008/10/P10008">https://doi.org/10.1088/1742-5468/2008/10/P10008</a></p>
+<p>[1] Blondel, V. D., Guillaume, J. L., Lambiotte, R., &amp; Lefebvre, E. (2008). Fast unfolding of communities in large networks. Journal of Statistical Mechanics, 2008(10), P10008. https://doi.org/10.1088/1742-5468/2008/10/P10008</p>
 <p><em><strong>Why it is efficient?</strong></em></p>
-<div class="math notranslate nohighlight">
-\[ \Delta Q =  \left[ \frac{S_{C}^{in} + s_{i}^{in}}{2W} - \left( \frac{S_{C}^{tot} + s_{i}}{2W} \right)^2  \right]   -   \left[ \frac{S_{C}^{in}}{2W} - \left( \frac{S_{C}^{tot}}{2W} \right)^2 - \left( \frac{s_i}{2W} \right)^2  \right]  \]</div>
-<p>where <span class="math notranslate nohighlight">\(s_i\)</span> is the strength of node <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(s_{i,c}\)</span> is the <em>internal</em> strength of node <span class="math notranslate nohighlight">\(i\)</span>,<span class="math notranslate nohighlight">\(S_{C}^{in} = \sum_{i \in C} s_{i}^{in}\)</span> is the <em>internal</em> strength of cluster <span class="math notranslate nohighlight">\(C\)</span>, <span class="math notranslate nohighlight">\(S_{C}^{tot} = \sum_{i \in C} s_i\)</span> is the total strength of cluster <span class="math notranslate nohighlight">\(C\)</span>, and <span class="math notranslate nohighlight">\(W\)</span> is the sum of the weights of all the links in the network.</p>
-<p>In practice, the complexity of this algorithm is approximagely <span class="math notranslate nohighlight">\(O(N \log N)\)</span>.</p>
+<p>$$ \Delta Q =  \left[ \frac{S_{C}^{in} + s_{i}^{in}}{2W} - \left( \frac{S_{C}^{tot} + s_{i}}{2W} \right)^2  \right]   -   \left[ \frac{S_{C}^{in}}{2W} - \left( \frac{S_{C}^{tot}}{2W} \right)^2 - \left( \frac{s_i}{2W} \right)^2  \right]  $$</p>
+<p>where $s_i$ is the strength of node $i$, $s_{i,c}$ is the <em>internal</em> strength of node $i$,$S_{C}^{in} = \sum_{i \in C} s_{i}^{in}$ is the <em>internal</em> strength of cluster $C$, $S_{C}^{tot} = \sum_{i \in C} s_i$ is the total strength of cluster $C$, and $W$ is the sum of the weights of all the links in the network.</p>
+<p>In practice, the complexity of this algorithm is approximagely $O(N \log N)$.</p>
 <p>Below is an example of the (much more complicated!) functions involved in the Louvain method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1439,7 +1426,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <section id="community-detection-package-s">
 <h3>Community detection package(s)<a class="headerlink" href="#community-detection-package-s" title="Link to this heading">#</a></h3>
 <p>The Louvain algorithm is also implemented in this <code class="docutils literal notranslate"><span class="pre">community</span></code> Python package.</p>
-<p><a class="reference external" href="https://python-louvain.readthedocs.io/en/stable/index.html">https://python-louvain.readthedocs.io/en/stable/index.html</a></p>
+<p>https://python-louvain.readthedocs.io/en/stable/index.html</p>
 <p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">community</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1476,8 +1463,7 @@ V = \bigcup_{i=1}^{k} C_i \quad \text{with} \quad C_i \cap C_j = \emptyset \quad
 <section id="spectral-optimization">
 <h3>1. Spectral Optimization<a class="headerlink" href="#spectral-optimization" title="Link to this heading">#</a></h3>
 <p>Based on a modularity matrix:</p>
-<div class="math notranslate nohighlight">
-\[ B_{i,j} = A_{i,j} - \frac{k_ik_j}{2M} \]</div>
+<p>$$ B_{i,j} = A_{i,j} - \frac{k_ik_j}{2M} $$</p>
 <p>Then,</p>
 <p>\begin{eqnarray}
 Q &amp;=&amp; \frac{1}{2M} \sum_{i,j} \left( A_{i,j} - \frac{k_ik_j}{2M} \right) \delta(C_i,C_j) \
@@ -1487,25 +1473,23 @@ Q &amp;=&amp; \frac{1}{2M} \sum_{i,j} \left( A_{i,j} - \frac{k_ik_j}{2M} \right)
 \end{eqnarray}</p>
 <p>Notice that:</p>
 <ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\( \dfrac{s_is_j + 1}{2} \)</span> is equal to 1 if <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> belong to the same community, 0 otherwise.</p></li>
-<li><p><span class="math notranslate nohighlight">\( \sum_{i,j}A_{i,j} = \sum_{i}k_{i} = 2M \)</span>.</p></li>
+<li><p>$ \dfrac{s_is_j + 1}{2} $ is equal to 1 if $i$ and $j$ belong to the same community, 0 otherwise.</p></li>
+<li><p>$ \sum_{i,j}A_{i,j} = \sum_{i}k_{i} = 2M $.</p></li>
 </ol>
-<p>Matrix <span class="math notranslate nohighlight">\(B\)</span> is <em><strong>symmetric</strong></em> and it has <span class="math notranslate nohighlight">\(N\)</span> orthonormal eigenvectors. Then, it can be shown that the previous equation can be rewritten as:</p>
-<div class="math notranslate nohighlight">
-\[ Q = \frac{1}{4M} \sum_{i} \left( u_i^Ts \right)^2\lambda_i ,\]</div>
-<p>where <span class="math notranslate nohighlight">\(u_i\)</span> is an eigenvector of <span class="math notranslate nohighlight">\(B\)</span> associated to the eigenvalue <span class="math notranslate nohighlight">\(\lambda_i\)</span>.</p>
-<p>Therefore, the modularity maximization consists in setting the values of <span class="math notranslate nohighlight">\(s\)</span> as to maximize the contribution of the leading eigenvalue (i.e. <span class="math notranslate nohighlight">\(\lambda_1\)</span>) of <span class="math notranslate nohighlight">\(B\)</span>.</p>
-<p>Under the constraint that the entries of <span class="math notranslate nohighlight">\(s\)</span> have to be either <span class="math notranslate nohighlight">\(+1\)</span> or <span class="math notranslate nohighlight">\(-1\)</span>, we can find the optimal graph partitioning by setting <span class="math notranslate nohighlight">\(s_i = 1\)</span> if <span class="math notranslate nohighlight">\(u_i &gt; 0\)</span>; <span class="math notranslate nohighlight">\(s_i = -1\)</span>, otherwise.</p>
+<p>Matrix $B$ is <em><strong>symmetric</strong></em> and it has $N$ orthonormal eigenvectors. Then, it can be shown that the previous equation can be rewritten as:</p>
+<p>$$ Q = \frac{1}{4M} \sum_{i} \left( u_i^Ts \right)^2\lambda_i ,$$</p>
+<p>where $u_i$ is an eigenvector of $B$ associated to the eigenvalue $\lambda_i$.</p>
+<p>Therefore, the modularity maximization consists in setting the values of $s$ as to maximize the contribution of the leading eigenvalue (i.e. $\lambda_1$) of $B$.</p>
+<p>Under the constraint that the entries of $s$ have to be either $+1$ or $-1$, we can find the optimal graph partitioning by setting $s_i = 1$ if $u_i &gt; 0$; $s_i = -1$, otherwise.</p>
 </section>
 <section id="infomap">
 <h3>2. Infomap<a class="headerlink" href="#infomap" title="Link to this heading">#</a></h3>
 <p>This is an <em><strong>information theoretic approach</strong></em> that reveals community structure in weighted and directed networks. The main idea is to find the best compressed description of the path of a random walker traversing the graph.</p>
 <p>In practice, we want to minimize the <em><strong>map equation</strong></em>:</p>
-<div class="math notranslate nohighlight">
-\[ L(M) = q_{between}H(\mathbb{L}) + \sum_{i=1}^m p_{within}^iH(\mathbb{P}^i) ,\]</div>
-<p>where <span class="math notranslate nohighlight">\(q_{between}\)</span> is the probability that the random walker moves in a different module at each step, <span class="math notranslate nohighlight">\(p_{within}^i\)</span> is the probability that the random walker next step will be within the same module <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(H(x)\)</span> denotes the <em>entropy</em> of the codewords used to describe <span class="math notranslate nohighlight">\(x\)</span> using <em>Huffman coding</em> (<a class="reference external" href="https://en.wikipedia.org/wiki/Huffman_coding">https://en.wikipedia.org/wiki/Huffman_coding</a>).</p>
+<p>$$ L(M) = q_{between}H(\mathbb{L}) + \sum_{i=1}^m p_{within}^iH(\mathbb{P}^i) ,$$</p>
+<p>where $q_{between}$ is the probability that the random walker moves in a different module at each step, $p_{within}^i$ is the probability that the random walker next step will be within the same module $i$, $H(x)$ denotes the <em>entropy</em> of the codewords used to describe $x$ using <em>Huffman coding</em> (https://en.wikipedia.org/wiki/Huffman_coding).</p>
 <p><img alt="" src="../../_images/infomap.png" /></p>
-<p>[1] Rosvall, M., &amp; Bergstrom, C.T. (2008). Maps of random walks on complex networks reveal community structure. Proceedings of the National Academy of Sciences, 105(4), 1118-1123. <a class="reference external" href="https://doi.org/10.1073/pnas.0706851105">https://doi.org/10.1073/pnas.0706851105</a></p>
+<p>[1] Rosvall, M., &amp; Bergstrom, C.T. (2008). Maps of random walks on complex networks reveal community structure. Proceedings of the National Academy of Sciences, 105(4), 1118-1123. https://doi.org/10.1073/pnas.0706851105</p>
 </section>
 <section id="your-turn">
 <h3>3. Your turn!<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h3>
@@ -1533,19 +1517,19 @@ Q &amp;=&amp; \frac{1}{2M} \sum_{i,j} \left( A_{i,j} - \frac{k_ik_j}{2M} \right)
 <ol class="arabic simple">
 <li><p>Class Webpages</p>
 <ul class="simple">
-<li><p>Jupyter Book: <a class="reference external" href="https://network-science-data-and-models.github.io/phys7332_fa25/README.html">https://network-science-data-and-models.github.io/phys7332_fa25/README.html</a></p></li>
-<li><p>Github: <a class="github reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/">network-science-data-and-models/phys7332_fa25</a></p></li>
-<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a></p></li>
+<li><p>Jupyter Book: https://network-science-data-and-models.github.io/phys7332_fa25/README.html</p></li>
+<li><p>Github: https://github.com/network-science-data-and-models/phys7332_fa25/</p></li>
+<li><p>Syllabus and course details: https://brennanklein.com/phys7332-fall25</p></li>
 </ul>
 </li>
-<li><p>Fortunato, S. (2010). Community detection in graphs. <em>Physics Reports</em>, 486(3), 75-174. <a class="reference external" href="https://doi.org/10.1016/j.physrep.2009.11.002">https://doi.org/10.1016/j.physrep.2009.11.002</a></p></li>
-<li><p>Fortunato, S., &amp; Hric, D. (2016). Community detection in networks: A user guide. <em>Physics Reports</em>, 659, 1-44. <a class="reference external" href="https://doi.org/10.1016/j.physrep.2016.09.002">https://doi.org/10.1016/j.physrep.2016.09.002</a></p></li>
-<li><p>Chakraborty, T., Dalmia, A., Mukherjee, A., &amp; Ganguly, N. (2017). Metrics for community analysis: A survey. <em>ACM Computing Surveys (CSUR)</em>, 50(4), 1-37. <a class="reference external" href="https://dl.acm.org/doi/10.1145/3091106">https://dl.acm.org/doi/10.1145/3091106</a></p></li>
-<li><p>Good, B. H., De Montjoye, Y. A., &amp; Clauset, A. (2010). Performance of modularity maximization in practical contexts. <em>Physical Review E</em>, 81(4), 046106. <a class="reference external" href="https://link.aps.org/doi/10.1103/PhysRevE.81.046106">https://link.aps.org/doi/10.1103/PhysRevE.81.046106</a></p></li>
-<li><p>Girvan M. &amp; Newman M.E.J. (2002). Community structure in social and biological networks. Proceedings of the National Academy of Sciences, 99, 7821–7826. <a class="reference external" href="https://doi.org/10.1073/pnas.122653799">https://doi.org/10.1073/pnas.122653799</a></p></li>
-<li><p>Newman, M.E.J., &amp; Girvan, M. (2004). “Finding and evaluating community structure in networks.” <em>Physical Review E</em>, 69(2), 026113. <a class="reference external" href="https://doi.org/10.1103/PhysRevE.69.026113">https://doi.org/10.1103/PhysRevE.69.026113</a></p></li>
-<li><p>Rosvall, M. &amp; Bergstrom, C.T. (2008). Maps of random walks on complex networks reveal community structure. <em>Proceedings of the National Academy of Sciences</em>, 105(4), 1118-1123. <a class="reference external" href="https://doi.org/10.1073/pnas.0706851105">https://doi.org/10.1073/pnas.0706851105</a></p></li>
-<li><p>Blondel, V. D., Guillaume, J. L., Lambiotte, R., &amp; Lefebvre, E. (2008). Fast unfolding of communities in large networks. Journal of Statistical Mechanics, 2008(10), P10008. <a class="reference external" href="https://doi.org/10.1088/1742-5468/2008/10/P10008">https://doi.org/10.1088/1742-5468/2008/10/P10008</a></p></li>
+<li><p>Fortunato, S. (2010). Community detection in graphs. <em>Physics Reports</em>, 486(3), 75-174. https://doi.org/10.1016/j.physrep.2009.11.002</p></li>
+<li><p>Fortunato, S., &amp; Hric, D. (2016). Community detection in networks: A user guide. <em>Physics Reports</em>, 659, 1-44. https://doi.org/10.1016/j.physrep.2016.09.002</p></li>
+<li><p>Chakraborty, T., Dalmia, A., Mukherjee, A., &amp; Ganguly, N. (2017). Metrics for community analysis: A survey. <em>ACM Computing Surveys (CSUR)</em>, 50(4), 1-37. https://dl.acm.org/doi/10.1145/3091106</p></li>
+<li><p>Good, B. H., De Montjoye, Y. A., &amp; Clauset, A. (2010). Performance of modularity maximization in practical contexts. <em>Physical Review E</em>, 81(4), 046106. https://link.aps.org/doi/10.1103/PhysRevE.81.046106</p></li>
+<li><p>Girvan M. &amp; Newman M.E.J. (2002). Community structure in social and biological networks. Proceedings of the National Academy of Sciences, 99, 7821–7826. https://doi.org/10.1073/pnas.122653799</p></li>
+<li><p>Newman, M.E.J., &amp; Girvan, M. (2004). “Finding and evaluating community structure in networks.” <em>Physical Review E</em>, 69(2), 026113. https://doi.org/10.1103/PhysRevE.69.026113</p></li>
+<li><p>Rosvall, M. &amp; Bergstrom, C.T. (2008). Maps of random walks on complex networks reveal community structure. <em>Proceedings of the National Academy of Sciences</em>, 105(4), 1118-1123. https://doi.org/10.1073/pnas.0706851105</p></li>
+<li><p>Blondel, V. D., Guillaume, J. L., Lambiotte, R., &amp; Lefebvre, E. (2008). Fast unfolding of communities in large networks. Journal of Statistical Mechanics, 2008(10), P10008. https://doi.org/10.1088/1742-5468/2008/10/P10008</p></li>
 </ol>
 </section>
 </section>

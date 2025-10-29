@@ -57,8 +57,6 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_14/class_14_graph_machine_learning_1';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -422,7 +420,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="class-14-machine-learning-1-general">
+  <section id="class-14-machine-learning-1-general">
 <h1>Class 14: Machine Learning 1 - General<a class="headerlink" href="#class-14-machine-learning-1-general" title="Link to this heading">#</a></h1>
 <p>Goals of today’s class:</p>
 <ol class="arabic simple">
@@ -524,19 +522,19 @@ Supervised machine learning is the practice of building a model when we have tra
 <tbody>
 <tr class="row-even"><td><p>Accuracy</p></td>
 <td><p>How often do we get it right?</p></td>
-<td><p><span class="math notranslate nohighlight">\(\frac{TP + TN}{TP + FP + TN + FN}\)</span></p></td>
+<td><p>$\frac{TP + TN}{TP + FP + TN + FN}$</p></td>
 </tr>
 <tr class="row-odd"><td><p>Recall</p></td>
 <td><p>How many true positives do we detect out of all positive examples?</p></td>
-<td><p><span class="math notranslate nohighlight">\(\frac{TP}{TP + FN}\)</span></p></td>
+<td><p>$\frac{TP}{TP + FN}$</p></td>
 </tr>
 <tr class="row-even"><td><p>Precision</p></td>
 <td><p>How many of our positive classifications are truly positive?</p></td>
-<td><p><span class="math notranslate nohighlight">\(\frac{TP}{TP + FP}\)</span></p></td>
+<td><p>$\frac{TP}{TP + FP}$</p></td>
 </tr>
 <tr class="row-odd"><td><p>F1 Score</p></td>
 <td><p>Harmonic mean of precision and recall</p></td>
-<td><p><span class="math notranslate nohighlight">\(\frac{2TP}{2TP + FP + FN}\)</span></p></td>
+<td><p>$\frac{2TP}{2TP + FP + FN}$</p></td>
 </tr>
 </tbody>
 </table>
@@ -644,18 +642,18 @@ False Negatives Out of All Positive Labels (failure to detect): 0.30569948186528
 </section>
 <section id="collective-classification">
 <h2>Collective Classification<a class="headerlink" href="#collective-classification" title="Link to this heading">#</a></h2>
-<p>When we do collective classification, we have two variables: a graph <span class="math notranslate nohighlight">\(G\)</span> and a node <span class="math notranslate nohighlight">\(v \in G\)</span> that we want to label (classify). Some of <span class="math notranslate nohighlight">\(v\)</span>’s neighbors are labeled, and some are not. In this setting, we can classify <span class="math notranslate nohighlight">\(v\)</span> based on any subset of the following:</p>
+<p>When we do collective classification, we have two variables: a graph $G$ and a node $v \in G$ that we want to label (classify). Some of $v$’s neighbors are labeled, and some are not. In this setting, we can classify $v$ based on any subset of the following:</p>
 <ol class="arabic simple">
-<li><p>The correlation between <span class="math notranslate nohighlight">\(v\)</span>’s label and its observed attributes (this is what we just tried!)</p></li>
-<li><p>The correlation between <span class="math notranslate nohighlight">\(v\)</span>’s label and its neighbors’ known labels and observed attributes</p></li>
-<li><p>The correlation between <span class="math notranslate nohighlight">\(v\)</span>’s label and its unlabeled neighbors’ unknown labels.</p></li>
+<li><p>The correlation between $v$’s label and its observed attributes (this is what we just tried!)</p></li>
+<li><p>The correlation between $v$’s label and its neighbors’ known labels and observed attributes</p></li>
+<li><p>The correlation between $v$’s label and its unlabeled neighbors’ unknown labels.</p></li>
 </ol>
 <p>A lot of the collective classification methods discussed <a class="reference external" href="https://onlinelibrary.wiley.com/doi/10.1609/">here</a> (paper coauthored by our very own Dr. Tina Eliassi-Rad) involve horrifying amounts of statistical inference, which is beyond the scope of this class. However, one of the methods discussed there, <em>iterative classification</em>, is fairly tractable. Let’s take a look!</p>
 <section id="iterative-classification">
 <h3>Iterative Classification<a class="headerlink" href="#iterative-classification" title="Link to this heading">#</a></h3>
-<p>First, you choose a local classifier, <span class="math notranslate nohighlight">\(f\)</span>, that can be used to determine the label of a node given the labels (seen &amp; unseen) of its neighbors. Tina calls this “guilt by association”. Your local classifier <span class="math notranslate nohighlight">\(f\)</span> can give you a label outright, or it can give you a probability distribution over labels (in which case you pick the label that gives you the best value). Since real-world networks notably do not have fixed degree, but most classifiers assume fixed-length feature vectors, we can’t just feed an arbitrary-length vector into any function <span class="math notranslate nohighlight">\(f\)</span>. Instead, we have to come up with some sort of pooling function, like MAX, COUNT, MEAN, SUM, etc. and pool the labels in some pre-determined way.</p>
+<p>First, you choose a local classifier, $f$, that can be used to determine the label of a node given the labels (seen &amp; unseen) of its neighbors. Tina calls this “guilt by association”. Your local classifier $f$ can give you a label outright, or it can give you a probability distribution over labels (in which case you pick the label that gives you the best value). Since real-world networks notably do not have fixed degree, but most classifiers assume fixed-length feature vectors, we can’t just feed an arbitrary-length vector into any function $f$. Instead, we have to come up with some sort of pooling function, like MAX, COUNT, MEAN, SUM, etc. and pool the labels in some pre-determined way.</p>
 <p>We then move on to the actual labeling business. First, we do a “bootstrapping” step – we label each node using our incomplete information, giving it our best guess. Next, we do the iterative classification process. Each time, we generate a new ordering
-O of nodes, then we go through and label each node according to what its neighbors are currently labeled as, using <span class="math notranslate nohighlight">\(f\)</span>. We do this a bunch of times until the labels stop changing or we’ve gone through a pre-determined number of iterations, after which we should give up.</p>
+O of nodes, then we go through and label each node according to what its neighbors are currently labeled as, using $f$. We do this a bunch of times until the labels stop changing or we’ve gone through a pre-determined number of iterations, after which we should give up.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">explicit_train_ic</span><span class="p">,</span> <span class="n">explicit_test_ic</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df_attrs_explicit</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -754,7 +752,7 @@ False Negatives Out of All Positive Labels (failure to detect): 0.15280665280665
 <p>Homophily refers to the tendency of similar nodes to be connected to each other. Not all networks are completely homophilous on all dimensions (think dating networks, for example), but many are. Similarity-based methods operate on the assumption that the more similar a pair of nodes is, the more likely they are to be connected to each other. We can define similarity in many different ways, but in general, we choose a similarity measure, rank candidate node pairs by their similarity, and then pick a threshold above which we say we will predict a link exists.</p>
 <section id="a-limited-whirlwind-tour-of-similarity-measures">
 <h4>A Limited Whirlwind Tour of Similarity Measures<a class="headerlink" href="#a-limited-whirlwind-tour-of-similarity-measures" title="Link to this heading">#</a></h4>
-<p>In this table, we’ve laid out some of the more commonly used similarity measures. Some of them are based on local structural information about a node’s neighborhood (“Local”); others use global approaches, usually involving paths between two nodes or random walks, to determine similarity (“Global”); there are also approaches that mix the two, considering more topological information than strictly local measures while still being relatively fast to compute (“Quasi-Local”. Today we’ll focus on local measures of similarity; for a node pair <span class="math notranslate nohighlight">\((u, v)\)</span>, we will define the similarity for a number of measures.</p>
+<p>In this table, we’ve laid out some of the more commonly used similarity measures. Some of them are based on local structural information about a node’s neighborhood (“Local”); others use global approaches, usually involving paths between two nodes or random walks, to determine similarity (“Global”); there are also approaches that mix the two, considering more topological information than strictly local measures while still being relatively fast to compute (“Quasi-Local”. Today we’ll focus on local measures of similarity; for a node pair $(u, v)$, we will define the similarity for a number of measures.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Similarity Measure</p></th>
@@ -764,7 +762,7 @@ False Negatives Out of All Positive Labels (failure to detect): 0.15280665280665
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Common Neighbors</p></td>
-<td><p>How many neighbors do <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(v\)</span> have in common?</p></td>
+<td><p>How many neighbors do $u$ and $v$ have in common?</p></td>
 <td><p>$</p></td>
 </tr>
 <tr class="row-odd"><td><p>Adamic-Adar Index</p></td>
@@ -982,9 +980,9 @@ F1: 0.6966127716739433
 <ol class="arabic simple">
 <li><p>Class Webpages</p>
 <ul class="simple">
-<li><p>Jupyter Book: <a class="reference external" href="https://network-science-data-and-models.github.io/phys7332_fa25/README.html">https://network-science-data-and-models.github.io/phys7332_fa25/README.html</a></p></li>
-<li><p>Github: <a class="github reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/">network-science-data-and-models/phys7332_fa25</a></p></li>
-<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a></p></li>
+<li><p>Jupyter Book: https://network-science-data-and-models.github.io/phys7332_fa25/README.html</p></li>
+<li><p>Github: https://github.com/network-science-data-and-models/phys7332_fa25/</p></li>
+<li><p>Syllabus and course details: https://brennanklein.com/phys7332-fall25</p></li>
 </ul>
 </li>
 </ol>

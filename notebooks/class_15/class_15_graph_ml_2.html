@@ -57,8 +57,6 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_15/class_15_graph_ml_2';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -448,7 +446,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="class-15-graph-machine-learning-2">
+  <section id="class-15-graph-machine-learning-2">
 <h1>Class 15: Graph Machine Learning 2<a class="headerlink" href="#class-15-graph-machine-learning-2" title="Link to this heading">#</a></h1>
 <p>Goals of today’s class:</p>
 <ol class="arabic simple">
@@ -476,11 +474,11 @@ document.write(`
 <p>These can seem complicated to understand, but they, are at their heart, just doing a bunch of very parallelizable matrix operations. Here’s a picture of a simple <strong>feed-forward</strong> neural network, sourced from this handy <a class="reference external" href="https://medium.com/analytics-vidhya/in-depth-explanation-of-feedforward-in-neural-network-mathematically-448092216b63">Medium post</a>.</p>
 <p><img alt="feed-forward NN" src="https://miro.medium.com/v2/resize:fit:3200/1*ycDUAMaxDYaHx7xl9pqEjg.png" /></p>
 <p>Neural networks consist of sets of units (neurons) arranged in a sequence of layers. When we talk about the <strong>architecture</strong> of a neural network, we’re talking about how the units are arranged, how many of them there are, how many layers we have, and the number of units per layer. In a fully connected feed-forward network, each unit in each layer is connected to all the nodes in the layer after it. First, the input nodes (the green ones) receive the input data (this could be attributes of a product, for example). Data moves through the network in the picture from left to right.</p>
-<p>The output of a particular unit is the activation function of the weighted sum of its inputs (<span class="math notranslate nohighlight">\(\sigma(\vec{w}^T \vec{x})\)</span>), where <span class="math notranslate nohighlight">\(\vec{w}\)</span> is the weights of the inputs for that unit, and <span class="math notranslate nohighlight">\(\vec{x}\)</span> is the inputs coming from the previous layer. <span class="math notranslate nohighlight">\(\sigma\)</span> is the nonlinear activation function; in this case, we’re probably thinking of the sigmoid function (pictured below &amp; sourced <a class="reference external" href="https://groups.csail.mit.edu/medg/hamish/medcomp3/sld007.htm">here</a>), but other activation functions, like <span class="math notranslate nohighlight">\(\tanh\)</span>, are possible as well (image sourced <a class="reference external" href="https://sebastianraschka.com/faq/docs/activation-functions.html">here</a>).</p>
+<p>The output of a particular unit is the activation function of the weighted sum of its inputs ($\sigma(\vec{w}^T \vec{x})$), where $\vec{w}$ is the weights of the inputs for that unit, and $\vec{x}$ is the inputs coming from the previous layer. $\sigma$ is the nonlinear activation function; in this case, we’re probably thinking of the sigmoid function (pictured below &amp; sourced <a class="reference external" href="https://groups.csail.mit.edu/medg/hamish/medcomp3/sld007.htm">here</a>), but other activation functions, like $\tanh$, are possible as well (image sourced <a class="reference external" href="https://sebastianraschka.com/faq/docs/activation-functions.html">here</a>).</p>
 <p><img alt="sigmoid" src="https://groups.csail.mit.edu/medg/hamish/medcomp3/img007.gif" /></p>
 <p>Neural networks can learn nonlinear patterns in data because of these nonlinear activation functions. If they only used linear activation functions, they would be learning the weights for a weighted piecewise linear function on their inputs. In other words, neural networks are powerful precisely because they have many built-in nonlinearities.</p>
 <p><img alt="activations" src="https://sebastianraschka.com/images/faq/activation-functions/activation-functions.png" /></p>
-<p>The outputs we get from each unit in the middle layer then are passed to the final layer, and then we compare the final layer’s output to our desired output. Maybe the <span class="math notranslate nohighlight">\(\vec{y}\)</span> outputs in the picture are probabilities of the product belonging to a particular class, for example. Our task is to use a <strong>loss function</strong>, of which there are many, to express how far off we are from our correct answer. Once we’ve done that, we can use an algorithm called <strong>backpropagation</strong> to nudge the weights (<span class="math notranslate nohighlight">\(\vec{w}\)</span>) towards values that would be closer to producing the desired label.</p>
+<p>The outputs we get from each unit in the middle layer then are passed to the final layer, and then we compare the final layer’s output to our desired output. Maybe the $\vec{y}$ outputs in the picture are probabilities of the product belonging to a particular class, for example. Our task is to use a <strong>loss function</strong>, of which there are many, to express how far off we are from our correct answer. Once we’ve done that, we can use an algorithm called <strong>backpropagation</strong> to nudge the weights ($\vec{w}$) towards values that would be closer to producing the desired label.</p>
 <p>Our choice of loss function is important here; what works well for classifying products may be terrible for predicting flight prices, for example. For a more complete primer on loss functions, check out <a class="reference external" href="https://www.geeksforgeeks.org/loss-functions-in-deep-learning/">this blog post</a>. Generally, your loss function and the tasks you’re setting up the neural network to learn will reflect what you want your neural network to do effectively. We might use a squared error loss function if we’re predicting flight prices, and we might use a cross-entropy loss function to quantify how incorrect our predictions are for a classifier. There are more complicated loss functions and task setups, one of which we’ll discuss in the next section.</p>
 </section>
 <hr class="docutils" />
@@ -494,18 +492,18 @@ document.write(`
 </section>
 <section id="node2vec">
 <h4>Node2Vec<a class="headerlink" href="#node2vec" title="Link to this heading">#</a></h4>
-<p><a class="reference external" href="https://arxiv.org/pdf/1607.00653">Node2Vec</a> follows similar logic to Word2Vec. We do random walks through a network and treat these random walks like sentences. Then we can do CBOW or Skip-Gram to obtain node embeddings. At each iteration, Node2Vec samples <span class="math notranslate nohighlight">\(n * r\)</span> random walks (with <span class="math notranslate nohighlight">\(r\)</span> walks starting at each node). It has hyperparameters that influence how much we revisit nodes (<span class="math notranslate nohighlight">\(p\)</span>) and how much we favor visiting close nodes versus nodes that are further from where we started (<span class="math notranslate nohighlight">\(q\)</span>).</p>
-<p>When people around the time of Node2Vec were thinking about building node embeddings, they tended to consider homophily (nodes that are linked are likely to be similar) or structural equivalence (nodes with similarly structured neighborhoods are likely to be similar). Random walks that are closer to depth-first search tend to get further away from their start node, so they’ll have a better sense of the community structure of a given graph and we’ll get more information about node homophily (in theory). However, longer-range dependencies can be harder to make sense of and more complicated. If we instead do something more like a breadth-first search, we’re thinking more about structural equivalence – whose neighborhoods looks similar? This isn’t likely to explore more distant parts of the graph, and nodes will repeat themselves a lot in a given walk. So Grover &amp; Leskovec structured their random walks with hyperparameters <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span> that allow us to figure out where on the BFS - DFS spectrum we want to end up.</p>
-<p>Our non-normalized probability <span class="math notranslate nohighlight">\(\alpha(v, x) * w(v, x)\)</span> of visiting a given node <span class="math notranslate nohighlight">\(x\)</span> after having visited <span class="math notranslate nohighlight">\(v\)</span> in the previous step is:
-$<span class="math notranslate nohighlight">\(
-\alpha(v, x) = 
+<p><a class="reference external" href="https://arxiv.org/pdf/1607.00653">Node2Vec</a> follows similar logic to Word2Vec. We do random walks through a network and treat these random walks like sentences. Then we can do CBOW or Skip-Gram to obtain node embeddings. At each iteration, Node2Vec samples $n * r$ random walks (with $r$ walks starting at each node). It has hyperparameters that influence how much we revisit nodes ($p$) and how much we favor visiting close nodes versus nodes that are further from where we started ($q$).</p>
+<p>When people around the time of Node2Vec were thinking about building node embeddings, they tended to consider homophily (nodes that are linked are likely to be similar) or structural equivalence (nodes with similarly structured neighborhoods are likely to be similar). Random walks that are closer to depth-first search tend to get further away from their start node, so they’ll have a better sense of the community structure of a given graph and we’ll get more information about node homophily (in theory). However, longer-range dependencies can be harder to make sense of and more complicated. If we instead do something more like a breadth-first search, we’re thinking more about structural equivalence – whose neighborhoods looks similar? This isn’t likely to explore more distant parts of the graph, and nodes will repeat themselves a lot in a given walk. So Grover &amp; Leskovec structured their random walks with hyperparameters $p$ and $q$ that allow us to figure out where on the BFS - DFS spectrum we want to end up.</p>
+<p>Our non-normalized probability $\alpha(v, x) * w(v, x)$ of visiting a given node $x$ after having visited $v$ in the previous step is:
+$$
+\alpha(v, x) =
 \begin{cases}
-\frac{1}{p} &amp; if d(v, x) = 0 \\
-1 &amp; if d(v, x) = 1 \\
+\frac{1}{p} &amp; if d(v, x) = 0 \
+1 &amp; if d(v, x) = 1 \
 \frac{1}{q} &amp; if d(v, x) = 2
 \end{cases}
-\)</span>$</p>
-<p>where <span class="math notranslate nohighlight">\(d(i, j)\)</span> is the number of hops between node <span class="math notranslate nohighlight">\(i\)</span> and node <span class="math notranslate nohighlight">\(j\)</span>.</p>
+$$</p>
+<p>where $d(i, j)$ is the number of hops between node $i$ and node $j$.</p>
 <hr class="docutils" />
 <p>Here’s an image from the original Node2Vec paper of the different outcomes of Node2Vec on a network generated from the novel <em>Les Misérables</em> with hyperparameter settings that lean more towards prioritizing homophily (closer to DFS) and structural equivalence (closer to BFS).</p>
 <p><img alt="lesmis" src="../../_images/les_mis_node2vec.png" /></p>
@@ -684,7 +682,7 @@ Epoch: 050, Loss: 0.7698
 </div>
 </div>
 <p>Now that we’ve created embeddings from the Cambridge street network, we’ll want to figure out how useful our embeddings actually are! To do so, we’ll use a clustering algorithm. Clustering can be useful for recommendation algorithms, pattern recognition, and more. We want to partition our dataset such that objects within groups are more similar to objects in the same group than other groups – so it’s similar logic to community detection.</p>
-<p>K-means is a popular clustering algorithm that we’ll try out today; it partitions the dataset into <span class="math notranslate nohighlight">\(k\)</span> clusters, and each point is assigned to the cluster whose centroid (its mean) is closest to that point. Here’s a <a class="reference external" href="https://www.youtube.com/watch?v=R2e3Ls9H_fc">video</a> of K-means in action. It starts by randomly assigning centroids and then assigning each point to its closest centroid. Then, the centroid is recalculated (based on the mean of the points assigned to the cluster) and the process repeats until convergence.</p>
+<p>K-means is a popular clustering algorithm that we’ll try out today; it partitions the dataset into $k$ clusters, and each point is assigned to the cluster whose centroid (its mean) is closest to that point. Here’s a <a class="reference external" href="https://www.youtube.com/watch?v=R2e3Ls9H_fc">video</a> of K-means in action. It starts by randomly assigning centroids and then assigning each point to its closest centroid. Then, the centroid is recalculated (based on the mean of the points assigned to the cluster) and the process repeats until convergence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cx</span>
@@ -723,12 +721,12 @@ Let’s think of some applications for GNNs. What would you use a GNN to do?</p>
 </section>
 <section id="how-do-we-learn-about-nodes-neighborhoods">
 <h2>How do we learn about nodes’ neighborhoods?<a class="headerlink" href="#how-do-we-learn-about-nodes-neighborhoods" title="Link to this heading">#</a></h2>
-<p>Nodes in networks notably have neighborhoods of variable size, but we want to represent all nodes with vectors of the same size. So an approach like word2vec might not work if we’re trying to aggregate information about a node’s neighborhood. Recall that we concatenated one-hot vectors representing the <span class="math notranslate nohighlight">\(k\)</span> words surrounding a word in a sentence to form a word’s context when training word2vec – but how do we know which <span class="math notranslate nohighlight">\(k\)</span> nodes ought to form the “context” of a node with far more than <span class="math notranslate nohighlight">\(k\)</span> neighbors?</p>
+<p>Nodes in networks notably have neighborhoods of variable size, but we want to represent all nodes with vectors of the same size. So an approach like word2vec might not work if we’re trying to aggregate information about a node’s neighborhood. Recall that we concatenated one-hot vectors representing the $k$ words surrounding a word in a sentence to form a word’s context when training word2vec – but how do we know which $k$ nodes ought to form the “context” of a node with far more than $k$ neighbors?</p>
 <section id="enter-permutation-invariant-functions">
 <h3>enter…permutation-invariant functions<a class="headerlink" href="#enter-permutation-invariant-functions" title="Link to this heading">#</a></h3>
 <section id="what-is-a-permutation-invariant-function">
 <h4>What is a permutation-invariant function?<a class="headerlink" href="#what-is-a-permutation-invariant-function" title="Link to this heading">#</a></h4>
-<p>Permutation-invariant functions take in multiple inputs (say, a list of inputs), and they produce the same output regardless of the order in which the inputs are given. So if <span class="math notranslate nohighlight">\(f(x, y, z) = f(y, z, x)\)</span>, and so on for all orderings of <span class="math notranslate nohighlight">\(x, y, z\)</span>, then <span class="math notranslate nohighlight">\(f\)</span> is permutation-invariant.</p>
+<p>Permutation-invariant functions take in multiple inputs (say, a list of inputs), and they produce the same output regardless of the order in which the inputs are given. So if $f(x, y, z) = f(y, z, x)$, and so on for all orderings of $x, y, z$, then $f$ is permutation-invariant.</p>
 </section>
 <section id="why-do-we-care-about-permutation-invariance">
 <h4>Why do we care about permutation-invariance?<a class="headerlink" href="#why-do-we-care-about-permutation-invariance" title="Link to this heading">#</a></h4>
@@ -924,41 +922,34 @@ Epoch: 050, Loss: 0.3822, Accuracy: 0.6726
 <h3>What ingredients do we need to do backpropagation?<a class="headerlink" href="#what-ingredients-do-we-need-to-do-backpropagation" title="Link to this heading">#</a></h3>
 <p>First, we need a loss function. Our loss function (or cost function) needs to be differentiable with respect to the weights and biases we use in the network. Our loss also has to be expressed as a function of the input and our weights and biases. For example, let’s look at a toy example with one hidden layer and a mean squared error (MSE) loss function.</p>
 <p><img alt="feed-forward NN" src="https://miro.medium.com/v2/resize:fit:3200/1*ycDUAMaxDYaHx7xl9pqEjg.png" /></p>
-<p>The simplified output <span class="math notranslate nohighlight">\(g(\vec{x})\)</span> of our neural network with input <span class="math notranslate nohighlight">\(\vec{x}\)</span>, given weight matrices <span class="math notranslate nohighlight">\(W^{(1)}\)</span> and <span class="math notranslate nohighlight">\(W^{(2)}\)</span> and generic activation functions <span class="math notranslate nohighlight">\(\sigma^{(1)}\)</span> and <span class="math notranslate nohighlight">\(\sigma^{(2)}\)</span>, is</p>
-<div class="math notranslate nohighlight">
-\[g(x) = \sigma^{(2)}(W^{(2)} \sigma^{(1)}(W^{(1)} \vec{x}))\]</div>
-<p>Our loss function, with ground truth <span class="math notranslate nohighlight">\(\vec{z}\)</span>, is <span class="math notranslate nohighlight">\(\lvert \lvert g(\vec{x}) - \vec{z} \rvert \rvert\)</span>. In the generalized sense, we can use a generic loss function <span class="math notranslate nohighlight">\(C(g(\vec{x}), \vec{z})\)</span>.</p>
+<p>The simplified output $g(\vec{x})$ of our neural network with input $\vec{x}$, given weight matrices $W^{(1)}$ and $W^{(2)}$ and generic activation functions $\sigma^{(1)}$ and $\sigma^{(2)}$, is</p>
+<p>$$g(x) = \sigma^{(2)}(W^{(2)} \sigma^{(1)}(W^{(1)} \vec{x}))$$</p>
+<p>Our loss function, with ground truth $\vec{z}$, is $\lvert \lvert g(\vec{x}) - \vec{z} \rvert \rvert$. In the generalized sense, we can use a generic loss function $C(g(\vec{x}), \vec{z})$.</p>
 <p>Next, we need partial derivatives and the chain rule!</p>
-<p>This is how backpropagation adjusts the weights – we compute the partial derivative of our cost function <span class="math notranslate nohighlight">\(C\)</span> with respect to one weight from node <span class="math notranslate nohighlight">\(i\)</span> to node <span class="math notranslate nohighlight">\(j\)</span> in the <span class="math notranslate nohighlight">\(2^{nd}\)</span> matrix of weights:</p>
-<div class="math notranslate nohighlight">
-\[\frac{\delta C}{\delta w^{(2)}_{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{\delta w^{(2)}_{ij}}\]</div>
-<p>Here, <span class="math notranslate nohighlight">\(y_j\)</span> is the <span class="math notranslate nohighlight">\(j^{th}\)</span> output of our network (in the output layer).</p>
-<div class="math notranslate nohighlight">
-\[y_j = \sigma^{(2)}(\sum_{i}w^{(2)}_{ij} * h_i)\]</div>
-<p>In other words, we’re passing the dot product of row <span class="math notranslate nohighlight">\(j\)</span> of <span class="math notranslate nohighlight">\(W^{(2)}\)</span> and <span class="math notranslate nohighlight">\(\vec{h}\)</span>, our hidden layer’s output, through a sigmoid function. Let’s call <span class="math notranslate nohighlight">\(\sum_{i}w^{(2)}_{ij} * h_i\)</span> <span class="math notranslate nohighlight">\(o_j\)</span>, and let’s expand our partial derivative expression using the chain rule once more.</p>
-<div class="math notranslate nohighlight">
-\[\frac{\delta C}{\delta w^{(2)}_{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{o_j} \frac{o_j}{\delta w^{(2)}_{ij}}\]</div>
-<p>What are we doing here? We’re tracing how our specific weight <span class="math notranslate nohighlight">\(w^{(2)}_{ij}\)</span> affects our computed loss for a particular input (or batch of inputs).</p>
-<p>We know that <span class="math notranslate nohighlight">\(\frac{\delta y_j}{o_j}\)</span> is the partial derivative of the activation function <span class="math notranslate nohighlight">\(\sigma^{(2)}\)</span>.</p>
-<p>Additionally, we know that <span class="math notranslate nohighlight">\(\frac{o_j}{\delta w^{(2)}_{ij}}\)</span> is</p>
-<div class="math notranslate nohighlight">
-\[\frac{\delta}{\delta w^{(2)}_{ij}}\sum_{k}w^{(2)}_{kj}h_k\]</div>
-<p>Only one term in this sum relies on <span class="math notranslate nohighlight">\(w^{(2)}_{ij}\)</span> – that’s <span class="math notranslate nohighlight">\(w^{(2)}_{ij} h_i\)</span>. This means this part of our partial derivative reduces to</p>
-<div class="math notranslate nohighlight">
-\[\frac{o_j}{\delta w^{(2)}_{ij}} = h_i\]</div>
-<p>Now let’s look at <span class="math notranslate nohighlight">\(\frac{\delta y_j}{h_j}\)</span>. Let’s say we’re using a sigmoid activation function; in this case, this part of our partial derivative is</p>
-<div class="math notranslate nohighlight">
-\[\frac{\delta}{\delta h_j}\sigma(h_j) = \sigma(h_j) (1 - \sigma(h_j)) = y_j * (1 - y_j)\]</div>
-<p>If we’re using MSE for the loss function <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(\vec{z}\)</span> is our ground truth answer,</p>
-<p>$<span class="math notranslate nohighlight">\(\frac{\delta C}{\delta y_j} = 2 (z_j - y_j)\)</span>$.</p>
-<p>Therefore, the gradient of our loss with respect to <span class="math notranslate nohighlight">\(w^{(2)}_{ij}\)</span> is</p>
-<p>$<span class="math notranslate nohighlight">\(\frac{\delta C}{\delta w^{(2)}_{ij}} = 2 (z_j - y_j) * y_j * (1 - y_j) * h_i\)</span>$.</p>
+<p>This is how backpropagation adjusts the weights – we compute the partial derivative of our cost function $C$ with respect to one weight from node $i$ to node $j$ in the $2^{nd}$ matrix of weights:</p>
+<p>$$\frac{\delta C}{\delta w^{(2)}<em>{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{\delta w^{(2)}</em>{ij}}$$</p>
+<p>Here, $y_j$ is the $j^{th}$ output of our network (in the output layer).</p>
+<p>$$y_j = \sigma^{(2)}(\sum_{i}w^{(2)}_{ij} * h_i)$$</p>
+<p>In other words, we’re passing the dot product of row $j$ of $W^{(2)}$ and $\vec{h}$, our hidden layer’s output, through a sigmoid function. Let’s call $\sum_{i}w^{(2)}_{ij} * h_i$ $o_j$, and let’s expand our partial derivative expression using the chain rule once more.</p>
+<p>$$\frac{\delta C}{\delta w^{(2)}<em>{ij}} = \frac{\delta C}{\delta y_j} \frac{\delta y_j}{o_j} \frac{o_j}{\delta w^{(2)}</em>{ij}}$$</p>
+<p>What are we doing here? We’re tracing how our specific weight $w^{(2)}_{ij}$ affects our computed loss for a particular input (or batch of inputs).</p>
+<p>We know that $\frac{\delta y_j}{o_j}$ is the partial derivative of the activation function $\sigma^{(2)}$.</p>
+<p>Additionally, we know that $\frac{o_j}{\delta w^{(2)}_{ij}}$ is</p>
+<p>$$\frac{\delta}{\delta w^{(2)}<em>{ij}}\sum</em>{k}w^{(2)}_{kj}h_k$$</p>
+<p>Only one term in this sum relies on $w^{(2)}<em>{ij}$ – that’s $w^{(2)}</em>{ij} h_i$. This means this part of our partial derivative reduces to</p>
+<p>$$\frac{o_j}{\delta w^{(2)}_{ij}} = h_i$$</p>
+<p>Now let’s look at $\frac{\delta y_j}{h_j}$. Let’s say we’re using a sigmoid activation function; in this case, this part of our partial derivative is</p>
+<p>$$\frac{\delta}{\delta h_j}\sigma(h_j) = \sigma(h_j) (1 - \sigma(h_j)) = y_j * (1 - y_j)$$</p>
+<p>If we’re using MSE for the loss function $C$ and $\vec{z}$ is our ground truth answer,</p>
+<p>$$\frac{\delta C}{\delta y_j} = 2 (z_j - y_j)$$.</p>
+<p>Therefore, the gradient of our loss with respect to $w^{(2)}_{ij}$ is</p>
+<p>$$\frac{\delta C}{\delta w^{(2)}_{ij}} = 2 (z_j - y_j) * y_j * (1 - y_j) * h_i$$.</p>
 </section>
 <section id="moving-right-along-tl-dr-for-those-who-hate-math">
 <h3>Moving right along/TL;DR (For those who hate math!!)<a class="headerlink" href="#moving-right-along-tl-dr-for-those-who-hate-math" title="Link to this heading">#</a></h3>
 <p>We take partial derivatives with the chain rule to figure out how much our loss function changes with respect to a particular parameter (like a weight or bias) in the neural network.</p>
-<p>Then we can change that specific weight with this information. We usually have a learning rate <span class="math notranslate nohighlight">\(\eta\)</span> (or an optimizer that governs the learning rate, which is fancier) that tells us how much to change a weight/bias with respect to our computed gradient.</p>
-<p>$<span class="math notranslate nohighlight">\(\delta w^{(2)}_{ij} = \eta \frac{\delta C}{\delta w^{(2)}_{ij}}\)</span>$.</p>
+<p>Then we can change that specific weight with this information. We usually have a learning rate $\eta$ (or an optimizer that governs the learning rate, which is fancier) that tells us how much to change a weight/bias with respect to our computed gradient.</p>
+<p>$$\delta w^{(2)}<em>{ij} = \eta \frac{\delta C}{\delta w^{(2)}</em>{ij}}$$.</p>
 <p>We don’t want to update our parameters too much based on any one example, which is why the learning rate tends to be pretty small (much less than 1) and optimizers will lower the learning rate as training goes on and the model gets better at its task.</p>
 <hr class="docutils" />
 <p>Let’s review how backpropagation works by watching <a class="reference external" href="https://www.youtube.com/watch?v=GlcnxUlrtek&amp;amp;list=PLiaHhY2iBX9hdHaRr6b7XevZtgZRa1PoU&amp;amp;index=4">this video</a>.</p>
@@ -971,35 +962,31 @@ Epoch: 050, Loss: 0.3822, Accuracy: 0.6726
 <section id="what-is-a-convolution-in-image-processing-world">
 <h3>What is a convolution in image processing world?<a class="headerlink" href="#what-is-a-convolution-in-image-processing-world" title="Link to this heading">#</a></h3>
 <p>A <strong>convolution matrix</strong>, or <strong>kernel</strong>, is used in image processing to blur, enhance, sharpen, or detect edges in an image. It’s a small matrix (relative to the size of the image) that is applied to each pixel in the image <strong>and its neighbors within a certain distance</strong>.</p>
-<p>The generic equation for a kernel is this, where <span class="math notranslate nohighlight">\(\omega\)</span> is the kernel matrix, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> indicate the dimensions of the kernel, and <span class="math notranslate nohighlight">\(f(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the image:</p>
-<div class="math notranslate nohighlight">
-\[g(x, y) = \sum_{i=-a}^{a} \sum^{b}_{j=-b} \omega(i, j) f(x-i, y-j)\]</div>
-<p>Here, <span class="math notranslate nohighlight">\(g(x, y)\)</span> is the <span class="math notranslate nohighlight">\((x, y)^{th}\)</span> pixel of the output image.</p>
+<p>The generic equation for a kernel is this, where $\omega$ is the kernel matrix, $a$ and $b$ indicate the dimensions of the kernel, and $f(x, y)$ is the $(x, y)^{th}$ pixel of the image:</p>
+<p>$$g(x, y) = \sum_{i=-a}^{a} \sum^{b}_{j=-b} \omega(i, j) f(x-i, y-j)$$</p>
+<p>Here, $g(x, y)$ is the $(x, y)^{th}$ pixel of the output image.</p>
 <p>Here’s a visual example of a convolution matrix being applied to a single pixel (from <a class="reference external" href="https://zaforf.github.io/isp/study/CNN/">this primer on CNNs by Zafir Nasim</a>):
 <img alt="" src="https://anhreynolds.com/img/cnn.png" /></p>
 </section>
 <section id="graph-convolutions">
 <h3>Graph Convolutions<a class="headerlink" href="#graph-convolutions" title="Link to this heading">#</a></h3>
 <p>You might say, cool, that’s neat, but how does that apply to graphs? First of all, graph neighborhoods are not rectangular in shape, and graphs notably have degree <em>distributions</em> - not every node has the same number of neighbors (far from it)!</p>
-<p>Let’s tackle what happens in GCNs at the node level first. We’ll look at how we create our first embedding for node <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(h_{i}^{(1)}\)</span>.</p>
-<p>We know we need to merge our node features with those of our neighbors, so we define a node <span class="math notranslate nohighlight">\(i\)</span>’s neighborhood here as <span class="math notranslate nohighlight">\(i\)</span>’s neighbors plus <span class="math notranslate nohighlight">\(i\)</span> itself. We’ll denote this as <span class="math notranslate nohighlight">\(\tilde{N_i}\)</span>.</p>
-<p>In the simplest case, we could create a weight matrix <span class="math notranslate nohighlight">\(W_i\)</span> and multiply each node <span class="math notranslate nohighlight">\(j\)</span>’s features <span class="math notranslate nohighlight">\(x_j\)</span> by <span class="math notranslate nohighlight">\(W_i\)</span>, then sum them:</p>
-<div class="math notranslate nohighlight">
-\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
+<p>Let’s tackle what happens in GCNs at the node level first. We’ll look at how we create our first embedding for node $i$, $h_{i}^{(1)}$.</p>
+<p>We know we need to merge our node features with those of our neighbors, so we define a node $i$’s neighborhood here as $i$’s neighbors plus $i$ itself. We’ll denote this as $\tilde{N_i}$.</p>
+<p>In the simplest case, we could create a weight matrix $W_i$ and multiply each node $j$’s features $x_j$ by $W_i$, then sum them:</p>
+<p>$$h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} W^{(1)} x_j$$</p>
 <p>This seems neat, but there’s a small problem.</p>
 <p><strong>INTERACTIVE MOMENT</strong>: Nodes in graphs notably don’t all have the same degree. What’s going to happen to the vectors of high-degree nodes as compared to those of low-degree nodes right now? How might we fix this?</p>
 <hr class="docutils" />
-<p>Spoiler alert: we’re going to divide by <span class="math notranslate nohighlight">\(k_i\)</span>, the degree of node <span class="math notranslate nohighlight">\(i\)</span>. This keeps vector magnitudes around the same-ish size.</p>
-<div class="math notranslate nohighlight">
-\[h_{i}^{(1)} = \frac{1}{k_i}\sum_{j \in \tilde{N_i}} W^{(1)} x_j\]</div>
+<p>Spoiler alert: we’re going to divide by $k_i$, the degree of node $i$. This keeps vector magnitudes around the same-ish size.</p>
+<p>$$h_{i}^{(1)} = \frac{1}{k_i}\sum_{j \in \tilde{N_i}} W^{(1)} x_j$$</p>
 <p>However, there’s one more improvement we can make. Kipf and Welling noticed that features from high-degree nodes tended to propagate through the network more easily than those from low-degree nodes. They therefore up-weight the lower-degree nodes’ contributions in the following way:</p>
-<div class="math notranslate nohighlight">
-\[h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} \frac{1}{\sqrt{k_i}}\frac{1}{\sqrt{k_j}} W^{(1)} x_j\]</div>
+<p>$$h_{i}^{(1)} = \sum_{j \in \tilde{N_i}} \frac{1}{\sqrt{k_i}}\frac{1}{\sqrt{k_j}} W^{(1)} x_j$$</p>
 <p><strong>INTERACTIVE MOMENT</strong>: Why does this work?</p>
 <section id="matrix-formulation">
 <h4>Matrix Formulation<a class="headerlink" href="#matrix-formulation" title="Link to this heading">#</a></h4>
-<p>There’s also a neat way we can formulate this as a matrix multiplication. Here, <span class="math notranslate nohighlight">\(\hat{A}\)</span> is the adjacency matrix with self-loops added, and <span class="math notranslate nohighlight">\(\hat{D}\)</span> is <span class="math notranslate nohighlight">\(\hat{A}\)</span>’s degree matrix (i.e. <span class="math notranslate nohighlight">\(A + I\)</span>). <span class="math notranslate nohighlight">\(H^{(l)}\)</span> is the matrix of node embeddings coming into layer <span class="math notranslate nohighlight">\(l\)</span>, and <span class="math notranslate nohighlight">\(W^{(l)}\)</span> is the weight matrix of layer <span class="math notranslate nohighlight">\(l\)</span>:</p>
-<p>$<span class="math notranslate nohighlight">\(f(H^{(l)}, A) = \sigma(\hat{D}^{-\frac{1}{2}} \hat{A} \hat{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\)</span>$.</p>
+<p>There’s also a neat way we can formulate this as a matrix multiplication. Here, $\hat{A}$ is the adjacency matrix with self-loops added, and $\hat{D}$ is $\hat{A}$’s degree matrix (i.e. $A + I$). $H^{(l)}$ is the matrix of node embeddings coming into layer $l$, and $W^{(l)}$ is the weight matrix of layer $l$:</p>
+<p>$$f(H^{(l)}, A) = \sigma(\hat{D}^{-\frac{1}{2}} \hat{A} \hat{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})$$.</p>
 </section>
 </section>
 </section>
@@ -1014,12 +1001,12 @@ Epoch: 050, Loss: 0.3822, Accuracy: 0.6726
 <ol class="arabic simple">
 <li><p>Class Webpages</p>
 <ul class="simple">
-<li><p>Jupyter Book: <a class="reference external" href="https://network-science-data-and-models.github.io/phys7332_fa25/README.html">https://network-science-data-and-models.github.io/phys7332_fa25/README.html</a></p></li>
-<li><p>Github: <a class="github reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/">network-science-data-and-models/phys7332_fa25</a></p></li>
-<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a></p></li>
+<li><p>Jupyter Book: https://network-science-data-and-models.github.io/phys7332_fa25/README.html</p></li>
+<li><p>Github: https://github.com/network-science-data-and-models/phys7332_fa25/</p></li>
+<li><p>Syllabus and course details: https://brennanklein.com/phys7332-fall25</p></li>
 </ul>
 </li>
-<li><p>Github! Find papers with figures that you like and stalk the authors’ github pages! I’ll start with a few from my own github… <a class="github reference external" href="https://github.com/jkbren/networks-and-dataviz?tab=readme-ov-file">jkbren/networks-and-dataviz</a>. But send over any that you like and we’ll add them to the list!</p></li>
+<li><p>Github! Find papers with figures that you like and stalk the authors’ github pages! I’ll start with a few from my own github… https://github.com/jkbren/networks-and-dataviz?tab=readme-ov-file. But send over any that you like and we’ll add them to the list!</p></li>
 </ol>
 </section>
 </section>
