@@ -14,7 +14,6 @@ This course offers an introduction to network analysis and is designed to provid
 ## Instructors
 **Brennan Klein** is core faculty at the Network Science Institute at Northeastern University and Assistant Teaching Professor in the Department of Physics. He is the director of the Complexity & Society Lab, which spans two broad research areas: 1) Information, emergence, and inference in complex systems — developing tools and theory for characterizing dynamics, structure, and scale in networks, and 2) Public health and public safety — creating and analyzing large-scale datasets that reveal inequalities in the U.S., from epidemics to mass incarceration. In 2023, Prof. Klein was awarded the René Thom Young Researcher Award, given to a researcher to recognize substantial early career contributions and leadership in research in Complex Systems-related fields. He received a PhD in Network Science in 2020 from Northeastern University and a BA in Cognitive Science from Swarthmore College in 2014. Website: [http://brennanklein.com/](brennanklein.com).
 
-<!-- **Alyssa Smith** is a fourth-year PhD student in Network Science at Northeastern University. Her current work focuses on the ways that structure and agency interact in social networks to encourage mobilization. She is interested in making big data and computational tools usable by academics without specialized technical training. She use mixed methods, ranging from terabyte-scale datasets to autoethnography, to make sense of the world. Her dissertation work revolves around __structure__  -- the place one occupies in a social network -- and __agency__ -- an individual’s characteristics and proclivities -- which are thought to be the two main driving forces behind engagement in social movements. We can think of structure and agency as two separate, competing factors, or we can think of them as a duality: in much the same way that light is both a particle and a wave, the interplay of structure and agency is what governs mobilization. Before joining the Network Science Institute, Alyssa received a BS in Humanities and Engineering with Comparative Media Studies and Computer Science from MIT in 2017; after that, she worked in tech for 4 years. Website: [https://asmithh.github.io/](https://asmithh.github.io/). -->
 
 
 ## Course Learning Outcomes
@@ -48,57 +47,56 @@ This is a twice-weekly hands-on class that emphasizes building experience with c
 The final project for this course is a chance for students to synthesize their knowledge of network analysis into pedagogical materials around a topic of their choosing. Modeled after chapters in the Jupyter book for this course, students will be required to make a new "chapter" for our class's textbook; this requires creating a thoroughly documented, informative Python notebook that explains an *advanced* topic that was not deeply explored in the course. For these projects, students are required to conduct their own research into the background of the technique, the original paper(s) introducing the topic, and how/if it is currently used in today's network analysis literature. Students will demonstrate that they have mastered this technique by using informative data for illustrating the usefulness of the topic they've chosen. Every chapter should contain informative data visualizations that build on one another, section-by-section. The purpose of this assignment is to demonstrate the coding skills gained in this course, doing so by learning a new network analysis technique and sharing it with members of the class. Over time, these lessons may find their way into the curriculum for future iterations of this class. Halfway through the semester, there will be project update presentations where students receive class and instructor feedback on their project topics. Throughout, we will be available to brainstorm students' ideas for project topics.
 
 #### Ideas for Final Project Chapters (non-exhaustive)
+1. ~~Network Geometry and Random Hyperbolic Graphs~~
+2. ~~Information Theory in/of Complex Networks~~
+3. ~~Simple vs. Complex Contagion~~
+4. ~~Self-organized Criticality in Networks~~
+5. ~~Hypergraphs~~
+6. ~~Multilayer Urban Networks~~
+7. ~~Temporal Community Detection~~
 1. Motifs in Networks
-2. Mechanistic vs Statistical Network Models
-3. Robustness / Resilience of Network Structure
-4. Network Game Theory (Prisoner’s Dilemma, Schelling Model, etc.)
-5. Homophily in Networks
-6. Network Geometry and Random Hyperbolic Graphs
-7. Information Theory in/of Complex Networks
-7. Discrete Models of Network Dynamics (Voter model, Ising model, SIS, etc.)
-8. Continuous Models of Network Dynamics (Kuramoto model, Lotka-Volterra model, etc.)
-10. Percolation in Networks
-11. Signed Networks
-12. Coarse Graining Networks
-13. Mesoscale Structure in Networks (e.g. core-periphery)
-14. Graph Isomorphism and Approximate Isomorphism
-15. Inference in Networks: Beyond Community Detection
-16. Activity-Driven Network Models
-17. Forecasting with Networks
-18. Higher-Order Networks
-19. Introduction to Graph Neural Networks
-20. Hopfield Networks and Boltzmann Machines
-21. Graph Curvature or Topology
-22. Reservoir Computing
-23. Adaptive Networks
-24. Multiplex/Multilayer Networks
-25. Simple vs. Complex Contagion
+2. Signed Networks
+3. Percolation in Networks
+4. Coarse Graining Networks
+5. Graph Curvature or Topology
+6. Adaptive Networks
+7. Network Game Theory (Prisoner’s Dilemma, Schelling Model, etc.)
+8. Network Rewiring Dynamics
+9. Fitting Distributions to Network Data
+10. Hierarchical Networks
+11. Ranking in Networks
+12. Mechanistic vs Statistical Network Models
+13. Discrete Models of Network Dynamics (Voter model, Ising model, SIS, etc.)
+14. Continuous Models of Network Dynamics (Kuramoto model, Lotka-Volterra model, etc.)
+15. Robustness / Resilience of Network Structure
+16. Mesoscale Structure in Networks (e.g. core-periphery)
+17. Graph Isomorphism and Approximate Isomorphism
+18. Inference in Networks: Beyond Community Detection
+19. Activity-Driven Network Models
+20. Forecasting with Networks
+21. Higher-Order Networks
+22. Introduction to Graph Neural Networks
+23. Hopfield Networks and Boltzmann Machines
+24. Reservoir Computing
+25. Multiplex/Multilayer Networks
 26. Graph Summarization Techniques
 27. Network Anomalies
 28. Modeling Cascading Failures
 29. Topological Data Analysis in Networks
-30. Self-organized Criticality in Networks
-31. Network Rewiring Dynamics
-32. Fitting Distributions to Network Data
-33. Hierarchical Networks
-34. Ranking in Networks
-35. Deeper Dive: Random Walks on Networks
-36. Deeper Dive: Directed Networks
-37. Deeper Dive: Network Communities
-38. Deeper Dive: Network Null Models
-39. Deeper Dive: Network Paths and their Statistics
-40. Deeper Dive: Network Growth Models
-41. Deeper Dive: Network Sampling
-42. Deeper Dive: Spatially-Embedded and Urban Networks
-43. Deeper Dive: Hypothesis Testing in Social Networks
-44. Deeper Dive: Working with Massive Data
-45. Deeper Dive: Bipartite Networks
-46. Many more possible ideas! Send us whatever you come up with
+30. Deeper Dive: Random Walks on Networks
+31. Deeper Dive: Directed Networks
+32. Deeper Dive: Network Communities
+33. Deeper Dive: Network Null Models
+34. Deeper Dive: Network Paths and their Statistics
+35. Deeper Dive: Network Growth Models
+36. Deeper Dive: Network Sampling
+37. Deeper Dive: Spatially-Embedded and Urban Networks
+38. Deeper Dive: Hypothesis Testing in Social Networks
+39. Deeper Dive: Working with Massive Data
+40. Deeper Dive: Bipartite Networks
+41. Many more possible ideas! Send us whatever you come up with
 
 
-
-
-### Schedule
 
 ### Schedule
 
@@ -125,7 +123,7 @@ The final project for this course is a chance for students to synthesize their k
 | Fri, Oct 3, 25  | **Class 9:** Clustering & Community Detection 2 — Contemporary             |
 |                 |                                                                            |
 | Mon, Oct 6, 25  | *Announce Assignment 2*                                                    |
-| Wed, Oct 8, 25  | **Class 10:** Clustering & Community Detection 3 — Advanced                |
+| Wed, Oct 8, 25  | ~~**Class 10:** Clustering & Community Detection 3 — Advanced ~~           |
 | Fri, Oct 10, 25 | **Class 11:** Project Update Presentations                                 |
 |                 |                                                                            |
 | Mon, Oct 13, 25 | **Indigenous Peoples’ Day**                                                |
@@ -157,12 +155,12 @@ The final project for this course is a chance for students to synthesize their k
 | Fri, Nov 28, 25 | ---                                                                        |
 |                 |                                                                            |
 | Mon, Dec 1, 25  | ---                                                                        |
-| Wed, Dec 3, 25  | **Class 24:** Big Data — Scalability & Cluster Computing                   |
-| Fri, Dec 5, 25  | **Class 25:** Spatial Data, OSMnx, GeoPandas                               |
+| Wed, Dec 3, 25  | **Class 24:** Spatial Data, OSMnx, GeoPandas                               |
+| Fri, Dec 5, 25  | **Class 25:** Final Presentations                                          |
 |                 |                                                                            |
 | Mon, Dec 8, 25  | ---                                                                        |
-| Thu, Dec 11, 25 | **Class 26:** Final Presentations                                          |
-| Fri, Dec 12, 25 | ---                                                                        |
+| Wed, Dec 10, 25 | **No class**                                                               |
+| Fri, Dec 12, 25 | **No class**                                                               |
 
 
 ```{tableofcontents}
