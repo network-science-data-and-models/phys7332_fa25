@@ -23,17 +23,17 @@ chapters:
   - file: notebooks/class_09/class_09_communities2
     title: "Class 09: Clustering & Community Detection 2 — Contemporary"
   - file: notebooks/class_12/class_12_visualization_python
-    title: "Class 12: Visualization 1 — Python"
+    title: "Class 12: Visualization 1 — Python and Matplotlib"
   - file: notebooks/class_13/class_13_visualization_python
     title: "Class 13: Visualization 2 — Advanced Python"
   - file: notebooks/class_14/class_14_graph_machine_learning_1
-    title: "Class 14: Graph Machine Learning 1"
+    title: "Class 14: Machine Learning 1 - General"
   - file: notebooks/class_15/class_15_graph_ml_2
-    title: "Class 15: Graph Machine Learning 2"
+    title: "Class 15: Machine Learning 2 - Graph Convolutional Networks"
   - file: notebooks/class_16/class_16_dynamics1
-    title: "Class 16: Dynamics 1"
+    title: "Chapter 16: Dynamics on Networks 1 — Diffusion and Random Walks"
   - file: notebooks/class_17/class_17_dynamics2
-    title: "Class 17: Dynamics 2"
+    title: "Chapter 17: Dynamics on Networks 2 — Compartmental Models"
   # etc: append one chapter each week
 
 
