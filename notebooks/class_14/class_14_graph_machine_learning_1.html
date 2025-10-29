@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Class 14: Graph Machine Learning 1 &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
+    <title>Class 14: Machine Learning 1 - General &#8212; PHYS 7332: Network Science Data &amp; Models (Fall 2025)</title>
   
   
   
@@ -186,12 +186,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../class_07/class_07_creating_a_network_from_sql_tables.html">Class 07: Data Science 2 — SQL for Network Construction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../class_08/class_08_communities1.html">Class 08: Clustering &amp; Community Detection 1 — Traditional</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../class_09/class_09_communities2.html">Class 09: Clustering &amp; Community Detection 2 — Contemporary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../class_12/class_12_visualization_python.html">Class 12: Visualization 1 — Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_12/class_12_visualization_python.html">Class 12: Visualization 1 — Python and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../class_13/class_13_visualization_python.html">Class 13: Visualization 2 — Advanced Python</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Class 14: Graph Machine Learning 1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../class_15/class_15_graph_ml_2.html">Class 15: Graph Machine Learning 2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../class_16/class_16_dynamics1.html">Class 16: Dynamics 1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../class_17/class_17_dynamics2.html">Class 17: Dynamics 2</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Class 14: Machine Learning 1 - General</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_15/class_15_graph_ml_2.html">Class 15: Machine Learning 2 - Graph Convolutional Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_16/class_16_dynamics1.html">Chapter 16: Dynamics on Networks 1 — Diffusion and Random Walks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../class_17/class_17_dynamics2.html">Chapter 17: Dynamics on Networks 2 — Compartmental Models</a></li>
 </ul>
 
     </div>
@@ -377,7 +377,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Class 14: Graph Machine Learning 1</h1>
+    <h1>Class 14: Machine Learning 1 - General</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -387,7 +387,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-today-s-class">Goals of today’s class:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#today-s-dataset">Today’s Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-ml-principles">Basic ML Principles</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-splits">Train/Test Splits</a></li>
@@ -410,6 +409,8 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#freeform-experimentation">Freeform Experimentation!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
 </ul>
             </nav>
         </div>
@@ -421,16 +422,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="class-14-graph-machine-learning-1">
-<h1>Class 14: Graph Machine Learning 1<a class="headerlink" href="#class-14-graph-machine-learning-1" title="Link to this heading">#</a></h1>
-<section id="goals-of-today-s-class">
-<h2>Goals of today’s class:<a class="headerlink" href="#goals-of-today-s-class" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="class-14-machine-learning-1-general">
+<h1>Class 14: Machine Learning 1 - General<a class="headerlink" href="#class-14-machine-learning-1-general" title="Link to this heading">#</a></h1>
+<p>Goals of today’s class:</p>
 <ol class="arabic simple">
 <li><p>Understand, at a high level, how to train and evaluate a classifier.</p></li>
 <li><p>Implement some classifiers (that don’t involve neural networks) on a network dataset.</p></li>
 <li><p>Experiment with tweaking classifier type, hyperparameters, and training data size. Reason about how this impacts performance.</p></li>
 </ol>
-</section>
+<hr class="docutils" />
+<ol class="arabic simple">
+<li><p>Come in. Sit down. Open Teams.</p></li>
+<li><p>Find your notebook in your /Class_14/ folder.</p></li>
+</ol>
+<hr class="docutils" />
 <section id="today-s-dataset">
 <h2>Today’s Dataset<a class="headerlink" href="#today-s-dataset" title="Link to this heading">#</a></h2>
 <p>The network you’re about to look at is a German language network of Twitch streamers. Each node represents a user, and an edge between them means that they have a mutual friendship (so this is an undirected network). We also have some limited data about each user’s account. There’s a binary classification task for this dataset that involves predicting whether or not a streamer uses explicit language.</p>
@@ -966,6 +971,25 @@ F1: 0.6966127716739433
 </div>
 </div>
 </section>
+<hr class="docutils" />
+<section id="next-time">
+<h2>Next time…<a class="headerlink" href="#next-time" title="Link to this heading">#</a></h2>
+<p>Introduction to Machine Learning 2 — Graph ML <code class="docutils literal notranslate"><span class="pre">class_15_graph_ml_2</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="references-and-further-resources">
+<h2>References and further resources:<a class="headerlink" href="#references-and-further-resources" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Class Webpages</p>
+<ul class="simple">
+<li><p>Jupyter Book: <a class="reference external" href="https://network-science-data-and-models.github.io/phys7332_fa25/README.html">https://network-science-data-and-models.github.io/phys7332_fa25/README.html</a></p></li>
+<li><p>Github: <a class="github reference external" href="https://github.com/network-science-data-and-models/phys7332_fa25/">network-science-data-and-models/phys7332_fa25</a></p></li>
+<li><p>Syllabus and course details: <a class="reference external" href="https://brennanklein.com/phys7332-fall25">https://brennanklein.com/phys7332-fall25</a></p></li>
+</ul>
+</li>
+<li><p>Github! Find papers with figures that you like and stalk the authors’ github pages! I’ll start with a few from my own github… <a class="github reference external" href="https://github.com/jkbren/networks-and-dataviz?tab=readme-ov-file">jkbren/networks-and-dataviz</a>. But send over any that you like and we’ll add them to the list!</p></li>
+</ol>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1032,7 +1056,6 @@ F1: 0.6966127716739433
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-today-s-class">Goals of today’s class:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#today-s-dataset">Today’s Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-ml-principles">Basic ML Principles</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-splits">Train/Test Splits</a></li>
@@ -1055,6 +1078,8 @@ F1: 0.6966127716739433
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#freeform-experimentation">Freeform Experimentation!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-resources">References and further resources:</a></li>
 </ul>
   </nav></div>
 
