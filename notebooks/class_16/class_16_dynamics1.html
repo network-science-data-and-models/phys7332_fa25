@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_16/class_16_dynamics1';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -420,7 +422,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="class-16-dynamics-on-networks-1-diffusion-and-random-walks">
+  <section class="tex2jax_ignore mathjax_ignore" id="class-16-dynamics-on-networks-1-diffusion-and-random-walks">
 <h1>Class 16: Dynamics on Networks 1 — Diffusion and Random Walks<a class="headerlink" href="#class-16-dynamics-on-networks-1-diffusion-and-random-walks" title="Link to this heading">#</a></h1>
 <p>Goal of today’s class:</p>
 <ol class="arabic simple">
@@ -459,15 +461,16 @@ document.write(`
 <li><p>Lovász, L. (1993). Random walks on graphs. <em>Combinatorics, Paul Erdos is Eighty</em>, 2(1-46), 4. https://www.cse.cuhk.edu.hk/~cslui/CMSC5734/LovaszRadnomWalks93.pdf</p></li>
 </ol>
 <hr class="docutils" />
-<p>Consider a walker starting at an origin point $y=0$ on a 1-D integer lattice, where each position on the lattice corresponds to an integer. At each discrete time step, $t$, the walker either moves one step to <strong>up</strong> ($y_{t+1} = y_{t}+1$) or one step <strong>down</strong> ($y_{t+1} = y_{t}-1$), with equal probability, $P(\textrm{move up}) = P(\textrm{move down}) = \frac{1}{2}$. (Note this can also be thought of as a 1-D line that the walker moves left or right on, but for visualization purposes, let’s use up/down.) This unbiased process is governed by a Bernoulli distribution, where each step is independent of the previous ones.</p>
-<p>Let $Y_t$ denote the position of the random walker at time $t$. $Y_t$ can then be written as the sum of $t$ i.i.d. random variables $\eta_i$, where $\eta_i$ corresponds the outcome at each step (i.e., $\eta_i = \pm 1$), $Y_t = \sum_{i=1}^t \eta_i$. The expectation of $\eta_i$ is 0, and its variance is 1. Therefore, the expected position of a given random walker at time $t$ can be written $E[Y_t] = t E[\eta_i] = 0$, and the variance of the walker’s position grows with $t$ as $\textrm{Var}(Y_t) = t \textrm{Var}(\eta_i) = t$.</p>
-<p>As $t \rightarrow \infty$, we see that the position of the random walker can be estimated by a normal distribution $Y_t \sim \mathcal{N} (0, t)$ (see: the Central Limit Theorem), and as a result, the probability density over the walker’s position at large enough $t$ is:</p>
-<p>$$P(Y_t = y) \approx \dfrac{1}{\sqrt{2\pi t}} \exp \left (- \dfrac{y^2}{2t} \right)$$</p>
+<p>Consider a walker starting at an origin point <span class="math notranslate nohighlight">\(y=0\)</span> on a 1-D integer lattice, where each position on the lattice corresponds to an integer. At each discrete time step, <span class="math notranslate nohighlight">\(t\)</span>, the walker either moves one step to <strong>up</strong> (<span class="math notranslate nohighlight">\(y_{t+1} = y_{t}+1\)</span>) or one step <strong>down</strong> (<span class="math notranslate nohighlight">\(y_{t+1} = y_{t}-1\)</span>), with equal probability, <span class="math notranslate nohighlight">\(P(\textrm{move up}) = P(\textrm{move down}) = \frac{1}{2}\)</span>. (Note this can also be thought of as a 1-D line that the walker moves left or right on, but for visualization purposes, let’s use up/down.) This unbiased process is governed by a Bernoulli distribution, where each step is independent of the previous ones.</p>
+<p>Let <span class="math notranslate nohighlight">\(Y_t\)</span> denote the position of the random walker at time <span class="math notranslate nohighlight">\(t\)</span>. <span class="math notranslate nohighlight">\(Y_t\)</span> can then be written as the sum of <span class="math notranslate nohighlight">\(t\)</span> i.i.d. random variables <span class="math notranslate nohighlight">\(\eta_i\)</span>, where <span class="math notranslate nohighlight">\(\eta_i\)</span> corresponds the outcome at each step (i.e., <span class="math notranslate nohighlight">\(\eta_i = \pm 1\)</span>), <span class="math notranslate nohighlight">\(Y_t = \sum_{i=1}^t \eta_i\)</span>. The expectation of <span class="math notranslate nohighlight">\(\eta_i\)</span> is 0, and its variance is 1. Therefore, the expected position of a given random walker at time <span class="math notranslate nohighlight">\(t\)</span> can be written <span class="math notranslate nohighlight">\(E[Y_t] = t E[\eta_i] = 0\)</span>, and the variance of the walker’s position grows with <span class="math notranslate nohighlight">\(t\)</span> as <span class="math notranslate nohighlight">\(\textrm{Var}(Y_t) = t \textrm{Var}(\eta_i) = t\)</span>.</p>
+<p>As <span class="math notranslate nohighlight">\(t \rightarrow \infty\)</span>, we see that the position of the random walker can be estimated by a normal distribution <span class="math notranslate nohighlight">\(Y_t \sim \mathcal{N} (0, t)\)</span> (see: the Central Limit Theorem), and as a result, the probability density over the walker’s position at large enough <span class="math notranslate nohighlight">\(t\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[P(Y_t = y) \approx \dfrac{1}{\sqrt{2\pi t}} \exp \left (- \dfrac{y^2}{2t} \right)\]</div>
 <p>This behavior forms one of the key insights for building random walkers beyond one dimensions! In Physics, we often see it used for studying diffusion processes. In Economics or Finance, we can use it as a foundation for building models of the stock market. In Biology, we can think of it as the base for models of particle motion in a cell. And in Network Science, random walks can be used as the starting point for algorithms that characterize network connectivity or centrality, community structure, spectral properties, and more.</p>
 <hr class="docutils" />
 <section id="min-challenge-code-a-single-random-walker">
 <h3>8-min challenge! Code a single random walker<a class="headerlink" href="#min-challenge-code-a-single-random-walker" title="Link to this heading">#</a></h3>
-<p>Let’s start the class off with a challenge. As defined above, code a single random walker, moving up and down with equal probability ($p=0.5$). Visualize this walker’s trajectory over 10,000 timesteps.</p>
+<p>Let’s start the class off with a challenge. As defined above, code a single random walker, moving up and down with equal probability (<span class="math notranslate nohighlight">\(p=0.5\)</span>). Visualize this walker’s trajectory over 10,000 timesteps.</p>
 <p>You’ve been given a starter-function <code class="docutils literal notranslate"><span class="pre">single_1d_walkers</span></code> below.</p>
 <p>If you have time, adapt this to a general function that returns the trajectory for <code class="docutils literal notranslate"><span class="pre">n_iter</span></code> random walkers.</p>
 <div class="cell docutils container">
@@ -862,11 +865,12 @@ document.write(`
 <hr class="docutils" />
 <section id="random-walks-in-2-dimensions-still-not-networks-yet">
 <h2>Random walks in 2-dimensions (still not networks yet!)<a class="headerlink" href="#random-walks-in-2-dimensions-still-not-networks-yet" title="Link to this heading">#</a></h2>
-<p>In the two-dimensional random walk, we imagine a walker starting at an origin point $(x,y) = (0,0)$ on a 2-D integer lattice, where each point corresponds to a coordinate. At each timestep, $t$, a walker moves randomly up / down / left / right with equal probability $P(\textrm{up}) = P(\textrm{down}) = P(\textrm{left}) = P(\textrm{right}) = \frac{1}{4}$.</p>
+<p>In the two-dimensional random walk, we imagine a walker starting at an origin point <span class="math notranslate nohighlight">\((x,y) = (0,0)\)</span> on a 2-D integer lattice, where each point corresponds to a coordinate. At each timestep, <span class="math notranslate nohighlight">\(t\)</span>, a walker moves randomly up / down / left / right with equal probability <span class="math notranslate nohighlight">\(P(\textrm{up}) = P(\textrm{down}) = P(\textrm{left}) = P(\textrm{right}) = \frac{1}{4}\)</span>.</p>
 <p>There are similarities here to the 1-D walkers, such that the expected position of the walker will be</p>
-<p>$$X_t = \sum_{i=1}^{t} \eta_{x,i}, \quad Y_t = \sum_{i=1}^{t} \eta_{y,i}$$</p>
-<p>where $ \eta_{x,i} $ and $ \eta_{y,i} $ are random variables representing the steps in the $ x $ and $ y $ directions, respectively. Each of these steps is uniformly distributed over {-1, 1}.</p>
-<p>Similar to the one-dimensional case, the expected position of the walker remains at the origin: $E[X_t] = E[Y_t] = 0$. The variance of each coordinate grows linearly with time, as in the one-dimensional case. However, the combined radial distance from the origin $ R_t = \sqrt{X_t^2 + Y_t^2} $ is an important quantity that provides a measure of the walker’s spread in two dimensions. The expected value of $ R_t $ grows as $E[R_t] \approx \sqrt{t}$ indicating diffusive behavior in two dimensions, with the walker’s distance from the origin increasing proportionally to the square root of time.</p>
+<div class="math notranslate nohighlight">
+\[X_t = \sum_{i=1}^{t} \eta_{x,i}, \quad Y_t = \sum_{i=1}^{t} \eta_{y,i}\]</div>
+<p>where <span class="math notranslate nohighlight">\( \eta_{x,i} \)</span> and <span class="math notranslate nohighlight">\( \eta_{y,i} \)</span> are random variables representing the steps in the <span class="math notranslate nohighlight">\( x \)</span> and <span class="math notranslate nohighlight">\( y \)</span> directions, respectively. Each of these steps is uniformly distributed over {-1, 1}.</p>
+<p>Similar to the one-dimensional case, the expected position of the walker remains at the origin: <span class="math notranslate nohighlight">\(E[X_t] = E[Y_t] = 0\)</span>. The variance of each coordinate grows linearly with time, as in the one-dimensional case. However, the combined radial distance from the origin <span class="math notranslate nohighlight">\( R_t = \sqrt{X_t^2 + Y_t^2} \)</span> is an important quantity that provides a measure of the walker’s spread in two dimensions. The expected value of <span class="math notranslate nohighlight">\( R_t \)</span> grows as <span class="math notranslate nohighlight">\(E[R_t] \approx \sqrt{t}\)</span> indicating diffusive behavior in two dimensions, with the walker’s distance from the origin increasing proportionally to the square root of time.</p>
 <p>2-D random walks are also used to study many processes, from the movement of particles in a fluid (Brownian motion) to animal foraging behavior. This section introduces the two-dimensional random walk as a stepping stone to more complex random walks on networks, where the underlying structure influences the walker’s movement in ways that go beyond free-space diffusion.</p>
 <hr class="docutils" />
 <div class="cell docutils container">
@@ -1107,7 +1111,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p><strong>Starting Point</strong>: The walker begins at an “origin” node.</p></li>
 <li><p><strong>Transition Rules</strong>: At each time step, the walker moves to a neighboring node, (usually) chosen uniformly from all neighbors of the current node. This is an <strong>unbiased random walk</strong> on an undirected network.</p></li>
-<li><p><strong>Transition Probability</strong>: The probability of moving from node $i$ to an adjacent node $j$ is inversely proportional to the degree of $i$ (i.e., $ p_{ij} = \frac{1}{k_i} $).</p></li>
+<li><p><strong>Transition Probability</strong>: The probability of moving from node <span class="math notranslate nohighlight">\(i\)</span> to an adjacent node <span class="math notranslate nohighlight">\(j\)</span> is inversely proportional to the degree of <span class="math notranslate nohighlight">\(i\)</span> (i.e., <span class="math notranslate nohighlight">\( p_{ij} = \frac{1}{k_i} \)</span>).</p></li>
 </ol>
 </section>
 <hr class="docutils" />
@@ -1115,8 +1119,8 @@ document.write(`
 <h3>Common properties to calculate with random walks<a class="headerlink" href="#common-properties-to-calculate-with-random-walks" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>Hitting Time</strong>: The expected time for a walker to reach a specific target node for the first time.</p></li>
-<li><p><strong>Return Probability</strong>: The probability that the walker will return to the origin node after a given time $t$.</p></li>
-<li><p><strong>Stationary Distribution</strong>: For large $ t $, the walker’s position converges to a stationary distribution, where the probability of finding the walker at each node is stable. For an undirected network, the stationary probability $ \pi_i $ at node ( i ) is proportional to its degree, $ \pi_i = \frac{k_i}{2 E} $, where $E$ is the number of edges.</p></li>
+<li><p><strong>Return Probability</strong>: The probability that the walker will return to the origin node after a given time <span class="math notranslate nohighlight">\(t\)</span>.</p></li>
+<li><p><strong>Stationary Distribution</strong>: For large <span class="math notranslate nohighlight">\( t \)</span>, the walker’s position converges to a stationary distribution, where the probability of finding the walker at each node is stable. For an undirected network, the stationary probability <span class="math notranslate nohighlight">\( \pi_i \)</span> at node ( i ) is proportional to its degree, <span class="math notranslate nohighlight">\( \pi_i = \frac{k_i}{2 E} \)</span>, where <span class="math notranslate nohighlight">\(E\)</span> is the number of edges.</p></li>
 <li><p><strong>Mixing Time</strong>: The time required for the distribution of the walker’s position to approximate the stationary distribution closely.</p></li>
 </ol>
 </section>
@@ -1491,17 +1495,17 @@ document.write(`
 <h3><em>Mean First-Passage Time (MFPT)</em>:<a class="headerlink" href="#mean-first-passage-time-mfpt" title="Link to this heading">#</a></h3>
 <ul>
 <li><p>May also be called “Access or Hitting Time” to computer scientists.</p></li>
-<li><p>The mean first passage time from node $i$ to node $j$ is the expected number of time–steps for reaching the node $j$ for the first time, given that initially the walker starts from node $i$.</p></li>
-<li><p>Let us define the probability of reaching a node $j$ after $n$ steps starting from any other node:
-$$p(j, n) = p_j (1-p_j)^{n-1}$$</p></li>
+<li><p>The mean first passage time from node <span class="math notranslate nohighlight">\(i\)</span> to node <span class="math notranslate nohighlight">\(j\)</span> is the expected number of time–steps for reaching the node <span class="math notranslate nohighlight">\(j\)</span> for the first time, given that initially the walker starts from node <span class="math notranslate nohighlight">\(i\)</span>.</p></li>
+<li><p>Let us define the probability of reaching a node <span class="math notranslate nohighlight">\(j\)</span> after <span class="math notranslate nohighlight">\(n\)</span> steps starting from any other node:
+$<span class="math notranslate nohighlight">\(p(j, n) = p_j (1-p_j)^{n-1}\)</span>$</p></li>
 <li><p>Approximately,
-$$T_j = \sum_n^{\infty}\Delta t \times n \times p(j,n) \propto \frac{1}{p_j} = \frac{\sum_i k_i}{k_j}$$</p></li>
+$<span class="math notranslate nohighlight">\(T_j = \sum_n^{\infty}\Delta t \times n \times p(j,n) \propto \frac{1}{p_j} = \frac{\sum_i k_i}{k_j}\)</span>$</p></li>
 <li><p>More mathematically,</p>
 <ul>
-<li><p>$T_{ij}$ : expected number of steps before node $j$ is visited, starting from node $i$.</p></li>
-<li><p>$T_{ii} = \frac{1}{p_i}$</p></li>
-<li><p>$T_{ij} = \frac{F^{#}<em>{jj} - F^{#}</em>{ij}}{p_j}$</p></li>
-<li><p>$\mathbf{F}^{#}$ is the generalized inverse matrix of $\mathbf{F} = \mathbf{I} - \mathbf{M} = \mathbf{I} - \mathbf{AD}^{-1}$</p></li>
+<li><p><span class="math notranslate nohighlight">\(T_{ij}\)</span> : expected number of steps before node <span class="math notranslate nohighlight">\(j\)</span> is visited, starting from node <span class="math notranslate nohighlight">\(i\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(T_{ii} = \frac{1}{p_i}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(T_{ij} = \frac{F^{\#}_{jj} - F^{\#}_{ij}}{p_j}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{F}^{\#}\)</span> is the generalized inverse matrix of <span class="math notranslate nohighlight">\(\mathbf{F} = \mathbf{I} - \mathbf{M} = \mathbf{I} - \mathbf{AD}^{-1}\)</span></p></li>
 <li><p>for proofs, see</p>
 <p>[1] Meyer, 1975, “The role of the group inverse in the theory of finite Markov chains”</p>
 <p>[2] Cho &amp; Meyer, 2000, “Comparison of perturbation bounds for the stationary distribution of a Markov chain”</p>

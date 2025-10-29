@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_02/class_02_networkx1';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -456,7 +458,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="class-2-introduction-to-networkx-1-graph-objects-properties-importing-data">
+  <section class="tex2jax_ignore mathjax_ignore" id="class-2-introduction-to-networkx-1-graph-objects-properties-importing-data">
 <h1>Class 2: Introduction to Networkx 1 — Graph Objects, Properties, Importing Data<a class="headerlink" href="#class-2-introduction-to-networkx-1-graph-objects-properties-importing-data" title="Link to this heading">#</a></h1>
 <p>Goal of today’s class:</p>
 <ol class="arabic simple">
@@ -473,74 +475,77 @@ document.write(`
 <section id="basic-definitions">
 <h2>Basic Definitions<a class="headerlink" href="#basic-definitions" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>An <em><strong>undirected graph</strong></em> $G$ is defined by a pair of sets $G = (V,E)$, where $V$ is a non-empty countable set of elements referred to as <em>nodes</em> or <em>vertices</em> and $E$ is a set of <em>non-ordered</em> pairs of different vertices, known as <em>edges</em> or <em>links</em>.</p></li>
-<li><p>A <em><strong>directed graph</strong></em> (sometimes shorthanded to “digraph”) is defined by a pair of sets $G = (V,E)$, where $V$ is non-empty countable set of elements, <em>nodes</em> or <em>vertices</em>, and $E$ is a set of <em>ordered</em> pairs of different vertices, <strong>directed</strong> <em>edges</em> or <em>links</em>.</p></li>
+<li><p>An <em><strong>undirected graph</strong></em> <span class="math notranslate nohighlight">\(G\)</span> is defined by a pair of sets <span class="math notranslate nohighlight">\(G = (V,E)\)</span>, where <span class="math notranslate nohighlight">\(V\)</span> is a non-empty countable set of elements referred to as <em>nodes</em> or <em>vertices</em> and <span class="math notranslate nohighlight">\(E\)</span> is a set of <em>non-ordered</em> pairs of different vertices, known as <em>edges</em> or <em>links</em>.</p></li>
+<li><p>A <em><strong>directed graph</strong></em> (sometimes shorthanded to “digraph”) is defined by a pair of sets <span class="math notranslate nohighlight">\(G = (V,E)\)</span>, where <span class="math notranslate nohighlight">\(V\)</span> is non-empty countable set of elements, <em>nodes</em> or <em>vertices</em>, and <span class="math notranslate nohighlight">\(E\)</span> is a set of <em>ordered</em> pairs of different vertices, <strong>directed</strong> <em>edges</em> or <em>links</em>.</p></li>
 </ul>
-<p>Let us denote the <strong>total number of nodes</strong> in the graph as $N$ (also referred to as the <strong>cardinality</strong> of the set $V$, or sometimes the <strong>order</strong> of the graph) and the <strong>total number of edges</strong> as $M$.</p>
-<p>The <strong>density</strong> of the graph is the number of edges of graph $G$ divided by the maximum possible number of edges:</p>
+<p>Let us denote the <strong>total number of nodes</strong> in the graph as <span class="math notranslate nohighlight">\(N\)</span> (also referred to as the <strong>cardinality</strong> of the set <span class="math notranslate nohighlight">\(V\)</span>, or sometimes the <strong>order</strong> of the graph) and the <strong>total number of edges</strong> as <span class="math notranslate nohighlight">\(M\)</span>.</p>
+<p>The <strong>density</strong> of the graph is the number of edges of graph <span class="math notranslate nohighlight">\(G\)</span> divided by the maximum possible number of edges:</p>
 <ul class="simple">
-<li><p>in an <em>undirected graph</em>, density = $\dfrac{2 M}{N(N-1)}$</p></li>
-<li><p>in an <em>directed graph</em>, density = $\dfrac{M}{N(N-1)}$</p></li>
+<li><p>in an <em>undirected graph</em>, density = <span class="math notranslate nohighlight">\(\dfrac{2 M}{N(N-1)}\)</span></p></li>
+<li><p>in an <em>directed graph</em>, density = <span class="math notranslate nohighlight">\(\dfrac{M}{N(N-1)}\)</span></p></li>
 </ul>
 </section>
 <section id="network-representations">
 <h2>Network Representations<a class="headerlink" href="#network-representations" title="Link to this heading">#</a></h2>
-<p>Based on the basic definitions above, all we need to create a network is 1) a list of nodes, and 2) a list of which nodes are connected (i.e., edges). We say that two vertices $i$ and $j$ are adjacent or connected or (nearest) neighbors if there exists an edge $e_{ij} \in E$ joining them. Note that if we assume that there are no nodes with zero connections, all we really need to represent our graph is a list of edges.</p>
+<p>Based on the basic definitions above, all we need to create a network is 1) a list of nodes, and 2) a list of which nodes are connected (i.e., edges). We say that two vertices <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> are adjacent or connected or (nearest) neighbors if there exists an edge <span class="math notranslate nohighlight">\(e_{ij} \in E\)</span> joining them. Note that if we assume that there are no nodes with zero connections, all we really need to represent our graph is a list of edges.</p>
 <p>For <strong>undirected graphs</strong>, an <strong>edgelist</strong> is a set of <em>non-ordered node pairs</em> where each pair represents a link between two nodes.</p>
 <p><img alt="../../images/graph_undirected.png" src="../../_images/graph_undirected.png" />
 Figure 1: Undirected Graph</p>
 <p>For example, in Figure 1 above, the undirected network has the following edgelist:
-$\left{ (0,1),(0,2),(0,3),(0,4),(1,2),(1,3),(1,5),(2,3),(4,5) \right}$.</p>
+<span class="math notranslate nohighlight">\(\left\{ (0,1),(0,2),(0,3),(0,4),(1,2),(1,3),(1,5),(2,3),(4,5) \right\}\)</span>.</p>
 <p><img alt="../../images/graph_directed.png" src="../../_images/graph_directed.png" />
 Figure 2: Directed Graph</p>
-<p>In the case of a <strong>directed graph</strong>, the edgelist is a set of <em>ordered node pairs</em>, where directionality of the connection is encoded in the order that the nodes are listed (i.e., the first node can be thought of as the <em>source</em>, and the second node as the <em>target</em>). As an example, the directed graph in Figure 2 above can be represented by the following edgelist: $\left{ (0,1),(0,5),(1,2),(1,3),(2,5),(3,2),(4,0),(4,5) \right}$.</p>
+<p>In the case of a <strong>directed graph</strong>, the edgelist is a set of <em>ordered node pairs</em>, where directionality of the connection is encoded in the order that the nodes are listed (i.e., the first node can be thought of as the <em>source</em>, and the second node as the <em>target</em>). As an example, the directed graph in Figure 2 above can be represented by the following edgelist: <span class="math notranslate nohighlight">\(\left\{ (0,1),(0,5),(1,2),(1,3),(2,5),(3,2),(4,0),(4,5) \right\}\)</span>.</p>
 <hr class="docutils" />
-<p>A graph $G=(V,E)$ can be represented mathematically by an $N\times N$ <em><strong>adjancency matrix</strong></em> $A$.</p>
-<p>$$ A =
+<p>A graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> can be represented mathematically by an <span class="math notranslate nohighlight">\(N\times N\)</span> <em><strong>adjancency matrix</strong></em> <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = 
 \begin{pmatrix}
-a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,N} \
-a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,N} \
-\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \
-a_{N,1} &amp; a_{N,2} &amp; \cdots &amp; a_{N,N}
-\end{pmatrix},$$</p>
-<p>where $\forall i,j \in V$,
-$$a_{ij} =
+    a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,N} \\
+    a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,N} \\
+    \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+    a_{N,1} &amp; a_{N,2} &amp; \cdots &amp; a_{N,N} 
+\end{pmatrix},\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\forall i,j \in V\)</span>,
+$<span class="math notranslate nohighlight">\(a_{ij} =
 \begin{cases}
-1    &amp; \quad \text{if } e_{ij} \in E\
-0    &amp; \quad \text{if } e_{ij} \notin E\
-\end{cases}$$</p>
-<p>In an <em>undirected graph</em>, the adjacency matrix $A$ is symmetric such that $a_{ij} = a_{ji}$; in a <em>directed graph</em> the elements $a_{ij}$ and $a_{ji}$ are not necessarily equivalent (a property called <em>reciprocity</em>).</p>
+    1    &amp; \quad \text{if } e_{ij} \in E\\
+    0    &amp; \quad \text{if } e_{ij} \notin E\\
+\end{cases}\)</span>$</p>
+<p>In an <em>undirected graph</em>, the adjacency matrix <span class="math notranslate nohighlight">\(A\)</span> is symmetric such that <span class="math notranslate nohighlight">\(a_{ij} = a_{ji}\)</span>; in a <em>directed graph</em> the elements <span class="math notranslate nohighlight">\(a_{ij}\)</span> and <span class="math notranslate nohighlight">\(a_{ji}\)</span> are not necessarily equivalent (a property called <em>reciprocity</em>).</p>
 <p><strong>Note:</strong> A lot in network science leads back to <em>linear algebra</em>, a topic in mathematics that describes matrices and their properties. The fact that we can represent a network as a matrix opens a world of possible questions we can ask of the graphs we’ll be working with.</p>
-<p>Adjacency matrices also permit us to represent weighted edges, yielding a <em><strong>weighted graph</strong></em>, which is a network (undirected or directed) where we associate a value (usually a real number) to each edge. This weighted graph $G=(V,E,\Omega)$, then, we can define using with a $N\times N$ <em>weighted adjancency matrix</em>, $W$.</p>
-<p>$$ W =
+<p>Adjacency matrices also permit us to represent weighted edges, yielding a <em><strong>weighted graph</strong></em>, which is a network (undirected or directed) where we associate a value (usually a real number) to each edge. This weighted graph <span class="math notranslate nohighlight">\(G=(V,E,\Omega)\)</span>, then, we can define using with a <span class="math notranslate nohighlight">\(N\times N\)</span> <em>weighted adjancency matrix</em>, <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} W = 
 \begin{pmatrix}
-w_{1,1} &amp; w_{1,2} &amp; \cdots &amp; w_{1,N} \
-w_{2,1} &amp; w_{2,2} &amp; \cdots &amp; w_{2,N} \
-\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \
-w_{N,1} &amp; w_{N,2} &amp; \cdots &amp; w_{N,N}
+    w_{1,1} &amp; w_{1,2} &amp; \cdots &amp; w_{1,N} \\
+    w_{2,1} &amp; w_{2,2} &amp; \cdots &amp; w_{2,N} \\
+    \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+    w_{N,1} &amp; w_{N,2} &amp; \cdots &amp; w_{N,N} 
 \end{pmatrix},
-$$</p>
-<p>where $\forall i,j \in V$,
-$$w_{ij} =
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\forall i,j \in V\)</span>,
+$<span class="math notranslate nohighlight">\(w_{ij} =
 \begin{cases}
-w    &amp; \quad \text{if } e_{ij} \in E\
-0    &amp; \quad \text{if } e_{ij} \notin E\
+    w    &amp; \quad \text{if } e_{ij} \in E\\
+    0    &amp; \quad \text{if } e_{ij} \notin E\\
 \end{cases}
-$$</p>
+\)</span>$</p>
 <hr class="docutils" />
 <section id="adjacency-matrices-and-network-properties">
 <h3>Adjacency Matrices and Network Properties<a class="headerlink" href="#adjacency-matrices-and-network-properties" title="Link to this heading">#</a></h3>
-<p>Consider the undirected adjacency matrix, $A$, of the graph in Figure 1, above:</p>
-<p>$$ A =
+<p>Consider the undirected adjacency matrix, <span class="math notranslate nohighlight">\(A\)</span>, of the graph in Figure 1, above:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = 
 \begin{pmatrix}
-0 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 0 \
-1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 1 \
-1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \
-1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \
-1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \
-0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \
-\end{pmatrix}.$$</p>
-<p>Often, working with an adjacency matrix is not ideal. Matrices are large objects, and the price we pay to loop over one node’s neighbors is high (i.e. $O(N)$), and it can be quite impractical when dealing with large but <strong>sparse</strong> graphs (networks for which the number of edges $|E|$ in the graph scales as $|E| \sim N^\alpha$ with $\alpha &lt;2$).</p>
+    0 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 0 \\
+    1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 1 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+    1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+\end{pmatrix}.\end{split}\]</div>
+<p>Often, working with an adjacency matrix is not ideal. Matrices are large objects, and the price we pay to loop over one node’s neighbors is high (i.e. <span class="math notranslate nohighlight">\(O(N)\)</span>), and it can be quite impractical when dealing with large but <strong>sparse</strong> graphs (networks for which the number of edges <span class="math notranslate nohighlight">\(|E|\)</span> in the graph scales as <span class="math notranslate nohighlight">\(|E| \sim N^\alpha\)</span> with <span class="math notranslate nohighlight">\(\alpha &lt;2\)</span>).</p>
 <p>For this reason, we can also consider storing a network using an <strong>adjacency list</strong> rather than an adjacency matrix. This lets us store a graph as a set of lists where each list is associated with each node and its list of neighbors. The table below shows the adjacency list for the graph in Figure 1.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -660,20 +665,21 @@ $$</p>
 <hr class="docutils" />
 <section id="note-on-bipartite-networks">
 <h4>Note on Bipartite Networks<a class="headerlink" href="#note-on-bipartite-networks" title="Link to this heading">#</a></h4>
-<p>A <em><strong>bipartite</strong></em> graph (or “two-mode network”) is a graph with two distinct sets or classes of vertices, such that edges only exist <em>between</em> the two vertex types. Formally, a graph $G=(V,E)$ is bipartite if the set of nodes $V$ is composed by two distinct and disjoint sets $V_1, V_2$ and all edges $e_{i,j} \in E$ are such that $i\in V_1$ and $j\in V_2$.</p>
-<p>A bipartite graph $G=(V = {V_1,V_2},E)$ can be represented mathematically by a $N_1\times N_2$ <em><strong>incidence matrix</strong></em>, $B$</p>
-<p>$$ B =
+<p>A <em><strong>bipartite</strong></em> graph (or “two-mode network”) is a graph with two distinct sets or classes of vertices, such that edges only exist <em>between</em> the two vertex types. Formally, a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is bipartite if the set of nodes <span class="math notranslate nohighlight">\(V\)</span> is composed by two distinct and disjoint sets <span class="math notranslate nohighlight">\(V_1, V_2\)</span> and all edges <span class="math notranslate nohighlight">\(e_{i,j} \in E\)</span> are such that <span class="math notranslate nohighlight">\(i\in V_1\)</span> and <span class="math notranslate nohighlight">\(j\in V_2\)</span>.</p>
+<p>A bipartite graph <span class="math notranslate nohighlight">\(G=(V = \{V_1,V_2\},E)\)</span> can be represented mathematically by a <span class="math notranslate nohighlight">\(N_1\times N_2\)</span> <em><strong>incidence matrix</strong></em>, <span class="math notranslate nohighlight">\(B\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split} B = 
 \begin{pmatrix}
-b_{1,1} &amp; b_{1,2} &amp; \cdots &amp; b_{1,N_2} \
-\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \
-b_{N_1,1} &amp; b_{N,2} &amp; \cdots &amp; b_{N_1,N_2}
-\end{pmatrix},$$
-where $N_1 = |V_1|$, $N_2 = |V_2|$, and $\forall i \in V_1$ and $j \in V_2$,
-$$b_{i,j} =
+    b_{1,1} &amp; b_{1,2} &amp; \cdots &amp; b_{1,N_2} \\
+    \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+    b_{N_1,1} &amp; b_{N,2} &amp; \cdots &amp; b_{N_1,N_2} 
+\end{pmatrix},\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(N_1 = |V_1|\)</span>, <span class="math notranslate nohighlight">\(N_2 = |V_2|\)</span>, and <span class="math notranslate nohighlight">\(\forall i \in V_1\)</span> and <span class="math notranslate nohighlight">\(j \in V_2\)</span>,
+$<span class="math notranslate nohighlight">\(b_{i,j} =
 \begin{cases}
-1    &amp; \quad \text{if } e_{i,j} \in E\
-0    &amp; \quad \text{if } e_{i,j} \notin E\
-\end{cases}$$</p>
+    1    &amp; \quad \text{if } e_{i,j} \in E\\
+    0    &amp; \quad \text{if } e_{i,j} \notin E\\
+\end{cases}\)</span>$</p>
 <!-- In this example we are going to use a bipartite graph obtained collecting users <i>metadata</i>. <br>
 The analysis in this example is based on information gathered by our field agent Mr David Hackett Fischer and published in an Appendix to his report to the government. For more details consult: https://github.com/kjhealy/revere .
  -->
@@ -1073,7 +1079,7 @@ Number of edges (&#39;size&#39;): 6
 <section id="connectivity-components-subgraphs">
 <h4>Connectivity &amp; Components &amp; Subgraphs<a class="headerlink" href="#connectivity-components-subgraphs" title="Link to this heading">#</a></h4>
 <p>A graph is said to be <em><strong>connected</strong></em> if there exists a path connecting any two vertices in the graph. An undirected &amp; connected graph without closed loops is known as a <strong>tree</strong>.</p>
-<p>A graph $G’= (V’,E’)$ is said to be a <em><strong>subgraph</strong></em> of graph $G= (V,E)$ if $N’ \subseteq N$ and $E’ \subseteq E$. A graph $G’= (V’,E’)$ <em><strong>vertex-induced subgraph</strong></em> (or, more colloqially, an  <em><strong>induced subgraph</strong></em>) is a graph that includes only a subset of $V’ \subseteq V$ of vertices of graph $G= (V,E)$ and any edge $e_{ij}$ whose vertices $i$ and $j$ are both in $V’$.</p>
+<p>A graph <span class="math notranslate nohighlight">\(G'= (V',E')\)</span> is said to be a <em><strong>subgraph</strong></em> of graph <span class="math notranslate nohighlight">\(G= (V,E)\)</span> if <span class="math notranslate nohighlight">\(N' \subseteq N\)</span> and <span class="math notranslate nohighlight">\(E' \subseteq E\)</span>. A graph <span class="math notranslate nohighlight">\(G'= (V',E')\)</span> <em><strong>vertex-induced subgraph</strong></em> (or, more colloqially, an  <em><strong>induced subgraph</strong></em>) is a graph that includes only a subset of <span class="math notranslate nohighlight">\(V' \subseteq V\)</span> of vertices of graph <span class="math notranslate nohighlight">\(G= (V,E)\)</span> and any edge <span class="math notranslate nohighlight">\(e_{ij}\)</span> whose vertices <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> are both in <span class="math notranslate nohighlight">\(V'\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">graph</span><span class="p">);</span>
@@ -1109,7 +1115,7 @@ Number of edges (&#39;size&#39;): 6
 <hr class="docutils" />
 <section id="components">
 <h4>Components<a class="headerlink" href="#components" title="Link to this heading">#</a></h4>
-<p>A <em><strong>component</strong></em> $C$ of a graph $G=(V,E)$ is a connected subgraph of $G$. The <em><strong>largest connected component</strong></em> is simply the connected component with the most nodes in the network. The <em><strong>giant component</strong></em> of a graph is defined as the component whose size scales with the number of vertices of the graph (i.e. it diverges in the limit $N\rightarrow\infty$).</p>
+<p>A <em><strong>component</strong></em> <span class="math notranslate nohighlight">\(C\)</span> of a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is a connected subgraph of <span class="math notranslate nohighlight">\(G\)</span>. The <em><strong>largest connected component</strong></em> is simply the connected component with the most nodes in the network. The <em><strong>giant component</strong></em> of a graph is defined as the component whose size scales with the number of vertices of the graph (i.e. it diverges in the limit <span class="math notranslate nohighlight">\(N\rightarrow\infty\)</span>).</p>
 <p>In a <em>directed graph</em>, a we have to introduce the notions of <em>strong</em> and <em>weak</em> when defining connected components. A <em><strong>weakly connected component</strong></em> is a connected subgraph where we consider all paths disregarding the direction of the edges and considering the graph <em>as if</em> it were undirected. <em><strong>Strongly connected components</strong></em> are connected subgraphs where edge direction plays an important factor.</p>
 <section id="bowtie-structures-of-directed-graphs">
 <h5>“Bowtie” Structures of Directed Graphs<a class="headerlink" href="#bowtie-structures-of-directed-graphs" title="Link to this heading">#</a></h5>
@@ -1274,13 +1280,13 @@ nx.is_strongly_connected(G_directed): True
 <h3>Network Properties<a class="headerlink" href="#network-properties" title="Link to this heading">#</a></h3>
 <section id="neighbors-and-degrees">
 <h4>Neighbors and Degrees<a class="headerlink" href="#neighbors-and-degrees" title="Link to this heading">#</a></h4>
-<p>The <strong>degree</strong> $k$ of a vertex is the number of neighbors of that node (i.e., its number of edges).</p>
-<p>In an <em>undirected graph</em>, the degree of a node $i$ can be easily computed from the adjancency matrix $A$ by counting the number of 1’s either over columns or over rows: $k_i = \sum_{j}a_{i,j} = \sum_{j}a_{j,i}$.</p>
-<p>In <em>directed graphs</em>, we can compute the number of edges pointing towards a given node $i$,
-the <strong>in-degree</strong> of node $i$, as: $k_i^{in} = \sum_{j}a_{j,i}$; <br></p>
-<p>or the number of edges pointing outwards a given node $j$,
-the <strong>out-degree</strong> of node $i$, as: $k_i^{out} = \sum_{j}a_{i,j}$.<br></p>
-<p>Then, the <strong>total degree</strong> of node $i$ in a <em>directed</em> graph can be computed as: $k_i = k_i^{in} + k_i^{out}$.</p>
+<p>The <strong>degree</strong> <span class="math notranslate nohighlight">\(k\)</span> of a vertex is the number of neighbors of that node (i.e., its number of edges).</p>
+<p>In an <em>undirected graph</em>, the degree of a node <span class="math notranslate nohighlight">\(i\)</span> can be easily computed from the adjancency matrix <span class="math notranslate nohighlight">\(A\)</span> by counting the number of 1’s either over columns or over rows: <span class="math notranslate nohighlight">\(k_i = \sum_{j}a_{i,j} = \sum_{j}a_{j,i}\)</span>.</p>
+<p>In <em>directed graphs</em>, we can compute the number of edges pointing towards a given node <span class="math notranslate nohighlight">\(i\)</span>,
+the <strong>in-degree</strong> of node <span class="math notranslate nohighlight">\(i\)</span>, as: <span class="math notranslate nohighlight">\(k_i^{in} = \sum_{j}a_{j,i}\)</span>; <br></p>
+<p>or the number of edges pointing outwards a given node <span class="math notranslate nohighlight">\(j\)</span>,
+the <strong>out-degree</strong> of node <span class="math notranslate nohighlight">\(i\)</span>, as: <span class="math notranslate nohighlight">\(k_i^{out} = \sum_{j}a_{i,j}\)</span>.<br></p>
+<p>Then, the <strong>total degree</strong> of node <span class="math notranslate nohighlight">\(i\)</span> in a <em>directed</em> graph can be computed as: <span class="math notranslate nohighlight">\(k_i = k_i^{in} + k_i^{out}\)</span>.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">networkx</span></code>, degree is a view of single node or of <code class="docutils literal notranslate"><span class="pre">nbunch</span></code> of nodes. If nbunch is omitted, then return degrees of <em>all</em> nodes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1395,7 +1401,7 @@ If nbunch is omitted, then return degrees of *all* nodes.
 </div>
 </div>
 <p>Wait a second though… isn’t the Karate Club a weighted graph?</p>
-<p>The <em><strong>strength</strong></em> $s$ of a node isthe sum of the weights of edges connecting a given node and its neighbors. For an <em>undirected</em> weighted graph, the strength of node $i$ can be computed from the weighted adjancency matrix $W$ by summing the values of the weights either over the columns or over rows: $s_i = \sum_{j}w_{ij} = \sum_{j}w_{ji}$.</p>
+<p>The <em><strong>strength</strong></em> <span class="math notranslate nohighlight">\(s\)</span> of a node isthe sum of the weights of edges connecting a given node and its neighbors. For an <em>undirected</em> weighted graph, the strength of node <span class="math notranslate nohighlight">\(i\)</span> can be computed from the weighted adjancency matrix <span class="math notranslate nohighlight">\(W\)</span> by summing the values of the weights either over the columns or over rows: <span class="math notranslate nohighlight">\(s_i = \sum_{j}w_{ij} = \sum_{j}w_{ji}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">)</span>
@@ -1408,8 +1414,8 @@ If nbunch is omitted, then return degrees of *all* nodes.
 </div>
 </div>
 </div>
-<p>In <em>directed</em> weighted graphs, we compute the sum of the weights of the in/out edges of node $i$; the <em><strong>in-strength</strong></em> of node $i$ is $s_i^{in} = \sum_{j}w_{ji}$, and the <em><strong>out-strength</strong></em> of node $i$ is: $s_i^{out} = \sum_{j}w_{ij}$.</p>
-<p>Therefore, the <em><strong>total strength</strong></em> of node $i$ in a <em>directed</em> graph can be computed as: $s_i = s_i^{in} + s_i^{out}$.</p>
+<p>In <em>directed</em> weighted graphs, we compute the sum of the weights of the in/out edges of node <span class="math notranslate nohighlight">\(i\)</span>; the <em><strong>in-strength</strong></em> of node <span class="math notranslate nohighlight">\(i\)</span> is <span class="math notranslate nohighlight">\(s_i^{in} = \sum_{j}w_{ji}\)</span>, and the <em><strong>out-strength</strong></em> of node <span class="math notranslate nohighlight">\(i\)</span> is: <span class="math notranslate nohighlight">\(s_i^{out} = \sum_{j}w_{ij}\)</span>.</p>
+<p>Therefore, the <em><strong>total strength</strong></em> of node <span class="math notranslate nohighlight">\(i\)</span> in a <em>directed</em> graph can be computed as: <span class="math notranslate nohighlight">\(s_i = s_i^{in} + s_i^{out}\)</span>.</p>
 </section>
 </section>
 </section>
@@ -1420,10 +1426,11 @@ If nbunch is omitted, then return degrees of *all* nodes.
 <h3>Static Random Graph Models<a class="headerlink" href="#static-random-graph-models" title="Link to this heading">#</a></h3>
 <section id="erdos-renyi-model-s">
 <h4>Erdős-Rényi Model(s)<a class="headerlink" href="#erdos-renyi-model-s" title="Link to this heading">#</a></h4>
-<p>The original formulation: a $G_{(N,M)}$ graph is constructed starting from a set $V$ of $N$ different vertices connected at random by $M$ edges (Erdős and Rényi, 1959; 1960; 1961).</p>
-<p>A variation of this model proposed by Gilbert (1959) constructs a $G_{(N,p)}$ graph from a set $V$ of $N$ different vertices in which each of the possibile $\frac{N(N-1)}{2}$ edges is present with probability $p$ (the <em>connection probability</em>).</p>
-<p>The two models are statistically equivalent as $N \rightarrow \infty$ with:</p>
-<p>$$ \dfrac{pN(N-1)}{2} = E $$</p>
+<p>The original formulation: a <span class="math notranslate nohighlight">\(G_{(N,M)}\)</span> graph is constructed starting from a set <span class="math notranslate nohighlight">\(V\)</span> of <span class="math notranslate nohighlight">\(N\)</span> different vertices connected at random by <span class="math notranslate nohighlight">\(M\)</span> edges (Erdős and Rényi, 1959; 1960; 1961).</p>
+<p>A variation of this model proposed by Gilbert (1959) constructs a <span class="math notranslate nohighlight">\(G_{(N,p)}\)</span> graph from a set <span class="math notranslate nohighlight">\(V\)</span> of <span class="math notranslate nohighlight">\(N\)</span> different vertices in which each of the possibile <span class="math notranslate nohighlight">\(\frac{N(N-1)}{2}\)</span> edges is present with probability <span class="math notranslate nohighlight">\(p\)</span> (the <em>connection probability</em>).</p>
+<p>The two models are statistically equivalent as <span class="math notranslate nohighlight">\(N \rightarrow \infty\)</span> with:</p>
+<div class="math notranslate nohighlight">
+\[ \dfrac{pN(N-1)}{2} = E \]</div>
 <!-- The exact ___degree distribution___ $P(k)$ of an Erdos-Renyi graph is a __Binomial distribution__:
 
 $$ P(k) = \binom{N-1}{k} p^k (1-p)^{N-1-k},$$
@@ -1448,9 +1455,11 @@ $$ P(k) = e^{-\langle k \rangle}\frac{\langle k \rangle^k}{k!} $$ --><div class=
 </div>
 </div>
 <p>The average number of edges in this graph is:</p>
-<p>$$ \langle E \rangle = \dfrac{N(N-1)p}{2}, $$</p>
+<div class="math notranslate nohighlight">
+\[ \langle E \rangle = \dfrac{N(N-1)p}{2}, \]</div>
 <p>and the average degree is:</p>
-<p>$$ \langle k \rangle = \frac{2\langle E \rangle}{N} = (N-1)p \simeq Np .$$</p>
+<div class="math notranslate nohighlight">
+\[ \langle k \rangle = \frac{2\langle E \rangle}{N} = (N-1)p \simeq Np .\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the average number of edges generated in the construction of the graph</span>
@@ -1498,8 +1507,8 @@ Actual mean number of edges: 49.53 (2000 replications)
 <hr class="docutils" />
 <section id="random-geometric-graphs">
 <h4>Random geometric graphs<a class="headerlink" href="#random-geometric-graphs" title="Link to this heading">#</a></h4>
-<p>Erdős-Rényi graphs are quite powerful, useful objects, despite their lack of realism. The model requires few (two) parameters, which can often allow them to be easily studied analytically numerically. Another similar family of random graphs is known as <em><strong>random geometric graphs</strong></em>. Constructing a random geometric graph (RGG) involves randomly assigning $N$ nodes to positions on a geometric surface, then connecting each pair of nodes according to some function of their distance $d(i,j)$.</p>
-<p>A simple version of this is to place $N$ nodes uniformly at random in the unit square, and connect every pair of nodes if the distance between the nodes is at most radius $r$.</p>
+<p>Erdős-Rényi graphs are quite powerful, useful objects, despite their lack of realism. The model requires few (two) parameters, which can often allow them to be easily studied analytically numerically. Another similar family of random graphs is known as <em><strong>random geometric graphs</strong></em>. Constructing a random geometric graph (RGG) involves randomly assigning <span class="math notranslate nohighlight">\(N\)</span> nodes to positions on a geometric surface, then connecting each pair of nodes according to some function of their distance <span class="math notranslate nohighlight">\(d(i,j)\)</span>.</p>
+<p>A simple version of this is to place <span class="math notranslate nohighlight">\(N\)</span> nodes uniformly at random in the unit square, and connect every pair of nodes if the distance between the nodes is at most radius <span class="math notranslate nohighlight">\(r\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
@@ -2015,21 +2024,22 @@ Number of organizations: 7
 </div>
 </div>
 <p>A <em><strong>bipartite</strong></em> graph (or two-mode network) is a graph with two distinct node types and links that only connect across node type.</p>
-<p>Formally, a graph $G=(V,E)$ is bipartite if the set of nodes $V$ is composed by two distinct and disjoint sets $V_1,V_2$ and all edges $e_{i,j} \in E$ are such that $i\in V_1$ and $j\in V_2$.</p>
-<p>A bipartite graph $G=(V = {V_1,V_2},E)$ can be represented by an $N_1\times N_2$ <strong>incidence matrix</strong> $B$,</p>
-<p>$$ B =
+<p>Formally, a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is bipartite if the set of nodes <span class="math notranslate nohighlight">\(V\)</span> is composed by two distinct and disjoint sets <span class="math notranslate nohighlight">\(V_1,V_2\)</span> and all edges <span class="math notranslate nohighlight">\(e_{i,j} \in E\)</span> are such that <span class="math notranslate nohighlight">\(i\in V_1\)</span> and <span class="math notranslate nohighlight">\(j\in V_2\)</span>.</p>
+<p>A bipartite graph <span class="math notranslate nohighlight">\(G=(V = \{V_1,V_2\},E)\)</span> can be represented by an <span class="math notranslate nohighlight">\(N_1\times N_2\)</span> <strong>incidence matrix</strong> <span class="math notranslate nohighlight">\(B\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} B = 
 \begin{pmatrix}
-b_{1,1} &amp; b_{1,2} &amp; \cdots &amp; b_{1,N_2} \
-\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \
-b_{N_1,1} &amp; b_{N,2} &amp; \cdots &amp; b_{N_1,N_2}
+    b_{1,1} &amp; b_{1,2} &amp; \cdots &amp; b_{1,N_2} \\
+    \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+    b_{N_1,1} &amp; b_{N,2} &amp; \cdots &amp; b_{N_1,N_2} 
 \end{pmatrix},
-$$</p>
-<p>where $N_1 = |V_1|$, $N_2 = |V_2|$, and $\forall i \in V_1$ and $j \in V_2$,
-$$b_{i,j} =
-\begin{cases}
-1       &amp; \quad \text{if } e_{i,j} \in E\
-0  &amp; \quad \text{if } e_{i,j} \notin E\
-\end{cases}$$</p>
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(N_1 = |V_1|\)</span>, <span class="math notranslate nohighlight">\(N_2 = |V_2|\)</span>, and <span class="math notranslate nohighlight">\(\forall i \in V_1\)</span> and <span class="math notranslate nohighlight">\(j \in V_2\)</span>,
+$<span class="math notranslate nohighlight">\(b_{i,j} =
+  \begin{cases}
+    1       &amp; \quad \text{if } e_{i,j} \in E\\
+    0  &amp; \quad \text{if } e_{i,j} \notin E\\
+  \end{cases}\)</span>$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>

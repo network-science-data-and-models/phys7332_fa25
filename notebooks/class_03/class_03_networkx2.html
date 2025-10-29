@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_03/class_03_networkx2';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -436,7 +438,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="class-3-introduction-to-networkx-2-graph-properties-algorithms">
+  <section class="tex2jax_ignore mathjax_ignore" id="class-3-introduction-to-networkx-2-graph-properties-algorithms">
 <h1>Class 3: Introduction to Networkx 2 — Graph Properties &amp; Algorithms<a class="headerlink" href="#class-3-introduction-to-networkx-2-graph-properties-algorithms" title="Link to this heading">#</a></h1>
 <p>Goal of today’s class:</p>
 <ol class="arabic simple">
@@ -468,10 +470,12 @@ document.write(`
 <h2>Degree Distributions<a class="headerlink" href="#degree-distributions" title="Link to this heading">#</a></h2>
 <section id="erdos-renyi-networks">
 <h3>Erdős-Rényi Networks<a class="headerlink" href="#erdos-renyi-networks" title="Link to this heading">#</a></h3>
-<p>In the limit for large $N$ the degree distribution $P(k)$ can be approximated by the Poisson distribution:</p>
-<p>$$ P(k) = e^{-\langle k \rangle}\frac{\langle k \rangle^k}{k!} $$</p>
+<p>In the limit for large <span class="math notranslate nohighlight">\(N\)</span> the degree distribution <span class="math notranslate nohighlight">\(P(k)\)</span> can be approximated by the Poisson distribution:</p>
+<div class="math notranslate nohighlight">
+\[ P(k) = e^{-\langle k \rangle}\frac{\langle k \rangle^k}{k!} \]</div>
 <p>Although, before that, it is defined by a Binomial distribution:</p>
-<p>$$ P(k) = \binom{N-1}{k} p^k (1-p)^{N-k-1} $$</p>
+<div class="math notranslate nohighlight">
+\[ P(k) = \binom{N-1}{k} p^k (1-p)^{N-k-1} \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">4</span>
@@ -708,9 +712,9 @@ document.write(`
 <hr class="docutils" />
 <section id="plotting-degree-distributions">
 <h2>Plotting Degree Distributions<a class="headerlink" href="#plotting-degree-distributions" title="Link to this heading">#</a></h2>
-<p>The <strong>degree distribution</strong> $P(k)$ of <em>undirected</em> graphs is defined as the probability that any randomly chosen vertex has degree $k$.</p>
-<p>In <em>directed</em> graphs, we need to consider two distributions: the <strong>in-degree</strong> $P(k_{in})$ and <strong>out-degree</strong> $P(k_{out})$ distributions, defined as the probability that a randomly chosen vertex has <em>in-degree</em> $k_{in}$ and <em>out-degree</em> $k_{out}$, respectively.</p>
-<p>In many real world networks, degree distributions are <em>skewed</em> and <em>highly variable</em> (i.e. the support of the distribution spans several orders of magnitude). In many cases, this <strong>heavy tailed</strong> behavior can be approximated by a power-law decay $P(k)\sim k^{-\alpha}$.</p>
+<p>The <strong>degree distribution</strong> <span class="math notranslate nohighlight">\(P(k)\)</span> of <em>undirected</em> graphs is defined as the probability that any randomly chosen vertex has degree <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>In <em>directed</em> graphs, we need to consider two distributions: the <strong>in-degree</strong> <span class="math notranslate nohighlight">\(P(k_{in})\)</span> and <strong>out-degree</strong> <span class="math notranslate nohighlight">\(P(k_{out})\)</span> distributions, defined as the probability that a randomly chosen vertex has <em>in-degree</em> <span class="math notranslate nohighlight">\(k_{in}\)</span> and <em>out-degree</em> <span class="math notranslate nohighlight">\(k_{out}\)</span>, respectively.</p>
+<p>In many real world networks, degree distributions are <em>skewed</em> and <em>highly variable</em> (i.e. the support of the distribution spans several orders of magnitude). In many cases, this <strong>heavy tailed</strong> behavior can be approximated by a power-law decay <span class="math notranslate nohighlight">\(P(k)\sim k^{-\alpha}\)</span>.</p>
 <p><img alt="https://networksciencebook.com/images/ch-04/figure-4-6.jpg" src="https://networksciencebook.com/images/ch-04/figure-4-6.jpg" /></p>
 <p>Source: http://barabasi.com/networksciencebook/chapter/4#hubs</p>
 <p>;) don’t look below</p>
@@ -944,14 +948,14 @@ document.write(`
 <hr class="docutils" />
 <section id="paths-and-components">
 <h2>Paths and Components<a class="headerlink" href="#paths-and-components" title="Link to this heading">#</a></h2>
-<p>Let us defines a <strong>path</strong> $P_{i_0,i_n}$ in a graph $G = (V,E)$ as an <em>ordered collection</em> of vertices ${i_0, i_1, \dots, i_n }$ and $n$ edges ${(i_0,i_1), (i_1,i_2), \dots, (i_{n-1},i_n) }$ such that $i_a \in V$ and $(i_{a-1},i_a) \in E, \forall a$. The path $P_{i_0,i_n}$ connects nodes $i_0$ and $i_n$ and its <strong>length</strong> is $n$.</p>
-<p><strong>Note:</strong> The number of paths of length $n$ between two nodes $i$ and $j$ is equivalent to the element $i,j$ of the $n$th power of the adjacency matrix $A$.</p>
+<p>Let us defines a <strong>path</strong> <span class="math notranslate nohighlight">\(P_{i_0,i_n}\)</span> in a graph <span class="math notranslate nohighlight">\(G = (V,E)\)</span> as an <em>ordered collection</em> of vertices <span class="math notranslate nohighlight">\(\{i_0, i_1, \dots, i_n \}\)</span> and <span class="math notranslate nohighlight">\(n\)</span> edges <span class="math notranslate nohighlight">\(\{(i_0,i_1), (i_1,i_2), \dots, (i_{n-1},i_n) \}\)</span> such that <span class="math notranslate nohighlight">\(i_a \in V\)</span> and <span class="math notranslate nohighlight">\((i_{a-1},i_a) \in E, \forall a\)</span>. The path <span class="math notranslate nohighlight">\(P_{i_0,i_n}\)</span> connects nodes <span class="math notranslate nohighlight">\(i_0\)</span> and <span class="math notranslate nohighlight">\(i_n\)</span> and its <strong>length</strong> is <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<p><strong>Note:</strong> The number of paths of length <span class="math notranslate nohighlight">\(n\)</span> between two nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> is equivalent to the element <span class="math notranslate nohighlight">\(i,j\)</span> of the <span class="math notranslate nohighlight">\(n\)</span>th power of the adjacency matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <ul class="simple">
 <li><p>A <strong>shortest-path</strong> (or <em>geodesic path</em>) is the shortest path connecting two vertices.</p></li>
-<li><p>The <strong>eccentricity</strong> $\epsilon$ of a vertex $i$ is the longest shortest-path between vertex $i$ and any other vertex $j$.</p></li>
-<li><p>The <strong>radius</strong> $r$ of a graph $G=(V,E)$ is the <em>minimum</em> eccentricity of any node in $V$.</p></li>
-<li><p>The <strong>diameter</strong> $d$ of a graph $G=(V,E)$ is the <em>maximum</em> eccentricity of any node in $V$.</p></li>
-<li><p>A <strong>cycle</strong> (or loop) is a closed path (i.e. $i_0 = i_n$) in which all vertices and all edges are distinct. If a graph $G=(V,E)$ does not contain any cycle, than such graph is said to be <strong>acyclic</strong>. Instead, if it contains at least one cycle, the graph is said to be <strong>cyclic</strong>.</p></li>
+<li><p>The <strong>eccentricity</strong> <span class="math notranslate nohighlight">\(\epsilon\)</span> of a vertex <span class="math notranslate nohighlight">\(i\)</span> is the longest shortest-path between vertex <span class="math notranslate nohighlight">\(i\)</span> and any other vertex <span class="math notranslate nohighlight">\(j\)</span>.</p></li>
+<li><p>The <strong>radius</strong> <span class="math notranslate nohighlight">\(r\)</span> of a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is the <em>minimum</em> eccentricity of any node in <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
+<li><p>The <strong>diameter</strong> <span class="math notranslate nohighlight">\(d\)</span> of a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is the <em>maximum</em> eccentricity of any node in <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
+<li><p>A <strong>cycle</strong> (or loop) is a closed path (i.e. <span class="math notranslate nohighlight">\(i_0 = i_n\)</span>) in which all vertices and all edges are distinct. If a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> does not contain any cycle, than such graph is said to be <strong>acyclic</strong>. Instead, if it contains at least one cycle, the graph is said to be <strong>cyclic</strong>.</p></li>
 </ul>
 <p><strong>We’ll be diving into paths more thoroughly in later lessons, but to kick things off today, let’s define these terms above</strong>…</p>
 <p>Starting with <em>shortest path</em>.</p>
@@ -1174,10 +1178,10 @@ document.write(`
 <h4>From above:<a class="headerlink" href="#from-above" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>A <strong>shortest-path</strong> (or <em>geodesic path</em>) is the shortest path connecting two vertices.</p></li>
-<li><p>The <strong>eccentricity</strong> $\epsilon$ of a vertex $i$ is the longest shortest-path between vertex $i$ and any other vertex $j$.</p></li>
-<li><p>The <strong>radius</strong> $r$ of a graph $G=(V,E)$ is the <em>minimum</em> eccentricity of any node in $V$.</p></li>
-<li><p>The <strong>diameter</strong> $d$ of a graph $G=(V,E)$ is the <em>maximum</em> eccentricity of any node in $V$.</p></li>
-<li><p>A <strong>cycle</strong> (or loop) is a closed path (i.e. $i_0 = i_n$) in which all vertices and all edges are distinct. If a graph $G=(V,E)$ does not contain any cycle, than such graph is said to be <strong>acyclic</strong>. Instead, if it contains at least one cycle, the graph is said to be <strong>cyclic</strong>.</p></li>
+<li><p>The <strong>eccentricity</strong> <span class="math notranslate nohighlight">\(\epsilon\)</span> of a vertex <span class="math notranslate nohighlight">\(i\)</span> is the longest shortest-path between vertex <span class="math notranslate nohighlight">\(i\)</span> and any other vertex <span class="math notranslate nohighlight">\(j\)</span>.</p></li>
+<li><p>The <strong>radius</strong> <span class="math notranslate nohighlight">\(r\)</span> of a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is the <em>minimum</em> eccentricity of any node in <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
+<li><p>The <strong>diameter</strong> <span class="math notranslate nohighlight">\(d\)</span> of a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> is the <em>maximum</em> eccentricity of any node in <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
+<li><p>A <strong>cycle</strong> (or loop) is a closed path (i.e. <span class="math notranslate nohighlight">\(i_0 = i_n\)</span>) in which all vertices and all edges are distinct. If a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> does not contain any cycle, than such graph is said to be <strong>acyclic</strong>. Instead, if it contains at least one cycle, the graph is said to be <strong>cyclic</strong>.</p></li>
 </ul>
 <p><strong>Your turn!</strong></p>
 <ol class="arabic simple">
@@ -1220,7 +1224,7 @@ Diameter: 5
 <hr class="docutils" />
 <section id="segue-a-special-kind-of-path">
 <h3>Segue: A special kind of “path”<a class="headerlink" href="#segue-a-special-kind-of-path" title="Link to this heading">#</a></h3>
-<p>Remember from above: The number of paths of length $l$ between two nodes $i$ and $j$ in a graph can be found in the $ij^{th}$ element of the $l^{th}$ power of the adjacency matrix $A$.</p>
+<p>Remember from above: The number of paths of length <span class="math notranslate nohighlight">\(l\)</span> between two nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> in a graph can be found in the <span class="math notranslate nohighlight">\(ij^{th}\)</span> element of the <span class="math notranslate nohighlight">\(l^{th}\)</span> power of the adjacency matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
@@ -1271,7 +1275,7 @@ Diameter: 5
 <li><p>What do the off-diagonal elements correspond to?</p></li>
 <li><p>Is this matrix symmetric?</p></li>
 </ul>
-<p>What if we take the third power, $A^3$, of the adjacency matrix?</p>
+<p>What if we take the third power, <span class="math notranslate nohighlight">\(A^3\)</span>, of the adjacency matrix?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">@</span> <span class="n">A</span> <span class="o">@</span> <span class="n">A</span>
@@ -1306,15 +1310,16 @@ Diameter: 5
 <p>Node degree tells us how many neighbors each vertex has. However, we might also want to know how one node’s neighbors are related to each other. We can intuit this by imagining paths of length three in our graph. The concept of <em><strong>clustering</strong></em> (or <em>transitivity</em> in the context of sociology) refers exaclty to this: the tendency for nodes to form cliques around a given vertex.</p>
 <section id="local-clustering">
 <h3>Local Clustering<a class="headerlink" href="#local-clustering" title="Link to this heading">#</a></h3>
-<p>Given an <em><strong>undirected</strong></em> graph $G=(V,E)$, let us define the <em><strong>local clustering coefficient</strong></em> as the probability that any two neighbors $j$ and $k$ of node $i$ are connected:</p>
-<p>$$ C(i) =
+<p>Given an <em><strong>undirected</strong></em> graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span>, let us define the <em><strong>local clustering coefficient</strong></em> as the probability that any two neighbors <span class="math notranslate nohighlight">\(j\)</span> and <span class="math notranslate nohighlight">\(k\)</span> of node <span class="math notranslate nohighlight">\(i\)</span> are connected:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} C(i) = 
 \begin{cases}
-\frac{e_i}{k_i(k_i-1)/2}       &amp; \quad \text{if } k_{i}&gt;1\
-0                              &amp; \quad \text{if } k_{i}\leq 1\
+    \frac{e_i}{k_i(k_i-1)/2}       &amp; \quad \text{if } k_{i}&gt;1\\
+    0                              &amp; \quad \text{if } k_{i}\leq 1\\
 \end{cases},
-$$</p>
-<p>where $k_i$ is the degree of node $i$ and $e_i$ the number of edges that exists between the neighbors of node $i$. In other words, the clustering coefficient of a node represents the ratio between the number of triangles in the subgraph $G’$ induced by node $i$ and its neighbors over the number of all possible triangles that would be present if $G’$ was a complete graph.</p>
-<p>The average clustering coefficient of a network, then, is simply: $\langle C \rangle = \frac{1}{N}\sum_i C(i)$.</p>
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(k_i\)</span> is the degree of node <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(e_i\)</span> the number of edges that exists between the neighbors of node <span class="math notranslate nohighlight">\(i\)</span>. In other words, the clustering coefficient of a node represents the ratio between the number of triangles in the subgraph <span class="math notranslate nohighlight">\(G'\)</span> induced by node <span class="math notranslate nohighlight">\(i\)</span> and its neighbors over the number of all possible triangles that would be present if <span class="math notranslate nohighlight">\(G'\)</span> was a complete graph.</p>
+<p>The average clustering coefficient of a network, then, is simply: <span class="math notranslate nohighlight">\(\langle C \rangle = \frac{1}{N}\sum_i C(i)\)</span>.</p>
 <p>In <em><strong>directed</strong></em> graphs, the definition of clustering can be further refined since 8 different types of triangles can be present in our graph; see <a class="reference external" href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.76.026107">Fagiolo (2007)</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1626,7 +1631,8 @@ $$</p>
 <section id="global-clustering">
 <h3>Global Clustering<a class="headerlink" href="#global-clustering" title="Link to this heading">#</a></h3>
 <p>The <em><strong>global clustering coefficient</strong></em> measures the total number of closed triangles in a network relative to the number of existing connected triplets (i.e. the number of not closed triangles):</p>
-<p>$$ C_{\Delta} = \frac{3\text{ x Number of Triangles}}{\text{Number of Connected Triplets}}$$</p>
+<div class="math notranslate nohighlight">
+\[ C_{\Delta} = \frac{3\text{ x Number of Triangles}}{\text{Number of Connected Triplets}}\]</div>
 <p>where a <strong>connected triplet</strong> is an ordered set of three vertices.</p>
 <p><code class="docutils literal notranslate"><span class="pre">networkx</span></code> has a function for this! It’s (depending on your scholarly background) counter-intuitively named <code class="docutils literal notranslate"><span class="pre">nx.transitivity</span></code>.</p>
 <div class="cell docutils container">
@@ -1704,8 +1710,8 @@ $$</p>
 <hr class="docutils" />
 <section id="your-turn">
 <h4>Your turn!<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h4>
-<p>Graphs sampled from $G(N,p)$ do not have clustering. Why is that?</p>
-<p>The average clustering coefficient in $G(N,p)$ is $ \langle C \rangle = p = \frac{\langle k \rangle}{N}. $ Show this numerically.</p>
+<p>Graphs sampled from <span class="math notranslate nohighlight">\(G(N,p)\)</span> do not have clustering. Why is that?</p>
+<p>The average clustering coefficient in <span class="math notranslate nohighlight">\(G(N,p)\)</span> is <span class="math notranslate nohighlight">\( \langle C \rangle = p = \frac{\langle k \rangle}{N}. \)</span> Show this numerically.</p>
 <p>(Warning: The code block below takes a few minutes to run…)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1751,11 +1757,12 @@ $$</p>
 <section id="want-more-in-your-own-time">
 <h4>Want more? In your own time…<a class="headerlink" href="#want-more-in-your-own-time" title="Link to this heading">#</a></h4>
 <ol class="arabic simple">
-<li><p>The <strong>weighted clustering</strong> of node $i$ in an undirected weighted graph $G$ can be defined as:</p></li>
+<li><p>The <strong>weighted clustering</strong> of node <span class="math notranslate nohighlight">\(i\)</span> in an undirected weighted graph <span class="math notranslate nohighlight">\(G\)</span> can be defined as:</p></li>
 </ol>
-<p>$$ C^w(i) = \frac{1}{s_i(k_i-1)} \sum_{j=1}^N\sum_{h=1}^N \frac{w_{ij} + w_{ih}}{2}A_{ij}A_{ih}A_{jh} $$</p>
-<p>where $s_i$ is the <em>stength</em> of node $i$, $k_i$ is the degree of node $i$, and $w_{ij}$ is the weight associated to the edge connecting nodes $i$ and $j$.</p>
-<p>Write a function that computes the weighted clusterings $C^w(i)$ for all nodes in an undirected weighted graph.</p>
+<div class="math notranslate nohighlight">
+\[ C^w(i) = \frac{1}{s_i(k_i-1)} \sum_{j=1}^N\sum_{h=1}^N \frac{w_{ij} + w_{ih}}{2}A_{ij}A_{ih}A_{jh} \]</div>
+<p>where <span class="math notranslate nohighlight">\(s_i\)</span> is the <em>stength</em> of node <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(k_i\)</span> is the degree of node <span class="math notranslate nohighlight">\(i\)</span>, and <span class="math notranslate nohighlight">\(w_{ij}\)</span> is the weight associated to the edge connecting nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>.</p>
+<p>Write a function that computes the weighted clusterings <span class="math notranslate nohighlight">\(C^w(i)\)</span> for all nodes in an undirected weighted graph.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">pass</span>

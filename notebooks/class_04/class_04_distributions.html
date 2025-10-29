@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_04/class_04_distributions';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -419,7 +421,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="class-4-distributions-of-network-properties-centralities">
+  <section class="tex2jax_ignore mathjax_ignore" id="class-4-distributions-of-network-properties-centralities">
 <h1>Class 4: Distributions of Network Properties &amp; Centralities<a class="headerlink" href="#class-4-distributions-of-network-properties-centralities" title="Link to this heading">#</a></h1>
 <p>Goal of today’s class:</p>
 <ol class="arabic simple">
@@ -491,11 +493,12 @@ document.write(`
 <section id="case-study-closeness-centrality">
 <h4>Case Study: Closeness Centrality<a class="headerlink" href="#case-study-closeness-centrality" title="Link to this heading">#</a></h4>
 <p><em>Closeness centrality</em> is an attempt to quantify how readily a given node can access all other nodes in the network, based on the idea that a node is more “central” if it is “closer” to all other nodes, where closeness is defined as the average length of the shortest paths from the node to all others in the network.</p>
-<p>To calculate closeness centrality, you take the inverse of the sum of the shortest path distances from the node in question to all other nodes. Therefore, a node with high closeness centrality has shorter distances to other nodes, meaning it can spread information more efficiently or reach other nodes more quickly. To make this value standardized, we include an $N-1$ in the numerator, so that the values don’t scale as the network’s size increases.</p>
-<p>$$
+<p>To calculate closeness centrality, you take the inverse of the sum of the shortest path distances from the node in question to all other nodes. Therefore, a node with high closeness centrality has shorter distances to other nodes, meaning it can spread information more efficiently or reach other nodes more quickly. To make this value standardized, we include an <span class="math notranslate nohighlight">\(N-1\)</span> in the numerator, so that the values don’t scale as the network’s size increases.</p>
+<div class="math notranslate nohighlight">
+\[
 C(i) = \frac{N-1}{\sum_{i \neq j} d(i, j)}
-$$</p>
-<p>where $d(i,j)$ is the shortest path distance between node $i$ and $j$. Closeness centrality assumes the network is connected, and it can be modified to handle disconnected graphs by calculating the harmonic mean of distances instead, which is known as harmonic centrality.</p>
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(d(i,j)\)</span> is the shortest path distance between node <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>. Closeness centrality assumes the network is connected, and it can be modified to handle disconnected graphs by calculating the harmonic mean of distances instead, which is known as harmonic centrality.</p>
 <p>Citation: Freeman, L.C. (1978). Centrality in Social Networks: Conceptual Clarification. <em>Social Networks</em>, vol. 1, no. 3, pp. 215-239. doi: https://doi.org/10.1016/0378-8733(78)90021-7.</p>
 <hr class="docutils" />
 <p>Let’s try it out!</p>
@@ -780,20 +783,20 @@ $$</p>
 <section id="eigenvector-centrality">
 <h3>Eigenvector Centrality<a class="headerlink" href="#eigenvector-centrality" title="Link to this heading">#</a></h3>
 <p>The major contribution of eigenvector centrality was to define a node-level importance score to nodes that are connected to “important” other nodes (or incoming neighbors in directed graphs). In this way, eigenvector centrality generalizes degree centrality.</p>
-<p>It accomplishes this task through an iterative process. Given a network with adjacency matrix $\mathbf{A}$:</p>
+<p>It accomplishes this task through an iterative process. Given a network with adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>:</p>
 <ul class="simple">
-<li><p>Initialize every node to have the same “importance” score, $\mathbf{x}(0) = [x_1(0),\cdots,x_n(0)]^T$</p></li>
-<li><p>Then, in the first iteration: $x_i(1) = \sum_j \mathbf{A}_{ij} x_i(0)$, or in matrix notation, $\mathbf{x}(1) = \mathbf{A} \mathbf{x}(0)$.</p></li>
+<li><p>Initialize every node to have the same “importance” score, <span class="math notranslate nohighlight">\(\mathbf{x}(0) = [x_1(0),\cdots,x_n(0)]^T\)</span></p></li>
+<li><p>Then, in the first iteration: <span class="math notranslate nohighlight">\(x_i(1) = \sum_j \mathbf{A}_{ij} x_i(0)\)</span>, or in matrix notation, <span class="math notranslate nohighlight">\(\mathbf{x}(1) = \mathbf{A} \mathbf{x}(0)\)</span>.</p></li>
 </ul>
 <ul class="simple">
-<li><p>Then in the second iteration: $\mathbf{x}(2) = \mathbf{A} \mathbf{x}(1) = \mathbf{A}\mathbf{A} \mathbf{x}(0)$.</p></li>
-<li><p>Finally, after $t$ iterations: $\mathbf{x}(t) = \mathbf{A}^t \mathbf{x}(0)$. This becomes the eigenvector centrality of a node.</p></li>
+<li><p>Then in the second iteration: <span class="math notranslate nohighlight">\(\mathbf{x}(2) = \mathbf{A} \mathbf{x}(1) = \mathbf{A}\mathbf{A} \mathbf{x}(0)\)</span>.</p></li>
+<li><p>Finally, after <span class="math notranslate nohighlight">\(t\)</span> iterations: <span class="math notranslate nohighlight">\(\mathbf{x}(t) = \mathbf{A}^t \mathbf{x}(0)\)</span>. This becomes the eigenvector centrality of a node.</p></li>
 </ul>
 <p><strong>Deeper dive into the math behind eigenvector centrality.</strong></p>
-<p>Let $\mathbf{x}(0)$ be a linear combination of the eigenvectors $\mathbf{v}_i$ of the adjancency matrix, such that $\mathbf{x}(0) = \sum_i c_i \mathbf{v}_i$ and so $\mathbf{x}(t) = \mathbf{A}^t\sum_i c_i \mathbf{v}_i = \sum_i c_i \lambda_i^t \mathbf{v}_i$.</p>
-<p>Let $\lambda_1$ is the largest eigenvalue. In that case, $\sum_i c_i \lambda_i^t \mathbf(v)_i = \lambda_1^t \sum_i c_i \Big ( \frac{\lambda_i}{\lambda_1} \Big )^t \mathbf{v}_i$. If $i \neq 1$, $\lambda_i / \lambda_1 &lt; 1$, such that $t\rightarrow \infty$, $\mathbf{x}(t) \rightarrow c_1\lambda_1^t\mathbf{v}_1$.</p>
-<p>Another way to think of this is that the <em>eigenvector centrality $\mathbf{x}$ is the dominant eigenvector of the adjcency matrix $\mathbf{A}$</em>.</p>
-<p><strong>Extra notes:</strong> The <em>Perron-Frobenius Theorem:</em> If $A$ represents a <strong>strongly</strong> connected graph, there exists a positive real number (a Perron-Frobenius eigenvalue) $\lambda_{\max}$, such that any other eigenvalue of $A$ is strictly smaller than $\lambda_{\max}$. There also exists a corresponding eigenvector $\mathbf{v}=(v_1,\cdots,v_n)^T$ associated with $\lambda_{\max}$ that $\forall v_{i} &gt; 0$.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{x}(0)\)</span> be a linear combination of the eigenvectors <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> of the adjancency matrix, such that <span class="math notranslate nohighlight">\(\mathbf{x}(0) = \sum_i c_i \mathbf{v}_i\)</span> and so <span class="math notranslate nohighlight">\(\mathbf{x}(t) = \mathbf{A}^t\sum_i c_i \mathbf{v}_i = \sum_i c_i \lambda_i^t \mathbf{v}_i\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(\lambda_1\)</span> is the largest eigenvalue. In that case, <span class="math notranslate nohighlight">\(\sum_i c_i \lambda_i^t \mathbf(v)_i = \lambda_1^t \sum_i c_i \Big ( \frac{\lambda_i}{\lambda_1} \Big )^t \mathbf{v}_i\)</span>. If <span class="math notranslate nohighlight">\(i \neq 1\)</span>, <span class="math notranslate nohighlight">\(\lambda_i / \lambda_1 &lt; 1\)</span>, such that <span class="math notranslate nohighlight">\(t\rightarrow \infty\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}(t) \rightarrow c_1\lambda_1^t\mathbf{v}_1\)</span>.</p>
+<p>Another way to think of this is that the <em>eigenvector centrality <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is the dominant eigenvector of the adjcency matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span></em>.</p>
+<p><strong>Extra notes:</strong> The <em>Perron-Frobenius Theorem:</em> If <span class="math notranslate nohighlight">\(A\)</span> represents a <strong>strongly</strong> connected graph, there exists a positive real number (a Perron-Frobenius eigenvalue) <span class="math notranslate nohighlight">\(\lambda_{\max}\)</span>, such that any other eigenvalue of <span class="math notranslate nohighlight">\(A\)</span> is strictly smaller than <span class="math notranslate nohighlight">\(\lambda_{\max}\)</span>. There also exists a corresponding eigenvector <span class="math notranslate nohighlight">\(\mathbf{v}=(v_1,\cdots,v_n)^T\)</span> associated with <span class="math notranslate nohighlight">\(\lambda_{\max}\)</span> that <span class="math notranslate nohighlight">\(\forall v_{i} &gt; 0\)</span>.</p>
 <hr class="docutils" />
 <p>Citation: Bonacich, P. (1972) Factoring and Weighting Approaches to Status Scores and Clique Identification. <em>Journal of Mathematical Sociology</em>, 2, 113-120. doi: https://doi.org/10.1080/0022250X.1972.9989806.</p>
 <div class="cell docutils container">
@@ -896,10 +899,10 @@ $$</p>
 <p>The matrix multiplication is, in a sense, “reassigning” each node the sum of the values of its neighbor nodes. The operation can be thought of as iteratively “spreads out” the centrality among the nodes.</p>
 <p>E.g. using the figures below:</p>
 <ul class="simple">
-<li><p>$\mathbf{A}^0\mathbf{x} = [0.53033009, 0.35355339,  0.53033009,  0.53033009,  0.1767767]^T$</p></li>
-<li><p>$\mathbf{A}^1\mathbf{x} = [0.53692484,  0.40269363,  0.53692484,  0.46980924,  0.2013468]^T$</p></li>
-<li><p>$\mathbf{A}^2\mathbf{x} = [0.53802265,  0.40558631,  0.53802265,  0.47318403,  0.1807204]^T$</p></li>
-<li><p>$\mathbf{A}^4\mathbf{x} = [0.53561243,  0.40808566,  0.53561243,  0.47731448,  0.1785375]^T$</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{A}^0\mathbf{x} = [0.53033009, 0.35355339,  0.53033009,  0.53033009,  0.1767767]^T\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{A}^1\mathbf{x} = [0.53692484,  0.40269363,  0.53692484,  0.46980924,  0.2013468]^T\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{A}^2\mathbf{x} = [0.53802265,  0.40558631,  0.53802265,  0.47318403,  0.1807204]^T\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{A}^4\mathbf{x} = [0.53561243,  0.40808566,  0.53561243,  0.47731448,  0.1785375]^T\)</span></p></li>
 </ul>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -1152,9 +1155,9 @@ $$</p>
 <p>(excerpt from Chapter 4 of http://barabasi.com/networksciencebook/)</p>
 <p><img alt="" src="../../_images/figure-4-15.png" /></p>
 <p>The configuration model, illustrated in the graphic above, builds a network with a pre-defined degree sequence.</p>
-<p>In the network generated by the model, each node has a pre-defined degree $k_i$, but otherwise the network is wired randomly. Consequently the network is often called a random network with a pre-defined degree sequence. By repeatedly applying this procedure to the same degree sequence we can generate different networks with the same $p_k$ (Image 4.15b-d). There are a couple of caveats to consider:</p>
+<p>In the network generated by the model, each node has a pre-defined degree <span class="math notranslate nohighlight">\(k_i\)</span>, but otherwise the network is wired randomly. Consequently the network is often called a random network with a pre-defined degree sequence. By repeatedly applying this procedure to the same degree sequence we can generate different networks with the same <span class="math notranslate nohighlight">\(p_k\)</span> (Image 4.15b-d). There are a couple of caveats to consider:</p>
 <ol class="arabic simple">
-<li><p>The probability to have a link between nodes of degree $k_i$ and $k_j$ is: $p_{ij}=\frac{k_i k_j}{2L−1}$. Indeed, a stub starting from node i can connect to $2L - 1$ other stubs. Of these, $k_j$ are attached to node $j$. So the probability that a particular stub is connected to a stub of node $j$ is $\frac{k_j}{2L - 1}$. As node $i$ has $k_i$ stubs, it has $k_j$ attempts to link to $j$, resulting in (4.24).</p></li>
+<li><p>The probability to have a link between nodes of degree <span class="math notranslate nohighlight">\(k_i\)</span> and <span class="math notranslate nohighlight">\(k_j\)</span> is: <span class="math notranslate nohighlight">\(p_{ij}=\frac{k_i k_j}{2L−1}\)</span>. Indeed, a stub starting from node i can connect to <span class="math notranslate nohighlight">\(2L - 1\)</span> other stubs. Of these, <span class="math notranslate nohighlight">\(k_j\)</span> are attached to node <span class="math notranslate nohighlight">\(j\)</span>. So the probability that a particular stub is connected to a stub of node <span class="math notranslate nohighlight">\(j\)</span> is <span class="math notranslate nohighlight">\(\frac{k_j}{2L - 1}\)</span>. As node <span class="math notranslate nohighlight">\(i\)</span> has <span class="math notranslate nohighlight">\(k_i\)</span> stubs, it has <span class="math notranslate nohighlight">\(k_j\)</span> attempts to link to <span class="math notranslate nohighlight">\(j\)</span>, resulting in (4.24).</p></li>
 <li><p>The obtained network contains <strong>self-loops</strong> and <strong>multi-edges</strong>, nothing in the algorithm forbids a node from connecting to itself, or to generate multiple links between two nodes. We can choose to reject stub pairs that lead to these, but if we do so, we may not be able to complete the network. Rejecting self-loops or multi-links also means that not all possible matchings appear with equal probability.</p></li>
 <li><p>The configuration model is frequently used in calculations, as in the equation above, and its inherently random character helps us analytically calculate numerous network measures.</p></li>
 </ol>
@@ -1278,12 +1281,14 @@ $$</p>
 <hr class="docutils" />
 <section id="supplemental-math">
 <h4>Supplemental Math<a class="headerlink" href="#supplemental-math" title="Link to this heading">#</a></h4>
-<p>Notice that the inherent randomness of the networks generated using the configuration model allows the analytical calculation also of properties such as the clustering coefficient and the average shortest path in the general case of random uncorrelated graphs with given degree distribution $P(k)$.</p>
+<p>Notice that the inherent randomness of the networks generated using the configuration model allows the analytical calculation also of properties such as the clustering coefficient and the average shortest path in the general case of random uncorrelated graphs with given degree distribution <span class="math notranslate nohighlight">\(P(k)\)</span>.</p>
 <p>For instance, the general expression for the <strong>average clustering coefficient</strong> reads as:</p>
-<p>$$ \left\langle C \right\rangle = \frac{1}{N} \frac{\left(\left\langle k^2 \right\rangle - \left\langle k \right\rangle\right)^2}{\left\langle k \right\rangle^3}.$$</p>
-<p>This implies that the clustering properties have an intrinsic dependence on the degree distribution moments. In the limit of infinite size $N \rightarrow  \infty$, the clustering coefficient is null as expected in a completely random graph. However, in finite size networks with large fluctuations of the degree distribution, the clustering coefficient could have much larger values than in the case of the Poissonian Erdős–Rényi graph because of the large values attained by $\left\langle k^2\right\rangle$.</p>
+<div class="math notranslate nohighlight">
+\[ \left\langle C \right\rangle = \frac{1}{N} \frac{\left(\left\langle k^2 \right\rangle - \left\langle k \right\rangle\right)^2}{\left\langle k \right\rangle^3}.\]</div>
+<p>This implies that the clustering properties have an intrinsic dependence on the degree distribution moments. In the limit of infinite size <span class="math notranslate nohighlight">\(N \rightarrow  \infty\)</span>, the clustering coefficient is null as expected in a completely random graph. However, in finite size networks with large fluctuations of the degree distribution, the clustering coefficient could have much larger values than in the case of the Poissonian Erdős–Rényi graph because of the large values attained by <span class="math notranslate nohighlight">\(\left\langle k^2\right\rangle\)</span>.</p>
 <p>A generalization of the formula for the scaling of the <strong>average shortest path</strong> of the graph can similarly be obtained and reads:</p>
-<p>$$ \left\langle l \right\rangle \simeq 1 + \frac{\log\left(N / \left\langle k \right\rangle\right)}{\log\left(\left(\left\langle k^2 \right\rangle - \left\langle k \right\rangle\right)/\left\langle k \right\rangle\right)}.$$</p>
+<div class="math notranslate nohighlight">
+\[ \left\langle l \right\rangle \simeq 1 + \frac{\log\left(N / \left\langle k \right\rangle\right)}{\log\left(\left(\left\langle k^2 \right\rangle - \left\langle k \right\rangle\right)/\left\langle k \right\rangle\right)}.\]</div>
 <hr class="docutils" />
 <!-- # __PROBLEM__
 

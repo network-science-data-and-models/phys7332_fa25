@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_17/class_17_dynamics2';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -398,7 +400,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#si-susceptible-infectious-dynamics">[SI] Susceptible-Infectious Dynamics</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sis-susceptible-infectious-susceptible-dynamics">[SIS] Susceptible-Infectious-Susceptible Dynamics</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sis-in-homogeneous-populations">SIS in Homogeneous Populations</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-reproductive-number-r-0">Basic Reproductive Number, $R_0$</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-reproductive-number-r-0">Basic Reproductive Number, <span class="math notranslate nohighlight">\(R_0\)</span></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sir-susceptible-infectious-recovered-dynamics">[SIR] Susceptible-Infectious-Recovered Dynamics</a></li>
@@ -423,7 +425,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="class-17-dynamics-on-networks-2-compartmental-models">
+  <section class="tex2jax_ignore mathjax_ignore" id="class-17-dynamics-on-networks-2-compartmental-models">
 <h1>Class 17: Dynamics on Networks 2 — Compartmental Models<a class="headerlink" href="#class-17-dynamics-on-networks-2-compartmental-models" title="Link to this heading">#</a></h1>
 <p>Goal of today’s class:</p>
 <ol class="arabic simple">
@@ -514,7 +516,7 @@ document.write(`
 </li>
 <li><p>And many others, depending on the disease dynamics in question (e.g. <strong>V</strong>accinated, <strong>Q</strong>uarantined, <strong>H</strong>ospitalized, <strong>L</strong>atent, <strong>A</strong>symptomatic, etc.)</p></li>
 </ul>
-<p><em>Note: Typically we assume constant population (e.g., $N = S+I+R$) in these models.</em></p>
+<p><em>Note: Typically we assume constant population (e.g., <span class="math notranslate nohighlight">\(N = S+I+R\)</span>) in these models.</em></p>
 </section>
 <section id="ii-transition-between-compartments">
 <h4>II. Transition between compartments:<a class="headerlink" href="#ii-transition-between-compartments" title="Link to this heading">#</a></h4>
@@ -544,9 +546,9 @@ document.write(`
 <hr class="docutils" />
 <section id="iv-mixing-method-homogeneous-heterogeneous-etc">
 <h4>IV. Mixing Method: Homogeneous, Heterogeneous, etc.<a class="headerlink" href="#iv-mixing-method-homogeneous-heterogeneous-etc" title="Link to this heading">#</a></h4>
-<p>In the <strong>homogeneous mixing</strong> case, we assume a fully “mixed” population (good approximation for some diseases), where every individual in the population has an equal chance of coming into contact with others. The <em>force of infection</em> ($\lambda$) is the per capita rate at which susceptible individuals acquire an infectious disease: $\lambda = \dfrac{\mathrm{the; number; of; infections}}{\mathrm{the; number; of; susceptible; person; exposed}\times\mathrm{duration; of; exposed}}$.</p>
-<p>In this case, infection follows a <em>mass-action law</em>. Suppose $N$ is the total population, $I$ is the number of infections, $\beta$ is the transmission rate ($\beta^{-1}$ the period of infection); in this case, the force of infection $\lambda = \beta\dfrac{I}{N}$.</p>
-<p>In <strong>heterogeneous mixing</strong>, the well-mixed approximation becomes relaxed, and we consider explicitly the connectivity prescribed by a network, $G$. Here, we assume a <em>degree-class approximation</em> (sometimes described as an <em>annealed</em> approximation).</p>
+<p>In the <strong>homogeneous mixing</strong> case, we assume a fully “mixed” population (good approximation for some diseases), where every individual in the population has an equal chance of coming into contact with others. The <em>force of infection</em> (<span class="math notranslate nohighlight">\(\lambda\)</span>) is the per capita rate at which susceptible individuals acquire an infectious disease: <span class="math notranslate nohighlight">\(\lambda = \dfrac{\mathrm{the\; number\; of\; infections}}{\mathrm{the\; number\; of\; susceptible\; person\; exposed}\times\mathrm{duration\; of\; exposed}}\)</span>.</p>
+<p>In this case, infection follows a <em>mass-action law</em>. Suppose <span class="math notranslate nohighlight">\(N\)</span> is the total population, <span class="math notranslate nohighlight">\(I\)</span> is the number of infections, <span class="math notranslate nohighlight">\(\beta\)</span> is the transmission rate (<span class="math notranslate nohighlight">\(\beta^{-1}\)</span> the period of infection); in this case, the force of infection <span class="math notranslate nohighlight">\(\lambda = \beta\dfrac{I}{N}\)</span>.</p>
+<p>In <strong>heterogeneous mixing</strong>, the well-mixed approximation becomes relaxed, and we consider explicitly the connectivity prescribed by a network, <span class="math notranslate nohighlight">\(G\)</span>. Here, we assume a <em>degree-class approximation</em> (sometimes described as an <em>annealed</em> approximation).</p>
 </section>
 </section>
 </section>
@@ -556,30 +558,32 @@ document.write(`
 <p>This is probably the simplest model of disease dynamics, where infection is permanent.</p>
 <p><img alt="" src="../../_images/compartments_SI.png" /></p>
 <p>In a homogeneous population:</p>
-<p>$
-\begin{align*}
-S(t+dt) ; =&amp; ; S(t) - \beta S(t)\frac{I(t)}{N}dt \
-I(t+dt) ; =&amp; ; I(t) + \beta S(t)\frac{I(t)}{N}dt \
-\end{align*}
-$</p>
+<p>$</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+S(t+dt) \; =&amp; \; S(t) - \beta S(t)\frac{I(t)}{N}dt \\
+I(t+dt) \; =&amp; \; I(t) + \beta S(t)\frac{I(t)}{N}dt \\
+\end{align*}\]</div>
+<p>$</p>
 <p><strong>Notes:</strong></p>
 <ul class="simple">
-<li><p>$\frac{S}{N}$ is the probability of meeting a susceptible individual per unit time</p></li>
-<li><p>$\frac{IS}{N}$ is the average number of susceptibles that infected individuals meet per unit time</p></li>
-<li><p>$\beta\frac{IS}{N}$ is the average number of susceptibles that become infected per unit time</p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{S}{N}\)</span> is the probability of meeting a susceptible individual per unit time</p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{IS}{N}\)</span> is the average number of susceptibles that infected individuals meet per unit time</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta\frac{IS}{N}\)</span> is the average number of susceptibles that become infected per unit time</p></li>
 </ul>
-<p>In the continuous limit $dt \rightarrow 0$,</p>
-<p>$
-\begin{align*}
-d_t S ; =&amp; ; -\beta S \frac{I}{N} \quad d_t s ; = ; -\beta s i \quad s ; = ; \frac{S}{N} \
-d_t I ; =&amp; ; \beta S\frac{I}{N} \qquad d_t i ; = ; \beta s i \qquad i ; = ; \frac{I}{N} \
-\end{align*}
-$</p>
-<p>with $ s = 1 - i $. We have,</p>
-<p>$di = \beta i(1-i) dt$ and</p>
-<p>$\int_{i_0}^{i} \frac{di’}{i’ (1-i’)} = \beta\int_{t_0}^{t} dt$.</p>
-<p>So the analytical solution is: $i(t) = \frac{1}{1 + (1-i_0) e^{-\beta t}}$ as $t\rightarrow\infty$, and</p>
-<p>$i(\infty)\rightarrow 1 \qquad s(\infty)\rightarrow 0$.</p>
+<p>In the continuous limit <span class="math notranslate nohighlight">\(dt \rightarrow 0\)</span>,</p>
+<p>$</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+d_t S \; =&amp; \; -\beta S \frac{I}{N} \quad d_t s \; = \; -\beta s i \quad s \; = \; \frac{S}{N} \\
+d_t I \; =&amp; \; \beta S\frac{I}{N} \qquad d_t i \; = \; \beta s i \qquad i \; = \; \frac{I}{N} \\
+\end{align*}\]</div>
+<p>$</p>
+<p>with <span class="math notranslate nohighlight">\( s = 1 - i \)</span>. We have,</p>
+<p><span class="math notranslate nohighlight">\(di = \beta i(1-i) dt\)</span> and</p>
+<p><span class="math notranslate nohighlight">\(\int_{i_0}^{i} \frac{di'}{i' (1-i')} = \beta\int_{t_0}^{t} dt\)</span>.</p>
+<p>So the analytical solution is: <span class="math notranslate nohighlight">\(i(t) = \frac{1}{1 + (1-i_0) e^{-\beta t}}\)</span> as <span class="math notranslate nohighlight">\(t\rightarrow\infty\)</span>, and</p>
+<p><span class="math notranslate nohighlight">\(i(\infty)\rightarrow 1 \qquad s(\infty)\rightarrow 0\)</span>.</p>
 <hr class="docutils" />
 <section id="sis-susceptible-infectious-susceptible-dynamics">
 <h3>[SIS] Susceptible-Infectious-Susceptible Dynamics<a class="headerlink" href="#sis-susceptible-infectious-susceptible-dynamics" title="Link to this heading">#</a></h3>
@@ -587,28 +591,30 @@ $</p>
 <p><img alt="" src="../../_images/compartments_SIS.png" /></p>
 <section id="sis-in-homogeneous-populations">
 <h4>SIS in Homogeneous Populations<a class="headerlink" href="#sis-in-homogeneous-populations" title="Link to this heading">#</a></h4>
-<p>$
-\begin{align*}
-S(t+dt) ; =&amp; ; S(t) - \beta S(t)\frac{I(t)}{N}dt + \mu I(t)dt\
-I(t+dt) ; =&amp; ; I(t) + \beta S(t)\frac{I(t)}{N}dt - \mu I(t)dt \
-\end{align*}
-$</p>
+<p>$</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+S(t+dt) \; =&amp; \; S(t) - \beta S(t)\frac{I(t)}{N}dt + \mu I(t)dt\\
+I(t+dt) \; =&amp; \; I(t) + \beta S(t)\frac{I(t)}{N}dt - \mu I(t)dt \\
+\end{align*}\]</div>
+<p>$</p>
 <p>or equivalently,</p>
-<p>$
-\begin{align*}
-d_t s(t) ; =&amp; ; - \beta s(t)i(t) + \mu i(t)\
-d_t i(t) ; =&amp; ; \beta s(t)i(t) - \mu i(t) \
-\end{align*}
-$</p>
-<p>In early time dynamics, the number of infectious individuals is small with respect to the population size ($s \sim 1$) (which makes sense). We can therefore linearize the equation $d_{t} i = \beta i - \mu i = (\beta - \mu) i$.</p>
-<p>We therefore have <strong>epidemic threshold</strong> $\beta - \mu &gt; 0$  or $\dfrac{\beta}{\mu}&gt;1$.</p>
+<p>$</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+d_t s(t) \; =&amp; \; - \beta s(t)i(t) + \mu i(t)\\
+d_t i(t) \; =&amp; \; \beta s(t)i(t) - \mu i(t) \\
+\end{align*}\]</div>
+<p>$</p>
+<p>In early time dynamics, the number of infectious individuals is small with respect to the population size (<span class="math notranslate nohighlight">\(s \sim 1\)</span>) (which makes sense). We can therefore linearize the equation <span class="math notranslate nohighlight">\(d_{t} i = \beta i - \mu i = (\beta - \mu) i\)</span>.</p>
+<p>We therefore have <strong>epidemic threshold</strong> <span class="math notranslate nohighlight">\(\beta - \mu &gt; 0\)</span>  or <span class="math notranslate nohighlight">\(\dfrac{\beta}{\mu}&gt;1\)</span>.</p>
 </section>
 <section id="basic-reproductive-number-r-0">
-<h4>Basic Reproductive Number, $R_0$<a class="headerlink" href="#basic-reproductive-number-r-0" title="Link to this heading">#</a></h4>
-<p>The basic reproductive number, $R_0$ is a central concept in epidemiology; it is the average number of secondary infections generated by a initial infection in a fully uninfected population. Its precise form depends on the epidemic dynamics themselves (i.e., for the SIS model, $R_0 = \dfrac{\beta}{\mu}$).</p>
-<p>The analytical solution: $i(t) = \dfrac{\beta - \mu}{\beta + c e^{-\mu(R_0 -1)t}}$.</p>
-<p>If $R_0&lt;1$, $i(\infty) = 0$.</p>
-<p>If $R_0&gt;1$, $i(\infty) = 1 - \dfrac{1}{R_0}$, which is an endemic state.</p>
+<h4>Basic Reproductive Number, <span class="math notranslate nohighlight">\(R_0\)</span><a class="headerlink" href="#basic-reproductive-number-r-0" title="Link to this heading">#</a></h4>
+<p>The basic reproductive number, <span class="math notranslate nohighlight">\(R_0\)</span> is a central concept in epidemiology; it is the average number of secondary infections generated by a initial infection in a fully uninfected population. Its precise form depends on the epidemic dynamics themselves (i.e., for the SIS model, <span class="math notranslate nohighlight">\(R_0 = \dfrac{\beta}{\mu}\)</span>).</p>
+<p>The analytical solution: <span class="math notranslate nohighlight">\(i(t) = \dfrac{\beta - \mu}{\beta + c e^{-\mu(R_0 -1)t}}\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(R_0&lt;1\)</span>, <span class="math notranslate nohighlight">\(i(\infty) = 0\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(R_0&gt;1\)</span>, <span class="math notranslate nohighlight">\(i(\infty) = 1 - \dfrac{1}{R_0}\)</span>, which is an endemic state.</p>
 <hr class="docutils" />
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -814,18 +820,19 @@ $</p>
 </section>
 <section id="sir-model-in-homogeneous-population">
 <h3>SIR model in homogeneous population<a class="headerlink" href="#sir-model-in-homogeneous-population" title="Link to this heading">#</a></h3>
-<p>$
-\begin{align*}
-d_t s(t) ; =&amp; ; - \beta s(t)i(t) \
-d_t i(t) ; =&amp; ; \beta s(t)i(t) - \mu i(t) \
-d_t r(t) ; =&amp; ; \mu i(t)
-\end{align*}
-$</p>
+<p>$</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+d_t s(t) \; =&amp; \; - \beta s(t)i(t) \\
+d_t i(t) \; =&amp; \; \beta s(t)i(t) - \mu i(t) \\
+d_t r(t) \; =&amp; \; \mu i(t)
+\end{align*}\]</div>
+<p>$</p>
 <p><strong>Assumptions:</strong> In the early time dynamics,</p>
 <ul class="simple">
-<li><p>the number of infectious is small respect to the population size ($s \sim 1$, $i \sim 0$)</p></li>
-<li><p>we can linearize the equation $d_{i}t = \beta i - \mu i = (\beta - \mu) i$</p></li>
-<li><p>so we have an <strong>epidemic threshold</strong> $\beta - \mu &gt; 0$ or $R_0=\frac{\beta}{\mu}&gt;1$</p></li>
+<li><p>the number of infectious is small respect to the population size (<span class="math notranslate nohighlight">\(s \sim 1\)</span>, <span class="math notranslate nohighlight">\(i \sim 0\)</span>)</p></li>
+<li><p>we can linearize the equation <span class="math notranslate nohighlight">\(d_{i}t = \beta i - \mu i = (\beta - \mu) i\)</span></p></li>
+<li><p>so we have an <strong>epidemic threshold</strong> <span class="math notranslate nohighlight">\(\beta - \mu &gt; 0\)</span> or <span class="math notranslate nohighlight">\(R_0=\frac{\beta}{\mu}&gt;1\)</span></p></li>
 </ul>
 </section>
 <section id="your-turn">
@@ -988,23 +995,24 @@ $</p>
 </section>
 <section id="seir-susceptible-exposed-infectious-recovered-dynamics">
 <h3>[SEIR] Susceptible-Exposed-Infectious-Recovered Dynamics<a class="headerlink" href="#seir-susceptible-exposed-infectious-recovered-dynamics" title="Link to this heading">#</a></h3>
-<p>In SEIR dynamics, we add an exposed (E) compartment, which draws individuals from the susceptible (S) compartment via interaction with infectious compartment, then leading to a spontaneous transition to infectious (I) with probability $\epsilon$.</p>
+<p>In SEIR dynamics, we add an exposed (E) compartment, which draws individuals from the susceptible (S) compartment via interaction with infectious compartment, then leading to a spontaneous transition to infectious (I) with probability <span class="math notranslate nohighlight">\(\epsilon\)</span>.</p>
 <p><img alt="" src="../../_images/compartments_SEIR.png" /></p>
 </section>
 <section id="id1">
 <h3>SIR model in homogeneous population<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>$
-\begin{align*}
-d_t s(t) ; =&amp; ; - \beta s(t)i(t) \
-d_t i(t) ; =&amp; ; \beta s(t)i(t) - \mu i(t) \
-d_t r(t) ; =&amp; ; \mu i(t)
-\end{align*}
-$</p>
+<p>$</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+d_t s(t) \; =&amp; \; - \beta s(t)i(t) \\
+d_t i(t) \; =&amp; \; \beta s(t)i(t) - \mu i(t) \\
+d_t r(t) \; =&amp; \; \mu i(t)
+\end{align*}\]</div>
+<p>$</p>
 <p><strong>Assumptions:</strong> In the early time dynamics,</p>
 <ul class="simple">
-<li><p>the number of infectious is small respect to the population size ($s \sim 1$, $i \sim 0$)</p></li>
-<li><p>we can linearize the equation $d_{i}t = \beta i - \mu i = (\beta - \mu) i$</p></li>
-<li><p>so we have an <strong>epidemic threshold</strong> $\beta - \mu &gt; 0$ or $R_0=\frac{\beta}{\mu}&gt;1$</p></li>
+<li><p>the number of infectious is small respect to the population size (<span class="math notranslate nohighlight">\(s \sim 1\)</span>, <span class="math notranslate nohighlight">\(i \sim 0\)</span>)</p></li>
+<li><p>we can linearize the equation <span class="math notranslate nohighlight">\(d_{i}t = \beta i - \mu i = (\beta - \mu) i\)</span></p></li>
+<li><p>so we have an <strong>epidemic threshold</strong> <span class="math notranslate nohighlight">\(\beta - \mu &gt; 0\)</span> or <span class="math notranslate nohighlight">\(R_0=\frac{\beta}{\mu}&gt;1\)</span></p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1894,7 +1902,7 @@ $$R_0 = \frac{\beta}{\mu} > \frac{\langle k \rangle}{\langle k^2 \rangle - \lang
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#si-susceptible-infectious-dynamics">[SI] Susceptible-Infectious Dynamics</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sis-susceptible-infectious-susceptible-dynamics">[SIS] Susceptible-Infectious-Susceptible Dynamics</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sis-in-homogeneous-populations">SIS in Homogeneous Populations</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-reproductive-number-r-0">Basic Reproductive Number, $R_0$</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-reproductive-number-r-0">Basic Reproductive Number, <span class="math notranslate nohighlight">\(R_0\)</span></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sir-susceptible-infectious-recovered-dynamics">[SIR] Susceptible-Infectious-Recovered Dynamics</a></li>

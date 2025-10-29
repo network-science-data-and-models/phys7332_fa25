@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_06/class_06_data_science_and_sql';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -441,7 +443,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="class-6-data-science-1-pandas-sql-regressions">
+  <section class="tex2jax_ignore mathjax_ignore" id="class-6-data-science-1-pandas-sql-regressions">
 <h1>Class 6: Data Science 1 — Pandas, SQL, Regressions<a class="headerlink" href="#class-6-data-science-1-pandas-sql-regressions" title="Link to this heading">#</a></h1>
 <p>Goal of today’s clas</p>
 <ol class="arabic simple">
@@ -819,11 +821,11 @@ What is the average certainty for each species? (Hint: <code class="docutils lit
 <section id="regressions">
 <h2>Regressions<a class="headerlink" href="#regressions" title="Link to this heading">#</a></h2>
 <p>Regressions are used to figure out how variables in a dataset are related to each other. Usually, you have a dependent variable (the <strong>outcome</strong> we care about) and some set of <strong>independent variables</strong> that influence the outcome. For example, let’s say we have a bunch of fish and their dimensional measurements. We want to figure out how much the fish weighs, given its measurements. Regression is one way we can do this!</p>
-<p>In its most basic form, a linear regression will try to minimize the <strong>sum of squared error</strong>. Let’s say we have a bunch of observations $y_i$ and $x_i$. Each $y_i$ is a numeric value, and each $x_i$ is a vector of dependent variables. We want to find a vector $\beta$ such that $\sum_{i=0}^{n} (\beta x_i - y_i)^2$ is minimized. This is also referred to the sum of the squares of the residuals – <strong>residual</strong> is another word for how incorrect an individual prediction is. In aggregate, we want the amount that we are wrong to be as small as possible.</p>
-<p>We often use $R^2$, or the <a class="reference external" href="https://en.wikipedia.org/wiki/Coefficient_of_determination">“coefficient of determination,”</a>  to estimate how well a regression explains data. Formally, it takes the following form:
-$SS_{res} = \sum_{i=0}^{n} (\beta x_i - y_i)^2$ is the sum of the squares of the <strong>residuals</strong> (remember, this is how wrong an individual prediction is).
-$SS_{tot} = \sum_{i=0}^{n} (y_i - \bar{y})^2$ is the <strong>total sum of squares</strong> - this is proportional to the variance of the dataset.</p>
-<p>Now, $R^2 = 1 - \frac{SS_{res}}{SS_{tot}}$. In other words, we’re asking “how well are we explaining all the variance in the dataset?”</p>
+<p>In its most basic form, a linear regression will try to minimize the <strong>sum of squared error</strong>. Let’s say we have a bunch of observations <span class="math notranslate nohighlight">\(y_i\)</span> and <span class="math notranslate nohighlight">\(x_i\)</span>. Each <span class="math notranslate nohighlight">\(y_i\)</span> is a numeric value, and each <span class="math notranslate nohighlight">\(x_i\)</span> is a vector of dependent variables. We want to find a vector <span class="math notranslate nohighlight">\(\beta\)</span> such that <span class="math notranslate nohighlight">\(\sum_{i=0}^{n} (\beta x_i - y_i)^2\)</span> is minimized. This is also referred to the sum of the squares of the residuals – <strong>residual</strong> is another word for how incorrect an individual prediction is. In aggregate, we want the amount that we are wrong to be as small as possible.</p>
+<p>We often use <span class="math notranslate nohighlight">\(R^2\)</span>, or the <a class="reference external" href="https://en.wikipedia.org/wiki/Coefficient_of_determination">“coefficient of determination,”</a>  to estimate how well a regression explains data. Formally, it takes the following form:
+<span class="math notranslate nohighlight">\(SS_{res} = \sum_{i=0}^{n} (\beta x_i - y_i)^2\)</span> is the sum of the squares of the <strong>residuals</strong> (remember, this is how wrong an individual prediction is).
+<span class="math notranslate nohighlight">\(SS_{tot} = \sum_{i=0}^{n} (y_i - \bar{y})^2\)</span> is the <strong>total sum of squares</strong> - this is proportional to the variance of the dataset.</p>
+<p>Now, <span class="math notranslate nohighlight">\(R^2 = 1 - \frac{SS_{res}}{SS_{tot}}\)</span>. In other words, we’re asking “how well are we explaining all the variance in the dataset?”</p>
 <section id="when-are-regressions-useful">
 <h3>When are regressions useful?<a class="headerlink" href="#when-are-regressions-useful" title="Link to this heading">#</a></h3>
 <p>Regressions are useful for figuring out how different independent variables affect a dependent variable. They are also helpful in predicting how a system might act in the future. For example, if you have a lot of fish and a linear regression model that can predict their weights pretty well, you can then measure even more fish and predict their weights!</p>
@@ -832,7 +834,7 @@ $SS_{tot} = \sum_{i=0}^{n} (y_i - \bar{y})^2$ is the <strong>total sum of square
 <h3>When do they fall short?<a class="headerlink" href="#when-do-they-fall-short" title="Link to this heading">#</a></h3>
 <p>Sometimes data isn’t linear! Other times, you might have something that looks like a good fit, but it doesn’t explain your data well. <a class="reference external" href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">Anscombe’s Quartet</a> is a good example that explains why just going ahead and fitting a linear model to your data may not always be wise!</p>
 <p><img alt="Anscombe's Quartet" src="../../_images/anscombe_quartet.png" /></p>
-<p>As you can see, these datasets are doing very different things, but the linear model that best describes them is the same for all four datasets. It also fits each dataset as well as the next: the $R^2$ is $0.67$ for all the regressions. This is a cautionary tale: sometimes a linear model is simply not the right model!</p>
+<p>As you can see, these datasets are doing very different things, but the linear model that best describes them is the same for all four datasets. It also fits each dataset as well as the next: the <span class="math notranslate nohighlight">\(R^2\)</span> is <span class="math notranslate nohighlight">\(0.67\)</span> for all the regressions. This is a cautionary tale: sometimes a linear model is simply not the right model!</p>
 </section>
 <section id="running-a-linear-regression-on-a-pandas-dataframe">
 <h3>Running a linear regression on a Pandas dataframe<a class="headerlink" href="#running-a-linear-regression-on-a-pandas-dataframe" title="Link to this heading">#</a></h3>
@@ -878,7 +880,7 @@ $SS_{tot} = \sum_{i=0}^{n} (y_i - \bar{y})^2$ is the <strong>total sum of square
 </div>
 </div>
 </div>
-<p>We have created a <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> object, called <code class="docutils literal notranslate"><span class="pre">reg</span></code>. When we call the <code class="docutils literal notranslate"><span class="pre">fit()</span></code> method, we compute the best coefficients to multiply the values in <code class="docutils literal notranslate"><span class="pre">x_mtx</span></code> by to get something close to <code class="docutils literal notranslate"><span class="pre">y_mtx</span></code>. How good is our model? The <code class="docutils literal notranslate"><span class="pre">score()</span></code> method gives us $R^2$.</p>
+<p>We have created a <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> object, called <code class="docutils literal notranslate"><span class="pre">reg</span></code>. When we call the <code class="docutils literal notranslate"><span class="pre">fit()</span></code> method, we compute the best coefficients to multiply the values in <code class="docutils literal notranslate"><span class="pre">x_mtx</span></code> by to get something close to <code class="docutils literal notranslate"><span class="pre">y_mtx</span></code>. How good is our model? The <code class="docutils literal notranslate"><span class="pre">score()</span></code> method gives us <span class="math notranslate nohighlight">\(R^2\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x_mtx</span><span class="p">,</span> <span class="n">y_mtx</span><span class="p">)</span>
@@ -889,7 +891,7 @@ $SS_{tot} = \sum_{i=0}^{n} (y_i - \bar{y})^2$ is the <strong>total sum of square
 <p>That’s not too bad!</p>
 <section id="adding-in-fish-species">
 <h4>Adding in Fish Species<a class="headerlink" href="#adding-in-fish-species" title="Link to this heading">#</a></h4>
-<p>What if our fish are different densities depending on species? Let’s see if we can make our regression a little better. One way to do this is to introduce a <em>categorical variable</em>. In this case, we’ll have a column for each fish species. Its entry for each row will take the value $1$ if the fish in that row is of that species; otherwise, it’ll be $0$. This is really easy to do with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>:</p>
+<p>What if our fish are different densities depending on species? Let’s see if we can make our regression a little better. One way to do this is to introduce a <em>categorical variable</em>. In this case, we’ll have a column for each fish species. Its entry for each row will take the value <span class="math notranslate nohighlight">\(1\)</span> if the fish in that row is of that species; otherwise, it’ll be <span class="math notranslate nohighlight">\(0\)</span>. This is really easy to do with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_fish</span><span class="p">[</span><span class="s2">&quot;fish_category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_fish</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
@@ -938,8 +940,8 @@ $SS_{tot} = \sum_{i=0}^{n} (y_i - \bar{y})^2$ is the <strong>total sum of square
 <h3>Getting Fancy<a class="headerlink" href="#getting-fancy" title="Link to this heading">#</a></h3>
 <p>We can also use something called a <em>kernel function</em> to transform our linear data into higher dimensional space. Specifically, we can apply arbitrary functions to our fish data and add them to our linear regression matrices. Let’s say we have two concentric circles as a dataset:
 <img alt="Concentric circles" src="../../_images/concentric_circles.png" />
-We’re going to have a hard time separating these with either of their $x$ and $y$ coordinates! But what if we add a new column that is $\sqrt{x_i^2 + y_i^2}$? We’re able to separate them easily because we’ve projected our points into a higher dimensional space. Neat!!</p>
-<p>Let’s try applying this to the fish dataset. Can you engineer a new column for the fish dataset that improves your $R^2$?</p>
+We’re going to have a hard time separating these with either of their <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinates! But what if we add a new column that is <span class="math notranslate nohighlight">\(\sqrt{x_i^2 + y_i^2}\)</span>? We’re able to separate them easily because we’ve projected our points into a higher dimensional space. Neat!!</p>
+<p>Let’s try applying this to the fish dataset. Can you engineer a new column for the fish dataset that improves your <span class="math notranslate nohighlight">\(R^2\)</span>?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your Turn!</span>

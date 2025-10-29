@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/class_09/class_09_communities2';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -429,7 +431,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="class-09-clustering-community-detection-2-contemporary">
+  <section class="tex2jax_ignore mathjax_ignore" id="class-09-clustering-community-detection-2-contemporary">
 <h1>Class 09: Clustering &amp; Community Detection 2 — Contemporary<a class="headerlink" href="#class-09-clustering-community-detection-2-contemporary" title="Link to this heading">#</a></h1>
 <p>Goal of today’s class:</p>
 <ol class="arabic simple">
@@ -467,10 +469,11 @@ document.write(`
 <section id="trouble-in-modularity-paradise">
 <h2>Trouble in Modularity Paradise…<a class="headerlink" href="#trouble-in-modularity-paradise" title="Link to this heading">#</a></h2>
 <p>Let’s start with two exercises to motivate today’s lesson, both of which point to a deep concern in the utility of <em>modularity</em> as a graph property and as a measure to optimize over when identifying communities in networks.</p>
-<p>Recall that the modularity, $Q$, of a given partition $C$ of our adjacency matrix $A$ is:</p>
-<p>$$Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) $$</p>
+<p>Recall that the modularity, <span class="math notranslate nohighlight">\(Q\)</span>, of a given partition <span class="math notranslate nohighlight">\(C\)</span> of our adjacency matrix <span class="math notranslate nohighlight">\(A\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[Q (A,C) = \frac{1}{2M} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2M} \right) \delta (C_i,C_j) \]</div>
 <p>The key idea behind this measure was that to calculate the number of within-community edges that exist above and beyond what we’d expect just based on nodes’ degrees. What follows is the assumption (or, rather, the hope) that we should not find community structure in Erdős-Rényi random graphs. Let’s explore this with two exercises where we run a modularity-maximizing community detection algorithm over hundreds of ER graphs.</p>
-<p>Using a graph of size $N=200$, loop over various values for $p$ to create many ER graphs. Compute the <code class="docutils literal notranslate"><span class="pre">community.best_partition</span></code> of each of these, and store the following:</p>
+<p>Using a graph of size <span class="math notranslate nohighlight">\(N=200\)</span>, loop over various values for <span class="math notranslate nohighlight">\(p\)</span> to create many ER graphs. Compute the <code class="docutils literal notranslate"><span class="pre">community.best_partition</span></code> of each of these, and store the following:</p>
 <ol class="arabic simple">
 <li><p>The modularity of the <code class="docutils literal notranslate"><span class="pre">best_partition</span></code> for each randomly generated graph.</p></li>
 <li><p>The number of communities detected in each partition.</p></li>
@@ -1173,18 +1176,22 @@ document.write(`
 <section id="nonparametric-statistical-inference">
 <h3>Nonparametric Statistical Inference<a class="headerlink" href="#nonparametric-statistical-inference" title="Link to this heading">#</a></h3>
 <p><strong>Source:</strong> The following is directly modeled from the <code class="docutils literal notranslate"><span class="pre">graph-tool</span></code> cookbooks https://graph-tool.skewed.de/static/doc/demos/inference/inference.html. Find this, and many more informative tutorials on this website. The goal of the SBM inference procedure is to find a partition that best describes data, without over-fitting.</p>
-<p>From Tiago Peixoto’s cookbook: We want to (from cookbook above) “formulate generative models that include the idea of modules in their descriptions, which then can be detected by inferring the model parameters from data. More precisely, given the partition $\mathbf{b} = {b_i}$ of the network into $B$ groups, where $b_i \in [0, B-1]$ is the group membership of node $i$, we define a model that generates a network $\mathbf{A}$ with a probability</p>
-<p>$$P(\mathbf{A}|\mathbf{\theta},\mathbf{b})$$</p>
-<p>where $\mathbf{\theta}$ are additional model parameters that control how the node partition affects the structure of the network.”</p>
-<p>The whole trick behind this approach is that after defining this probability $P(\mathbf{A}|\mathbf{\theta},\mathbf{b})$, we can define the <em>likelihood that our network was generated using a given partition</em> $\mathbf{b}$ based on Bayes rule:</p>
-<p>$$P(\mathbf{b}|\mathbf{A}) = \dfrac{\sum_\mathbf{\theta} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}$$</p>
-<p>“where $P(\mathbf{\theta}|\mathbf{b})$ is the prior probability of the model parameters and $P(\mathbf{A}) = \sum_{\mathbf{\theta},\mathbf{b}} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b})$ is called the <em>evidence</em>, and corresponds to the total probability of the data summed over all model parameters. The particular types of model that will be considered here have “hard constraints”, such that there is only one choice for the remaining parameters $\mathbf{\theta}$ that is compatible with the generated network, meaning that our equation above simplifies to</p>
-<p>$$P(\mathbf{b}|\mathbf{A}) = \dfrac{P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}$$</p>
-<p>with $\mathbf{\theta}$ being the only choice compatible with $\mathbf{A}$ and $\mathbf{b}$. The inference procedures considered here will consist in either finding a network partition that maximizes the equation above, or sampling different partitions according its posterior probability. […] this approach also enables the comparison of different models according to statistical evidence (a.k.a. model selection).”</p>
+<p>From Tiago Peixoto’s cookbook: We want to (from cookbook above) “formulate generative models that include the idea of modules in their descriptions, which then can be detected by inferring the model parameters from data. More precisely, given the partition <span class="math notranslate nohighlight">\(\mathbf{b} = \{b_i\}\)</span> of the network into <span class="math notranslate nohighlight">\(B\)</span> groups, where <span class="math notranslate nohighlight">\(b_i \in [0, B-1]\)</span> is the group membership of node <span class="math notranslate nohighlight">\(i\)</span>, we define a model that generates a network <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> with a probability</p>
+<div class="math notranslate nohighlight">
+\[P(\mathbf{A}|\mathbf{\theta},\mathbf{b})\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> are additional model parameters that control how the node partition affects the structure of the network.”</p>
+<p>The whole trick behind this approach is that after defining this probability <span class="math notranslate nohighlight">\(P(\mathbf{A}|\mathbf{\theta},\mathbf{b})\)</span>, we can define the <em>likelihood that our network was generated using a given partition</em> <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> based on Bayes rule:</p>
+<div class="math notranslate nohighlight">
+\[P(\mathbf{b}|\mathbf{A}) = \dfrac{\sum_\mathbf{\theta} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}\]</div>
+<p>“where <span class="math notranslate nohighlight">\(P(\mathbf{\theta}|\mathbf{b})\)</span> is the prior probability of the model parameters and <span class="math notranslate nohighlight">\(P(\mathbf{A}) = \sum_{\mathbf{\theta},\mathbf{b}} P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b})\)</span> is called the <em>evidence</em>, and corresponds to the total probability of the data summed over all model parameters. The particular types of model that will be considered here have “hard constraints”, such that there is only one choice for the remaining parameters <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> that is compatible with the generated network, meaning that our equation above simplifies to</p>
+<div class="math notranslate nohighlight">
+\[P(\mathbf{b}|\mathbf{A}) = \dfrac{P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) P(\mathbf{\theta},\mathbf{b}) }{P(A)}\]</div>
+<p>with <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> being the only choice compatible with <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>. The inference procedures considered here will consist in either finding a network partition that maximizes the equation above, or sampling different partitions according its posterior probability. […] this approach also enables the comparison of different models according to statistical evidence (a.k.a. model selection).”</p>
 <p><em>(continued from cookbook)</em></p>
 <p>The equation above can be rewritten as</p>
-<p>$$P(\mathbf{b}|\mathbf{A}) = \dfrac{\exp (-\Sigma)}{P(A)}$$</p>
-<p>“where $\Sigma = -\ln P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) - \ln P(\mathbf{\theta},\mathbf{b})$ is the <em><strong>description length</strong></em> of $\mathbf{A}$. It measures the amount of information required to describe the data, if we encode it using the particular parametrization of the generative model given by $\mathbf{\theta}$ and $\mathbf{b}$, as well as the parameters themselves. Therefore, if we choose to maximize the posterior distribution of Eq. (4) it will be fully equivalent to the so-called minimum description length method. This approach corresponds to an implementation of Occam’s razor, where the simplest model is selected, among all possibilities with the same explanatory power. The selection is based on the statistical evidence available, and therefore will not overfit, i.e. mistake stochastic fluctuations for actual structure. In particular this means that we will not find modules in networks if they could have arisen simply because of stochastic fluctuations, as they do in fully random graphs.”</p>
+<div class="math notranslate nohighlight">
+\[P(\mathbf{b}|\mathbf{A}) = \dfrac{\exp (-\Sigma)}{P(A)}\]</div>
+<p>“where <span class="math notranslate nohighlight">\(\Sigma = -\ln P(\mathbf{A}|\mathbf{\theta},\mathbf{b}) - \ln P(\mathbf{\theta},\mathbf{b})\)</span> is the <em><strong>description length</strong></em> of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>. It measures the amount of information required to describe the data, if we encode it using the particular parametrization of the generative model given by <span class="math notranslate nohighlight">\(\mathbf{\theta}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, as well as the parameters themselves. Therefore, if we choose to maximize the posterior distribution of Eq. (4) it will be fully equivalent to the so-called minimum description length method. This approach corresponds to an implementation of Occam’s razor, where the simplest model is selected, among all possibilities with the same explanatory power. The selection is based on the statistical evidence available, and therefore will not overfit, i.e. mistake stochastic fluctuations for actual structure. In particular this means that we will not find modules in networks if they could have arisen simply because of stochastic fluctuations, as they do in fully random graphs.”</p>
 <p><strong>We want to select a (the) partition that minimizes the description length.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
