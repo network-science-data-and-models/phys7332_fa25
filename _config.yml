@@ -24,3 +24,5 @@ html:
 parse:
   myst_enable_extensions:
     - strikethrough
+    - dollarmath
+    - amsmath
