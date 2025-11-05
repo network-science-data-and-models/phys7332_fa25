@@ -39,5 +39,3 @@ chapters:
   - file: notebooks/class_19/class_19_graphdistances
     title: "Chapter 19: Graph Distance Measures"
   # etc: append one chapter each week
-
-
