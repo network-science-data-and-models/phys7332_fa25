@@ -34,6 +34,10 @@ chapters:
     title: "Chapter 16: Dynamics on Networks 1 — Diffusion and Random Walks"
   - file: notebooks/class_17/class_17_dynamics2
     title: "Chapter 17: Dynamics on Networks 2 — Compartmental Models"
+  - file: notebooks/class_18/class_18_dynamics3
+    title: "Chapter 18: Dynamics on Networks 3 — Agent-Based Models"
+  - file: notebooks/class_19/class_19_graph_distances
+    title: "Chapter 19: Graph Distance Measures"
   # etc: append one chapter each week
 
 
