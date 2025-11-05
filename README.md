@@ -139,8 +139,8 @@ The final project for this course is a chance for students to synthesize their k
 | Fri, Oct 31, 25 | **Class 17:** Dynamics on Networks 2 — Compartmental Models                |
 |                 |                                                                            |
 | Mon, Nov 3, 25  | ---                                                                        |
-| Wed, Nov 5, 25  | **Class 18:** Dynamics on Networks 3 — Agent‑Based Models                  |
-| Fri, Nov 7, 25  | **Class 19:** Network Sampling                                             |
+| Wed, Nov 5, 25  | **Class 18:** Graph Distances                                              |
+| Fri, Nov 7, 25  | **Class 19:** Dynamics on Networks 3 — Agent‑Based Models                  |
 |                 |                                                                            |
 | Mon, Nov 10, 25 | *Assignment 3 due November 10*                                             |
 | Wed, Nov 12, 25 | **Class 20:** Network Filtering / Thresholding                             |
