@@ -38,4 +38,6 @@ chapters:
     title: "Chapter 18: Dynamics on Networks 3 — Agent-Based Models"
   - file: notebooks/class_19/class_19_graphdistances
     title: "Chapter 19: Graph Distance Measures"
+  - file: notebooks/class_20/class_20_temporal_networks
+    title: "Chapter 20: Dynamics of Networks: Temporal Networks"
   # etc: append one chapter each week
