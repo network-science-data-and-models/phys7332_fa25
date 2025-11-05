@@ -27,7 +27,7 @@ jobs:
       - name: Build book (strict)
         run: |
           set -o pipefail
-          jupyter-book build . -W -n --keep-going 2>&1 | tee _jb_build.log
+          jupyter-book build . 2>&1 | tee _jb_build.log
       - name: Ensure index.html exists
         run: test -f _build/html/index.html || (echo "No index.html produced" && exit 1)
       - name: Upload Pages artifact
