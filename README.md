@@ -38,7 +38,7 @@ Additionally, we recommend engagement with other useful network science and/or P
 
 ## Coursework, Class Structure, Grading
 This is a twice-weekly hands-on class that emphasizes building experience with coding. This does not necessarily mean every second of every class will be live-coding, but it will inevitably come up in how the class is taught. We are often on the lookout for improving the pedagogical approach to this material, and we would welcome feedback on class structure. The course will be co-taught, featuring lectures from the core instructors as well as outside experts. Grading in this course will be as follows:
-- Class Attendance \& Participation: 10%
+- Class Attendance & Participation: 10%
 - Problem Sets: 45%
 - Mid-Semester Project Presentation: 15%
 - Final Project — Presentation & Report: 30%
@@ -128,30 +128,30 @@ The final project for this course is a chance for students to synthesize their k
 |                 |                                                                            |
 | Mon, Oct 13, 25 | **Indigenous Peoples’ Day**                                                |
 | Wed, Oct 15, 25 | **Class 12:** Visualization 1 — Python                                     |
-| Fri, Oct 17, 25 | **Class 13:** Visualization 2 — Advanced Python
+| Fri, Oct 17, 25 | **Class 13:** Visualization 2 — Advanced Python                            |
 |                 |                                                                            |
 | Mon, Oct 20, 25 | *Assignment 2 due October 20*                                              |
 | Wed, Oct 22, 25 | **Class 14:** Introduction to Machine Learning 1 — General                 |
 | Fri, Oct 24, 25 | **Class 15:** Introduction to Machine Learning 2 — Networks                |
 |                 |                                                                            |
-| Mon, Oct 27, 25 | *Announce Assignment 3*                                                    |
+| Mon, Oct 27, 25 | ---                                                                        |
 | Wed, Oct 29, 25 | **Class 16:** Dynamics on Networks 1 — Diffusion and Random Walks          |
 | Fri, Oct 31, 25 | **Class 17:** Dynamics on Networks 2 — Compartmental Models                |
 |                 |                                                                            |
-| Mon, Nov 3, 25  | ---                                                                        |
-| Wed, Nov 5, 25  | **Class 18:** Graph Distances                                              |
-| Fri, Nov 7, 25  | **Class 19:** Dynamics on Networks 3 — Agent‑Based Models                  |
+| Mon, Nov 3, 25  | *Announce Assignment 3*                                                    |
+| Wed, Nov 5, 25  | **Class 18:** Network Comparison & Graph Distances (Chp 19)                |
+| Fri, Nov 7, 25  | **Class 19:** Dynamics on Networks 3 — Agent‑Based Models (Chp 18)         |
 |                 |                                                                            |
-| Mon, Nov 10, 25 | *Assignment 3 due November 10*                                             |
-| Wed, Nov 12, 25 | **Class 20:** Network Filtering / Thresholding                             |
-| Fri, Nov 14, 25 | **Class 21:** Dynamics of Networks — Temporal Networks                     |
+| Mon, Nov 10, 25 | ---                                                                        |
+| Wed, Nov 12, 25 | **Class 20:** Dynamics of Networks — Temporal Networks                     |
+| Fri, Nov 14, 25 | **Class 21:** Network Filtering / Thresholding                             |
 |                 |                                                                            |
 | Mon, Nov 17, 25 | ---                                                                        |
-| Wed, Nov 19, 25 | **Class 22:** Network Comparison & Graph Distances                         |
+| Wed, Nov 19, 25 | **Class 22:** Network Sampling: Theory & Applications                      |
 | Fri, Nov 21, 25 | **Class 23:** Network Reconstruction from Dynamics                         |
 |                 |                                                                            |
-| Mon, Nov 24, 25 | **Thanksgiving Break (No Class)**                                          |
-| Wed, Nov 26, 25 | ---                                                                        |
+| Mon, Nov 24, 25 | *Assignment 3 due November 24*                                             |
+| Wed, Nov 26, 25 | **Thanksgiving Break (No Class)**                                          |
 | Fri, Nov 28, 25 | ---                                                                        |
 |                 |                                                                            |
 | Mon, Dec 1, 25  | ---                                                                        |
