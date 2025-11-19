@@ -42,6 +42,8 @@ chapters:
     title: "Chapter 20: Dynamics of Networks: Temporal Networks"
   - file: notebooks/class_21/class_21_sparsification
     title: "Chapter 21: Network Sparsification"
+  - file: notebooks/class_22/class_22_sampling
+    title: "Chapter 22: Network Sampling"
   - file: notebooks/class_24/class_24_spatial
     title: "Chapter 24: Spatial Data, OSMNX, GeoPandas"
   - file: notebooks/class_25/class_25_spectral
