@@ -44,6 +44,8 @@ chapters:
     title: "Chapter 21: Network Sparsification"
   - file: notebooks/class_22/class_22_sampling
     title: "Chapter 22: Network Sampling"
+  - file: notebooks/class_23/class_23_linkprediction
+    title: "Chapter 23: Link Prediction"
   - file: notebooks/class_24/class_24_spatial
     title: "Chapter 24: Spatial Data, OSMNX, GeoPandas"
   - file: notebooks/class_25/class_25_spectral
